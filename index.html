@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brevet Blanc — Édition 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --cream: #faf6ef;
+    --paper: #f2ead8;
+    --gold: #b8870a;
+    --gold-light: #e8c84a;
+    --red: #c0392b;
+    --blue: #1a3a6b;
+    --green: #1d6b3a;
+    --border: #c8b890;
+    --shadow: rgba(26,18,8,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 40px 36px;
+    position: relative;
+    z-index: 2;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(184,135,10,0.06) 40px,
+      rgba(184,135,10,0.06) 41px
+    );
+  }
+
+  .header-badge {
+    display: inline-block;
+    border: 1.5px solid var(--gold);
+    color: var(--gold-light);
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    margin-bottom: 20px;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 300;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    color: var(--cream);
+  }
+
+  header h1 em {
+    color: var(--gold-light);
+    font-style: italic;
+  }
+
+  .header-meta {
+    margin-top: 20px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(250,246,239,0.7);
+    letter-spacing: 0.5px;
+  }
+
+  .header-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .header-meta span::before {
+    content: '—';
+    color: var(--gold);
+  }
+
+  /* NAVIGATION */
+  nav {
+    background: var(--paper);
+    border-bottom: 2px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+
+  .nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-btn {
+    padding: 14px 22px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(26,18,8,0.55);
+    background: none;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+  }
+
+  .nav-btn:hover { color: var(--gold); }
+  .nav-btn.active { color: var(--ink); border-bottom-color: var(--gold); }
+
+  /* MAIN */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 40px 80px;
+  }
+
+  /* SUBJECT PANEL */
+  .subject {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  .subject.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .subject-header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .subject-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--blue);
+    line-height: 1.1;
+  }
+
+  .subject-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    font-size: 12px;
+    color: rgba(26,18,8,0.5);
+    letter-spacing: 0.5px;
+    text-align: right;
+  }
+
+  .subject-info strong {
+    font-size: 22px;
+    color: var(--ink);
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* EXERCISE */
+  .exercise {
+    margin-bottom: 40px;
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--blue);
+    box-shadow: 0 2px 16px var(--shadow);
+    border-radius: 0 6px 6px 0;
+    overflow: hidden;
+  }
+
+  .exercise-head {
+    padding: 18px 24px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .exercise-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(26,18,8,0.45);
+  }
+
+  .exercise-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .pts-badge {
+    background: var(--ink);
+    color: var(--gold-light);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .exercise-body {
+    padding: 24px 28px;
+  }
+
+  .exercise-body p { margin-bottom: 12px; }
+  .exercise-body p:last-child { margin-bottom: 0; }
+
+  .question {
+    margin: 16px 0;
+    padding: 14px 18px;
+    background: rgba(26,58,107,0.04);
+    border-left: 3px solid rgba(26,58,107,0.25);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .question-num {
+    font-weight: 600;
+    color: var(--blue);
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .question p { margin-bottom: 0; }
+
+  /* FIGURES */
+  .figure-box {
+    margin: 20px 0;
+    padding: 20px;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .figure-caption {
+    font-size: 12px;
+    font-style: italic;
+    color: rgba(26,18,8,0.55);
+    margin-top: 10px;
+  }
+
+  /* CORRECTION TOGGLE */
+  .correction-toggle {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .btn-correction {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 20px;
+    background: none;
+    border: 1.5px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Source Serif 4', serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+    border-radius: 2px;
+  }
+
+  .btn-correction:hover {
+    background: var(--gold);
+    color: white;
+  }
+
+  .btn-correction.hide { border-color: var(--red); color: var(--red); }
+  .btn-correction.hide:hover { background: var(--red); color: white; }
+
+  .correction-hint {
+    font-size: 12px;
+    color: rgba(26,18,8,0.4);
+    font-style: italic;
+  }
+
+  /* CORRECTION PANEL */
+  .correction-panel {
+    display: none;
+    margin-top: 16px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(29,107,58,0.04) 0%, rgba(29,107,58,0.07) 100%);
+    border: 1.5px solid rgba(29,107,58,0.3);
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .correction-panel.visible { display: block; animation: fadeIn 0.3s ease; }
+
+  .correction-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--green);
+    margin-bottom: 14px;
+    border-bottom: 1px solid rgba(29,107,58,0.2);
+    padding-bottom: 10px;
+    width: 100%;
+  }
+
+  .correction-label::before {
+    content: '✓';
+    width: 18px;
+    height: 18px;
+    background: var(--green);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+  }
+
+  .correction-panel p { margin-bottom: 10px; font-size: 15px; }
+  .correction-panel p:last-child { margin-bottom: 0; }
+
+  .correction-panel .ans {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .correction-panel .formula {
+    display: inline-block;
+    background: rgba(26,18,8,0.07);
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: var(--blue);
+    margin: 2px 4px;
+  }
+
+  .score-chip {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+
+  th {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tr:nth-child(even) td { background: var(--paper); }
+
+  /* SCORE PANEL */
+  .score-panel {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 28px 32px;
+    border-radius: 6px;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .score-panel h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 6px;
+  }
+
+  .score-total {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: white;
+    line-height: 1;
+  }
+
+  .score-total span { font-size: 20px; color: rgba(250,246,239,0.5); }
+
+  /* INTRO CARD */
+  .intro-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--gold);
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .intro-card strong { color: var(--red); }
+
+  /* SVG geometry */
+  .geo-svg {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .header-inner { padding: 32px 20px 24px; }
+    main { padding: 24px 20px 60px; }
+    .nav-inner { padding: 0 20px; }
+    .exercise-body { padding: 18px; }
+    .exercise-head { padding: 14px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-badge">Épreuve officielle</div>
+    <h1>Brevet<br><em>Blanc</em> 2025</h1>
+    <div class="header-meta">
+      <span>Diplôme National du Brevet</span>
+      <span>Session 2025 — Série Générale</span>
+      <span>Avec corrections détaillées</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="showSubject('maths')">📐 Mathématiques</button>
+    <button class="nav-btn" onclick="showSubject('francais')">📖 Français</button>
+    <button class="nav-btn" onclick="showSubject('histoire')">🌍 Histoire-Géo</button>
+    <button class="nav-btn" onclick="showSubject('svt')">🔬 SVT</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ===== MATHÉMATIQUES ===== -->
+  <div class="subject active" id="maths">
+    <div class="subject-header">
+      <div>
+        <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(26,18,8,.45);margin-bottom:6px">Épreuve n°1</div>
+        <div class="subject-title">Mathématiques</div>
+      </div>
+      <div class="subject-info">
+        Durée : <strong>2h00</strong>
+        Points : <strong>100 pts</strong>
+      </div>
+    </div>
+
+    <div class="intro-card">
+      <strong>Consignes :</strong> L'usage de la calculatrice est autorisé. Pour chaque question, la démarche est valorisée même si le résultat est incorrect. Les réponses doivent être rédigées de manière claire et soignée.
+    </div>
+
+    <!-- Exercice 1 -->
+    <div class="exercise">
+      <div class="exercise-head">
+        <div>
+          <div class="exercise-number">Exercice 1</div>
+          <div class="exercise-title">Calcul et proportionnalité</div>
+        </div>
+        <div class="pts-badge">20 pts</div>
+      </div>
+      <div class="exercise-body">
+        <p>Un boulanger prépare des gâteaux pour un événement. Pour réaliser 12 gâteaux, il a besoin de :</p>
+        <table>
+          <tr><th>Ingrédient</th><th>Quantité (12 gâteaux)</th></tr>
+          <tr><td>Farine</td><td>720 g</td></tr>
+          <tr><td>Sucre</td><td>360 g</td></tr>
+          <tr><td>Œufs</td><td>6</td></tr>
+          <tr><td>Beurre</td><td>240 g</td></tr>
+        </table>
+
+        <div class="question">
+          <div class="question-num">Question 1.1 <span class="score-chip">5 pts</span></div>
+          <p>Le boulanger souhaite réaliser <strong>30 gâteaux</strong>. Quelles quantités d'ingrédients doit-il utiliser ? Justifiez vos calculs.</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 1.2 <span class="score-chip">5 pts</span></div>
+          <p>Le boulanger vend chaque gâteau <strong>4,50 €</strong>. Il a dépensé <strong>38,40 €</strong> d'ingrédients pour les 30 gâteaux. Calculez son bénéfice total.</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 1.3 <span class="score-chip">10 pts</span></div>
+          <p>Exprimer en pourcentage la marge bénéficiaire du boulanger (bénéfice rapporté au coût total). Arrondir à l'unité.</p>
+        </div>
+
+        <div class="correction-toggle">
+          <button class="btn-correction" onclick="toggleCorrection('c1')">▶ Voir la correction</button>
+          <span class="correction-hint">Cliquez pour révéler les réponses</span>
+        </div>
+
+        <div class="correction-panel" id="c1">
+          <div class="correction-label">Correction officielle</div>
+
+          <p><strong>1.1 — Quantités pour 30 gâteaux</strong></p>
+          <p>Coefficient multiplicateur : <span class="formula">30 ÷ 12 = 2,5</span></p>
+          <p>• Farine : <span class="ans">720 × 2,5 = 1 800 g</span></p>
+          <p>• Sucre : <span class="ans">360 × 2,5 = 900 g</span></p>
+          <p>• Œufs : <span class="ans">6 × 2,5 = 15 œufs</span></p>
+          <p>• Beurre : <span class="ans">240 × 2,5 = 600 g</span></p>
+
+          <p style="margin-top:14px"><strong>1.2 — Bénéfice total</strong></p>
+          <p>Recettes : <span class="formula">30 × 4,50 = 135 €</span></p>
+          <p>Bénéfice : <span class="formula">135 − 38,40 = <span class="ans">96,60 €</span></span></p>
+
+          <p style="margin-top:14px"><strong>1.3 — Marge bénéficiaire</strong></p>
+          <p><span class="formula">96,60 ÷ 38,40 × 100 ≈ <span class="ans">251 %</span></span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 2 -->
+    <div class="exercise">
+      <div class="exercise-head">
+        <div>
+          <div class="exercise-number">Exercice 2</div>
+          <div class="exercise-title">Géométrie — Théorème de Pythagore</div>
+        </div>
+        <div class="pts-badge">25 pts</div>
+      </div>
+      <div class="exercise-body">
+        <p>On considère le triangle ABC rectangle en B, avec <strong>AB = 6 cm</strong> et <strong>BC = 8 cm</strong>.</p>
+
+        <div class="figure-box">
+          <svg class="geo-svg" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="200" fill="#f2ead8"/>
+            <!-- Triangle -->
+            <polygon points="50,160 50,50 230,160" fill="rgba(26,58,107,0.07)" stroke="#1a3a6b" stroke-width="2"/>
+            <!-- Right angle mark -->
+            <path d="M50,140 L70,140 L70,160" fill="none" stroke="#1a3a6b" stroke-width="1.5"/>
+            <!-- Labels -->
+            <text x="35" y="110" font-family="Georgia,serif" font-style="italic" font-size="14" fill="#1a3a6b">A</text>
+            <text x="35" y="172" font-family="Georgia,serif" font-style="italic" font-size="14" fill="#1a3a6b">B</text>
+            <text x="235" y="172" font-family="Georgia,serif" font-style="italic" font-size="14" fill="#1a3a6b">C</text>
+            <!-- Lengths -->
+            <text x="20" y="115" font-family="Georgia,serif" font-size="12" fill="#b8870a">6 cm</text>
+            <text x="120" y="180" font-family="Georgia,serif" font-size="12" fill="#b8870a">8 cm</text>
+            <text x="140" y="100" font-family="Georgia,serif" font-size="12" fill="#c0392b" font-weight="bold">AC = ?</text>
+          </svg>
+          <div class="figure-caption">Figure — Triangle ABC rectangle en B (non à l'échelle)</div>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 2.1 <span class="score-chip">10 pts</span></div>
+          <p>En appliquant le théorème de Pythagore, calculez la longueur AC. Donnez le résultat exact puis la valeur arrondie au centième.</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 2.2 <span class="score-chip">8 pts</span></div>
+          <p>Calculez l'aire du triangle ABC.</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 2.3 <span class="score-chip">7 pts</span></div>
+          <p>M est le milieu de AC. Calculez la longueur BM en utilisant la propriété de la médiane dans un triangle rectangle.</p>
+        </div>
+
+        <div class="correction-toggle">
+          <button class="btn-correction" onclick="toggleCorrection('c2')">▶ Voir la correction</button>
+        </div>
+
+        <div class="correction-panel" id="c2">
+          <div class="correction-label">Correction officielle</div>
+
+          <p><strong>2.1 — Longueur AC</strong></p>
+          <p>Le triangle ABC est rectangle en B, donc d'après le théorème de Pythagore :</p>
+          <p><span class="formula">AC² = AB² + BC²</span></p>
+          <p><span class="formula">AC² = 6² + 8² = 36 + 64 = 100</span></p>
+          <p><span class="ans">AC = √100 = 10 cm</span> (valeur exacte et arrondie)</p>
+
+          <p style="margin-top:14px"><strong>2.2 — Aire du triangle</strong></p>
+          <p><span class="formula">Aire = (base × hauteur) ÷ 2 = (8 × 6) ÷ 2 = <span class="ans">24 cm²</span></span></p>
+
+          <p style="margin-top:14px"><strong>2.3 — Longueur BM</strong></p>
+          <p>Dans un triangle rectangle, la médiane issue du sommet de l'angle droit est égale à la moitié de l'hypoténuse :</p>
+          <p><span class="formula">BM = AC ÷ 2 = 10 ÷ 2 = <span class="ans">5 cm</span></span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 3 -->
+    <div class="exercise">
+      <div class="exercise-head">
+        <div>
+          <div class="exercise-number">Exercice 3</div>
+          <div class="exercise-title">Statistiques et probabilités</div>
+        </div>
+        <div class="pts-badge">30 pts</div>
+      </div>
+      <div class="exercise-body">
+        <p>Les notes obtenues par 20 élèves lors d'un contrôle de mathématiques sont :</p>
+        <p style="font-family:'Courier New',monospace; background:var(--paper); padding:12px 16px; border-radius:3px; font-size:14px; letter-spacing:1px;">
+          8 — 12 — 15 — 9 — 13 — 7 — 18 — 11 — 14 — 10<br>
+          16 — 8 — 12 — 14 — 9 — 17 — 11 — 13 — 15 — 10
+        </p>
+
+        <div class="question">
+          <div class="question-num">Question 3.1 <span class="score-chip">10 pts</span></div>
+          <p>Calculez la <strong>moyenne</strong>, la <strong>médiane</strong> et les <strong>quartiles Q1 et Q3</strong> de cette série statistique.</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 3.2 <span class="score-chip">10 pts</span></div>
+          <p>On tire au hasard la copie d'un élève. Quelle est la probabilité que sa note soit supérieure ou égale à 14 ?</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 3.3 <span class="score-chip">10 pts</span></div>
+          <p>Représentez les données sous forme de boîte à moustaches (décrivez les cinq valeurs : min, Q1, médiane, Q3, max).</p>
+        </div>
+
+        <div class="correction-toggle">
+          <button class="btn-correction" onclick="toggleCorrection('c3')">▶ Voir la correction</button>
+        </div>
+
+        <div class="correction-panel" id="c3">
+          <div class="correction-label">Correction officielle</div>
+
+          <p><strong>3.1 — Indicateurs statistiques</strong></p>
+          <p>Données triées : <span class="formula">7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 17, 18</span></p>
+          <p>Somme des notes : <span class="formula">7+8+8+9+9+10+10+11+11+12+12+13+13+14+14+15+15+16+17+18 = 242</span></p>
+          <p>Moyenne : <span class="formula">242 ÷ 20 = <span class="ans">12,1</span></span></p>
+          <p>Médiane (entre le 10e et 11e) : <span class="formula">(12 + 12) ÷ 2 = <span class="ans">12</span></span></p>
+          <p>Q1 (médiane des 10 premières valeurs, entre 5e et 6e) : <span class="formula">(9 + 10) ÷ 2 = <span class="ans">9,5</span></span></p>
+          <p>Q3 (médiane des 10 dernières valeurs, entre 15e et 16e) : <span class="formula">(14 + 15) ÷ 2 = <span class="ans">14,5</span></span></p>
+
+          <p style="margin-top:14px"><strong>3.2 — Probabilité (note ≥ 14)</strong></p>
+          <p>Notes ≥ 14 : 14, 14, 15, 15, 16, 17, 18 → <strong>7 élèves</strong></p>
+          <p>Probabilité : <span class="formula">7 ÷ 20 = <span class="ans">0,35 = 35%</span></span></p>
+
+          <p style="margin-top:14px"><strong>3.3 — Boîte à moustaches</strong></p>
+          <p>Les cinq valeurs résumées :</p>
+          <p>• Minimum : <span class="ans">7</span> &nbsp;|&nbsp; Q1 : <span class="ans">9,5</span> &nbsp;|&nbsp; Médiane : <span class="ans">12</span> &nbsp;|&nbsp; Q3 : <span class="ans">14,5</span> &nbsp;|&nbsp; Maximum : <span class="ans">18</span></p>
+          <svg viewBox="0 0 500 80" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px;margin-top:10px">
+            <rect width="500" height="80" fill="transparent"/>
+            <!-- Axis -->
+            <line x1="30" y1="55" x2="480" y2="55" stroke="#c8b890" stroke-width="1"/>
+            <!-- Ticks -->
+            <line x1="74" y1="50" x2="74" y2="60" stroke="#1a1208" stroke-width="1.5"/>
+            <line x1="198" y1="50" x2="198" y2="60" stroke="#1a1208" stroke-width="1.5"/>
+            <line x1="262" y1="50" x2="262" y2="60" stroke="#1a1208" stroke-width="1.5"/>
+            <line x1="358" y1="50" x2="358" y2="60" stroke="#1a1208" stroke-width="1.5"/>
+            <line x1="420" y1="50" x2="420" y2="60" stroke="#1a1208" stroke-width="1.5"/>
+            <!-- Box -->
+            <rect x="198" y="30" width="160" height="24" fill="rgba(26,58,107,0.12)" stroke="#1a3a6b" stroke-width="2"/>
+            <!-- Median line -->
+            <line x1="262" y1="30" x2="262" y2="54" stroke="#c0392b" stroke-width="2.5"/>
+            <!-- Whiskers -->
+            <line x1="74" y1="42" x2="198" y2="42" stroke="#1a3a6b" stroke-width="1.5" stroke-dasharray="4,2"/>
+            <line x1="358" y1="42" x2="420" y2="42" stroke="#1a3a6b" stroke-width="1.5" stroke-dasharray="4,2"/>
+            <!-- Labels -->
+            <text x="74" y="72" text-anchor="middle" font-size="10" fill="#1a1208">7</text>
+            <text x="198" y="72" text-anchor="middle" font-size="10" fill="#1a1208">9,5</text>
+            <text x="262" y="72" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="bold">12</text>
+            <text x="358" y="72" text-anchor="middle" font-size="10" fill="#1a1208">14,5</text>
+            <text x="420" y="72" text-anchor="middle" font-size="10" fill="#1a1208">18</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 4 -->
+    <div class="exercise">
+      <div class="exercise-head">
+        <div>
+          <div class="exercise-number">Exercice 4</div>
+          <div class="exercise-title">Algèbre — Équations et fonctions</div>
+        </div>
+        <div class="pts-badge">25 pts</div>
+      </div>
+      <div class="exercise-body">
+        <div class="question">
+          <div class="question-num">Question 4.1 <span class="score-chip">10 pts</span></div>
+          <p>Résoudre les équations suivantes :<br>
+          a) <span class="formula">3x + 7 = 22</span><br>
+          b) <span class="formula">2(x − 4) = 3x + 1</span>
+          </p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 4.2 <span class="score-chip">15 pts</span></div>
+          <p>On considère la fonction f définie par <span class="formula">f(x) = 2x − 3</span>.<br>
+          a) Calculez f(0), f(3) et f(−1).<br>
+          b) Pour quelle valeur de x a-t-on f(x) = 7 ?<br>
+          c) Tracez le représentation graphique de f (décrire les points clés).</p>
+        </div>
+
+        <div class="correction-toggle">
+          <button class="btn-correction" onclick="toggleCorrection('c4')">▶ Voir la correction</button>
+        </div>
+
+        <div class="correction-panel" id="c4">
+          <div class="correction-label">Correction officielle</div>
+
+          <p><strong>4.1a — 3x + 7 = 22</strong></p>
+          <p><span class="formula">3x = 22 − 7 = 15</span> &nbsp;→&nbsp; <span class="ans">x = 5</span></p>
+
+          <p style="margin-top:12px"><strong>4.1b — 2(x − 4) = 3x + 1</strong></p>
+          <p><span class="formula">2x − 8 = 3x + 1</span></p>
+          <p><span class="formula">2x − 3x = 1 + 8</span></p>
+          <p><span class="formula">−x = 9</span> &nbsp;→&nbsp; <span class="ans">x = −9</span></p>
+
+          <p style="margin-top:14px"><strong>4.2a — Calculs d'images</strong></p>
+          <p>• f(0) = 2(0) − 3 = <span class="ans">−3</span></p>
+          <p>• f(3) = 2(3) − 3 = 6 − 3 = <span class="ans">3</span></p>
+          <p>• f(−1) = 2(−1) − 3 = −2 − 3 = <span class="ans">−5</span></p>
+
+          <p style="margin-top:14px"><strong>4.2b — Antécédent de 7</strong></p>
+          <p><span class="formula">2x − 3 = 7 → 2x = 10 → <span class="ans">x = 5</span></span></p>
+
+          <p style="margin-top:14px"><strong>4.2c — Représentation graphique</strong></p>
+          <p>f est une fonction affine (droite). Points clés : A(0 ; −3) et B(5 ; 7). La droite passe par l'ordonnée à l'origine −3 avec une pente (coefficient directeur) de 2.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FRANÇAIS ===== -->
+  <div class="subject" id="francais">
+    <div class="subject-header">
+      <div>
+        <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(26,18,8,.45);margin-bottom:6px">Épreuve n°2</div>
+        <div class="subject-title">Français</div>
+      </div>
+      <div class="subject-info">
+        Durée : <strong>3h00</strong>
+        Points : <strong>100 pts</strong>
+      </div>
+    </div>
+
+    <div class="intro-card">
+      <strong>Consignes :</strong> Le dictionnaire n'est pas autorisé. Les copies seront évaluées en tenant compte de la qualité de l'expression (orthographe, syntaxe, richesse du vocabulaire).
+    </div>
+
+    <!-- Exercice 1 - Lecture -->
+    <div class="exercise" style="border-left-color: #c0392b">
+      <div class="exercise-head">
+        <div>
+          <div class="exercise-number">Partie I</div>
+          <div class="exercise-title">Questions sur le texte</div>
+        </div>
+        <div class="pts-badge">40 pts</div>
+      </div>
+      <div class="exercise-body">
+        <div style="padding: 18px 22px; background: var(--paper); border: 1px solid var(--border); border-radius: 4px; margin-bottom: 20px; font-style: italic; line-height: 2;">
+          <p style="font-size: 13px; letter-spacing: 1px; text-transform: uppercase; font-style: normal; font-weight: 600; margin-bottom: 14px; color: var(--red);">Texte — Victor Hugo, <em>Les Misérables</em> (1862), extrait</p>
+          <p>« Il était une fois un homme qui s'appelait Jean Valjean. Cet homme était sorti du bagne ; il avait passé dix-neuf ans aux galères. À sa sortie, on lui avait remis un passeport jaune. Ce passeport jaune, c'était son bagne extérieur. Il portait partout la marque de sa honte. »</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 1 <span class="score-chip">10 pts</span></div>
+          <p>Identifiez le narrateur de cet extrait. Quel est le mode de narration utilisé ?</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 2 <span class="score-chip">10 pts</span></div>
+          <p>Quelle est la valeur de l'imparfait dans « Il était » et « il avait passé » ? Justifiez avec des exemples.</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 3 <span class="score-chip">10 pts</span></div>
+          <p>Expliquez la métaphore « Ce passeport jaune, c'était son bagne extérieur ». Quels effets produit-elle ?</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 4 <span class="score-chip">10 pts</span></div>
+          <p>Comment l'auteur exprime-t-il la stigmatisation sociale du personnage dans cet extrait ? Relevez et analysez deux procédés littéraires.</p>
+        </div>
+
+        <div class="correction-toggle">
+          <button class="btn-correction" onclick="toggleCorrection('cf1')">▶ Voir la correction</button>
+        </div>
+
+        <div class="correction-panel" id="cf1">
+          <div class="correction-label">Correction officielle</div>
+
+          <p><strong>Question 1 — Le narrateur</strong></p>
+          <p>Le narrateur est <span class="ans">omniscient et externe</span> : il emploie la 3e personne du singulier (« il s'appelait ») et connaît la biographie complète du personnage. Il s'agit d'une narration <span class="ans">hétérodiégétique</span> (le narrateur n'est pas personnage de l'histoire).</p>
+
+          <p style="margin-top:12px"><strong>Question 2 — Valeur de l'imparfait</strong></p>
+          <p>L'imparfait d'arrière-plan (ou descriptif) est utilisé pour <span class="ans">présenter la situation initiale</span> et le passé du personnage. Il exprime une action ou un état passé sans limite précise dans le temps. Ex : « était » = état permanent, « avait passé » = durée longue.</p>
+
+          <p style="margin-top:12px"><strong>Question 3 — La métaphore</strong></p>
+          <p>La métaphore compare le passeport jaune à un « bagne extérieur » : Jean Valjean est sorti de prison physiquement mais porte une <span class="ans">prison sociale et morale</span>. Cette image montre que la société l'exclut autant que le système pénal. Elle produit un effet de pitié (pathétique) et de dénonciation.</p>
+
+          <p style="margin-top:12px"><strong>Question 4 — La stigmatisation sociale</strong></p>
+          <p>Procédé 1 — La <span class="ans">répétition</span> : « passeport jaune » répété deux fois insiste sur le caractère infamant et inévitable de ce document.</p>
+          <p>Procédé 2 — La <span class="ans">métonymie</span> : le passeport représente toute la société qui juge et exclut Valjean. L'objet symbolise le regard collectif oppressant.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercice 2 - Réécriture -->
+    <div class="exercise" style="border-left-color: #c0392b">
+      <div class="exercise-head">
+        <div>
+          <div class="exercise-number">Partie II</div>
+          <div class="exercise-title">Réécriture</div>
+        </div>
+        <div class="pts-badge">20 pts</div>
+      </div>
+      <div class="exercise-body">
+        <div class="question">
+          <div class="question-num">Exercice <span class="score-chip">20 pts</span></div>
+          <p>Réécrivez le passage suivant en remplaçant « Jean Valjean » par « Marie et Sophie » et en faisant les accords nécessaires :<br><br>
+          <em>« Il était sorti du bagne. Il portait un passeport. Sa honte l'avait marqué pour toujours. »</em></p>
+        </div>
+
+        <div class="correction-toggle">
+          <button class="btn-correction" onclick="toggleCorrection('cf2')">▶ Voir la correction</button>
+        </div>
+
+        <div class="correction-panel" id="cf2">
+          <div class="correction-label">Correction officielle</div>
+          <p><strong>Texte réécrit :</strong></p>
+          <p>« <span class="ans">Elles étaient sorties</span> du bagne. <span class="ans">Elles portaient</span> un passeport. <span class="ans">Leur</span> honte <span class="ans">les</span> avait <span class="ans">marquées</span> pour toujours. »</p>
+          <p style="margin-top:12px">Points de vigilance :<br>
+          • Pronom : il → <span class="ans">elles</span><br>
+          • Participe passé accordé avec le sujet féminin pluriel : sorti → <span class="ans">sorties</span>, marqué → <span class="ans">marquées</span><br>
+          • Possessif : sa → <span class="ans">leur</span>; COD : l' → <span class="ans">les</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== HISTOIRE-GÉO ===== -->
+  <div class="subject" id="histoire">
+    <div class="subject-header">
+      <div>
+        <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(26,18,8,.45);margin-bottom:6px">Épreuve n°3</div>
+        <div class="subject-title">Histoire — Géographie<br>EMC</div>
+      </div>
+      <div class="subject-info">
+        Durée : <strong>2h00</strong>
+        Points : <strong>100 pts</strong>
+      </div>
+    </div>
+
+    <div class="exercise" style="border-left-color: #b8870a">
+      <div class="exercise-head">
+        <div>
+          <div class="exercise-number">Partie Histoire</div>
+          <div class="exercise-title">La Seconde Guerre mondiale</div>
+        </div>
+        <div class="pts-badge">35 pts</div>
+      </div>
+      <div class="exercise-body">
+        <div class="question">
+          <div class="question-num">Question 1 <span class="score-chip">15 pts</span></div>
+          <p>Expliquez les causes principales de la Seconde Guerre mondiale (1939–1945). Vous mentionnerez au moins trois facteurs.</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 2 <span class="score-chip">20 pts</span></div>
+          <p>Décrivez les grandes étapes de la Seconde Guerre mondiale. Vous structurerez votre réponse en plusieurs phases chronologiques.</p>
+        </div>
+
+        <div class="correction-toggle">
+          <button class="btn-correction" onclick="toggleCorrection('ch1')">▶ Voir la correction</button>
+        </div>
+
+        <div class="correction-panel" id="ch1">
+          <div class="correction-label">Correction officielle</div>
+
+          <p><strong>Question 1 — Causes de la 2GM</strong></p>
+          <p><span class="ans">1. La montée des totalitarismes :</span> Hitler (Allemagne nazie, 1933) et Mussolini (Italie fasciste) prônent l'expansionnisme et le nationalisme agressif.</p>
+          <p><span class="ans">2. Les humiliations du traité de Versailles (1919) :</span> l'Allemagne perd des territoires, doit payer d'énormes réparations — nourrissant un fort sentiment de revanche.</p>
+          <p><span class="ans">3. La politique d'apaisement des démocraties :</span> Angleterre et France acceptent les conquêtes d'Hitler (Accords de Munich, 1938) par peur d'une guerre.</p>
+          <p><span class="ans">4. La crise économique de 1929 :</span> le chômage et la misère favorisent l'extrémisme politique.</p>
+
+          <p style="margin-top:14px"><strong>Question 2 — Grandes étapes</strong></p>
+          <p><strong>Phase 1 (1939–1941) — Victoires de l'Axe :</strong> invasion de la Pologne (1er sept. 1939), chute de la France (juin 1940), Bataille d'Angleterre, opération Barbarossa (invasion de l'URSS, juin 1941).</p>
+          <p><strong>Phase 2 (1941–1943) — Tournant de la guerre :</strong> entrée en guerre des USA après Pearl Harbor (déc. 1941), batailles de Stalingrad (1942–43) et d'El-Alamein — premiers revers de l'Axe.</p>
+          <p><strong>Phase 3 (1943–1945) — Victoire des Alliés :</strong> débarquement en Normandie (6 juin 1944), libération de Paris, capitulation de l'Allemagne (8 mai 1945) puis du Japon (2 sept. 1945).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise" style="border-left-color: #b8870a">
+      <div class="exercise-head">
+        <div>
+          <div class="exercise-number">Partie Géographie</div>
+          <div class="exercise-title">Les mobilités humaines</div>
+        </div>
+        <div class="pts-badge">35 pts</div>
+      </div>
+      <div class="exercise-body">
+        <div class="question">
+          <div class="question-num">Question 1 <span class="score-chip">20 pts</span></div>
+          <p>Définissez les termes suivants et illustrez chacun par un exemple : <strong>migration</strong>, <strong>réfugié</strong>, <strong>diaspora</strong>.</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 2 <span class="score-chip">15 pts</span></div>
+          <p>Quelles sont les principales causes et conséquences des migrations internationales aujourd'hui ?</p>
+        </div>
+
+        <div class="correction-toggle">
+          <button class="btn-correction" onclick="toggleCorrection('ch2')">▶ Voir la correction</button>
+        </div>
+
+        <div class="correction-panel" id="ch2">
+          <div class="correction-label">Correction officielle</div>
+
+          <p><strong>Question 1 — Définitions</strong></p>
+          <p><span class="ans">Migration :</span> déplacement d'une personne ou d'un groupe d'un lieu à un autre avec changement de résidence. Ex : travailleurs mexicains aux États-Unis.</p>
+          <p><span class="ans">Réfugié :</span> personne contrainte de fuir son pays en raison de persécutions, conflits ou catastrophes. Statut juridique reconnu par la Convention de Genève (1951). Ex : réfugiés syriens en Europe depuis 2015.</p>
+          <p><span class="ans">Diaspora :</span> communauté dispersée à travers le monde, maintenant des liens culturels et identitaires avec sa terre d'origine. Ex : diaspora indienne présente dans plus de 70 pays.</p>
+
+          <p style="margin-top:14px"><strong>Question 2 — Causes et conséquences</strong></p>
+          <p><span class="ans">Causes :</span> économiques (pauvreté, chômage), politiques (guerres, persécutions), environnementales (catastrophes, changement climatique), familiales (regroupement).</p>
+          <p><span class="ans">Conséquences pour les pays d'origine :</span> « fuite des cerveaux » mais aussi envoi de remises migratoires (argent envoyé à la famille).</p>
+          <p><span class="ans">Conséquences pour les pays d'accueil :</span> vieillissement démographique compensé, enrichissement culturel, mais aussi tensions sociales et politiques possibles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SVT ===== -->
+  <div class="subject" id="svt">
+    <div class="subject-header">
+      <div>
+        <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(26,18,8,.45);margin-bottom:6px">Épreuve n°4</div>
+        <div class="subject-title">Sciences de la Vie<br>et de la Terre</div>
+      </div>
+      <div class="subject-info">
+        Durée : <strong>1h30</strong>
+        Points : <strong>50 pts</strong>
+      </div>
+    </div>
+
+    <div class="exercise" style="border-left-color: #1d6b3a">
+      <div class="exercise-head">
+        <div>
+          <div class="exercise-number">Exercice 1</div>
+          <div class="exercise-title">La cellule et la division cellulaire</div>
+        </div>
+        <div class="pts-badge">25 pts</div>
+      </div>
+      <div class="exercise-body">
+        <div class="question">
+          <div class="question-num">Question 1.1 <span class="score-chip">8 pts</span></div>
+          <p>Citez et décrivez brièvement les quatre phases de la mitose.</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 1.2 <span class="score-chip">10 pts</span></div>
+          <p>Quelle est l'importance de la mitose pour un organisme vivant ? Donnez deux rôles biologiques.</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 1.3 <span class="score-chip">7 pts</span></div>
+          <p>Une cellule somatique humaine contient 46 chromosomes. Combien de chromosomes contiendront les deux cellules filles à l'issue de la mitose ? Justifiez.</p>
+        </div>
+
+        <div class="correction-toggle">
+          <button class="btn-correction" onclick="toggleCorrection('cs1')">▶ Voir la correction</button>
+        </div>
+
+        <div class="correction-panel" id="cs1">
+          <div class="correction-label">Correction officielle</div>
+
+          <p><strong>1.1 — Les quatre phases de la mitose</strong></p>
+          <p><span class="ans">Prophase :</span> condensation des chromosomes, disparition de l'enveloppe nucléaire.</p>
+          <p><span class="ans">Métaphase :</span> alignement des chromosomes au centre de la cellule sur la plaque équatoriale.</p>
+          <p><span class="ans">Anaphase :</span> séparation des chromatides, migration vers les pôles opposés de la cellule.</p>
+          <p><span class="ans">Télophase :</span> reformation des noyaux, division du cytoplasme (cytocinèse) → deux cellules filles.</p>
+
+          <p style="margin-top:14px"><strong>1.2 — Rôles biologiques</strong></p>
+          <p>• <span class="ans">Croissance :</span> multiplication des cellules permettant le développement de l'organisme.</p>
+          <p>• <span class="ans">Remplacement / réparation :</span> renouvellement des cellules usées (peau, cellules sanguines) et cicatrisation.</p>
+
+          <p style="margin-top:14px"><strong>1.3 — Nombre de chromosomes</strong></p>
+          <p>La mitose est une division équationnelle : elle <span class="ans">conserve le nombre de chromosomes</span>. Les deux cellules filles contiennent chacune <span class="ans">46 chromosomes</span>, identiques à la cellule mère.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise" style="border-left-color: #1d6b3a">
+      <div class="exercise-head">
+        <div>
+          <div class="exercise-number">Exercice 2</div>
+          <div class="exercise-title">L'évolution et la classification du vivant</div>
+        </div>
+        <div class="pts-badge">25 pts</div>
+      </div>
+      <div class="exercise-body">
+        <div class="question">
+          <div class="question-num">Question 2.1 <span class="score-chip">10 pts</span></div>
+          <p>Qu'est-ce qu'un caractère homologue ? Donnez un exemple chez les vertébrés.</p>
+        </div>
+
+        <div class="question">
+          <div class="question-num">Question 2.2 <span class="score-chip">15 pts</span></div>
+          <p>Expliquez le mécanisme de la sélection naturelle proposé par Charles Darwin. Comment ce mécanisme conduit-il à l'évolution des espèces ?</p>
+        </div>
+
+        <div class="correction-toggle">
+          <button class="btn-correction" onclick="toggleCorrection('cs2')">▶ Voir la correction</button>
+        </div>
+
+        <div class="correction-panel" id="cs2">
+          <div class="correction-label">Correction officielle</div>
+
+          <p><strong>2.1 — Caractère homologue</strong></p>
+          <p>Un caractère homologue est une <span class="ans">structure anatomique commune</span> à plusieurs espèces, de même origine évolutive, même si sa fonction peut différer. Exemple : le membre antérieur des vertébrés (aile de chauve-souris, nageoire de baleine, main humaine, patte de cheval) — même os (humérus, radius, cubitus) mais formes et fonctions différentes → preuve d'une <span class="ans">origine commune (ancêtre commun)</span>.</p>
+
+          <p style="margin-top:14px"><strong>2.2 — Sélection naturelle (Darwin)</strong></p>
+          <p><span class="ans">1. Variabilité :</span> au sein d'une espèce, les individus présentent des variations génétiques (mutations).</p>
+          <p><span class="ans">2. Compétition :</span> les ressources (nourriture, partenaires) sont limitées → lutte pour la survie.</p>
+          <p><span class="ans">3. Survie différentielle :</span> les individus dont les caractères sont les mieux adaptés à l'environnement survivent mieux et se reproduisent davantage.</p>
+          <p><span class="ans">4. Transmission :</span> ces caractères avantageux sont transmis aux descendants → accumulation génération après génération → modification progressive de l'espèce, pouvant conduire à l'apparition de nouvelles espèces (<span class="ans">spéciation</span>).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  function showSubject(id) {
+    document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.currentTarget.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleCorrection(id) {
+    const panel = document.getElementById(id);
+    const btn = panel.previousElementSibling.querySelector('.btn-correction');
+    if (panel.classList.contains('visible')) {
+      panel.classList.remove('visible');
+      btn.textContent = '▶ Voir la correction';
+      btn.classList.remove('hide');
+    } else {
+      panel.classList.add('visible');
+      btn.textContent = '▼ Masquer la correction';
+      btn.classList.add('hide');
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+</script>
+
+</body>
+</html>
