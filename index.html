@@ -3,1130 +3,1479 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brevet Blanc — Édition 2025</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<title>Brevet Blanc — Mathématiques</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink: #1a1208;
-    --cream: #faf6ef;
-    --paper: #f2ead8;
-    --gold: #b8870a;
-    --gold-light: #e8c84a;
-    --red: #c0392b;
-    --blue: #1a3a6b;
-    --green: #1d6b3a;
-    --border: #c8b890;
-    --shadow: rgba(26,18,8,0.12);
-  }
+:root{
+  --cream:#faf6ef;--paper:#f4ede0;--paper2:#ede4d0;
+  --ink:#1a1208;--ink2:#3a2e1e;--ink3:#6b5940;--ink4:rgba(26,18,8,.45);
+  --navy:#1a3264;--navy2:rgba(26,50,100,.08);--navy3:rgba(26,50,100,.18);
+  --green:#1d6b3a;--green2:rgba(29,107,58,.12);
+  --gold:#b8870a;--gold2:rgba(184,135,10,.13);
+  --red:#c0392b;--red2:rgba(192,57,43,.1);
+  --border:rgba(26,18,8,.12);--border2:rgba(26,18,8,.07);
+  --shadow:rgba(26,18,8,.10);--shadow2:rgba(26,18,8,.05);
+  --premium:#7c3aed;--premium2:rgba(124,58,237,.10);--premium3:rgba(124,58,237,.20);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.78;min-height:100vh}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+/* ── PAGE TRANSITIONS ── */
+.screen{display:none;min-height:100vh;animation:fadeIn .25s ease}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-  body {
-    background: var(--cream);
-    color: var(--ink);
-    font-family: 'Source Serif 4', Georgia, serif;
-    font-size: 16px;
-    line-height: 1.7;
-  }
+/* ── GLOBAL NAV BAR ── */
+.global-nav{
+  position:sticky;top:0;z-index:300;
+  background:var(--ink);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  padding:0 48px;
+  display:flex;align-items:center;height:52px;gap:0;
+}
+.nav-logo{font-family:'Playfair Display',serif;font-size:17px;font-weight:900;color:var(--cream);letter-spacing:-.5px;margin-right:32px;cursor:pointer;flex-shrink:0}
+.nav-logo em{color:#e8c84a;font-style:italic}
+.nav-links{display:flex;align-items:center;gap:0;flex:1}
+.nav-link{
+  display:flex;align-items:center;gap:7px;
+  padding:0 16px;height:52px;
+  font-size:13px;font-weight:600;color:rgba(250,246,239,.45);
+  background:none;border:none;cursor:pointer;transition:all .15s;
+  font-family:'Source Serif 4',serif;border-bottom:2px solid transparent;
+  white-space:nowrap;
+}
+.nav-link:hover{color:rgba(250,246,239,.8)}
+.nav-link.active{color:var(--cream);border-bottom-color:#e8c84a}
+.nav-link .nav-icon{font-size:14px;opacity:.7}
+.nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+.nav-free-badge{font-size:11px;font-weight:700;color:var(--ink3);background:var(--paper2);padding:3px 10px;border-radius:20px;letter-spacing:.5px}
+.nav-premium-badge{font-size:11px;font-weight:700;color:var(--premium);background:var(--premium2);padding:3px 10px;border-radius:20px;border:1px solid var(--premium3);letter-spacing:.5px}
+.btn-upgrade-nav{
+  padding:6px 16px;
+  font-family:'Source Serif 4',serif;font-size:12px;font-weight:700;
+  background:var(--premium);color:white;border:none;border-radius:20px;cursor:pointer;
+  transition:all .2s;letter-spacing:.3px;
+}
+.btn-upgrade-nav:hover{background:#6d28d9;transform:translateY(-1px)}
+.btn-upgrade-nav.hidden{display:none}
 
-  /* HEADER */
-  header {
-    background: var(--ink);
-    color: var(--cream);
-    padding: 0;
-    position: relative;
-    overflow: hidden;
-  }
+/* ── SHARED BUTTONS ── */
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:11px 28px;font-family:'Source Serif 4',serif;font-size:14px;font-weight:600;background:var(--navy);color:var(--cream);border:none;border-radius:3px;cursor:pointer;transition:all .2s}
+.btn-primary:hover{background:#0f2048;transform:translateY(-1px);box-shadow:0 4px 14px rgba(26,50,100,.3)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;font-family:'Source Serif 4',serif;font-size:14px;background:transparent;color:var(--ink3);border:1.5px solid var(--border);border-radius:3px;cursor:pointer;transition:all .2s}
+.btn-secondary:hover{border-color:var(--ink2);color:var(--ink2)}
+.btn-green{display:inline-flex;align-items:center;gap:7px;padding:8px 20px;font-family:'Source Serif 4',serif;font-size:13px;font-weight:600;background:var(--green);color:white;border:none;border-radius:3px;cursor:pointer;transition:all .2s}
+.btn-green:hover{background:#155c2e}
+.btn-green:disabled{background:var(--border);color:var(--ink4);cursor:not-allowed}
+.section-rule{display:flex;align-items:center;gap:14px;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink4);margin-bottom:16px}
+.section-rule::after{content:'';flex:1;height:1px;background:var(--border)}
 
-  .header-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 48px 40px 36px;
-    position: relative;
-    z-index: 2;
-  }
+/* ══════════════════════════════════════
+   SCREEN 0 — SETUP / HOME
+══════════════════════════════════════ */
+#screen-setup{background:var(--cream)}
+.setup-hero{background:var(--ink);position:relative;overflow:hidden}
+.setup-hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.06) 38px,rgba(184,135,10,.06) 39px)}
+.setup-hero-inner{max-width:900px;margin:0 auto;padding:44px 48px 40px;position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.header-badge{display:inline-flex;align-items:center;border:1.5px solid var(--gold);color:#e8c84a;font-size:9px;letter-spacing:3.5px;text-transform:uppercase;padding:4px 14px;margin-bottom:14px;font-family:'Source Serif 4',serif}
+.setup-hero h1{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,60px);font-weight:900;line-height:1.0;letter-spacing:-1.5px;color:var(--cream)}
+.setup-hero h1 em{color:#e8c84a;font-style:italic}
+.setup-hero-sub{margin-top:10px;font-size:13px;font-weight:300;color:rgba(250,246,239,.5);display:flex;gap:16px;flex-wrap:wrap}
+.setup-hero-sub span::before{content:'·';margin-right:6px;color:var(--gold)}
+.hero-stats{display:flex;flex-direction:column;gap:8px}
+.stat-box{display:flex;align-items:center;gap:10px;padding:10px 18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:3px}
+.stat-box .val{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--cream);line-height:1}
+.stat-box .lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.4)}
 
-  header::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 40px,
-      rgba(184,135,10,0.06) 40px,
-      rgba(184,135,10,0.06) 41px
-    );
-  }
+/* Free usage bar */
+.free-usage-bar{background:var(--navy2);border:1px solid var(--navy3);border-radius:3px;padding:12px 18px;margin-bottom:28px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.free-usage-bar.hidden{display:none}
+.fub-text{font-size:13px;color:var(--navy);flex:1}
+.fub-text strong{font-weight:700}
+.fub-dots{display:flex;gap:5px}
+.fub-dot{width:10px;height:10px;border-radius:50%;background:var(--navy3);transition:.3s}
+.fub-dot.used{background:var(--navy)}
 
-  .header-badge {
-    display: inline-block;
-    border: 1.5px solid var(--gold);
-    color: var(--gold-light);
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    padding: 4px 14px;
-    margin-bottom: 20px;
-    font-family: 'Source Serif 4', serif;
-    font-weight: 300;
-  }
+.setup-body{max-width:900px;margin:0 auto;padding:36px 48px 80px}
+.setup-section{margin-bottom:34px}
+.timer-row{display:flex;gap:8px;flex-wrap:wrap}
+.timer-chip{padding:9px 20px;font-family:'Source Serif 4',serif;font-size:14px;background:white;border:1.5px solid var(--border);color:var(--ink2);border-radius:3px;cursor:pointer;transition:all .2s}
+.timer-chip:hover{border-color:var(--navy);color:var(--navy)}
+.timer-chip.selected{background:var(--navy);border-color:var(--navy);color:white}
+.chapter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.chapter-chip{padding:12px 15px;background:white;border:1.5px solid var(--border);border-radius:3px;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:10px;position:relative}
+.chapter-chip:hover{border-color:var(--navy3);background:var(--navy2)}
+.chapter-chip.selected{border-color:var(--navy);background:var(--navy2)}
+.chapter-chip.locked{opacity:.55;cursor:default}
+.chapter-chip.locked:hover{border-color:var(--border);background:white}
+.ch-check{width:15px;height:15px;border:1.5px solid var(--border);border-radius:2px;flex-shrink:0;margin-top:3px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;transition:all .2s}
+.chapter-chip.selected .ch-check{background:var(--navy);border-color:var(--navy);color:white}
+.ch-name{font-size:14px;font-weight:600;color:var(--ink)}
+.ch-sub{font-size:12px;color:var(--ink4);font-style:italic;margin-top:1px}
+.lock-icon{position:absolute;top:10px;right:10px;font-size:11px;color:var(--premium);background:var(--premium2);padding:2px 7px;border-radius:10px;font-weight:700;font-style:normal}
 
-  header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(36px, 6vw, 64px);
-    font-weight: 900;
-    line-height: 1.05;
-    letter-spacing: -1px;
-    color: var(--cream);
-  }
+.setup-cta{display:flex;align-items:center;gap:16px;margin-top:32px;flex-wrap:wrap}
 
-  header h1 em {
-    color: var(--gold-light);
-    font-style: italic;
-  }
+/* ══════════════════════════════════════
+   SCREEN 1 — EXAM
+══════════════════════════════════════ */
+#screen-exam{background:var(--cream)}
+.exam-topbar{background:var(--ink);box-shadow:0 2px 12px rgba(26,18,8,.2)}
+.exam-topbar-inner{max-width:960px;margin:0 auto;padding:10px 48px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.exam-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream)}
+.exam-subtitle{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,246,239,.4);margin-top:1px}
+.timer-block{margin-left:auto;display:flex;align-items:center;gap:16px}
+.timer-face{font-family:'Source Code Pro',monospace;font-size:20px;font-weight:500;color:#e8c84a;letter-spacing:2px;line-height:1}
+.timer-face.warn{color:#fb923c}.timer-face.danger{color:#f87171;animation:blink .8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.live-score-box{text-align:right}
+.live-score-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#e8c84a;line-height:1}
+.live-score-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.35)}
+.btn-end{padding:7px 16px;font-family:'Source Serif 4',serif;font-size:12px;background:rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.35);color:#fca5a5;border-radius:3px;cursor:pointer;transition:all .2s}
+.btn-end:hover{background:var(--red);color:white}
+.pills-nav{background:var(--paper2);border-bottom:1px solid var(--border)}
+.pills-nav-inner{max-width:960px;margin:0 auto;padding:8px 48px;display:flex;align-items:center;gap:7px;overflow-x:auto}
+.pill{padding:4px 14px;font-family:'Source Serif 4',serif;font-size:12px;font-weight:600;background:transparent;border:1.5px solid var(--border);color:var(--ink3);border-radius:2px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.pill:hover{border-color:var(--navy);color:var(--navy)}
+.pill.answered{border-color:var(--navy);color:var(--navy);background:var(--navy2)}
+.pill.corrected{border-color:var(--green);color:white;background:var(--green)}
+.exam-main{max-width:960px;margin:0 auto;padding:36px 48px 100px}
+.loading-box{text-align:center;padding:80px 20px}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-box p{font-size:13px;font-style:italic;color:var(--ink3)}
 
-  .header-meta {
-    margin-top: 20px;
-    display: flex;
-    gap: 32px;
-    flex-wrap: wrap;
-    font-size: 13px;
-    font-weight: 300;
-    color: rgba(250,246,239,0.7);
-    letter-spacing: 0.5px;
-  }
+/* Exercise */
+.exercise{background:var(--cream);border:1px solid var(--border);border-radius:4px;margin-bottom:36px;overflow:hidden;box-shadow:0 2px 8px var(--shadow2);scroll-margin-top:110px;position:relative}
+.exercise::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--navy)}
+.exercise-head{padding:20px 28px 18px 36px;border-bottom:1px solid var(--border);background:rgba(250,246,239,.6);display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.ex-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);font-weight:600;margin-bottom:5px}
+.ex-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--ink);line-height:1.2}
+.ex-notion{font-size:13px;font-style:italic;color:var(--ink3);margin-top:3px}
+.ex-pts-badge{flex-shrink:0;padding:8px 16px;background:var(--navy2);border:1px solid var(--navy3);border-radius:3px;text-align:center}
+.ex-pts-badge .num{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--navy);line-height:1}
+.ex-pts-badge .lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);opacity:.7}
+.exercise-body{padding:22px 28px 28px 36px}
+.exercise-body>p{margin-bottom:12px;color:var(--ink2)}
 
-  .header-meta span {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th{background:var(--paper2);color:var(--ink);padding:9px 14px;text-align:left;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border)}
+td{padding:9px 14px;border:1px solid var(--border2);color:var(--ink2)}
+tr:nth-child(even) td{background:rgba(26,18,8,.025)}
+.f{font-family:'Source Code Pro',monospace;font-size:13px;color:var(--navy);background:var(--navy2);padding:1px 8px;border-radius:2px;margin:0 2px;border-bottom:1.5px solid var(--navy3)}
 
-  .header-meta span::before {
-    content: '—';
-    color: var(--gold);
-  }
+.question{margin:16px 0;border:1px solid var(--border);border-left:3px solid var(--navy);background:rgba(250,246,239,.5);border-radius:0 3px 3px 0;overflow:hidden}
+.q-head{padding:10px 16px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:10px}
+.q-num{font-size:13px;font-weight:700;color:var(--navy);font-family:'Source Serif 4',serif}
+.q-pts-badge{display:inline-flex;align-items:center;padding:3px 10px;background:var(--green);color:white;font-size:11px;font-weight:700;border-radius:3px;font-family:'Source Serif 4',serif}
+.q-text{padding:13px 16px 15px;font-size:15px;color:var(--ink);line-height:1.72}
 
-  /* NAVIGATION */
-  nav {
-    background: var(--paper);
-    border-bottom: 2px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 12px var(--shadow);
-  }
+.answer-zone{padding:12px 16px 14px;background:rgba(26,50,100,.03);border-top:1px dashed var(--border)}
+.answer-lbl{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink4);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.answer-lbl::before{content:'✎';font-size:13px;color:var(--navy)}
+.answer-textarea{width:100%;min-height:80px;padding:10px 12px;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.65;color:var(--ink);background:white;border:1.5px solid var(--border);border-radius:3px 3px 0 0;resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s}
+.answer-textarea::placeholder{color:var(--ink4);font-style:italic}
+.answer-textarea:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(26,50,100,.08)}
+.answer-textarea.has-content{border-color:rgba(26,50,100,.35)}
+.answer-textarea.locked{border-color:var(--green)!important;background:rgba(29,107,58,.04)!important;color:var(--ink2);resize:none;cursor:default}
 
-  .nav-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 40px;
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
+.validate-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;background:var(--paper2);border:1.5px solid var(--border);border-top:none;border-radius:0 0 3px 3px}
+.btn-validate{display:inline-flex;align-items:center;gap:6px;padding:7px 18px;font-family:'Source Serif 4',serif;font-size:12px;font-weight:600;background:var(--navy);color:white;border:none;border-radius:3px;cursor:pointer;transition:all .2s}
+.btn-validate:hover{background:#0f2048}
+.btn-validate:disabled{background:var(--border);color:var(--ink4);cursor:not-allowed}
+.btn-edit{display:none;align-items:center;gap:5px;padding:6px 14px;font-family:'Source Serif 4',serif;font-size:12px;background:transparent;border:1.5px solid var(--border);color:var(--ink3);border-radius:3px;cursor:pointer;transition:all .2s}
+.btn-edit:hover{border-color:var(--ink2);color:var(--ink2)}
+.validated-tag{display:none;align-items:center;gap:5px;font-size:12px;color:var(--green);font-weight:600}
+.validated-tag.show{display:flex}
+.validate-hint{font-size:11px;font-style:italic;color:var(--ink4);margin-left:auto}
 
-  .nav-inner::-webkit-scrollbar { display: none; }
+.ai-result{display:none;margin-top:10px;border-radius:3px;overflow:hidden;border:1.5px solid var(--border);animation:fadeUp .3s ease}
+.ai-result.visible{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.ai-result-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;gap:10px}
+.ai-result-header.correct-bg{background:rgba(29,107,58,.1);border-bottom:1px solid rgba(29,107,58,.2)}
+.ai-result-header.partial-bg{background:rgba(184,135,10,.1);border-bottom:1px solid rgba(184,135,10,.2)}
+.ai-result-header.wrong-bg{background:rgba(192,57,43,.08);border-bottom:1px solid rgba(192,57,43,.15)}
+.ai-result-header.loading-bg{background:var(--paper2);border-bottom:1px solid var(--border)}
+.ai-result-label{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
+.ai-score{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;line-height:1;white-space:nowrap}
+.ai-score.correct-col{color:var(--green)}.ai-score.partial-col{color:var(--gold)}.ai-score.wrong-col{color:var(--red)}.ai-score.loading-col{color:var(--ink4);font-size:14px;font-family:'Source Serif 4',serif}
+.ai-feedback{padding:11px 14px;font-size:14px;line-height:1.65;color:var(--ink2);background:white;font-style:italic}
+.mini-spinner{display:inline-block;width:13px;height:13px;border:2px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle}
 
-  .nav-btn {
-    padding: 14px 22px;
-    font-family: 'Source Serif 4', serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: rgba(26,18,8,0.55);
-    background: none;
-    border: none;
-    cursor: pointer;
-    white-space: nowrap;
-    letter-spacing: 0.3px;
-    border-bottom: 3px solid transparent;
-    margin-bottom: -2px;
-    transition: all 0.2s;
-  }
+.correction-toggle{margin-top:22px;padding-top:18px;border-top:1px dashed var(--border);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.btn-see{display:inline-flex;align-items:center;gap:7px;padding:8px 20px;font-family:'Source Serif 4',serif;font-size:13px;font-weight:600;background:transparent;border:1.5px solid var(--gold);color:var(--gold);border-radius:3px;cursor:pointer;transition:all .2s}
+.btn-see:hover:not(:disabled){background:var(--gold2)}
+.btn-see.active{background:var(--gold);color:white;border-color:var(--gold)}
+.btn-see:disabled{border-color:var(--border);color:var(--ink4);cursor:not-allowed;opacity:.5}
+.toggle-hint{font-size:12px;font-style:italic;color:var(--ink4)}
+.correction{display:none;margin-top:16px;padding:18px 22px;background:rgba(184,135,10,.07);border:1px solid rgba(184,135,10,.22);border-radius:3px}
+.correction.open{display:block;animation:fadeUp .3s ease}
+.corr-head{display:flex;align-items:center;gap:9px;padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid rgba(184,135,10,.2)}
+.corr-badge{width:20px;height:20px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.corr-head span{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600}
+.correction p{margin-bottom:9px;font-size:14px;color:var(--ink2)}
+.correction p:last-child{margin-bottom:0}
+.ans{font-weight:700;color:var(--ink);font-style:normal}
+.corr-block{margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(184,135,10,.12)}
+.corr-block:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+.corr-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.corr-title::before{content:'§';font-size:14px}
 
-  .nav-btn:hover { color: var(--gold); }
-  .nav-btn.active { color: var(--ink); border-bottom-color: var(--gold); }
+.footer-strip{border-top:2px solid var(--border);padding:24px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:8px}
+.footer-strip p{font-size:13px;font-style:italic;color:var(--ink4)}
+.footer-total{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:var(--ink);line-height:1}
+.footer-total sub{font-size:16px;font-weight:400;color:var(--ink4);vertical-align:middle}
 
-  /* MAIN */
-  main {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 40px 40px 80px;
-  }
+/* ══════════════════════════════════════
+   SCREEN 2 — RESULTS
+══════════════════════════════════════ */
+#screen-results{background:var(--cream)}
+.results-banner{background:var(--ink);padding:44px 48px 40px;position:relative;overflow:hidden}
+.results-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.06) 38px,rgba(184,135,10,.06) 39px)}
+.results-inner{max-width:860px;margin:0 auto;position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+.results-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(250,246,239,.4);font-weight:600;margin-bottom:10px}
+.results-score{font-family:'Playfair Display',serif;font-size:clamp(64px,10vw,100px);font-weight:900;line-height:.9;letter-spacing:-3px;color:var(--cream)}
+.results-score span{font-size:clamp(24px,4vw,38px);color:rgba(250,246,239,.35);font-weight:400}
+.results-mention{font-size:16px;font-weight:600;color:#e8c84a;margin-top:12px}
+.results-bar-wrap{margin-top:16px;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;max-width:440px}
+.results-bar{height:100%;border-radius:3px;transition:width 1.2s ease}
+.results-detail{display:flex;flex-direction:column;gap:10px;min-width:130px}
+.res-stat{padding:11px 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:3px;text-align:center}
+.res-stat .val{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#e8c84a;line-height:1}
+.res-stat .lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.35);margin-top:3px}
 
-  /* SUBJECT PANEL */
-  .subject {
-    display: none;
-    animation: fadeIn 0.4s ease;
-  }
-  .subject.active { display: block; }
+.results-body{max-width:860px;margin:0 auto;padding:32px 48px 72px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.breakdown-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border2)}
+.breakdown-row:last-child{border-bottom:none}
+.breakdown-notion{font-size:13px;font-weight:600;color:var(--ink3)}
+.breakdown-pts{font-family:'Playfair Display',serif;font-size:17px;font-weight:700}
+.breakdown-pct{height:3px;background:var(--border2);border-radius:2px;margin-top:3px;overflow:hidden}
+.breakdown-pct-fill{height:100%;border-radius:2px;transition:width .9s ease}
+.error-card{padding:12px 16px;background:white;border:1px solid var(--border);border-left:3px solid var(--red);border-radius:0 3px 3px 0;margin-bottom:8px}
+.error-q{font-size:13px;color:var(--ink2);margin-bottom:5px}
+.error-score{font-size:11px;font-weight:700;letter-spacing:.5px}
+.error-fb{font-size:12px;font-style:italic;color:var(--ink4);margin-top:4px}
+.results-cta{grid-column:1/-1;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding-top:16px;border-top:1px solid var(--border)}
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+/* ══════════════════════════════════════
+   SCREEN 3 — DASHBOARD
+══════════════════════════════════════ */
+#screen-dash{background:var(--cream)}
+.dash-banner{background:var(--ink);padding:40px 48px 36px;position:relative;overflow:hidden}
+.dash-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.06) 38px,rgba(184,135,10,.06) 39px)}
+.dash-banner-inner{max-width:960px;margin:0 auto;position:relative;z-index:2}
+.dash-banner h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--cream);letter-spacing:-1px;line-height:1}
+.dash-banner h2 em{color:#e8c84a;font-style:italic}
+.dash-banner p{font-size:13px;color:rgba(250,246,239,.4);margin-top:8px}
+.dash-body{max-width:960px;margin:0 auto;padding:32px 48px 72px}
 
-  .subject-header {
-    margin-bottom: 36px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
+/* Premium upsell in dash */
+.dash-upsell{background:var(--premium2);border:1px solid var(--premium3);border-radius:4px;padding:20px 24px;margin-bottom:28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.dash-upsell.hidden{display:none}
+.dash-upsell-text h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--premium);margin-bottom:4px}
+.dash-upsell-text p{font-size:13px;color:var(--ink3)}
+.btn-upgrade-upsell{padding:9px 22px;font-family:'Source Serif 4',serif;font-size:13px;font-weight:700;background:var(--premium);color:white;border:none;border-radius:3px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-upgrade-upsell:hover{background:#6d28d9}
 
-  .subject-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--blue);
-    line-height: 1.1;
-  }
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:32px}
+.stat-card{padding:18px 20px;background:white;border:1px solid var(--border);border-radius:3px;box-shadow:0 1px 4px var(--shadow2)}
+.stat-card .s-val{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;line-height:1;color:var(--ink)}
+.stat-card .s-val.navy{color:var(--navy)}.stat-card .s-val.green{color:var(--green)}.stat-card .s-val.gold{color:var(--gold)}.stat-card .s-val.red{color:var(--red)}
+.stat-card .s-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);margin-top:6px}
 
-  .subject-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 4px;
-    font-size: 12px;
-    color: rgba(26,18,8,0.5);
-    letter-spacing: 0.5px;
-    text-align: right;
-  }
+/* Chart */
+.score-chart{margin-bottom:32px}
+.chart-wrap{height:120px;display:flex;align-items:flex-end;gap:6px;padding:8px 0 0;border-bottom:1px solid var(--border)}
+.chart-bar-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:0}
+.chart-bar{width:100%;border-radius:2px 2px 0 0;transition:height .6s ease;min-height:2px;cursor:default}
+.chart-bar:hover{filter:brightness(1.1)}
+.chart-label{font-size:9px;color:var(--ink4);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
+.chart-val{font-size:10px;font-weight:700;color:var(--ink3);text-align:center}
 
-  .subject-info strong {
-    font-size: 22px;
-    color: var(--ink);
-    font-family: 'Playfair Display', serif;
-  }
+.dash-grid{display:grid;grid-template-columns:3fr 2fr;gap:32px}
 
-  /* EXERCISE */
-  .exercise {
-    margin-bottom: 40px;
-    background: white;
-    border: 1px solid var(--border);
-    border-left: 5px solid var(--blue);
-    box-shadow: 0 2px 16px var(--shadow);
-    border-radius: 0 6px 6px 0;
-    overflow: hidden;
-  }
+.hist-table{width:100%;border-collapse:collapse}
+.hist-table th{padding:9px 12px;text-align:left;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);border-bottom:2px solid var(--border);font-weight:600}
+.hist-table td{padding:10px 12px;border-bottom:1px solid var(--border2);font-size:14px;color:var(--ink2)}
+.hist-table tr:hover td{background:rgba(26,18,8,.02);cursor:default}
+.score-chip{display:inline-block;padding:3px 10px;border-radius:2px;font-family:'Playfair Display',serif;font-size:13px;font-weight:700}
+.score-chip.a{background:rgba(29,107,58,.12);color:var(--green)}.score-chip.b{background:rgba(184,135,10,.12);color:var(--gold)}.score-chip.c{background:rgba(192,57,43,.1);color:var(--red)}
 
-  .exercise-head {
-    padding: 18px 24px;
-    background: var(--paper);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
+.notion-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.nb-label{font-size:12px;font-weight:600;color:var(--ink3);width:150px;flex-shrink:0}
+.nb-track{flex:1;height:5px;background:var(--border2);border-radius:3px;overflow:hidden}
+.nb-fill{height:100%;border-radius:3px;transition:width .8s ease}
+.nb-count{font-size:11px;font-weight:700;color:var(--ink4);width:24px;text-align:right}
 
-  .exercise-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgba(26,18,8,0.45);
-  }
+.empty-dash{text-align:center;padding:60px 20px;color:var(--ink4)}
+.empty-dash .e-icon{font-size:48px;display:block;margin-bottom:14px}
 
-  .exercise-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--ink);
-  }
+/* ══════════════════════════════════════
+   SCREEN 4 — PRICING
+══════════════════════════════════════ */
+#screen-pricing{background:var(--cream)}
+.pricing-banner{background:var(--ink);padding:44px 48px 40px;position:relative;overflow:hidden;text-align:center}
+.pricing-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(124,58,237,.06) 38px,rgba(124,58,237,.06) 39px)}
+.pricing-banner-inner{max-width:640px;margin:0 auto;position:relative;z-index:2}
+.pricing-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--premium);background:var(--premium2);padding:5px 16px;border-radius:20px;margin-bottom:16px;font-weight:700}
+.pricing-banner h2{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);font-weight:900;color:var(--cream);letter-spacing:-1.5px;line-height:1.05}
+.pricing-banner h2 em{color:#e8c84a;font-style:italic}
+.pricing-banner p{font-size:15px;color:rgba(250,246,239,.5);margin-top:12px;line-height:1.6}
 
-  .pts-badge {
-    background: var(--ink);
-    color: var(--gold-light);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    padding: 4px 12px;
-    border-radius: 2px;
-    white-space: nowrap;
-  }
+.pricing-body{max-width:900px;margin:0 auto;padding:40px 48px 80px}
 
-  .exercise-body {
-    padding: 24px 28px;
-  }
+/* Toggle monthly/annual */
+.billing-toggle{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:36px}
+.billing-toggle span{font-size:14px;font-weight:600;color:var(--ink3)}
+.toggle-switch{position:relative;width:48px;height:26px;background:var(--navy);border-radius:13px;cursor:pointer;transition:.3s}
+.toggle-switch.annual{background:var(--premium)}
+.toggle-switch::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;background:white;border-radius:50%;transition:.3s}
+.toggle-switch.annual::after{left:25px}
+.billing-save{font-size:11px;font-weight:700;color:var(--premium);background:var(--premium2);padding:2px 10px;border-radius:10px;border:1px solid var(--premium3)}
 
-  .exercise-body p { margin-bottom: 12px; }
-  .exercise-body p:last-child { margin-bottom: 0; }
+.plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:44px}
+@media(max-width:640px){.plans-grid{grid-template-columns:1fr}}
 
-  .question {
-    margin: 16px 0;
-    padding: 14px 18px;
-    background: rgba(26,58,107,0.04);
-    border-left: 3px solid rgba(26,58,107,0.25);
-    border-radius: 0 4px 4px 0;
-  }
+.plan-card{background:white;border:1.5px solid var(--border);border-radius:6px;padding:28px 28px 24px;position:relative;transition:.25s}
+.plan-card.featured{border-color:var(--premium);box-shadow:0 0 0 3px var(--premium3)}
+.plan-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--premium);color:white;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 16px;border-radius:20px;white-space:nowrap}
+.plan-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--ink);margin-bottom:6px}
+.plan-desc{font-size:13px;color:var(--ink3);margin-bottom:20px;font-style:italic}
+.plan-price{display:flex;align-items:baseline;gap:5px;margin-bottom:6px}
+.plan-price .amount{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:var(--ink);line-height:1}
+.plan-price .currency{font-size:20px;font-weight:700;color:var(--ink);margin-top:8px}
+.plan-price .period{font-size:13px;color:var(--ink4)}
+.plan-price-annual{font-size:12px;color:var(--premium);font-style:italic;margin-bottom:20px;min-height:18px}
+.plan-features{list-style:none;margin-bottom:24px;display:flex;flex-direction:column;gap:8px}
+.plan-features li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--ink2)}
+.plan-features li .fi{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:2px}
+.plan-features li .fi.yes{background:rgba(29,107,58,.12);color:var(--green)}
+.plan-features li .fi.no{background:rgba(26,18,8,.06);color:var(--ink4)}
+.plan-features li.dim{color:var(--ink4)}
 
-  .question-num {
-    font-weight: 600;
-    color: var(--blue);
-    font-size: 14px;
-    margin-bottom: 4px;
-  }
+.btn-plan-free{width:100%;padding:12px;font-family:'Source Serif 4',serif;font-size:14px;font-weight:600;background:transparent;border:1.5px solid var(--border);color:var(--ink3);border-radius:3px;cursor:pointer;transition:all .2s;text-align:center}
+.btn-plan-free:hover{border-color:var(--ink2);color:var(--ink2)}
+.btn-plan-premium{width:100%;padding:12px;font-family:'Source Serif 4',serif;font-size:14px;font-weight:700;background:var(--premium);color:white;border:none;border-radius:3px;cursor:pointer;transition:all .2s;text-align:center}
+.btn-plan-premium:hover{background:#6d28d9;transform:translateY(-1px);box-shadow:0 4px 16px rgba(124,58,237,.3)}
 
-  .question p { margin-bottom: 0; }
+/* Trust badges */
+.trust-row{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;padding-top:28px;border-top:1px solid var(--border)}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink4)}
+.trust-item span{font-size:16px}
 
-  /* FIGURES */
-  .figure-box {
-    margin: 20px 0;
-    padding: 20px;
-    background: var(--paper);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    text-align: center;
-  }
+/* FAQ */
+.faq-section{margin-top:40px}
+.faq-item{border-bottom:1px solid var(--border);padding:16px 0}
+.faq-q{display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:15px;font-weight:600;color:var(--ink)}
+.faq-q:hover{color:var(--navy)}
+.faq-q .arrow{font-size:12px;color:var(--ink4);transition:.2s}
+.faq-a{display:none;padding-top:10px;font-size:14px;color:var(--ink3);line-height:1.7}
+.faq-item.open .faq-a{display:block}
+.faq-item.open .arrow{transform:rotate(180deg)}
 
-  .figure-caption {
-    font-size: 12px;
-    font-style: italic;
-    color: rgba(26,18,8,0.55);
-    margin-top: 10px;
-  }
+/* ══════════════════════════════════════
+   SCREEN 5 — CHECKOUT
+══════════════════════════════════════ */
+#screen-checkout{background:var(--cream)}
+.checkout-layout{max-width:860px;margin:0 auto;padding:40px 48px 80px;display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:start}
+@media(max-width:720px){.checkout-layout{grid-template-columns:1fr;padding:24px}}
 
-  /* CORRECTION TOGGLE */
-  .correction-toggle {
-    margin-top: 20px;
-    padding-top: 16px;
-    border-top: 1px dashed var(--border);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
+/* Order summary */
+.order-summary{background:white;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;position:sticky;top:80px}
+.order-summary-head{padding:20px 22px;background:var(--premium2);border-bottom:1px solid var(--premium3)}
+.order-summary-head h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--premium)}
+.order-rows{padding:18px 22px}
+.order-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--border2);font-size:14px;color:var(--ink2)}
+.order-row:last-child{border-bottom:none}
+.order-total-row{display:flex;justify-content:space-between;align-items:baseline;padding:14px 22px;background:var(--premium2);border-top:2px solid var(--premium3)}
+.order-total-row .label{font-size:13px;font-weight:700;color:var(--premium)}
+.order-total-row .amount{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--premium)}
+.order-guarantee{padding:14px 22px;text-align:center;font-size:12px;color:var(--ink4);font-style:italic;border-top:1px solid var(--border2)}
 
-  .btn-correction {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 9px 20px;
-    background: none;
-    border: 1.5px solid var(--gold);
-    color: var(--gold);
-    font-family: 'Source Serif 4', serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 0.5px;
-    transition: all 0.2s;
-    border-radius: 2px;
-  }
+/* Stripe-style payment form */
+.checkout-form-wrap h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;letter-spacing:-.5px;margin-bottom:6px}
+.checkout-form-wrap p{font-size:13px;color:var(--ink3);margin-bottom:28px}
 
-  .btn-correction:hover {
-    background: var(--gold);
-    color: white;
-  }
+.form-section-label{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;color:var(--ink4);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.form-section-label::after{content:'';flex:1;height:1px;background:var(--border)}
 
-  .btn-correction.hide { border-color: var(--red); color: var(--red); }
-  .btn-correction.hide:hover { background: var(--red); color: white; }
+.form-row{display:grid;gap:12px;margin-bottom:14px}
+.form-row.cols-2{grid-template-columns:1fr 1fr}
+.form-row.cols-3{grid-template-columns:2fr 1fr 1fr}
+.form-field{display:flex;flex-direction:column;gap:5px}
+.form-field label{font-size:12px;font-weight:600;color:var(--ink2);letter-spacing:.3px}
+.form-input{padding:11px 14px;font-family:'Source Serif 4',serif;font-size:15px;color:var(--ink);background:white;border:1.5px solid var(--border);border-radius:3px;outline:none;transition:.2s}
+.form-input:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(26,50,100,.08)}
+.form-input::placeholder{color:var(--ink4)}
+.card-icons{display:flex;gap:6px;margin-bottom:4px}
+.card-icon{padding:3px 8px;background:var(--paper2);border:1px solid var(--border);border-radius:3px;font-size:11px;font-weight:700;color:var(--ink3)}
+.card-field-wrap{position:relative}
+.card-lock{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--ink4)}
 
-  .correction-hint {
-    font-size: 12px;
-    color: rgba(26,18,8,0.4);
-    font-style: italic;
-  }
+.btn-pay{width:100%;padding:14px;font-family:'Source Serif 4',serif;font-size:16px;font-weight:700;background:var(--premium);color:white;border:none;border-radius:3px;cursor:pointer;transition:all .2s;margin-top:20px;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-pay:hover{background:#6d28d9;transform:translateY(-1px);box-shadow:0 4px 18px rgba(124,58,237,.35)}
+.pay-secure{text-align:center;margin-top:12px;font-size:11px;color:var(--ink4);display:flex;align-items:center;justify-content:center;gap:6px}
 
-  /* CORRECTION PANEL */
-  .correction-panel {
-    display: none;
-    margin-top: 16px;
-    padding: 20px 24px;
-    background: linear-gradient(135deg, rgba(29,107,58,0.04) 0%, rgba(29,107,58,0.07) 100%);
-    border: 1.5px solid rgba(29,107,58,0.3);
-    border-radius: 4px;
-    position: relative;
-  }
+/* ══════════════════════════════════════
+   SCREEN 6 — SUCCESS
+══════════════════════════════════════ */
+#screen-success{background:var(--cream)}
+.success-inner{max-width:560px;margin:0 auto;padding:80px 48px;text-align:center}
+.success-check{width:80px;height:80px;background:rgba(29,107,58,.12);border:2px solid rgba(29,107,58,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 28px}
+.success-inner h2{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;letter-spacing:-1px;margin-bottom:12px}
+.success-inner h2 em{color:var(--premium);font-style:italic}
+.success-inner p{font-size:15px;color:var(--ink3);line-height:1.7;margin-bottom:32px}
+.success-perks{display:flex;flex-direction:column;gap:10px;text-align:left;background:var(--premium2);border:1px solid var(--premium3);border-radius:6px;padding:20px 24px;margin-bottom:32px}
+.perk-item{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--ink2)}
+.perk-item span{font-size:16px}
 
-  .correction-panel.visible { display: block; animation: fadeIn 0.3s ease; }
-
-  .correction-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: var(--green);
-    margin-bottom: 14px;
-    border-bottom: 1px solid rgba(29,107,58,0.2);
-    padding-bottom: 10px;
-    width: 100%;
-  }
-
-  .correction-label::before {
-    content: '✓';
-    width: 18px;
-    height: 18px;
-    background: var(--green);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-  }
-
-  .correction-panel p { margin-bottom: 10px; font-size: 15px; }
-  .correction-panel p:last-child { margin-bottom: 0; }
-
-  .correction-panel .ans {
-    font-weight: 600;
-    color: var(--ink);
-  }
-
-  .correction-panel .formula {
-    display: inline-block;
-    background: rgba(26,18,8,0.07);
-    padding: 3px 10px;
-    border-radius: 3px;
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-    color: var(--blue);
-    margin: 2px 4px;
-  }
-
-  .score-chip {
-    display: inline-block;
-    background: var(--green);
-    color: white;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    padding: 2px 8px;
-    border-radius: 2px;
-    margin-left: 6px;
-    vertical-align: middle;
-  }
-
-  /* TABLE */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 16px 0;
-    font-size: 14px;
-  }
-
-  th {
-    background: var(--ink);
-    color: var(--cream);
-    padding: 10px 14px;
-    text-align: left;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-  }
-
-  td {
-    padding: 9px 14px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  tr:nth-child(even) td { background: var(--paper); }
-
-  /* SCORE PANEL */
-  .score-panel {
-    background: var(--ink);
-    color: var(--cream);
-    padding: 28px 32px;
-    border-radius: 6px;
-    margin-top: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-
-  .score-panel h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--gold-light);
-    margin-bottom: 6px;
-  }
-
-  .score-total {
-    font-family: 'Playfair Display', serif;
-    font-size: 48px;
-    font-weight: 900;
-    color: white;
-    line-height: 1;
-  }
-
-  .score-total span { font-size: 20px; color: rgba(250,246,239,0.5); }
-
-  /* INTRO CARD */
-  .intro-card {
-    background: var(--paper);
-    border: 1px solid var(--border);
-    border-left: 5px solid var(--gold);
-    padding: 20px 24px;
-    margin-bottom: 32px;
-    font-size: 14px;
-    line-height: 1.75;
-  }
-
-  .intro-card strong { color: var(--red); }
-
-  /* SVG geometry */
-  .geo-svg {
-    width: 100%;
-    max-width: 320px;
-    height: auto;
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 640px) {
-    .header-inner { padding: 32px 20px 24px; }
-    main { padding: 24px 20px 60px; }
-    .nav-inner { padding: 0 20px; }
-    .exercise-body { padding: 18px; }
-    .exercise-head { padding: 14px 18px; }
-  }
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:680px){
+  .global-nav{padding:0 16px}
+  .nav-links{gap:0}
+  .nav-link{padding:0 10px;font-size:12px}
+  .setup-hero-inner,.setup-body,.exam-topbar-inner,.pills-nav-inner,.exam-main,.results-banner,.results-inner,.results-body,.dash-banner-inner,.dash-body,.pricing-body,.pricing-banner,.footer-strip{padding-left:16px;padding-right:16px}
+  .setup-hero-inner{grid-template-columns:1fr}
+  .results-inner{grid-template-columns:1fr}
+  .results-body,.dash-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <div class="header-badge">Épreuve officielle</div>
-    <h1>Brevet<br><em>Blanc</em> 2025</h1>
-    <div class="header-meta">
-      <span>Diplôme National du Brevet</span>
-      <span>Session 2025 — Série Générale</span>
-      <span>Avec corrections détaillées</span>
-    </div>
+<!-- ════════════ GLOBAL NAV ════════════ -->
+<nav class="global-nav" id="globalNav">
+  <div class="nav-logo" onclick="showScreen('screen-setup')"><em>Brevet</em> Blanc</div>
+  <div class="nav-links">
+    <button class="nav-link active" id="navHome" onclick="navTo('screen-setup','navHome')">
+      <span class="nav-icon">🏠</span> Accueil
+    </button>
+    <button class="nav-link" id="navDash" onclick="navTo('screen-dash','navDash');showDash()">
+      <span class="nav-icon">📊</span> Tableau de bord
+    </button>
+    <button class="nav-link" id="navPricing" onclick="navTo('screen-pricing','navPricing')">
+      <span class="nav-icon">⭐</span> Premium
+    </button>
   </div>
-</header>
-
-<nav>
-  <div class="nav-inner">
-    <button class="nav-btn active" onclick="showSubject('maths')">📐 Mathématiques</button>
-    <button class="nav-btn" onclick="showSubject('francais')">📖 Français</button>
-    <button class="nav-btn" onclick="showSubject('histoire')">🌍 Histoire-Géo</button>
-    <button class="nav-btn" onclick="showSubject('svt')">🔬 SVT</button>
+  <div class="nav-right">
+    <span class="nav-free-badge" id="navFreeBadge">Gratuit · 3/3</span>
+    <span class="nav-premium-badge hidden" id="navPremiumBadge">✦ Premium</span>
+    <button class="btn-upgrade-nav" id="btnUpgradeNav" onclick="navTo('screen-pricing','navPricing')">Passer Premium</button>
   </div>
 </nav>
 
-<main>
-
-  <!-- ===== MATHÉMATIQUES ===== -->
-  <div class="subject active" id="maths">
-    <div class="subject-header">
+<!-- ════════════ SCREEN 0 — SETUP ════════════ -->
+<div class="screen active" id="screen-setup">
+  <div class="setup-hero">
+    <div class="setup-hero-inner">
       <div>
-        <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(26,18,8,.45);margin-bottom:6px">Épreuve n°1</div>
-        <div class="subject-title">Mathématiques</div>
-      </div>
-      <div class="subject-info">
-        Durée : <strong>2h00</strong>
-        Points : <strong>100 pts</strong>
-      </div>
-    </div>
-
-    <div class="intro-card">
-      <strong>Consignes :</strong> L'usage de la calculatrice est autorisé. Pour chaque question, la démarche est valorisée même si le résultat est incorrect. Les réponses doivent être rédigées de manière claire et soignée.
-    </div>
-
-    <!-- Exercice 1 -->
-    <div class="exercise">
-      <div class="exercise-head">
-        <div>
-          <div class="exercise-number">Exercice 1</div>
-          <div class="exercise-title">Calcul et proportionnalité</div>
-        </div>
-        <div class="pts-badge">20 pts</div>
-      </div>
-      <div class="exercise-body">
-        <p>Un boulanger prépare des gâteaux pour un événement. Pour réaliser 12 gâteaux, il a besoin de :</p>
-        <table>
-          <tr><th>Ingrédient</th><th>Quantité (12 gâteaux)</th></tr>
-          <tr><td>Farine</td><td>720 g</td></tr>
-          <tr><td>Sucre</td><td>360 g</td></tr>
-          <tr><td>Œufs</td><td>6</td></tr>
-          <tr><td>Beurre</td><td>240 g</td></tr>
-        </table>
-
-        <div class="question">
-          <div class="question-num">Question 1.1 <span class="score-chip">5 pts</span></div>
-          <p>Le boulanger souhaite réaliser <strong>30 gâteaux</strong>. Quelles quantités d'ingrédients doit-il utiliser ? Justifiez vos calculs.</p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 1.2 <span class="score-chip">5 pts</span></div>
-          <p>Le boulanger vend chaque gâteau <strong>4,50 €</strong>. Il a dépensé <strong>38,40 €</strong> d'ingrédients pour les 30 gâteaux. Calculez son bénéfice total.</p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 1.3 <span class="score-chip">10 pts</span></div>
-          <p>Exprimer en pourcentage la marge bénéficiaire du boulanger (bénéfice rapporté au coût total). Arrondir à l'unité.</p>
-        </div>
-
-        <div class="correction-toggle">
-          <button class="btn-correction" onclick="toggleCorrection('c1')">▶ Voir la correction</button>
-          <span class="correction-hint">Cliquez pour révéler les réponses</span>
-        </div>
-
-        <div class="correction-panel" id="c1">
-          <div class="correction-label">Correction officielle</div>
-
-          <p><strong>1.1 — Quantités pour 30 gâteaux</strong></p>
-          <p>Coefficient multiplicateur : <span class="formula">30 ÷ 12 = 2,5</span></p>
-          <p>• Farine : <span class="ans">720 × 2,5 = 1 800 g</span></p>
-          <p>• Sucre : <span class="ans">360 × 2,5 = 900 g</span></p>
-          <p>• Œufs : <span class="ans">6 × 2,5 = 15 œufs</span></p>
-          <p>• Beurre : <span class="ans">240 × 2,5 = 600 g</span></p>
-
-          <p style="margin-top:14px"><strong>1.2 — Bénéfice total</strong></p>
-          <p>Recettes : <span class="formula">30 × 4,50 = 135 €</span></p>
-          <p>Bénéfice : <span class="formula">135 − 38,40 = <span class="ans">96,60 €</span></span></p>
-
-          <p style="margin-top:14px"><strong>1.3 — Marge bénéficiaire</strong></p>
-          <p><span class="formula">96,60 ÷ 38,40 × 100 ≈ <span class="ans">251 %</span></span></p>
+        <div class="header-badge">Mathématiques · DNB</div>
+        <h1><em>Brevet</em> Blanc</h1>
+        <div class="setup-hero-sub">
+          <span>Exercices aléatoires issus des vrais sujets</span>
+          <span>Correction IA instantanée</span>
+          <span>Suivi de progression</span>
         </div>
       </div>
-    </div>
-
-    <!-- Exercice 2 -->
-    <div class="exercise">
-      <div class="exercise-head">
-        <div>
-          <div class="exercise-number">Exercice 2</div>
-          <div class="exercise-title">Géométrie — Théorème de Pythagore</div>
-        </div>
-        <div class="pts-badge">25 pts</div>
-      </div>
-      <div class="exercise-body">
-        <p>On considère le triangle ABC rectangle en B, avec <strong>AB = 6 cm</strong> et <strong>BC = 8 cm</strong>.</p>
-
-        <div class="figure-box">
-          <svg class="geo-svg" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-            <rect width="300" height="200" fill="#f2ead8"/>
-            <!-- Triangle -->
-            <polygon points="50,160 50,50 230,160" fill="rgba(26,58,107,0.07)" stroke="#1a3a6b" stroke-width="2"/>
-            <!-- Right angle mark -->
-            <path d="M50,140 L70,140 L70,160" fill="none" stroke="#1a3a6b" stroke-width="1.5"/>
-            <!-- Labels -->
-            <text x="35" y="110" font-family="Georgia,serif" font-style="italic" font-size="14" fill="#1a3a6b">A</text>
-            <text x="35" y="172" font-family="Georgia,serif" font-style="italic" font-size="14" fill="#1a3a6b">B</text>
-            <text x="235" y="172" font-family="Georgia,serif" font-style="italic" font-size="14" fill="#1a3a6b">C</text>
-            <!-- Lengths -->
-            <text x="20" y="115" font-family="Georgia,serif" font-size="12" fill="#b8870a">6 cm</text>
-            <text x="120" y="180" font-family="Georgia,serif" font-size="12" fill="#b8870a">8 cm</text>
-            <text x="140" y="100" font-family="Georgia,serif" font-size="12" fill="#c0392b" font-weight="bold">AC = ?</text>
-          </svg>
-          <div class="figure-caption">Figure — Triangle ABC rectangle en B (non à l'échelle)</div>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 2.1 <span class="score-chip">10 pts</span></div>
-          <p>En appliquant le théorème de Pythagore, calculez la longueur AC. Donnez le résultat exact puis la valeur arrondie au centième.</p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 2.2 <span class="score-chip">8 pts</span></div>
-          <p>Calculez l'aire du triangle ABC.</p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 2.3 <span class="score-chip">7 pts</span></div>
-          <p>M est le milieu de AC. Calculez la longueur BM en utilisant la propriété de la médiane dans un triangle rectangle.</p>
-        </div>
-
-        <div class="correction-toggle">
-          <button class="btn-correction" onclick="toggleCorrection('c2')">▶ Voir la correction</button>
-        </div>
-
-        <div class="correction-panel" id="c2">
-          <div class="correction-label">Correction officielle</div>
-
-          <p><strong>2.1 — Longueur AC</strong></p>
-          <p>Le triangle ABC est rectangle en B, donc d'après le théorème de Pythagore :</p>
-          <p><span class="formula">AC² = AB² + BC²</span></p>
-          <p><span class="formula">AC² = 6² + 8² = 36 + 64 = 100</span></p>
-          <p><span class="ans">AC = √100 = 10 cm</span> (valeur exacte et arrondie)</p>
-
-          <p style="margin-top:14px"><strong>2.2 — Aire du triangle</strong></p>
-          <p><span class="formula">Aire = (base × hauteur) ÷ 2 = (8 × 6) ÷ 2 = <span class="ans">24 cm²</span></span></p>
-
-          <p style="margin-top:14px"><strong>2.3 — Longueur BM</strong></p>
-          <p>Dans un triangle rectangle, la médiane issue du sommet de l'angle droit est égale à la moitié de l'hypoténuse :</p>
-          <p><span class="formula">BM = AC ÷ 2 = 10 ÷ 2 = <span class="ans">5 cm</span></span></p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Exercice 3 -->
-    <div class="exercise">
-      <div class="exercise-head">
-        <div>
-          <div class="exercise-number">Exercice 3</div>
-          <div class="exercise-title">Statistiques et probabilités</div>
-        </div>
-        <div class="pts-badge">30 pts</div>
-      </div>
-      <div class="exercise-body">
-        <p>Les notes obtenues par 20 élèves lors d'un contrôle de mathématiques sont :</p>
-        <p style="font-family:'Courier New',monospace; background:var(--paper); padding:12px 16px; border-radius:3px; font-size:14px; letter-spacing:1px;">
-          8 — 12 — 15 — 9 — 13 — 7 — 18 — 11 — 14 — 10<br>
-          16 — 8 — 12 — 14 — 9 — 17 — 11 — 13 — 15 — 10
-        </p>
-
-        <div class="question">
-          <div class="question-num">Question 3.1 <span class="score-chip">10 pts</span></div>
-          <p>Calculez la <strong>moyenne</strong>, la <strong>médiane</strong> et les <strong>quartiles Q1 et Q3</strong> de cette série statistique.</p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 3.2 <span class="score-chip">10 pts</span></div>
-          <p>On tire au hasard la copie d'un élève. Quelle est la probabilité que sa note soit supérieure ou égale à 14 ?</p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 3.3 <span class="score-chip">10 pts</span></div>
-          <p>Représentez les données sous forme de boîte à moustaches (décrivez les cinq valeurs : min, Q1, médiane, Q3, max).</p>
-        </div>
-
-        <div class="correction-toggle">
-          <button class="btn-correction" onclick="toggleCorrection('c3')">▶ Voir la correction</button>
-        </div>
-
-        <div class="correction-panel" id="c3">
-          <div class="correction-label">Correction officielle</div>
-
-          <p><strong>3.1 — Indicateurs statistiques</strong></p>
-          <p>Données triées : <span class="formula">7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 17, 18</span></p>
-          <p>Somme des notes : <span class="formula">7+8+8+9+9+10+10+11+11+12+12+13+13+14+14+15+15+16+17+18 = 242</span></p>
-          <p>Moyenne : <span class="formula">242 ÷ 20 = <span class="ans">12,1</span></span></p>
-          <p>Médiane (entre le 10e et 11e) : <span class="formula">(12 + 12) ÷ 2 = <span class="ans">12</span></span></p>
-          <p>Q1 (médiane des 10 premières valeurs, entre 5e et 6e) : <span class="formula">(9 + 10) ÷ 2 = <span class="ans">9,5</span></span></p>
-          <p>Q3 (médiane des 10 dernières valeurs, entre 15e et 16e) : <span class="formula">(14 + 15) ÷ 2 = <span class="ans">14,5</span></span></p>
-
-          <p style="margin-top:14px"><strong>3.2 — Probabilité (note ≥ 14)</strong></p>
-          <p>Notes ≥ 14 : 14, 14, 15, 15, 16, 17, 18 → <strong>7 élèves</strong></p>
-          <p>Probabilité : <span class="formula">7 ÷ 20 = <span class="ans">0,35 = 35%</span></span></p>
-
-          <p style="margin-top:14px"><strong>3.3 — Boîte à moustaches</strong></p>
-          <p>Les cinq valeurs résumées :</p>
-          <p>• Minimum : <span class="ans">7</span> &nbsp;|&nbsp; Q1 : <span class="ans">9,5</span> &nbsp;|&nbsp; Médiane : <span class="ans">12</span> &nbsp;|&nbsp; Q3 : <span class="ans">14,5</span> &nbsp;|&nbsp; Maximum : <span class="ans">18</span></p>
-          <svg viewBox="0 0 500 80" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px;margin-top:10px">
-            <rect width="500" height="80" fill="transparent"/>
-            <!-- Axis -->
-            <line x1="30" y1="55" x2="480" y2="55" stroke="#c8b890" stroke-width="1"/>
-            <!-- Ticks -->
-            <line x1="74" y1="50" x2="74" y2="60" stroke="#1a1208" stroke-width="1.5"/>
-            <line x1="198" y1="50" x2="198" y2="60" stroke="#1a1208" stroke-width="1.5"/>
-            <line x1="262" y1="50" x2="262" y2="60" stroke="#1a1208" stroke-width="1.5"/>
-            <line x1="358" y1="50" x2="358" y2="60" stroke="#1a1208" stroke-width="1.5"/>
-            <line x1="420" y1="50" x2="420" y2="60" stroke="#1a1208" stroke-width="1.5"/>
-            <!-- Box -->
-            <rect x="198" y="30" width="160" height="24" fill="rgba(26,58,107,0.12)" stroke="#1a3a6b" stroke-width="2"/>
-            <!-- Median line -->
-            <line x1="262" y1="30" x2="262" y2="54" stroke="#c0392b" stroke-width="2.5"/>
-            <!-- Whiskers -->
-            <line x1="74" y1="42" x2="198" y2="42" stroke="#1a3a6b" stroke-width="1.5" stroke-dasharray="4,2"/>
-            <line x1="358" y1="42" x2="420" y2="42" stroke="#1a3a6b" stroke-width="1.5" stroke-dasharray="4,2"/>
-            <!-- Labels -->
-            <text x="74" y="72" text-anchor="middle" font-size="10" fill="#1a1208">7</text>
-            <text x="198" y="72" text-anchor="middle" font-size="10" fill="#1a1208">9,5</text>
-            <text x="262" y="72" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="bold">12</text>
-            <text x="358" y="72" text-anchor="middle" font-size="10" fill="#1a1208">14,5</text>
-            <text x="420" y="72" text-anchor="middle" font-size="10" fill="#1a1208">18</text>
-          </svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- Exercice 4 -->
-    <div class="exercise">
-      <div class="exercise-head">
-        <div>
-          <div class="exercise-number">Exercice 4</div>
-          <div class="exercise-title">Algèbre — Équations et fonctions</div>
-        </div>
-        <div class="pts-badge">25 pts</div>
-      </div>
-      <div class="exercise-body">
-        <div class="question">
-          <div class="question-num">Question 4.1 <span class="score-chip">10 pts</span></div>
-          <p>Résoudre les équations suivantes :<br>
-          a) <span class="formula">3x + 7 = 22</span><br>
-          b) <span class="formula">2(x − 4) = 3x + 1</span>
-          </p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 4.2 <span class="score-chip">15 pts</span></div>
-          <p>On considère la fonction f définie par <span class="formula">f(x) = 2x − 3</span>.<br>
-          a) Calculez f(0), f(3) et f(−1).<br>
-          b) Pour quelle valeur de x a-t-on f(x) = 7 ?<br>
-          c) Tracez le représentation graphique de f (décrire les points clés).</p>
-        </div>
-
-        <div class="correction-toggle">
-          <button class="btn-correction" onclick="toggleCorrection('c4')">▶ Voir la correction</button>
-        </div>
-
-        <div class="correction-panel" id="c4">
-          <div class="correction-label">Correction officielle</div>
-
-          <p><strong>4.1a — 3x + 7 = 22</strong></p>
-          <p><span class="formula">3x = 22 − 7 = 15</span> &nbsp;→&nbsp; <span class="ans">x = 5</span></p>
-
-          <p style="margin-top:12px"><strong>4.1b — 2(x − 4) = 3x + 1</strong></p>
-          <p><span class="formula">2x − 8 = 3x + 1</span></p>
-          <p><span class="formula">2x − 3x = 1 + 8</span></p>
-          <p><span class="formula">−x = 9</span> &nbsp;→&nbsp; <span class="ans">x = −9</span></p>
-
-          <p style="margin-top:14px"><strong>4.2a — Calculs d'images</strong></p>
-          <p>• f(0) = 2(0) − 3 = <span class="ans">−3</span></p>
-          <p>• f(3) = 2(3) − 3 = 6 − 3 = <span class="ans">3</span></p>
-          <p>• f(−1) = 2(−1) − 3 = −2 − 3 = <span class="ans">−5</span></p>
-
-          <p style="margin-top:14px"><strong>4.2b — Antécédent de 7</strong></p>
-          <p><span class="formula">2x − 3 = 7 → 2x = 10 → <span class="ans">x = 5</span></span></p>
-
-          <p style="margin-top:14px"><strong>4.2c — Représentation graphique</strong></p>
-          <p>f est une fonction affine (droite). Points clés : A(0 ; −3) et B(5 ; 7). La droite passe par l'ordonnée à l'origine −3 avec une pente (coefficient directeur) de 2.</p>
-        </div>
+      <div class="hero-stats">
+        <div class="stat-box"><div class="val">100</div><div class="lbl">Points</div></div>
+        <div class="stat-box"><div class="val" id="setupTimerVal">2h</div><div class="lbl">Durée</div></div>
       </div>
     </div>
   </div>
 
-  <!-- ===== FRANÇAIS ===== -->
-  <div class="subject" id="francais">
-    <div class="subject-header">
+  <div class="setup-body">
+
+    <!-- Free usage bar -->
+    <div class="free-usage-bar" id="freeUsageBar">
       <div>
-        <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(26,18,8,.45);margin-bottom:6px">Épreuve n°2</div>
-        <div class="subject-title">Français</div>
+        <div class="fub-text" id="fubText"><strong>3 brevets gratuits</strong> disponibles aujourd'hui</div>
+        <div style="font-size:11px;color:var(--ink4);margin-top:2px;font-style:italic">Passez Premium pour un accès illimité</div>
       </div>
-      <div class="subject-info">
-        Durée : <strong>3h00</strong>
-        Points : <strong>100 pts</strong>
+      <div class="fub-dots" id="fubDots">
+        <div class="fub-dot"></div><div class="fub-dot"></div><div class="fub-dot"></div>
+      </div>
+      <button class="btn-upgrade-upsell" onclick="navTo('screen-pricing','navPricing')" style="font-size:12px;padding:7px 16px">Voir Premium →</button>
+    </div>
+
+    <div class="setup-section">
+      <div class="section-rule">Durée de l'épreuve</div>
+      <div class="timer-row" id="timerRow">
+        <div class="timer-chip selected" data-min="120" onclick="selectTimer(this)">2h — Durée réelle</div>
+        <div class="timer-chip" data-min="60" onclick="selectTimer(this)">1 heure</div>
+        <div class="timer-chip" data-min="30" onclick="selectTimer(this)">30 min</div>
+        <div class="timer-chip" data-min="10" onclick="selectTimer(this)">10 min</div>
+        <div class="timer-chip" data-min="5" onclick="selectTimer(this)">5 min</div>
       </div>
     </div>
 
-    <div class="intro-card">
-      <strong>Consignes :</strong> Le dictionnaire n'est pas autorisé. Les copies seront évaluées en tenant compte de la qualité de l'expression (orthographe, syntaxe, richesse du vocabulaire).
+    <div class="setup-section">
+      <div class="section-rule">Notions à travailler</div>
+      <div class="chapter-grid" id="chapterGrid">
+        <div class="chapter-chip selected" data-id="all" onclick="toggleChap(this)">
+          <div class="ch-check">✓</div>
+          <div><div class="ch-name">Toutes les notions</div><div class="ch-sub">Sujet complet type brevet</div></div>
+        </div>
+        <div class="chapter-chip" data-id="probabilites" onclick="toggleChap(this)">
+          <div class="ch-check"></div>
+          <div><div class="ch-name">Probabilités</div><div class="ch-sub">Fréquences, événements</div></div>
+        </div>
+        <div class="chapter-chip" data-id="proportionnalite" onclick="toggleChap(this)">
+          <div class="ch-check"></div>
+          <div><div class="ch-name">Proportionnalité</div><div class="ch-sub">Coefficients, pourcentages</div></div>
+        </div>
+        <div class="chapter-chip" data-id="statistiques" onclick="toggleChap(this)">
+          <div class="ch-check"></div>
+          <div><div class="ch-name">Statistiques</div><div class="ch-sub">Moyenne, médiane, quartiles</div></div>
+        </div>
+        <div class="chapter-chip" data-id="geometrie" onclick="toggleChap(this)">
+          <div class="ch-check"></div>
+          <div><div class="ch-name">Géométrie</div><div class="ch-sub">Pythagore, trigonométrie</div></div>
+        </div>
+        <div class="chapter-chip" data-id="algebre" onclick="toggleChap(this)">
+          <div class="ch-check"></div>
+          <div><div class="ch-name">Algèbre</div><div class="ch-sub">Équations, fonctions affines</div></div>
+        </div>
+        <div class="chapter-chip locked" data-id="puissances" onclick="promptUpgrade(this)">
+          <div class="ch-check"></div>
+          <div><div class="ch-name">Puissances & fractions</div><div class="ch-sub">Notation scientifique</div></div>
+          <em class="lock-icon">✦ Pro</em>
+        </div>
+        <div class="chapter-chip locked" data-id="pgcd" onclick="promptUpgrade(this)">
+          <div class="ch-check"></div>
+          <div><div class="ch-name">Arithmétique</div><div class="ch-sub">PGCD, facteurs premiers</div></div>
+          <em class="lock-icon">✦ Pro</em>
+        </div>
+        <div class="chapter-chip locked" data-id="programmation" onclick="promptUpgrade(this)">
+          <div class="ch-check"></div>
+          <div><div class="ch-name">Algorithmique</div><div class="ch-sub">Programmes de calcul</div></div>
+          <em class="lock-icon">✦ Pro</em>
+        </div>
+        <div class="chapter-chip locked" data-id="volumes" onclick="promptUpgrade(this)">
+          <div class="ch-check"></div>
+          <div><div class="ch-name">Volumes & grandeurs</div><div class="ch-sub">Pavés, cylindres</div></div>
+          <em class="lock-icon">✦ Pro</em>
+        </div>
+      </div>
     </div>
 
-    <!-- Exercice 1 - Lecture -->
-    <div class="exercise" style="border-left-color: #c0392b">
-      <div class="exercise-head">
+    <div class="setup-cta">
+      <button class="btn-primary" id="btnStartExam" onclick="startExam()" style="font-size:15px;padding:13px 32px">Générer mon brevet blanc →</button>
+      <span style="font-size:13px;font-style:italic;color:var(--ink4)" id="freeRemainingHint"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ SCREEN 1 — EXAM ════════════ -->
+<div class="screen" id="screen-exam">
+  <div class="exam-topbar">
+    <div class="exam-topbar-inner">
+      <div>
+        <div class="exam-title">Brevet Blanc — Mathématiques</div>
+        <div class="exam-subtitle" id="examSubtitle">Chargement…</div>
+      </div>
+      <div class="timer-block">
         <div>
-          <div class="exercise-number">Partie I</div>
-          <div class="exercise-title">Questions sur le texte</div>
+          <div class="timer-face" id="timerFace">02:00:00</div>
+          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.3);text-align:center">Temps</div>
         </div>
-        <div class="pts-badge">40 pts</div>
-      </div>
-      <div class="exercise-body">
-        <div style="padding: 18px 22px; background: var(--paper); border: 1px solid var(--border); border-radius: 4px; margin-bottom: 20px; font-style: italic; line-height: 2;">
-          <p style="font-size: 13px; letter-spacing: 1px; text-transform: uppercase; font-style: normal; font-weight: 600; margin-bottom: 14px; color: var(--red);">Texte — Victor Hugo, <em>Les Misérables</em> (1862), extrait</p>
-          <p>« Il était une fois un homme qui s'appelait Jean Valjean. Cet homme était sorti du bagne ; il avait passé dix-neuf ans aux galères. À sa sortie, on lui avait remis un passeport jaune. Ce passeport jaune, c'était son bagne extérieur. Il portait partout la marque de sa honte. »</p>
+        <div class="live-score-box">
+          <div class="live-score-num" id="liveScore">0</div>
+          <div class="live-score-lbl">pts</div>
         </div>
-
-        <div class="question">
-          <div class="question-num">Question 1 <span class="score-chip">10 pts</span></div>
-          <p>Identifiez le narrateur de cet extrait. Quel est le mode de narration utilisé ?</p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 2 <span class="score-chip">10 pts</span></div>
-          <p>Quelle est la valeur de l'imparfait dans « Il était » et « il avait passé » ? Justifiez avec des exemples.</p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 3 <span class="score-chip">10 pts</span></div>
-          <p>Expliquez la métaphore « Ce passeport jaune, c'était son bagne extérieur ». Quels effets produit-elle ?</p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 4 <span class="score-chip">10 pts</span></div>
-          <p>Comment l'auteur exprime-t-il la stigmatisation sociale du personnage dans cet extrait ? Relevez et analysez deux procédés littéraires.</p>
-        </div>
-
-        <div class="correction-toggle">
-          <button class="btn-correction" onclick="toggleCorrection('cf1')">▶ Voir la correction</button>
-        </div>
-
-        <div class="correction-panel" id="cf1">
-          <div class="correction-label">Correction officielle</div>
-
-          <p><strong>Question 1 — Le narrateur</strong></p>
-          <p>Le narrateur est <span class="ans">omniscient et externe</span> : il emploie la 3e personne du singulier (« il s'appelait ») et connaît la biographie complète du personnage. Il s'agit d'une narration <span class="ans">hétérodiégétique</span> (le narrateur n'est pas personnage de l'histoire).</p>
-
-          <p style="margin-top:12px"><strong>Question 2 — Valeur de l'imparfait</strong></p>
-          <p>L'imparfait d'arrière-plan (ou descriptif) est utilisé pour <span class="ans">présenter la situation initiale</span> et le passé du personnage. Il exprime une action ou un état passé sans limite précise dans le temps. Ex : « était » = état permanent, « avait passé » = durée longue.</p>
-
-          <p style="margin-top:12px"><strong>Question 3 — La métaphore</strong></p>
-          <p>La métaphore compare le passeport jaune à un « bagne extérieur » : Jean Valjean est sorti de prison physiquement mais porte une <span class="ans">prison sociale et morale</span>. Cette image montre que la société l'exclut autant que le système pénal. Elle produit un effet de pitié (pathétique) et de dénonciation.</p>
-
-          <p style="margin-top:12px"><strong>Question 4 — La stigmatisation sociale</strong></p>
-          <p>Procédé 1 — La <span class="ans">répétition</span> : « passeport jaune » répété deux fois insiste sur le caractère infamant et inévitable de ce document.</p>
-          <p>Procédé 2 — La <span class="ans">métonymie</span> : le passeport représente toute la société qui juge et exclut Valjean. L'objet symbolise le regard collectif oppressant.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Exercice 2 - Réécriture -->
-    <div class="exercise" style="border-left-color: #c0392b">
-      <div class="exercise-head">
-        <div>
-          <div class="exercise-number">Partie II</div>
-          <div class="exercise-title">Réécriture</div>
-        </div>
-        <div class="pts-badge">20 pts</div>
-      </div>
-      <div class="exercise-body">
-        <div class="question">
-          <div class="question-num">Exercice <span class="score-chip">20 pts</span></div>
-          <p>Réécrivez le passage suivant en remplaçant « Jean Valjean » par « Marie et Sophie » et en faisant les accords nécessaires :<br><br>
-          <em>« Il était sorti du bagne. Il portait un passeport. Sa honte l'avait marqué pour toujours. »</em></p>
-        </div>
-
-        <div class="correction-toggle">
-          <button class="btn-correction" onclick="toggleCorrection('cf2')">▶ Voir la correction</button>
-        </div>
-
-        <div class="correction-panel" id="cf2">
-          <div class="correction-label">Correction officielle</div>
-          <p><strong>Texte réécrit :</strong></p>
-          <p>« <span class="ans">Elles étaient sorties</span> du bagne. <span class="ans">Elles portaient</span> un passeport. <span class="ans">Leur</span> honte <span class="ans">les</span> avait <span class="ans">marquées</span> pour toujours. »</p>
-          <p style="margin-top:12px">Points de vigilance :<br>
-          • Pronom : il → <span class="ans">elles</span><br>
-          • Participe passé accordé avec le sujet féminin pluriel : sorti → <span class="ans">sorties</span>, marqué → <span class="ans">marquées</span><br>
-          • Possessif : sa → <span class="ans">leur</span>; COD : l' → <span class="ans">les</span></p>
-        </div>
+        <button class="btn-end" onclick="endEarly()">Terminer</button>
       </div>
     </div>
   </div>
-
-  <!-- ===== HISTOIRE-GÉO ===== -->
-  <div class="subject" id="histoire">
-    <div class="subject-header">
+  <div class="pills-nav"><div class="pills-nav-inner" id="pillsNav"></div></div>
+  <div class="exam-main">
+    <div class="loading-box" id="loadingBox"><div class="spinner"></div><p>Génération des exercices…</p></div>
+    <div id="exContainer"></div>
+    <div class="footer-strip" id="examFooter" style="display:none">
       <div>
-        <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(26,18,8,.45);margin-bottom:6px">Épreuve n°3</div>
-        <div class="subject-title">Histoire — Géographie<br>EMC</div>
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);font-weight:600;margin-bottom:4px">Total provisoire</div>
+        <p>Validez vos réponses pour calculer votre score</p>
       </div>
-      <div class="subject-info">
-        Durée : <strong>2h00</strong>
-        Points : <strong>100 pts</strong>
-      </div>
+      <div class="footer-total"><span id="footerScore">0</span><sub> /100</sub></div>
     </div>
+  </div>
+</div>
 
-    <div class="exercise" style="border-left-color: #b8870a">
-      <div class="exercise-head">
-        <div>
-          <div class="exercise-number">Partie Histoire</div>
-          <div class="exercise-title">La Seconde Guerre mondiale</div>
-        </div>
-        <div class="pts-badge">35 pts</div>
+<!-- ════════════ SCREEN 2 — RESULTS ════════════ -->
+<div class="screen" id="screen-results">
+  <div class="results-banner">
+    <div class="results-inner">
+      <div>
+        <div class="results-eyebrow">Résultats · Brevet Blanc</div>
+        <div class="results-score" id="resScore">0 <span>/ 100</span></div>
+        <div class="results-mention" id="resMention"></div>
+        <div class="results-bar-wrap"><div class="results-bar" id="resBar" style="width:0%"></div></div>
       </div>
-      <div class="exercise-body">
-        <div class="question">
-          <div class="question-num">Question 1 <span class="score-chip">15 pts</span></div>
-          <p>Expliquez les causes principales de la Seconde Guerre mondiale (1939–1945). Vous mentionnerez au moins trois facteurs.</p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 2 <span class="score-chip">20 pts</span></div>
-          <p>Décrivez les grandes étapes de la Seconde Guerre mondiale. Vous structurerez votre réponse en plusieurs phases chronologiques.</p>
-        </div>
-
-        <div class="correction-toggle">
-          <button class="btn-correction" onclick="toggleCorrection('ch1')">▶ Voir la correction</button>
-        </div>
-
-        <div class="correction-panel" id="ch1">
-          <div class="correction-label">Correction officielle</div>
-
-          <p><strong>Question 1 — Causes de la 2GM</strong></p>
-          <p><span class="ans">1. La montée des totalitarismes :</span> Hitler (Allemagne nazie, 1933) et Mussolini (Italie fasciste) prônent l'expansionnisme et le nationalisme agressif.</p>
-          <p><span class="ans">2. Les humiliations du traité de Versailles (1919) :</span> l'Allemagne perd des territoires, doit payer d'énormes réparations — nourrissant un fort sentiment de revanche.</p>
-          <p><span class="ans">3. La politique d'apaisement des démocraties :</span> Angleterre et France acceptent les conquêtes d'Hitler (Accords de Munich, 1938) par peur d'une guerre.</p>
-          <p><span class="ans">4. La crise économique de 1929 :</span> le chômage et la misère favorisent l'extrémisme politique.</p>
-
-          <p style="margin-top:14px"><strong>Question 2 — Grandes étapes</strong></p>
-          <p><strong>Phase 1 (1939–1941) — Victoires de l'Axe :</strong> invasion de la Pologne (1er sept. 1939), chute de la France (juin 1940), Bataille d'Angleterre, opération Barbarossa (invasion de l'URSS, juin 1941).</p>
-          <p><strong>Phase 2 (1941–1943) — Tournant de la guerre :</strong> entrée en guerre des USA après Pearl Harbor (déc. 1941), batailles de Stalingrad (1942–43) et d'El-Alamein — premiers revers de l'Axe.</p>
-          <p><strong>Phase 3 (1943–1945) — Victoire des Alliés :</strong> débarquement en Normandie (6 juin 1944), libération de Paris, capitulation de l'Allemagne (8 mai 1945) puis du Japon (2 sept. 1945).</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="exercise" style="border-left-color: #b8870a">
-      <div class="exercise-head">
-        <div>
-          <div class="exercise-number">Partie Géographie</div>
-          <div class="exercise-title">Les mobilités humaines</div>
-        </div>
-        <div class="pts-badge">35 pts</div>
-      </div>
-      <div class="exercise-body">
-        <div class="question">
-          <div class="question-num">Question 1 <span class="score-chip">20 pts</span></div>
-          <p>Définissez les termes suivants et illustrez chacun par un exemple : <strong>migration</strong>, <strong>réfugié</strong>, <strong>diaspora</strong>.</p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 2 <span class="score-chip">15 pts</span></div>
-          <p>Quelles sont les principales causes et conséquences des migrations internationales aujourd'hui ?</p>
-        </div>
-
-        <div class="correction-toggle">
-          <button class="btn-correction" onclick="toggleCorrection('ch2')">▶ Voir la correction</button>
-        </div>
-
-        <div class="correction-panel" id="ch2">
-          <div class="correction-label">Correction officielle</div>
-
-          <p><strong>Question 1 — Définitions</strong></p>
-          <p><span class="ans">Migration :</span> déplacement d'une personne ou d'un groupe d'un lieu à un autre avec changement de résidence. Ex : travailleurs mexicains aux États-Unis.</p>
-          <p><span class="ans">Réfugié :</span> personne contrainte de fuir son pays en raison de persécutions, conflits ou catastrophes. Statut juridique reconnu par la Convention de Genève (1951). Ex : réfugiés syriens en Europe depuis 2015.</p>
-          <p><span class="ans">Diaspora :</span> communauté dispersée à travers le monde, maintenant des liens culturels et identitaires avec sa terre d'origine. Ex : diaspora indienne présente dans plus de 70 pays.</p>
-
-          <p style="margin-top:14px"><strong>Question 2 — Causes et conséquences</strong></p>
-          <p><span class="ans">Causes :</span> économiques (pauvreté, chômage), politiques (guerres, persécutions), environnementales (catastrophes, changement climatique), familiales (regroupement).</p>
-          <p><span class="ans">Conséquences pour les pays d'origine :</span> « fuite des cerveaux » mais aussi envoi de remises migratoires (argent envoyé à la famille).</p>
-          <p><span class="ans">Conséquences pour les pays d'accueil :</span> vieillissement démographique compensé, enrichissement culturel, mais aussi tensions sociales et politiques possibles.</p>
-        </div>
+      <div class="results-detail">
+        <div class="res-stat"><div class="val" id="resCorrect">0</div><div class="lbl">Correctes</div></div>
+        <div class="res-stat"><div class="val" id="resPartial">0</div><div class="lbl">Partielles</div></div>
+        <div class="res-stat"><div class="val" id="resWrong">0</div><div class="lbl">Incorrectes</div></div>
       </div>
     </div>
   </div>
+  <div class="results-body">
+    <div>
+      <div class="section-rule">Par notion</div>
+      <div id="resByNotion"></div>
+    </div>
+    <div>
+      <div class="section-rule">Points à retravailler</div>
+      <div id="resErrors"></div>
+    </div>
+    <div class="results-cta">
+      <button class="btn-primary" onclick="navTo('screen-setup','navHome')" style="font-size:14px;padding:12px 28px">↺ Nouveau brevet</button>
+      <button class="btn-secondary" onclick="navTo('screen-dash','navDash');showDash()">📊 Tableau de bord</button>
+    </div>
+  </div>
+</div>
 
-  <!-- ===== SVT ===== -->
-  <div class="subject" id="svt">
-    <div class="subject-header">
-      <div>
-        <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(26,18,8,.45);margin-bottom:6px">Épreuve n°4</div>
-        <div class="subject-title">Sciences de la Vie<br>et de la Terre</div>
+<!-- ════════════ SCREEN 3 — DASHBOARD ════════════ -->
+<div class="screen" id="screen-dash">
+  <div class="dash-banner">
+    <div class="dash-banner-inner">
+      <h2>Tableau de <em>bord</em></h2>
+      <p>Votre historique complet et analyse de progression</p>
+    </div>
+  </div>
+  <div class="dash-body">
+    <!-- Premium upsell -->
+    <div class="dash-upsell" id="dashUpsell">
+      <div class="dash-upsell-text" style="flex:1">
+        <h3>✦ Débloquez l'analyse complète</h3>
+        <p>Historique illimité, graphiques de progression, analyse par notion et recommandations personnalisées.</p>
       </div>
-      <div class="subject-info">
-        Durée : <strong>1h30</strong>
-        Points : <strong>50 pts</strong>
+      <button class="btn-upgrade-upsell" onclick="navTo('screen-pricing','navPricing')">Passer Premium →</button>
+    </div>
+    <div class="stat-row" id="dashStats"></div>
+    <!-- Score chart -->
+    <div class="score-chart" id="scoreChart" style="display:none">
+      <div class="section-rule">Progression des scores</div>
+      <div class="chart-wrap" id="chartWrap"></div>
+    </div>
+    <div class="dash-grid" id="dashGrid"></div>
+  </div>
+</div>
+
+<!-- ════════════ SCREEN 4 — PRICING ════════════ -->
+<div class="screen" id="screen-pricing">
+  <div class="pricing-banner">
+    <div class="pricing-banner-inner">
+      <div class="pricing-eyebrow">✦ Passez à la vitesse supérieure</div>
+      <h2>Préparez votre brevet<br>avec <em>confiance</em></h2>
+      <p>Accès illimité à tous les exercices, correction IA détaillée, suivi de progression complet.</p>
+    </div>
+  </div>
+  <div class="pricing-body">
+
+    <div class="billing-toggle">
+      <span>Mensuel</span>
+      <div class="toggle-switch" id="billingToggle" onclick="toggleBilling()"></div>
+      <span>Annuel</span>
+      <span class="billing-save">−40%</span>
+    </div>
+
+    <div class="plans-grid">
+      <!-- FREE -->
+      <div class="plan-card">
+        <div class="plan-name">Gratuit</div>
+        <div class="plan-desc">Pour découvrir la plateforme</div>
+        <div class="plan-price">
+          <span class="currency">€</span>
+          <span class="amount">0</span>
+          <span class="period">/ mois</span>
+        </div>
+        <div class="plan-price-annual">&nbsp;</div>
+        <ul class="plan-features">
+          <li><span class="fi yes">✓</span> 3 brevets blancs par jour</li>
+          <li><span class="fi yes">✓</span> 6 notions disponibles</li>
+          <li><span class="fi yes">✓</span> Correction IA basique</li>
+          <li class="dim"><span class="fi no">✗</span> Tableau de bord</li>
+          <li class="dim"><span class="fi no">✗</span> Historique illimité</li>
+          <li class="dim"><span class="fi no">✗</span> Toutes les notions</li>
+          <li class="dim"><span class="fi no">✗</span> Analyse par notion</li>
+        </ul>
+        <button class="btn-plan-free" onclick="navTo('screen-setup','navHome')">Continuer gratuitement</button>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="plan-card featured">
+        <div class="plan-badge">Recommandé</div>
+        <div class="plan-name" style="color:var(--premium)">✦ Premium</div>
+        <div class="plan-desc">Pour réussir son brevet</div>
+        <div class="plan-price">
+          <span class="currency" style="color:var(--premium)">€</span>
+          <span class="amount" id="planAmount" style="color:var(--premium)">9</span>
+          <span class="period">/ mois</span>
+        </div>
+        <div class="plan-price-annual" id="planAnnualNote">ou 64,80 € / an (−40%)</div>
+        <ul class="plan-features">
+          <li><span class="fi yes">✓</span><strong>Brevets illimités</strong></li>
+          <li><span class="fi yes">✓</span> Toutes les 10 notions</li>
+          <li><span class="fi yes">✓</span> Correction IA détaillée</li>
+          <li><span class="fi yes">✓</span> Tableau de bord complet</li>
+          <li><span class="fi yes">✓</span> Historique illimité</li>
+          <li><span class="fi yes">✓</span> Graphiques de progression</li>
+          <li><span class="fi yes">✓</span> Analyse des points faibles</li>
+        </ul>
+        <button class="btn-plan-premium" onclick="goCheckout()">Commencer maintenant →</button>
       </div>
     </div>
 
-    <div class="exercise" style="border-left-color: #1d6b3a">
-      <div class="exercise-head">
-        <div>
-          <div class="exercise-number">Exercice 1</div>
-          <div class="exercise-title">La cellule et la division cellulaire</div>
-        </div>
-        <div class="pts-badge">25 pts</div>
-      </div>
-      <div class="exercise-body">
-        <div class="question">
-          <div class="question-num">Question 1.1 <span class="score-chip">8 pts</span></div>
-          <p>Citez et décrivez brièvement les quatre phases de la mitose.</p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 1.2 <span class="score-chip">10 pts</span></div>
-          <p>Quelle est l'importance de la mitose pour un organisme vivant ? Donnez deux rôles biologiques.</p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 1.3 <span class="score-chip">7 pts</span></div>
-          <p>Une cellule somatique humaine contient 46 chromosomes. Combien de chromosomes contiendront les deux cellules filles à l'issue de la mitose ? Justifiez.</p>
-        </div>
-
-        <div class="correction-toggle">
-          <button class="btn-correction" onclick="toggleCorrection('cs1')">▶ Voir la correction</button>
-        </div>
-
-        <div class="correction-panel" id="cs1">
-          <div class="correction-label">Correction officielle</div>
-
-          <p><strong>1.1 — Les quatre phases de la mitose</strong></p>
-          <p><span class="ans">Prophase :</span> condensation des chromosomes, disparition de l'enveloppe nucléaire.</p>
-          <p><span class="ans">Métaphase :</span> alignement des chromosomes au centre de la cellule sur la plaque équatoriale.</p>
-          <p><span class="ans">Anaphase :</span> séparation des chromatides, migration vers les pôles opposés de la cellule.</p>
-          <p><span class="ans">Télophase :</span> reformation des noyaux, division du cytoplasme (cytocinèse) → deux cellules filles.</p>
-
-          <p style="margin-top:14px"><strong>1.2 — Rôles biologiques</strong></p>
-          <p>• <span class="ans">Croissance :</span> multiplication des cellules permettant le développement de l'organisme.</p>
-          <p>• <span class="ans">Remplacement / réparation :</span> renouvellement des cellules usées (peau, cellules sanguines) et cicatrisation.</p>
-
-          <p style="margin-top:14px"><strong>1.3 — Nombre de chromosomes</strong></p>
-          <p>La mitose est une division équationnelle : elle <span class="ans">conserve le nombre de chromosomes</span>. Les deux cellules filles contiennent chacune <span class="ans">46 chromosomes</span>, identiques à la cellule mère.</p>
-        </div>
-      </div>
+    <div class="trust-row">
+      <div class="trust-item"><span>🔒</span> Paiement sécurisé Stripe</div>
+      <div class="trust-item"><span>↩️</span> Remboursement 14 jours</div>
+      <div class="trust-item"><span>❌</span> Sans engagement</div>
+      <div class="trust-item"><span>🎓</span> +2 000 élèves préparés</div>
     </div>
 
-    <div class="exercise" style="border-left-color: #1d6b3a">
-      <div class="exercise-head">
-        <div>
-          <div class="exercise-number">Exercice 2</div>
-          <div class="exercise-title">L'évolution et la classification du vivant</div>
-        </div>
-        <div class="pts-badge">25 pts</div>
+    <div class="faq-section">
+      <div class="section-rule" style="margin-top:36px">Questions fréquentes</div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Puis-je annuler à tout moment ? <span class="arrow">▼</span></div>
+        <div class="faq-a">Oui, vous pouvez annuler votre abonnement à tout moment depuis votre espace personnel. Vous gardez l'accès Premium jusqu'à la fin de la période en cours.</div>
       </div>
-      <div class="exercise-body">
-        <div class="question">
-          <div class="question-num">Question 2.1 <span class="score-chip">10 pts</span></div>
-          <p>Qu'est-ce qu'un caractère homologue ? Donnez un exemple chez les vertébrés.</p>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Question 2.2 <span class="score-chip">15 pts</span></div>
-          <p>Expliquez le mécanisme de la sélection naturelle proposé par Charles Darwin. Comment ce mécanisme conduit-il à l'évolution des espèces ?</p>
-        </div>
-
-        <div class="correction-toggle">
-          <button class="btn-correction" onclick="toggleCorrection('cs2')">▶ Voir la correction</button>
-        </div>
-
-        <div class="correction-panel" id="cs2">
-          <div class="correction-label">Correction officielle</div>
-
-          <p><strong>2.1 — Caractère homologue</strong></p>
-          <p>Un caractère homologue est une <span class="ans">structure anatomique commune</span> à plusieurs espèces, de même origine évolutive, même si sa fonction peut différer. Exemple : le membre antérieur des vertébrés (aile de chauve-souris, nageoire de baleine, main humaine, patte de cheval) — même os (humérus, radius, cubitus) mais formes et fonctions différentes → preuve d'une <span class="ans">origine commune (ancêtre commun)</span>.</p>
-
-          <p style="margin-top:14px"><strong>2.2 — Sélection naturelle (Darwin)</strong></p>
-          <p><span class="ans">1. Variabilité :</span> au sein d'une espèce, les individus présentent des variations génétiques (mutations).</p>
-          <p><span class="ans">2. Compétition :</span> les ressources (nourriture, partenaires) sont limitées → lutte pour la survie.</p>
-          <p><span class="ans">3. Survie différentielle :</span> les individus dont les caractères sont les mieux adaptés à l'environnement survivent mieux et se reproduisent davantage.</p>
-          <p><span class="ans">4. Transmission :</span> ces caractères avantageux sont transmis aux descendants → accumulation génération après génération → modification progressive de l'espèce, pouvant conduire à l'apparition de nouvelles espèces (<span class="ans">spéciation</span>).</p>
-        </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Les exercices sont-ils vrais ? <span class="arrow">▼</span></div>
+        <div class="faq-a">Oui, tous les exercices sont modélisés sur les vrais sujets du Diplôme National du Brevet 2025, compilés par l'APMEP.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Comment fonctionne la correction IA ? <span class="arrow">▼</span></div>
+        <div class="faq-a">Vos réponses sont analysées par Claude (Anthropic) qui compare votre démarche à la réponse officielle et vous attribue des points avec un feedback personnalisé.</div>
       </div>
     </div>
   </div>
+</div>
 
-</main>
+<!-- ════════════ SCREEN 5 — CHECKOUT ════════════ -->
+<div class="screen" id="screen-checkout">
+  <div class="checkout-layout">
+    <!-- Form -->
+    <div class="checkout-form-wrap">
+      <button class="btn-secondary" style="margin-bottom:24px;font-size:13px;padding:7px 16px" onclick="navTo('screen-pricing','navPricing')">← Retour</button>
+      <h2>Finaliser l'abonnement</h2>
+      <p>Vous serez débité <strong id="checkoutAmount">9 €/mois</strong>. Sans engagement, annulable à tout moment.</p>
+
+      <div class="form-section-label">Informations personnelles</div>
+      <div class="form-row cols-2">
+        <div class="form-field"><label>Prénom</label><input class="form-input" type="text" placeholder="Marie"></div>
+        <div class="form-field"><label>Nom</label><input class="form-input" type="text" placeholder="Dupont"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Adresse e-mail</label><input class="form-input" type="email" placeholder="marie.dupont@gmail.com"></div>
+      </div>
+
+      <div class="form-section-label" style="margin-top:24px">Informations de paiement</div>
+      <div class="card-icons">
+        <span class="card-icon">VISA</span><span class="card-icon">MC</span><span class="card-icon">AMEX</span>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Numéro de carte</label>
+          <div class="card-field-wrap">
+            <input class="form-input" type="text" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)" style="width:100%;padding-right:40px">
+            <span class="card-lock">🔒</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-row cols-3">
+        <div class="form-field"><label>Date d'expiration</label><input class="form-input" type="text" placeholder="MM / AA" maxlength="7"></div>
+        <div class="form-field"><label>CVC</label><input class="form-input" type="text" placeholder="123" maxlength="3"></div>
+        <div class="form-field"><label>Code postal</label><input class="form-input" type="text" placeholder="75001"></div>
+      </div>
+
+      <button class="btn-pay" onclick="simulatePay()">
+        <span>🔒</span> <span id="payBtnText">Payer 9 €/mois</span>
+      </button>
+      <div class="pay-secure"><span>🔒</span> Paiement sécurisé SSL · Propulsé par Stripe</div>
+    </div>
+
+    <!-- Order summary -->
+    <div class="order-summary">
+      <div class="order-summary-head">
+        <h3>✦ Brevet Blanc Premium</h3>
+      </div>
+      <div class="order-rows">
+        <div class="order-row"><span>Abonnement <span id="summaryPlan">mensuel</span></span><span id="summaryPrice">9,00 €</span></div>
+        <div class="order-row"><span>Accès immédiat</span><span>✓</span></div>
+        <div class="order-row"><span>Annulation</span><span>À tout moment</span></div>
+        <div class="order-row" id="summaryDiscountRow" style="display:none"><span style="color:var(--green)">Économie annuelle</span><span style="color:var(--green)" id="summaryDiscount">−64,80 €</span></div>
+      </div>
+      <div class="order-total-row"><span class="label">Total aujourd'hui</span><span class="amount" id="summaryTotal">9,00 €</span></div>
+      <div class="order-guarantee">🛡️ Garantie satisfait ou remboursé 14 jours</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ SCREEN 6 — SUCCESS ════════════ -->
+<div class="screen" id="screen-success">
+  <div class="success-inner">
+    <div class="success-check">✓</div>
+    <h2>Bienvenue dans<br><em>Premium</em> !</h2>
+    <p>Votre abonnement est actif. Vous avez maintenant accès à toutes les fonctionnalités pour préparer votre brevet avec confiance.</p>
+    <div class="success-perks">
+      <div class="perk-item"><span>♾️</span> Brevets blancs illimités</div>
+      <div class="perk-item"><span>📚</span> Les 10 notions débloquées</div>
+      <div class="perk-item"><span>🤖</span> Correction IA complète</div>
+      <div class="perk-item"><span>📊</span> Tableau de bord avancé</div>
+    </div>
+    <button class="btn-primary" style="margin:0 auto;font-size:15px;padding:13px 32px" onclick="activatePremium()">Commencer →</button>
+  </div>
+</div>
 
 <script>
-  function showSubject(id) {
-    document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    event.currentTarget.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+/* ════════════════════════════════════════
+   STATE
+════════════════════════════════════════ */
+let selMin = 120;
+let selChaps = ['all'];
+let timerIv = null;
+let secsLeft = 0;
+let exerciseData = [];
+let scores = {};
+let validated = {};
+let feedbacks = {};
+let isPremium = false;
+let freeUsed = 0;
+let isAnnual = false;
 
-  function toggleCorrection(id) {
-    const panel = document.getElementById(id);
-    const btn = panel.previousElementSibling.querySelector('.btn-correction');
-    if (panel.classList.contains('visible')) {
-      panel.classList.remove('visible');
-      btn.textContent = '▶ Voir la correction';
-      btn.classList.remove('hide');
-    } else {
-      panel.classList.add('visible');
-      btn.textContent = '▼ Masquer la correction';
-      btn.classList.add('hide');
-      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+/* ════════════════════════════════════════
+   NAVIGATION
+════════════════════════════════════════ */
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function navTo(screenId, navId){
+  showScreen(screenId);
+  document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
+  if(navId) document.getElementById(navId)?.classList.add('active');
+}
+
+/* ════════════════════════════════════════
+   PREMIUM STATE
+════════════════════════════════════════ */
+async function loadPremiumState(){
+  try{
+    const d = await window.storage.get('isPremium');
+    isPremium = d && d.value === 'true';
+    const fu = await window.storage.get('freeUsed');
+    if(fu) freeUsed = parseInt(fu.value)||0;
+    // reset daily if needed
+    const dayKey = new Date().toDateString();
+    const lastDay = await window.storage.get('freeDay');
+    if(!lastDay || lastDay.value !== dayKey){
+      freeUsed = 0;
+      await window.storage.set('freeDay', dayKey);
+      await window.storage.set('freeUsed', '0');
     }
-  }
-</script>
+  }catch(e){}
+  updatePremiumUI();
+}
 
+function updatePremiumUI(){
+  const navFree = document.getElementById('navFreeBadge');
+  const navPrem = document.getElementById('navPremiumBadge');
+  const btnUpNav = document.getElementById('btnUpgradeNav');
+  const fubBar = document.getElementById('freeUsageBar');
+  const dashUpsell = document.getElementById('dashUpsell');
+
+  if(isPremium){
+    navFree.classList.add('hidden');
+    navPrem.classList.remove('hidden');
+    btnUpNav.classList.add('hidden');
+    fubBar.classList.add('hidden');
+    if(dashUpsell) dashUpsell.classList.add('hidden');
+    // unlock all chapters
+    document.querySelectorAll('.chapter-chip.locked').forEach(c=>{
+      c.classList.remove('locked');
+      c.onclick = ()=>toggleChap(c);
+      const lock = c.querySelector('.lock-icon');
+      if(lock) lock.remove();
+    });
+  } else {
+    const rem = 3 - freeUsed;
+    navFree.textContent = `Gratuit · ${Math.max(0,rem)}/3`;
+    // Update dots
+    const dots = document.getElementById('fubDots');
+    if(dots){
+      dots.querySelectorAll('.fub-dot').forEach((d,i)=>d.classList.toggle('used', i < freeUsed));
+    }
+    const fubText = document.getElementById('fubText');
+    if(fubText) fubText.innerHTML = rem > 0 ? `<strong>${rem} brevet${rem>1?'s':''} gratuit${rem>1?'s':''}</strong> disponible${rem>1?'s':''} aujourd'hui` : '<strong>Limite atteinte</strong> pour aujourd\'hui';
+    const hint = document.getElementById('freeRemainingHint');
+    if(hint) hint.textContent = rem <= 0 ? 'Limite quotidienne atteinte — Passez Premium !' : '';
+    const startBtn = document.getElementById('btnStartExam');
+    if(startBtn) startBtn.disabled = rem <= 0;
+  }
+}
+
+/* ════════════════════════════════════════
+   EXERCISE BANK
+════════════════════════════════════════ */
+const BANK = {
+  probabilites:[
+    {title:"Probabilités — Urne et tirage aléatoire",notion:"Probabilités",pts:20,
+     intro:"Dans une urne de 40 boules indiscernables au toucher, 5 sont rouges, 20 sont vertes et 15 sont blanches. On tire une boule au hasard.",
+     questions:[
+       {pts:7,text:"Calculer la probabilité d'obtenir une boule verte. Justifier.",ans:"P(verte) = 20/40 = 1/2 = 0,5"},
+       {pts:7,text:"Calculer la probabilité d'obtenir une boule qui n'est pas rouge.",ans:"P(non rouge) = (20+15)/40 = 35/40 = 7/8 ≈ 0,875"},
+       {pts:6,text:"On répète l'expérience 200 fois. Combien de boules vertes peut-on espérer approximativement ?",ans:"200 × 1/2 = 100 boules vertes environ"}
+     ]},
+    {title:"Probabilités — Dé équilibré",notion:"Probabilités",pts:18,
+     intro:"On lance un dé équilibré à 6 faces numérotées de 1 à 6.",
+     questions:[
+       {pts:6,text:"Quelle est la probabilité d'obtenir un nombre pair ?",ans:"Issues paires : 2, 4, 6 → P = 3/6 = 1/2"},
+       {pts:6,text:"Quelle est la probabilité d'obtenir un nombre strictement supérieur à 4 ?",ans:"Issues : 5 et 6 → P = 2/6 = 1/3"},
+       {pts:6,text:"On lance 300 fois et on obtient 55 fois le chiffre 1. La fréquence est-elle proche de la probabilité théorique ? Commenter.",ans:"P théorique = 1/6 ≈ 16,7%. Fréquence = 55/300 ≈ 18,3%. Proche mais légèrement supérieure — variation aléatoire normale."}
+     ]}
+  ],
+  proportionnalite:[
+    {title:"Proportionnalité & Pourcentages",notion:"Proportionnalité",pts:20,
+     intro:"Un article coûte 25 €. Le magasin propose plusieurs opérations commerciales.",
+     questions:[
+       {pts:7,text:"Calculer le prix de l'article après une augmentation de 14 %.",ans:"25 × 1,14 = 28,50 €"},
+       {pts:7,text:"Un second article coûte 80 € avec une réduction de 20 %. Calculer son nouveau prix.",ans:"80 × 0,80 = 64 €"},
+       {pts:6,text:"Un article passe de 45 € à 36 €. Calculer le taux de réduction en %.",ans:"(45−36)/45 × 100 = 20%"}
+     ]},
+    {title:"Proportionnalité — Agrandissement et aires",notion:"Proportionnalité",pts:20,
+     intro:"Le polygone B est un agrandissement du polygone A. Coefficient d'agrandissement : 2,5. Aire de A : 7,5 cm².",
+     questions:[
+       {pts:7,text:"Calculer l'aire du polygone B. Rappel : si les longueurs sont multipliées par k, les aires sont multipliées par k².",ans:"Aire B = 7,5 × 2,5² = 7,5 × 6,25 = 46,875 cm²"},
+       {pts:7,text:"Le périmètre de A est 12 cm. Calculer le périmètre de B.",ans:"Périmètre B = 12 × 2,5 = 30 cm"},
+       {pts:6,text:"Polygone C : coefficient 0,4 par rapport à A. Calculer son aire.",ans:"Aire C = 7,5 × 0,4² = 7,5 × 0,16 = 1,2 cm²"}
+     ]}
+  ],
+  statistiques:[
+    {title:"Statistiques — Indicateurs de position",notion:"Statistiques",pts:20,
+     intro:"Dans une classe de 3ème, répartition des tailles des élèves :",
+     tableData:{headers:["Taille (cm)","152","157","160","162","165","170","174","180"],rows:[["Effectif","2","4","2","5","2","4","6","5"]]},
+     questions:[
+       {pts:8,text:"Calculer la moyenne des tailles (arrondir au dixième).",ans:"Somme = 5016. Effectif = 30. Moyenne = 167,2 cm"},
+       {pts:6,text:"Déterminer la médiane.",ans:"30 élèves → entre 15e et 16e. 15e = 165 cm, 16e = 170 cm. Médiane = 167,5 cm"},
+       {pts:6,text:"Calculer Q1, Q3 et l'écart interquartile.",ans:"Q1 = 8e valeur = 160 cm. Q3 = 23e valeur = 174 cm. IQR = 14 cm"}
+     ]},
+    {title:"Statistiques — Masses et probabilités",notion:"Statistiques",pts:19,
+     intro:"5 colis (A, B, C, D, E) de masses (kg) : 4, 9, 2, 7, 11.",
+     questions:[
+       {pts:7,text:"Calculer la moyenne des masses.",ans:"(4+9+2+7+11)/5 = 6,6 kg"},
+       {pts:6,text:"Déterminer la médiane. Interpréter.",ans:"Triées : 2,4,7,9,11. Médiane = 7 kg. La moitié des colis pèsent moins de 7 kg."},
+       {pts:6,text:"Probabilité de choisir un colis de masse < 8 kg.",ans:"Colis < 8 : A(4), C(2), D(7) → P = 3/5"}
+     ]}
+  ],
+  geometrie:[
+    {title:"Géométrie — Pythagore & triangles semblables",notion:"Géométrie",pts:24,
+     intro:"Triangle CDE rectangle en D. CD = 21,6 cm, CE = 29,1 cm, FC = 17,2 cm. (GF) ∥ (DE).",
+     questions:[
+       {pts:8,text:"Montrer que DE = 19,5 cm.",ans:"DE² = CE² − CD² = 29,1² − 21,6² = 381,25. DE = 19,5 cm ✓"},
+       {pts:8,text:"Calculer l'aire du triangle CDE.",ans:"Aire = (21,6 × 19,5)/2 = 210,6 cm²"},
+       {pts:8,text:"(GF) ∥ (DE). Calculer GF au mm près.",ans:"GF = DE × FC/DC = 19,5 × 17,2/21,6 ≈ 15,5 cm"}
+     ]},
+    {title:"Géométrie — Terrain triangulaire",notion:"Géométrie",pts:21,
+     intro:"Triangle ABC rectangle en B. AB = 600 m, BC = 450 m, CD = 270 m.",
+     questions:[
+       {pts:7,text:"Montrer que AC = 750 m.",ans:"AC² = 600² + 450² = 562500. AC = 750 m ✓"},
+       {pts:7,text:"Montrer que (DE) ∥ (AB) et calculer DE.",ans:"CD/CB = 0,6. (DE) ∥ (AB). DE = 600 × 0,6 = 360 m"},
+       {pts:7,text:"Calculer l'aire du triangle CDE.",ans:"Aire CDE = 135000 × 0,36 = 48600 m²"}
+     ]}
+  ],
+  algebre:[
+    {title:"Algèbre — Programme de calcul",notion:"Algèbre",pts:20,
+     intro:"Programme : choisir x → ×(−2) → +4 → ×4.",
+     questions:[
+       {pts:5,text:"Montrer que pour x = 1, le résultat est 8.",ans:"1×(−2)=−2. −2+4=2. 2×4=8 ✓"},
+       {pts:5,text:"Résultat pour x = −2 ?",ans:"−2×(−2)=4. 4+4=8. 8×4=32"},
+       {pts:5,text:"Montrer que le résultat s'écrit −8x + 16.",ans:"x → −2x → −2x+4 → 4(−2x+4) = −8x+16 ✓"},
+       {pts:5,text:"Résoudre −8x + 16 = 4.",ans:"−8x = −12. x = 3/2 = 1,5"}
+     ]},
+    {title:"Algèbre — Rectangle et équation",notion:"Algèbre",pts:20,
+     intro:"Rectangle ABCD avec AD = x et AB = 16−2x. Carré EFGH avec EF = 2x.",
+     questions:[
+       {pts:5,text:"Pour x = 1,5, calculer le périmètre du carré EFGH.",ans:"EF = 3 cm. Périmètre = 12 cm"},
+       {pts:5,text:"Pour x = 1,5, calculer AB. Vérifier AB > 0.",ans:"AB = 13 cm > 0 ✓"},
+       {pts:5,text:"Montrer que le périmètre du rectangle s'écrit −2x + 32.",ans:"P = 2(x + 16−2x) = 32−2x ✓"},
+       {pts:5,text:"Trouver x pour que les deux périmètres soient égaux.",ans:"−2x+32 = 8x → x = 3,2 cm"}
+     ]}
+  ],
+  puissances:[
+    {title:"Puissances & notation scientifique",notion:"Puissances",pts:15,
+     intro:"Exercice de calcul sur les puissances de 10.",
+     questions:[
+       {pts:5,text:"Écrire en puissance de 10 : a) 10⁴ × 10³   b) 10⁷ ÷ 10²   c) (10³)²",ans:"a) 10⁷   b) 10⁵   c) 10⁶"},
+       {pts:5,text:"Écrire en notation scientifique : a) 0,000 045   b) 12 800 000",ans:"a) 4,5 × 10⁻⁵   b) 1,28 × 10⁷"},
+       {pts:5,text:"Diamètre d'un atome : 2,4 × 10⁻¹⁰ m. Atomes pour couvrir 1 mm ?",ans:"N = 10⁻³ ÷ (2,4×10⁻¹⁰) ≈ 4,2 × 10⁶ atomes"}
+     ]}
+  ],
+  pgcd:[
+    {title:"Arithmétique — PGCD et lots",notion:"Arithmétique",pts:15,
+     intro:"350 poissons de type A et 300 de type B à répartir en lots identiques.",
+     questions:[
+       {pts:5,text:"Décomposer 300 en facteurs premiers.",ans:"300 = 2² × 3 × 5²"},
+       {pts:5,text:"Décomposer 350 en facteurs premiers.",ans:"350 = 2 × 5² × 7"},
+       {pts:5,text:"Calculer le PGCD et le nombre maximal de lots.",ans:"PGCD = 50. Maximum 50 lots : 7 poissons A et 6 poissons B par lot."}
+     ]}
+  ],
+  programmation:[
+    {title:"Algorithmique — Deux programmes",notion:"Algorithmique",pts:20,
+     intro:"Programme A : x → ×3 → +15 → ÷3 → −x. Programme B : x → (x−1)×(x−6) → +5.",
+     questions:[
+       {pts:5,text:"Montrer que pour x = 4, A donne 5.",ans:"4×3=12. 12+15=27. 27÷3=9. 9−4=5 ✓"},
+       {pts:5,text:"Justifier que A donne toujours le même résultat.",ans:"x → 3x → 3x+15 → x+5 → x+5−x = 5 ✓"},
+       {pts:5,text:"Pour x = 10, quel résultat donne B ?",ans:"(10−1)×(10−6)+5 = 9×4+5 = 41"},
+       {pts:5,text:"Trouver les deux valeurs pour lesquelles A = B.",ans:"x²−7x+6=0 → x=1 ou x=6"}
+     ]}
+  ],
+  volumes:[
+    {title:"Volumes — Aquariums",notion:"Volumes",pts:18,
+     intro:"Il faut ≥ 15 L par poisson. Aquariums remplis aux 4/5 de leur hauteur.",
+     questions:[
+       {pts:7,text:"Aquarium cylindrique : ∅ 30 cm, h = 25 cm. Volume d'eau ? Suffisant ?",ans:"V eau = π×15²×25×(4/5) ≈ 14137 cm³ ≈ 14,1 L < 15 L — insuffisant."},
+       {pts:7,text:"Aquarium pavé droit 28×28×30 cm. Volume d'eau ? Convient-il ?",ans:"V eau = 23520 × 0,8 = 18816 cm³ = 18,8 L > 15 L — convient ✓"},
+       {pts:4,text:"Poisson : 15 €, aquarium : 40 €. Remise de 15%. Prix final ?",ans:"Total = 55 €. Remise = 8,25 €. Prix = 46,75 €"}
+     ]}
+  ]
+};
+
+/* ════════════════════════════════════════
+   SETUP
+════════════════════════════════════════ */
+function selectTimer(el){
+  document.querySelectorAll('.timer-chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected'); selMin = parseInt(el.dataset.min);
+  const h=Math.floor(selMin/60),m=selMin%60;
+  document.getElementById('setupTimerVal').textContent = h>0?(m>0?h+'h'+m:h+'h'):m+' min';
+}
+
+function toggleChap(el){
+  if(el.classList.contains('locked')) return;
+  const id=el.dataset.id;
+  if(id==='all'){
+    document.querySelectorAll('.chapter-chip:not(.locked)').forEach(c=>{c.classList.remove('selected');c.querySelector('.ch-check').textContent='';});
+    el.classList.add('selected'); el.querySelector('.ch-check').textContent='✓';
+    selChaps=['all'];
+  } else {
+    const allChip=document.querySelector('.chapter-chip[data-id="all"]');
+    allChip.classList.remove('selected'); allChip.querySelector('.ch-check').textContent='';
+    el.classList.toggle('selected');
+    el.querySelector('.ch-check').textContent = el.classList.contains('selected')?'✓':'';
+    selChaps=[...document.querySelectorAll('.chapter-chip.selected:not(.locked)')].map(c=>c.dataset.id).filter(i=>i!=='all');
+    if(!selChaps.length){ allChip.classList.add('selected'); allChip.querySelector('.ch-check').textContent='✓'; selChaps=['all']; }
+  }
+}
+
+function promptUpgrade(el){
+  if(isPremium) return;
+  // flash the chip
+  el.style.borderColor = 'var(--premium)';
+  el.style.background = 'var(--premium2)';
+  setTimeout(()=>{el.style.borderColor='';el.style.background='';},600);
+  navTo('screen-pricing','navPricing');
+}
+
+/* ════════════════════════════════════════
+   EXAM
+════════════════════════════════════════ */
+function pickExercises(){
+  let pool=[];
+  const availBankKeys = isPremium ? Object.keys(BANK) : ['probabilites','proportionnalite','statistiques','geometrie','algebre'];
+  if(selChaps.includes('all')) availBankKeys.forEach(k=>pool.push(...BANK[k]));
+  else selChaps.forEach(ch=>{if(BANK[ch]&&(isPremium||availBankKeys.includes(ch)))pool.push(...BANK[ch]);});
+  for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
+  return pool.slice(0,5);
+}
+
+async function startExam(){
+  if(!isPremium && freeUsed >= 3){ navTo('screen-pricing','navPricing'); return; }
+  const picked=pickExercises();
+  if(!picked.length) return;
+
+  // increment free usage
+  if(!isPremium){
+    freeUsed++;
+    try{ await window.storage.set('freeUsed', String(freeUsed)); }catch(e){}
+    updatePremiumUI();
+  }
+
+  exerciseData=picked; scores={}; validated={}; feedbacks={};
+  navTo('screen-exam', null);
+  document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
+  document.getElementById('exContainer').innerHTML='';
+  document.getElementById('examFooter').style.display='none';
+  document.getElementById('loadingBox').style.display='block';
+  document.getElementById('examSubtitle').textContent='Chargement…';
+  startTimer(selMin*60);
+  setTimeout(renderExercises, 300);
+}
+
+function renderExercises(){
+  document.getElementById('loadingBox').style.display='none';
+  const container=document.getElementById('exContainer');
+  const pillsNav=document.getElementById('pillsNav');
+  pillsNav.innerHTML=''; container.innerHTML='';
+  document.getElementById('examSubtitle').textContent=[...new Set(exerciseData.map(e=>e.notion))].join(' · ');
+
+  exerciseData.forEach((ex,ei)=>{
+    const exId=`ex${ei+1}`;
+    const totalPts=ex.questions.reduce((s,q)=>s+q.pts,0);
+    const pill=document.createElement('button');
+    pill.className='pill'; pill.id=`pill-${exId}`;
+    pill.textContent=`Ex. ${ei+1} — ${ex.notion}`;
+    pill.onclick=()=>document.getElementById(exId)?.scrollIntoView({behavior:'smooth',block:'start'});
+    pillsNav.appendChild(pill);
+
+    let tableHTML='';
+    if(ex.tableData){
+      tableHTML=`<table><tr>${ex.tableData.headers.map(h=>`<th>${h}</th>`).join('')}</tr>${ex.tableData.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table>`;
+    }
+    let qHTML='';
+    ex.questions.forEach((q,qi)=>{
+      const qId=`${exId}q${qi+1}`;
+      const ansEsc=escQ(q.ans);
+      qHTML+=`
+      <div class="question">
+        <div class="q-head">
+          <span class="q-num">Question ${ei+1}.${qi+1}</span>
+          <span class="q-pts-badge">${q.pts} pts</span>
+        </div>
+        <div class="q-text">${q.text}</div>
+        <div class="answer-zone">
+          <div class="answer-lbl">Ma réponse</div>
+          <textarea class="answer-textarea" id="a-${qId}" placeholder="Rédigez votre réponse ici…" oninput="onType(this)"></textarea>
+          <div class="validate-bar">
+            <button class="btn-green" id="vbtn-${qId}" onclick="doValidate('${qId}','${exId}',${q.pts},'${ansEsc}')" disabled>✓ Valider</button>
+            <button class="btn-edit" id="ebtn-${qId}" onclick="doEdit('${qId}','${exId}')">✎ Modifier</button>
+            <span class="validated-tag" id="vtag-${qId}">✅ Validée</span>
+            <span class="validate-hint" id="vhint-${qId}">Rédigez puis validez</span>
+          </div>
+          <div class="ai-result" id="ar-${qId}"></div>
+        </div>
+      </div>`;
+    });
+    const corrBlocks=ex.questions.map((q,qi)=>`<div class="corr-block"><div class="corr-title">Q${ei+1}.${qi+1}</div><p>${q.ans}</p></div>`).join('');
+    container.insertAdjacentHTML('beforeend',`
+    <div class="exercise" id="${exId}">
+      <div class="exercise-head">
+        <div>
+          <div class="ex-eyebrow">Exercice ${ei+1}</div>
+          <div class="ex-title">${ex.title}</div>
+          <div class="ex-notion">${ex.notion}</div>
+        </div>
+        <div class="ex-pts-badge"><div class="num">${totalPts}</div><div class="lbl">points</div></div>
+      </div>
+      <div class="exercise-body">
+        <p>${ex.intro}</p>${tableHTML}${qHTML}
+        <div class="correction-toggle">
+          <button class="btn-see" id="cBtn-${exId}" onclick="toggleCorr('corr-${exId}','cBtn-${exId}')" disabled>▶ Voir la correction</button>
+          <span class="toggle-hint" id="chint-${exId}">Validez toutes vos réponses pour accéder à la correction</span>
+        </div>
+        <div class="correction" id="corr-${exId}">
+          <div class="corr-head"><div class="corr-badge">✓</div><span>Correction détaillée</span></div>
+          ${corrBlocks}
+        </div>
+      </div>
+    </div>`);
+  });
+  document.getElementById('examFooter').style.display='flex';
+  updateLive();
+}
+
+function escQ(s){return(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
+
+/* ════════════════════════════════════════
+   TIMER
+════════════════════════════════════════ */
+function startTimer(secs){ clearInterval(timerIv); secsLeft=secs; renderTimer(); timerIv=setInterval(()=>{secsLeft--;renderTimer();if(secsLeft<=0){clearInterval(timerIv);endExam();}},1000); }
+function renderTimer(){ const h=Math.floor(secsLeft/3600),m=Math.floor((secsLeft%3600)/60),s=secsLeft%60; const el=document.getElementById('timerFace'); el.textContent=`${pad(h)}:${pad(m)}:${pad(s)}`; el.className='timer-face'+(secsLeft<300?' danger':secsLeft<600?' warn':''); }
+function pad(n){return String(n).padStart(2,'0');}
+function endEarly(){if(confirm('Terminer le brevet maintenant ?'))endExam();}
+
+/* ════════════════════════════════════════
+   ANSWERS
+════════════════════════════════════════ */
+function onType(el){
+  const has=el.value.trim().length>0; el.classList.toggle('has-content',has);
+  const qId=el.id.replace('a-','');
+  const btn=document.getElementById('vbtn-'+qId); if(btn)btn.disabled=!has;
+  const hint=document.getElementById('vhint-'+qId); if(hint)hint.textContent=has?'Cliquez pour valider':'Rédigez puis validez';
+}
+
+async function doValidate(qId,exId,maxPts,officialAnsEsc){
+  const ta=document.getElementById('a-'+qId);
+  const answer=ta.value.trim(); if(!answer)return;
+  validated[qId]=true; ta.classList.add('locked'); ta.readOnly=true;
+  document.getElementById('vbtn-'+qId).style.display='none';
+  document.getElementById('ebtn-'+qId).style.display='inline-flex';
+  document.getElementById('vtag-'+qId).classList.add('show');
+  const hint=document.getElementById('vhint-'+qId); if(hint)hint.textContent='';
+  const ar=document.getElementById('ar-'+qId);
+  ar.classList.add('visible');
+  ar.innerHTML=`<div class="ai-result-header loading-bg"><span class="ai-result-label"><span class="mini-spinner"></span>&nbsp; Correction en cours…</span><span class="ai-score loading-col">…</span></div>`;
+  const officialAns=officialAnsEsc.replace(/&quot;/g,'"');
+  const prompt=`Tu es un correcteur du brevet des collèges en mathématiques. La question vaut ${maxPts} points.\nRéponse officielle : "${officialAns}"\nRéponse de l'élève : "${answer}"\nÉvalue et réponds UNIQUEMENT en JSON valide sans aucun texte autour :\n{"pts": <entier 0 à ${maxPts}>, "feedback": "<1-2 phrases courtes en français>"}`;
+  let pts=0,feedback='';
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:200,messages:[{role:'user',content:prompt}]})});
+    const data=await resp.json();
+    const raw=data.content?.[0]?.text||'{}';
+    const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    pts=Math.max(0,Math.min(maxPts,Math.round(parsed.pts))); feedback=parsed.feedback||'';
+  }catch(e){feedback='Correction indisponible.';}
+  scores[qId]=pts; feedbacks[qId]=feedback;
+  updateLive(); updatePill(exId);
+  const ratio=pts/maxPts;
+  let cls,icon,label;
+  if(ratio>=.85){cls='correct';icon='✓';label='Correct';}
+  else if(ratio>=.4){cls='partial';icon='~';label='Partiellement correct';}
+  else{cls='wrong';icon='✗';label='Incorrect';}
+  ar.innerHTML=`<div class="ai-result-header ${cls}-bg"><span class="ai-result-label" style="color:${cls==='correct'?'var(--green)':cls==='partial'?'var(--gold)':'var(--red)'}">${icon} ${label}</span><span class="ai-score ${cls}-col">${pts}<span style="font-size:13px;opacity:.5;font-weight:400"> / ${maxPts} pts</span></span></div><div class="ai-feedback">${feedback}</div>`;
+}
+
+function doEdit(qId,exId){
+  validated[qId]=false; delete scores[qId]; delete feedbacks[qId];
+  const ta=document.getElementById('a-'+qId); ta.classList.remove('locked'); ta.readOnly=false; ta.focus();
+  document.getElementById('vbtn-'+qId).style.display='inline-flex';
+  document.getElementById('vbtn-'+qId).disabled=false;
+  document.getElementById('ebtn-'+qId).style.display='none';
+  document.getElementById('vtag-'+qId).classList.remove('show');
+  const hint=document.getElementById('vhint-'+qId); if(hint)hint.textContent='Modifiez puis revalidez';
+  const ar=document.getElementById('ar-'+qId); ar.classList.remove('visible'); ar.innerHTML='';
+  updateLive(); updatePill(exId);
+}
+
+function toggleCorr(corrId,btnId){
+  const p=document.getElementById(corrId),b=document.getElementById(btnId);
+  const open=p.classList.contains('open');
+  if(open){p.classList.remove('open');b.textContent='▶ Voir la correction';b.classList.remove('active');}
+  else{p.classList.add('open');b.textContent='▼ Masquer';b.classList.add('active');setTimeout(()=>p.scrollIntoView({behavior:'smooth',block:'nearest'}),80);}
+}
+
+/* ════════════════════════════════════════
+   SCORING & PILLS
+════════════════════════════════════════ */
+function totalScore(){return Object.values(scores).reduce((s,v)=>s+v,0);}
+function updateLive(){
+  const t=totalScore();
+  const el=document.getElementById('liveScore');if(el)el.textContent=t;
+  const fe=document.getElementById('footerScore');if(fe)fe.textContent=t;
+}
+function updatePill(exId){
+  const idx=parseInt(exId.replace('ex',''))-1;
+  const ex=exerciseData[idx];if(!ex)return;
+  const qIds=ex.questions.map((_,i)=>`${exId}q${i+1}`);
+  const pill=document.getElementById(`pill-${exId}`);if(!pill)return;
+  const anyVal=qIds.some(q=>validated[q]);
+  const allGraded=qIds.every(q=>scores[q]!==undefined);
+  pill.classList.toggle('answered',anyVal&&!allGraded);
+  pill.classList.toggle('corrected',allGraded);
+  const cBtn=document.getElementById(`cBtn-${exId}`);
+  const chint=document.getElementById(`chint-${exId}`);
+  if(cBtn){
+    const rem=qIds.filter(q=>!validated[q]).length;
+    if(allGraded){ cBtn.disabled=false; if(chint)chint.textContent='Correction disponible'; }
+    else if(anyVal){ if(chint)chint.textContent=`Encore ${rem} réponse${rem>1?'s':''} à valider`; }
+  }
+}
+function getMention(s){
+  if(s>=90)return'🏆 Félicitations — Excellent';if(s>=80)return'🌟 Très Bien';
+  if(s>=70)return'👍 Bien';if(s>=60)return'✅ Assez Bien';
+  if(s>=50)return'📚 Admis';return'💪 À retravailler';
+}
+
+/* ════════════════════════════════════════
+   END EXAM
+════════════════════════════════════════ */
+function endExam(){
+  clearInterval(timerIv);
+  const total=totalScore();
+  const maxTotal=exerciseData.reduce((s,ex)=>s+ex.questions.reduce((s2,q)=>s2+q.pts,0),0);
+  const scaled=Math.round(total/maxTotal*100);
+  saveSession(scaled,total,maxTotal);
+  navTo('screen-results',null);
+  document.querySelector('.nav-link.active')?.classList.remove('active');
+
+  document.getElementById('resScore').innerHTML=`${scaled} <span>/ 100</span>`;
+  document.getElementById('resMention').textContent=getMention(scaled);
+  const barColor=scaled>=70?'#1d6b3a':scaled>=50?'#b8870a':'#c0392b';
+  setTimeout(()=>{document.getElementById('resBar').style.width=scaled+'%';document.getElementById('resBar').style.background=barColor;},100);
+
+  let correct=0,partial=0,wrong=0;
+  exerciseData.forEach((ex,i)=>{ex.questions.forEach((q,j)=>{const qId=`ex${i+1}q${j+1}`;const r=(scores[qId]||0)/q.pts;if(r>=.85)correct++;else if(r>=.4)partial++;else wrong++;});});
+  document.getElementById('resCorrect').textContent=correct;
+  document.getElementById('resPartial').textContent=partial;
+  document.getElementById('resWrong').textContent=wrong;
+
+  const ns={};
+  exerciseData.forEach((ex,i)=>{const n=ex.notion;if(!ns[n])ns[n]={e:0,m:0};ex.questions.forEach((q,j)=>{const qId=`ex${i+1}q${j+1}`;ns[n].e+=scores[qId]||0;ns[n].m+=q.pts;});});
+  let nHTML='';
+  Object.entries(ns).forEach(([n,v])=>{const pct=Math.round(v.e/v.m*100);const col=pct>=70?'var(--green)':pct>=40?'var(--gold)':'var(--red)';nHTML+=`<div class="breakdown-row"><div><div class="breakdown-notion">${n}</div><div class="breakdown-pct"><div class="breakdown-pct-fill" style="width:${pct}%;background:${col}"></div></div></div><div class="breakdown-pts" style="color:${col}">${v.e}/${v.m}</div></div>`;});
+  document.getElementById('resByNotion').innerHTML=nHTML||'<p style="color:var(--ink4);font-style:italic">Aucune question validée.</p>';
+
+  let errHTML='',errCount=0;
+  exerciseData.forEach((ex,i)=>{ex.questions.forEach((q,j)=>{const qId=`ex${i+1}q${j+1}`;const sc=scores[qId]||0;if(sc<q.pts*.85&&feedbacks[qId]){errCount++;const col=sc===0?'var(--red)':'var(--gold)';errHTML+=`<div class="error-card"><div class="error-q">${q.text.substring(0,90)}…</div><div class="error-score" style="color:${col}">${sc}/${q.pts} pts</div><div class="error-fb">${feedbacks[qId]}</div></div>`;}});});
+  document.getElementById('resErrors').innerHTML=errCount?errHTML:'<p style="color:var(--green);font-weight:600">🎉 Excellente performance !</p>';
+
+  setTimeout(()=>document.querySelectorAll('.breakdown-pct-fill').forEach(el=>{const w=el.style.width;el.style.width='0';setTimeout(()=>el.style.width=w,50);}),100);
+}
+
+/* ════════════════════════════════════════
+   STORAGE & SESSION
+════════════════════════════════════════ */
+async function saveSession(scaled,raw,max){
+  const s={date:new Date().toLocaleDateString('fr-FR'),ts:Date.now(),score:scaled,raw,max,notions:[...new Set(exerciseData.map(e=>e.notion))],duration:selMin,errors:[]};
+  exerciseData.forEach((ex,i)=>{ex.questions.forEach((q,j)=>{const qId=`ex${i+1}q${j+1}`;const sc=scores[qId]||0;if(sc<q.pts*.85)s.errors.push({notion:ex.notion,pts:sc,maxPts:q.pts,fb:feedbacks[qId]||'',qText:q.text.substring(0,80)});});});
+  try{
+    let sessions=[];
+    try{const d=await window.storage.get('sessions');if(d)sessions=JSON.parse(d.value);}catch(e){}
+    sessions.push(s);
+    if(sessions.length>100)sessions.splice(0,sessions.length-100);
+    await window.storage.set('sessions',JSON.stringify(sessions));
+  }catch(e){}
+}
+
+/* ════════════════════════════════════════
+   DASHBOARD
+════════════════════════════════════════ */
+async function showDash(){
+  let sessions=[];
+  try{const d=await window.storage.get('sessions');if(d)sessions=JSON.parse(d.value);}catch(e){}
+
+  if(!sessions.length){
+    document.getElementById('dashStats').innerHTML='';
+    document.getElementById('scoreChart').style.display='none';
+    document.getElementById('dashGrid').innerHTML=`<div class="empty-dash" style="grid-column:1/-1"><span class="e-icon">📊</span><p>Aucun brevet blanc effectué pour l'instant.<br>Lancez votre premier brevet pour voir vos statistiques !</p><button class="btn-primary" style="margin:20px auto 0;font-size:14px;padding:11px 24px" onclick="navTo('screen-setup','navHome')">Commencer →</button></div>`;
+    return;
+  }
+
+  const avg=Math.round(sessions.reduce((s,x)=>s+x.score,0)/sessions.length);
+  const best=Math.max(...sessions.map(x=>x.score));
+  const last=sessions[sessions.length-1].score;
+  const totalErrs=sessions.reduce((s,x)=>s+x.errors.length,0);
+  const trend=sessions.length>1?last-sessions[sessions.length-2].score:0;
+  const trendStr=trend>0?`↑ +${trend}`:trend<0?`↓ ${trend}`:'→ stable';
+  const trendCol=trend>0?'var(--green)':trend<0?'var(--red)':'var(--ink4)';
+
+  document.getElementById('dashStats').innerHTML=`
+    <div class="stat-card"><div class="s-val navy">${sessions.length}</div><div class="s-lbl">Brevets blancs</div></div>
+    <div class="stat-card"><div class="s-val green">${avg}<span style="font-size:18px">/100</span></div><div class="s-lbl">Moyenne générale</div></div>
+    <div class="stat-card"><div class="s-val gold">${best}<span style="font-size:18px">/100</span></div><div class="s-lbl">Meilleur score</div></div>
+    <div class="stat-card"><div class="s-val" style="font-size:22px;color:${trendCol}">${trendStr}</div><div class="s-lbl">Tendance</div></div>
+    <div class="stat-card"><div class="s-val red">${totalErrs}</div><div class="s-lbl">Erreurs totales</div></div>`;
+
+  // Chart
+  if(sessions.length >= 2){
+    document.getElementById('scoreChart').style.display='block';
+    const recent=sessions.slice(-12);
+    const chartWrap=document.getElementById('chartWrap');
+    chartWrap.innerHTML=recent.map(s=>{
+      const h=Math.round(s.score*100/100);
+      const col=s.score>=70?'var(--green)':s.score>=50?'var(--gold)':'var(--red)';
+      return `<div class="chart-bar-col">
+        <div class="chart-val">${s.score}</div>
+        <div class="chart-bar" style="height:${h}px;background:${col};opacity:.75" title="${s.date}: ${s.score}/100"></div>
+        <div class="chart-label">${s.date.split('/').slice(0,2).join('/')}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // History + weaknesses
+  let hHTML=`<table class="hist-table"><thead><tr><th>Date</th><th>Notions</th><th>Score</th><th>Durée</th></tr></thead><tbody>`;
+  [...sessions].reverse().slice(0,20).forEach(s=>{
+    const chip=s.score>=70?'a':s.score>=50?'b':'c';
+    hHTML+=`<tr><td>${s.date}</td><td style="font-size:11px;color:var(--ink4);max-width:140px">${(s.notions||[]).join(', ').substring(0,36)}</td><td><span class="score-chip ${chip}">${s.score}/100</span></td><td style="font-size:12px;color:var(--ink4)">${s.duration}m</td></tr>`;
+  });
+  hHTML+='</tbody></table>';
+
+  const nErrs={};
+  sessions.forEach(s=>{s.errors.forEach(e=>{if(!nErrs[e.notion])nErrs[e.notion]=0;nErrs[e.notion]++;});});
+  const sorted=Object.entries(nErrs).sort((a,b)=>b[1]-a[1]);
+  let wHTML='';
+  if(!sorted.length){wHTML='<p style="color:var(--green);font-weight:600">Aucun point faible identifié 🎉</p>';}
+  else{const maxE=Math.max(...sorted.map(([,v])=>v),1);sorted.slice(0,8).forEach(([n,v])=>{const pct=Math.round(v/maxE*100);const col=pct>60?'var(--red)':pct>30?'var(--gold)':'var(--green)';wHTML+=`<div class="notion-bar-row"><div class="nb-label">${n}</div><div class="nb-track"><div class="nb-fill" style="width:${pct}%;background:${col}"></div></div><div class="nb-count">${v}</div></div>`;});}
+
+  document.getElementById('dashGrid').innerHTML=`
+    <div>
+      <div class="section-rule">Historique</div>
+      <div>${hHTML}</div>
+    </div>
+    <div>
+      <div class="section-rule">Points faibles par notion</div>
+      <div>${wHTML}</div>
+      ${sessions.length>=3?`<div style="margin-top:24px"><div class="section-rule">Dernières erreurs</div>${sessions[sessions.length-1].errors.slice(0,3).map(e=>`<div class="error-card"><div class="error-q">${e.qText||''}…</div><div class="error-score" style="color:var(--red)">${e.pts}/${e.maxPts} pts</div><div class="error-fb">${e.fb}</div></div>`).join('')||'<p style="font-style:italic;color:var(--ink4)">Aucune erreur !</p>'}</div>`:''}
+    </div>`;
+
+  setTimeout(()=>document.querySelectorAll('.nb-fill').forEach(el=>{const w=el.style.width;el.style.width='0';setTimeout(()=>el.style.width=w,50);}),100);
+}
+
+/* ════════════════════════════════════════
+   PRICING & CHECKOUT
+════════════════════════════════════════ */
+function toggleBilling(){
+  isAnnual=!isAnnual;
+  document.getElementById('billingToggle').classList.toggle('annual',isAnnual);
+  const monthlyPrice=isAnnual?5.40:9;
+  document.getElementById('planAmount').textContent=isAnnual?'5,40':'9';
+  document.getElementById('planAnnualNote').textContent=isAnnual?'soit 64,80 €/an — économisez 43,20 €':'ou 64,80 €/an (−40%)';
+  // Update checkout summary
+  const desc=isAnnual?'annuel':'mensuel';
+  const total=isAnnual?'64,80 €':'9,00 €';
+  document.getElementById('summaryPlan').textContent=desc;
+  document.getElementById('summaryPrice').textContent=isAnnual?'5,40 €/mois':'9,00 €';
+  document.getElementById('summaryTotal').textContent=total;
+  document.getElementById('summaryDiscountRow').style.display=isAnnual?'flex':'none';
+  document.getElementById('checkoutAmount').textContent=isAnnual?'64,80 €/an (5,40 €/mois)':'9 €/mois';
+  document.getElementById('payBtnText').textContent=isAnnual?'Payer 64,80 €/an':'Payer 9 €/mois';
+}
+
+function goCheckout(){
+  const plan=isAnnual?'annuel':'mensuel';
+  document.getElementById('summaryPlan').textContent=plan;
+  document.getElementById('summaryPrice').textContent=isAnnual?'5,40 €/mois':'9,00 €';
+  document.getElementById('summaryTotal').textContent=isAnnual?'64,80 €':'9,00 €';
+  document.getElementById('summaryDiscountRow').style.display=isAnnual?'flex':'none';
+  document.getElementById('checkoutAmount').textContent=isAnnual?'64,80 €/an (5,40 €/mois)':'9 €/mois';
+  document.getElementById('payBtnText').textContent=isAnnual?'Payer 64,80 €/an':'Payer 9 €/mois';
+  navTo('screen-checkout',null);
+  document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
+}
+
+function formatCard(el){
+  let v=el.value.replace(/\D/g,'').substring(0,16);
+  el.value=v.replace(/(.{4})/g,'$1 ').trim();
+}
+
+function simulatePay(){
+  const btn=document.querySelector('.btn-pay');
+  btn.textContent='⏳ Traitement…'; btn.disabled=true;
+  setTimeout(()=>{ navTo('screen-success',null); document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active')); btn.innerHTML='<span>🔒</span><span id="payBtnText">Payer</span>'; btn.disabled=false; }, 1800);
+}
+
+async function activatePremium(){
+  isPremium=true;
+  try{ await window.storage.set('isPremium','true'); }catch(e){}
+  updatePremiumUI();
+  navTo('screen-setup','navHome');
+}
+
+function toggleFaq(el){
+  el.classList.toggle('open');
+}
+
+/* ════════════════════════════════════════
+   INIT
+════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', ()=>{
+  loadPremiumState();
+});
+</script>
 </body>
 </html>
