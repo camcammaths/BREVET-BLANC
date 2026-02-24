@@ -663,7 +663,7 @@ tr:nth-child(even) td{background:var(--bg2)}
 }
 
 /* AI result */
-.ai-result{display:none;margin-top:8px;border:1.5px solid var(--rule);animation:fadeUp .2s ease;overflow:hidden}
+.ai-result{display:none!important}
 .ai-result.visible{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
 .ai-rh{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;gap:10px}
@@ -1063,6 +1063,66 @@ tr:nth-child(even) td{background:var(--bg2)}
   text-transform:uppercase;color:#888;
 }
 .scratch-result svg{display:block}
+
+
+/* ── Correction inline (affichée après validation) ── */
+.inline-corr-wrap{margin-top:10px}
+.inline-corr{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:12px 16px;border-radius:0;
+  border:1.5px solid;
+  animation:fadeUp .2s ease;
+}
+.inline-corr.correct-corr{
+  background:var(--green2);
+  border-color:rgba(10,107,56,.25);
+  border-left:4px solid var(--green);
+}
+.inline-corr.partial-corr{
+  background:var(--amber2);
+  border-color:rgba(138,92,0,.25);
+  border-left:4px solid var(--amber);
+}
+.inline-corr.wrong-corr{
+  background:var(--red2);
+  border-color:rgba(190,46,39,.2);
+  border-left:4px solid var(--red);
+}
+.inline-corr-icon{
+  font-size:20px;font-weight:900;line-height:1;
+  flex-shrink:0;margin-top:1px;
+  font-family:'Barlow Condensed',sans-serif;
+}
+.correct-corr .inline-corr-icon{color:var(--green)}
+.partial-corr .inline-corr-icon{color:var(--amber)}
+.wrong-corr .inline-corr-icon{color:var(--red)}
+.inline-corr-body{flex:1;min-width:0}
+.inline-corr-label{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:800;letter-spacing:1.5px;
+  text-transform:uppercase;margin-bottom:5px;
+}
+.correct-corr .inline-corr-label{color:var(--green)}
+.partial-corr .inline-corr-label{color:var(--amber)}
+.wrong-corr .inline-corr-label{color:var(--red)}
+.inline-corr-feedback{
+  font-size:13px;color:var(--ink2);
+  line-height:1.6;margin-bottom:8px;
+  font-style:italic;
+}
+.inline-corr-official{
+  font-size:13px;color:var(--ink2);
+  line-height:1.65;
+  padding:10px 12px;
+  background:rgba(255,255,255,.7);
+  border:1px solid rgba(0,0,0,.08);
+}
+.inline-corr-official strong{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  font-weight:800;color:var(--ink4);
+  display:block;margin-bottom:4px;
+}
 
 </style>
 
@@ -2002,6 +2062,7 @@ function renderExam(){
             <span class="val-hint" id="vhint-${qId}">Rédigez puis validez</span>
           </div>
           <div class="ai-result" id="ar-${qId}"></div>
+          <div class="inline-corr-wrap" id="corrq-${qId}" style="display:none"></div>
         </div>
       </div>`;
     });
@@ -2021,7 +2082,7 @@ function renderExam(){
         <p>${ex.intro}</p>${figureHTML}${tableHTML}${qHTML}
         <div class="corr-toggle">
           <button class="btn-see" id="cBtn-${exId}" onclick="toggleCorr('corr-${exId}','cBtn-${exId}')" disabled>▶ Voir la correction</button>
-          <span class="corr-hint" id="chint-${exId}">Validez toutes vos réponses pour accéder à la correction</span>
+          <span class="corr-hint" id="chint-${exId}">La correction s'affiche après chaque réponse validée</span>
         </div>
         <div class="correction" id="corr-${exId}">
           <div class="corr-head"><div class="corr-badge">✓</div><span>Correction détaillée</span></div>
@@ -2065,7 +2126,12 @@ async function doVal(qId,exId,maxPts,ae){
   const hint=document.getElementById('vhint-'+qId); if(hint)hint.textContent='';
   const ar=document.getElementById('ar-'+qId);
   ar.classList.add('visible');
-  ar.innerHTML=`<div class="ai-rh loading-bg"><span class="ai-rl"><span class="mini-sp"></span>&nbsp; Correction en cours…</span><span class="ai-sc loading-col">…</span></div>`;
+  ar.innerHTML='';
+  const corrQEl2 = document.getElementById('corrq-'+qId);
+  if(corrQEl2){
+    corrQEl2.style.display='block';
+    corrQEl2.innerHTML='<div style="padding:12px 16px;background:var(--bg2);border:1.5px solid var(--rule);display:flex;align-items:center;gap:10px"><span class="mini-sp"></span><span style=\'font-family:Barlow Condensed,sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink4)\'>Correction en cours…</span></div>';
+  }
   const officialAns=ae.replace(/&quot;/g,'"');
   const prompt=`Tu es un correcteur du brevet des collèges en mathématiques. La question vaut ${maxPts} points.\nRéponse officielle : "${officialAns}"\nRéponse de l'élève : "${answer}"\nRéponds UNIQUEMENT en JSON valide : {"pts":<entier 0 à ${maxPts}>,"feedback":"<1-2 phrases courtes en français>"}`;
   let pts=0,feedback='';
@@ -2083,6 +2149,19 @@ async function doVal(qId,exId,maxPts,ae){
   if(ratio>=.85){cls='correct';icon='✓';label='Correct';}
   else if(ratio>=.4){cls='partial';icon='~';label='Partiellement correct';}
   else{cls='wrong';icon='✗';label='Incorrect';}
+  // Build correction HTML for this specific question
+  const corrQEl = document.getElementById('corrq-'+qId);
+  if(corrQEl){
+    corrQEl.innerHTML = `<div class="inline-corr ${cls}-corr">
+      <span class="inline-corr-icon">${icon}</span>
+      <div class="inline-corr-body">
+        <div class="inline-corr-label">${label} · ${pts}/${maxPts} pts</div>
+        <div class="inline-corr-feedback">${feedback}</div>
+        <div class="inline-corr-official"><strong>Correction :</strong> ${officialAns}</div>
+      </div>
+    </div>`;
+    corrQEl.style.display = 'block';
+  }
   ar.innerHTML=`<div class="ai-rh ${cls}-bg"><span class="ai-rl" style="color:${cls==='correct'?'var(--green)':cls==='partial'?'var(--gold)':'var(--red)'}">${icon} ${label}</span><span class="ai-sc ${cls}-col">${pts}<span style="font-size:13px;opacity:.5;font-weight:400"> / ${maxPts} pts</span></span></div><div class="ai-fb">${feedback}</div>`;
 }
 
@@ -2095,6 +2174,8 @@ function doEdit(qId,exId){
   document.getElementById('vtag-'+qId).classList.remove('show');
   const hint=document.getElementById('vhint-'+qId); if(hint)hint.textContent='Modifiez puis revalidez';
   const ar=document.getElementById('ar-'+qId); ar.classList.remove('visible'); ar.innerHTML='';
+  const corrQElEdit=document.getElementById('corrq-'+qId);
+  if(corrQElEdit){corrQElEdit.style.display='none';corrQElEdit.innerHTML='';}
   updateLive(); updatePill(exId);
 }
 
@@ -2127,8 +2208,9 @@ function updatePill(exId){
   const chint=document.getElementById(`chint-${exId}`);
   if(cBtn){
     const rem=qIds.filter(q=>!validated[q]).length;
-    if(allGraded){cBtn.disabled=false;if(chint)chint.textContent='Correction disponible';}
-    else if(anyVal){if(chint)chint.textContent=`Encore ${rem} réponse${rem>1?'s':''} à valider`;}
+    if(anyVal){cBtn.disabled=false;if(chint)chint.textContent=allGraded?'Correction complète':'Correction partielle disponible';}
+    if(allGraded){if(chint)chint.textContent='Correction complète';}
+    else if(false&&anyVal){if(chint)chint.textContent=`Encore ${rem} réponse${rem>1?'s':''} à valider`;}
   }
 }
 function getMention(s){
