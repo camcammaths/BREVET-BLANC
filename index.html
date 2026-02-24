@@ -7,367 +7,950 @@
 <meta name="description" content="Préparez votre brevet blanc de maths avec des exercices interactifs corrigés par IA. Simulateur d'examen chronométré, corrigés détaillés, suivi de progression. Gratuit pour les élèves de 3ème.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --cream:#faf6ef; --paper:#f4ede0; --paper2:#ede4d0;
-  --ink:#1a1208; --ink2:#3a2e1e; --ink3:#6b5940; --ink4:rgba(26,18,8,.45);
-  --navy:#1a3264; --navy2:rgba(26,50,100,.08); --navy3:rgba(26,50,100,.18);
-  --green:#1d6b3a; --green2:rgba(29,107,58,.12); --green3:rgba(29,107,58,.22);
-  --gold:#b8870a; --gold2:rgba(184,135,10,.13);
-  --red:#c0392b; --red2:rgba(192,57,43,.1);
-  --border:rgba(26,18,8,.12); --border2:rgba(26,18,8,.07);
-  --shadow:rgba(26,18,8,.10); --shadow2:rgba(26,18,8,.05);
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.78;min-height:100vh}
-.screen{display:none;min-height:100vh;animation:pgIn .28s ease}
+body{background:#fff;color:#111;font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.78;min-height:100vh}
+.screen{display:none;min-height:100vh;animation:pgIn .22s ease}
 .screen.active{display:block}
-@keyframes pgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── GLOBAL NAV ── */
-.gnav{position:sticky;top:0;z-index:300;background:var(--ink);border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;height:54px;padding:0 48px;gap:0}
-.gnav-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--cream);letter-spacing:-.5px;cursor:pointer;margin-right:32px;flex-shrink:0;white-space:nowrap}
-.gnav-logo em{color:#e8c84a;font-style:italic}
+/* ── Design tokens ── */
+:root {
+  --ink: #111;
+  --ink2: #333;
+  --ink3: #666;
+  --ink4: #999;
+  --ink5: #bbb;
+  --rule: #e0dbd3;
+  --rule2: #ece8e2;
+  --bg: #fff;
+  --bg2: #f7f5f1;
+  --bg3: #f0ede8;
+  --blue: #1a3264;
+  --blue2: rgba(26,50,100,.06);
+  --blue3: rgba(26,50,100,.12);
+  --green: #1d6b3a;
+  --green2: rgba(29,107,58,.08);
+  --amber: #a06c00;
+  --amber2: rgba(160,108,0,.1);
+  --red: #c03928;
+  --red2: rgba(192,57,40,.08);
+  /* Legacy aliases for JS/existing code */
+  --cream: #f7f5f1;
+  --paper2: #f0ede8;
+  --navy: #1a3264;
+  --navy2: rgba(26,50,100,.06);
+  --navy3: rgba(26,50,100,.16);
+  --border: #e0dbd3;
+  --border2: #ece8e2;
+  --gold: #a06c00;
+  --gold2: rgba(160,108,0,.1);
+  --shadow: rgba(17,17,17,.08);
+  --shadow2: rgba(17,17,17,.04);
+}
+
+/* ── Global nav ── */
+.gnav{
+  position:sticky;top:0;z-index:300;
+  background:#fff;border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;height:52px;
+  padding:0 48px;gap:0;
+}
+.gnav-logo{
+  font-family:'Playfair Display',serif;
+  font-size:17px;font-weight:900;
+  color:var(--ink);letter-spacing:-.5px;
+  cursor:pointer;margin-right:32px;flex-shrink:0;white-space:nowrap;
+}
+.gnav-logo em{color:var(--blue);font-style:italic}
 .gnav-links{display:flex;align-items:center;flex:1}
-.gnav-link{display:flex;align-items:center;gap:7px;height:54px;padding:0 16px;font-family:'Source Serif 4',serif;font-size:13px;font-weight:600;color:rgba(250,246,239,.45);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .15s;white-space:nowrap}
-.gnav-link:hover{color:rgba(250,246,239,.8)}
-.gnav-link.active{color:var(--cream);border-bottom-color:#e8c84a}
+.gnav-link{
+  display:flex;align-items:center;gap:6px;height:52px;
+  padding:0 14px;font-family:'Source Serif 4',serif;
+  font-size:12px;font-weight:600;color:var(--ink4);letter-spacing:.3px;
+  background:none;border:none;border-bottom:2px solid transparent;
+  cursor:pointer;transition:color .12s;white-space:nowrap;text-transform:uppercase;
+}
+.gnav-link:hover{color:var(--ink)}
+.gnav-link.active{color:var(--ink);border-bottom-color:var(--blue)}
 
-/* ── BUTTONS ── */
-.btn-navy{display:inline-flex;align-items:center;gap:8px;padding:12px 30px;font-family:'Source Serif 4',serif;font-size:14px;font-weight:600;background:var(--navy);color:var(--cream);border:none;border-radius:3px;cursor:pointer;transition:all .2s;letter-spacing:.3px}
-.btn-navy:hover{background:#0f2048;transform:translateY(-1px);box-shadow:0 4px 14px rgba(26,50,100,.3)}
-.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:11px 26px;font-family:'Source Serif 4',serif;font-size:14px;background:transparent;color:var(--ink3);border:1.5px solid var(--border);border-radius:3px;cursor:pointer;transition:all .2s}
-.btn-outline:hover{border-color:var(--ink2);color:var(--ink2)}
-.btn-green-sm{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;font-family:'Source Serif 4',serif;font-size:13px;font-weight:600;background:var(--green);color:white;border:none;border-radius:3px;cursor:pointer;transition:all .2s}
-.btn-green-sm:hover{background:#155c2e}
-.btn-green-sm:disabled{background:var(--border);color:var(--ink4);cursor:not-allowed}
-.rule{display:flex;align-items:center;gap:14px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink4);margin-bottom:18px}
-.rule::after{content:'';flex:1;height:1px;background:var(--border)}
+/* ── Utility ── */
+.rule{display:flex;align-items:center;gap:12px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ink5);margin-bottom:16px}
+.rule::after{content:'';flex:1;height:1px;background:var(--rule)}
+
 
 /* ══════════════════════════════
    SCREEN 0 — LANDING
+   Direction: académique, épuré,
+   typographie serif, blanc pur.
 ══════════════════════════════ */
-#screen-landing{background:var(--cream)}
 
-/* Hero */
-.hero{background:var(--ink);position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.055) 38px,rgba(184,135,10,.055) 39px)}
-.hero-inner{max-width:980px;margin:0 auto;padding:64px 48px 56px;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.hero-kicker{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--gold);color:#e8c84a;font-size:9px;letter-spacing:3.5px;text-transform:uppercase;padding:5px 16px;margin-bottom:18px;font-family:'Source Serif 4',serif;font-weight:600}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(36px,4.5vw,58px);font-weight:900;line-height:1.04;letter-spacing:-1.5px;color:var(--cream)}
-.hero h1 em{color:#e8c84a;font-style:italic}
-.hero-lead{margin-top:16px;font-size:15px;font-weight:300;color:rgba(250,246,239,.55);line-height:1.75;max-width:480px}
-.hero-cta{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
-.hero-right{display:flex;flex-direction:column;gap:12px}
-.hero-card{padding:16px 20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:4px;display:flex;align-items:flex-start;gap:14px}
-.hero-card-icon{font-size:22px;flex-shrink:0;margin-top:2px}
-.hero-card h3{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--cream);line-height:1.2}
-.hero-card p{font-size:12px;color:rgba(250,246,239,.45);margin-top:3px;line-height:1.5}
+/* Nav override pour landing */
+#screen-landing ~ .gnav, body:has(#screen-landing.active) .gnav {
+  background:#fff; border-bottom:1px solid #ddd;
+}
 
-/* Social proof strip */
-.proof-strip{background:var(--paper2);border-bottom:1px solid var(--border);padding:14px 48px}
-.proof-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;gap:32px;flex-wrap:wrap}
-.proof-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink3);font-weight:600}
-.proof-item .pi{font-size:18px}
+/* ── Tokens ── */
+:root {
+  --l-ink: #111;
+  --l-ink2: #444;
+  --l-ink3: #888;
+  --l-ink4: #bbb;
+  --l-blue: #1a3264;
+  --l-bg: #fff;
+  --l-bg2: #f7f5f1;
+  --l-rule: #e2ddd7;
+  --l-max: 920px;
+}
 
-/* Why section */
-.why-section{max-width:980px;margin:0 auto;padding:64px 48px}
-.why-section h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,42px);font-weight:900;letter-spacing:-1px;text-align:center;margin-bottom:10px}
-.why-section h2 em{color:var(--navy);font-style:italic}
-.why-section>.sub{text-align:center;font-size:15px;color:var(--ink3);font-style:italic;margin-bottom:44px;max-width:560px;margin-left:auto;margin-right:auto}
-.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-.why-card{padding:24px 24px 22px;background:white;border:1px solid var(--border);border-radius:4px;box-shadow:0 2px 8px var(--shadow2);transition:.2s}
-.why-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px var(--shadow)}
-.why-card-icon{width:44px;height:44px;background:var(--navy2);border:1px solid var(--navy3);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
-.why-card h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.25}
-.why-card p{font-size:14px;color:var(--ink3);line-height:1.65}
+/* ── Layout atoms ── */
+.lp { background: var(--l-bg); color: var(--l-ink); }
+.lp-wrap { max-width: var(--l-max); margin: 0 auto; padding: 0 48px; }
+.lp-rule { border: none; border-top: 1px solid var(--l-rule); margin: 0; }
 
-/* How it works */
-.how-section{background:var(--ink);padding:64px 48px;position:relative;overflow:hidden}
-.how-section::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.04) 38px,rgba(184,135,10,.04) 39px)}
-.how-inner{max-width:980px;margin:0 auto;position:relative;z-index:2}
-.how-inner h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,38px);font-weight:900;letter-spacing:-1px;color:var(--cream);text-align:center;margin-bottom:10px}
-.how-inner h2 em{color:#e8c84a;font-style:italic}
-.how-inner>.sub{text-align:center;font-size:14px;color:rgba(250,246,239,.4);font-style:italic;margin-bottom:44px}
-.how-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;counter-reset:steps}
-.how-step{padding:24px 22px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;position:relative;counter-increment:steps}
-.how-step::before{content:counter(steps);position:absolute;top:-14px;left:20px;width:28px;height:28px;background:#e8c84a;color:var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;font-weight:900;line-height:28px;text-align:center}
-.how-step h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--cream);margin-bottom:8px;margin-top:4px}
-.how-step p{font-size:13px;color:rgba(250,246,239,.5);line-height:1.6}
+/* ── Header strip ── */
+.lp-header {
+  border-bottom: 2px solid var(--l-ink);
+  padding: 14px 0;
+}
+.lp-header-inner {
+  display: flex; align-items: baseline; justify-content: space-between;
+}
+.lp-header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--l-ink);
+}
+.lp-header-sub {
+  font-size: 11px; color: var(--l-ink3); letter-spacing: .5px;
+  font-family: 'Source Serif 4', serif;
+}
 
-/* For who */
-.who-section{max-width:980px;margin:0 auto;padding:64px 48px}
-.who-section h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,38px);font-weight:900;letter-spacing:-1px;margin-bottom:10px}
-.who-section h2 em{color:var(--navy);font-style:italic}
-.who-section>.sub{font-size:15px;color:var(--ink3);font-style:italic;margin-bottom:36px}
-.who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.who-card{padding:22px 22px;background:white;border:1px solid var(--border);border-left:4px solid var(--navy);border-radius:0 4px 4px 0;box-shadow:0 1px 4px var(--shadow2)}
-.who-card h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--ink);margin-bottom:7px}
-.who-card p{font-size:13px;color:var(--ink3);line-height:1.6}
+/* ── Hero ── */
+.lp-hero { padding: 80px 0 72px; }
+.lp-hero-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; align-items: start;
+  border-top: 1px solid var(--l-rule);
+}
+.lp-hero-left { padding: 48px 48px 48px 0; border-right: 1px solid var(--l-rule); }
+.lp-hero-right { padding: 48px 0 48px 48px; }
 
-/* Chapters showcase */
-.chapters-section{background:var(--paper2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:52px 48px}
-.chapters-inner{max-width:980px;margin:0 auto}
-.chapters-inner h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,34px);font-weight:900;letter-spacing:-1px;margin-bottom:8px}
-.chapters-inner h2 em{color:var(--navy);font-style:italic}
-.chapters-inner>.sub{font-size:14px;color:var(--ink3);font-style:italic;margin-bottom:28px}
-.chap-pills{display:flex;gap:8px;flex-wrap:wrap}
-.chap-pill{padding:7px 16px;background:white;border:1.5px solid var(--border);border-radius:3px;font-size:13px;font-weight:600;color:var(--ink2)}
+.lp-kicker {
+  font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase;
+  color: var(--l-ink3); font-family: 'Source Serif 4', serif;
+  font-weight: 600; margin-bottom: 22px; display: block;
+}
+.lp-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(48px, 6.5vw, 88px);
+  font-weight: 900; line-height: .92;
+  letter-spacing: -3px; color: var(--l-ink); margin: 0;
+}
+.lp-h1 em { font-style: italic; color: var(--l-blue); }
+.lp-tagline {
+  margin-top: 28px;
+  font-size: 15px; color: var(--l-ink2); line-height: 1.72;
+  font-weight: 300; max-width: 400px;
+}
+.lp-cta-row { margin-top: 36px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.lp-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 26px; font-family: 'Source Serif 4', serif;
+  font-size: 13px; font-weight: 600; letter-spacing: .3px;
+  border: none; cursor: pointer; transition: background .15s, color .15s;
+}
+.lp-btn-dark { background: var(--l-ink); color: #fff; }
+.lp-btn-dark:hover { background: var(--l-blue); }
+.lp-btn-outline {
+  background: none; color: var(--l-ink3); padding: 0;
+  font-size: 13px; text-decoration: underline; text-decoration-color: var(--l-rule);
+}
+.lp-btn-outline:hover { color: var(--l-ink); text-decoration-color: var(--l-ink); }
 
-/* FAQ */
-.faq-section{max-width:760px;margin:0 auto;padding:64px 48px}
-.faq-section h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:900;letter-spacing:-1px;margin-bottom:32px}
-.faq-section h2 em{color:var(--navy);font-style:italic}
-.faq-item{border-bottom:1px solid var(--border)}
-.faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 0;cursor:pointer;font-size:15px;font-weight:600;color:var(--ink);gap:16px;transition:.15s}
-.faq-q:hover{color:var(--navy)}
-.faq-arrow{font-size:11px;color:var(--ink4);flex-shrink:0;transition:.2s}
-.faq-item.open .faq-arrow{transform:rotate(180deg)}
-.faq-a{display:none;padding-bottom:18px;font-size:14px;color:var(--ink3);line-height:1.72}
-.faq-item.open .faq-a{display:block}
+/* Hero right — chiffres clés */
+.lp-figures { display: flex; flex-direction: column; gap: 0; }
+.lp-fig {
+  padding: 24px 0; border-bottom: 1px solid var(--l-rule);
+  display: grid; grid-template-columns: 80px 1fr; align-items: baseline; gap: 16px;
+}
+.lp-fig:first-child { border-top: 1px solid var(--l-rule); }
+.lp-fig-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px; font-weight: 900; color: var(--l-ink);
+  line-height: 1; letter-spacing: -2px;
+}
+.lp-fig-label { font-size: 13px; color: var(--l-ink3); line-height: 1.45; }
 
-/* CTA Banner */
-.cta-banner{background:var(--ink);padding:60px 48px;position:relative;overflow:hidden;text-align:center}
-.cta-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.055) 38px,rgba(184,135,10,.055) 39px)}
-.cta-banner-inner{max-width:640px;margin:0 auto;position:relative;z-index:2}
-.cta-banner h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--cream);letter-spacing:-1px;margin-bottom:14px;line-height:1.1}
-.cta-banner h2 em{color:#e8c84a;font-style:italic}
-.cta-banner p{font-size:15px;color:rgba(250,246,239,.5);margin-bottom:28px;line-height:1.65}
-.cta-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:30px;text-align:left;display:inline-flex}
-.cta-list li{display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(250,246,239,.65)}
-.cta-list li::before{content:'✓';color:#e8c84a;font-weight:700;flex-shrink:0}
-.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+/* ── Section heading ── */
+.lp-section { padding: 72px 0; }
+.lp-section-bg { background: var(--l-bg2); border-top: 1px solid var(--l-rule); border-bottom: 1px solid var(--l-rule); }
+.lp-section-dark { background: var(--l-ink); }
+.lp-section-head { margin-bottom: 48px; }
+.lp-overline {
+  display: block; font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--l-ink4); margin-bottom: 10px;
+  font-family: 'Source Serif 4', serif; font-weight: 600;
+}
+.lp-overline-dark { color: rgba(255,255,255,.3); }
+.lp-h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 4.5vw, 52px); font-weight: 900;
+  letter-spacing: -1.5px; line-height: .97; margin: 0;
+  color: var(--l-ink);
+}
+.lp-h2 em { font-style: italic; color: var(--l-blue); }
+.lp-h2-dark { color: #fff; }
+.lp-h2-dark em { color: #9ab4f0; }
 
-/* Footer */
-.site-footer{background:var(--ink);border-top:1px solid rgba(255,255,255,.07);padding:28px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.site-footer p{font-size:12px;color:rgba(250,246,239,.3)}
-.site-footer .logo{font-family:'Playfair Display',serif;font-size:15px;font-weight:900;color:rgba(250,246,239,.6)}
-.site-footer .logo em{color:#e8c84a;font-style:italic}
+/* ── Features — grille tableau ── */
+.lp-feat-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--l-rule);
+}
+.lp-feat-cell {
+  padding: 28px 24px; border-right: 1px solid var(--l-rule);
+}
+.lp-feat-cell:last-child, .lp-feat-cell:nth-child(3) { border-right: none; }
+.lp-feat-cell:nth-child(n+4) { border-top: 1px solid var(--l-rule); }
+.lp-feat-idx {
+  font-family: 'Playfair Display', serif; font-size: 11px;
+  font-weight: 700; color: var(--l-ink4); letter-spacing: 2px;
+  margin-bottom: 14px; display: block;
+}
+.lp-feat-cell h3 {
+  font-family: 'Playfair Display', serif; font-size: 16px;
+  font-weight: 700; color: var(--l-ink); margin: 0 0 8px;
+}
+.lp-feat-cell p { font-size: 13px; color: var(--l-ink3); line-height: 1.65; margin: 0; }
+
+/* ── Steps ── */
+.lp-steps { display: flex; flex-direction: column; }
+.lp-step {
+  display: grid; grid-template-columns: 52px 1fr;
+  gap: 24px; padding: 28px 0;
+  border-top: 1px solid var(--l-rule); align-items: baseline;
+}
+.lp-step-n {
+  font-family: 'Playfair Display', serif; font-size: 13px;
+  font-weight: 900; color: var(--l-ink4); letter-spacing: 1px;
+}
+.lp-step h3 {
+  font-family: 'Playfair Display', serif; font-size: 18px;
+  font-weight: 700; color: var(--l-ink); margin: 0 0 6px;
+}
+.lp-step p { font-size: 14px; color: var(--l-ink3); line-height: 1.65; margin: 0; }
+
+/* ── Chapters pills ── */
+.lp-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+.lp-pill {
+  padding: 6px 14px; border: 1px solid var(--l-rule);
+  font-size: 12px; font-weight: 600; color: var(--l-ink2);
+  font-family: 'Source Serif 4', serif; letter-spacing: .2px;
+  background: #fff; transition: border-color .15s, color .15s;
+}
+.lp-pill:hover { border-color: var(--l-ink); color: var(--l-ink); }
+
+/* ── Pour qui ── */
+.lp-who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 8px; }
+.lp-who-item h3 {
+  font-family: 'Playfair Display', serif; font-size: 17px;
+  font-weight: 700; color: var(--l-ink); margin: 0 0 12px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--l-ink);
+}
+.lp-who-item p { font-size: 13px; color: var(--l-ink3); line-height: 1.65; margin: 0; }
+
+/* ── FAQ ── */
+.lp-faq-list { max-width: 680px; }
+.lp-faq-item { border-top: 1px solid var(--l-rule); }
+.lp-faq-item:last-child { border-bottom: 1px solid var(--l-rule); }
+.lp-faq-q {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 0; cursor: pointer;
+  font-size: 15px; font-weight: 600; color: var(--l-ink);
+  font-family: 'Source Serif 4', serif;
+  gap: 16px; transition: color .15s; background: none; border: none; width: 100%; text-align: left;
+}
+.lp-faq-q:hover { color: var(--l-blue); }
+.lp-faq-icon { font-size: 18px; color: var(--l-ink4); line-height: 1; transition: transform .2s; flex-shrink: 0; }
+.lp-faq-item.open .lp-faq-icon { transform: rotate(45deg); }
+.lp-faq-a { display: none; padding: 0 0 20px; font-size: 14px; color: var(--l-ink3); line-height: 1.72; }
+.lp-faq-item.open .lp-faq-a { display: block; }
+
+/* ── CTA final (dark) ── */
+.lp-cta-strip {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 48px; align-items: center; padding: 72px 0;
+}
+.lp-cta-strip h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3.5vw, 46px); font-weight: 900;
+  color: #fff; letter-spacing: -1.5px; line-height: .97; margin: 0;
+}
+.lp-cta-strip h2 em { font-style: italic; color: #9ab4f0; }
+.lp-cta-strip p { font-size: 14px; color: rgba(255,255,255,.4); margin: 12px 0 0; }
+.lp-cta-actions { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; flex-shrink: 0; }
+.lp-btn-light { background: #fff; color: var(--l-ink); }
+.lp-btn-light:hover { background: #f0ede8; }
+.lp-btn-ghost-white {
+  display: inline-flex; align-items: center;
+  background: none; border: none; cursor: pointer;
+  font-family: 'Source Serif 4', serif; font-size: 13px;
+  color: rgba(255,255,255,.35); padding: 0;
+  text-decoration: underline; text-decoration-color: rgba(255,255,255,.15);
+  transition: color .15s;
+}
+.lp-btn-ghost-white:hover { color: rgba(255,255,255,.7); }
+
+/* ── Footer ── */
+.lp-footer {
+  background: #fff; border-top: 2px solid var(--l-ink);
+  padding: 24px 0;
+}
+.lp-footer-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.lp-footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; font-weight: 900;
+  color: var(--l-ink); letter-spacing: -.4px;
+}
+.lp-footer-brand em { font-style: italic; color: var(--l-blue); }
+.lp-footer-meta { font-size: 11px; color: var(--l-ink4); line-height: 1.5; }
+
+/* ── Responsive ── */
+@media (max-width: 760px) {
+  .lp-wrap { padding: 0 20px; }
+  .lp-hero-inner { grid-template-columns: 1fr; }
+  .lp-hero-left { padding: 32px 0; border-right: none; border-bottom: 1px solid var(--l-rule); }
+  .lp-hero-right { padding: 32px 0; }
+  .lp-h1 { letter-spacing: -2px; }
+  .lp-fig { grid-template-columns: 56px 1fr; }
+  .lp-fig-n { font-size: 30px; }
+  .lp-feat-grid { grid-template-columns: 1fr; }
+  .lp-feat-cell { border-right: none !important; border-top: 1px solid var(--l-rule) !important; }
+  .lp-feat-cell:first-child { border-top: none !important; }
+  .lp-who-grid { grid-template-columns: 1fr; gap: 28px; }
+  .lp-cta-strip { grid-template-columns: 1fr; gap: 28px; }
+  .lp-cta-actions { align-items: flex-start; }
+}
 
 /* ══════════════════════════════
    SCREEN 1 — SETUP
 ══════════════════════════════ */
-#screen-setup{background:var(--cream)}
-.setup-hero{background:var(--ink);position:relative;overflow:hidden}
-.setup-hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.055) 38px,rgba(184,135,10,.055) 39px)}
-.setup-hero-inner{max-width:900px;margin:0 auto;padding:40px 48px 36px;position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
-.setup-kicker{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--gold);color:#e8c84a;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:4px 14px;margin-bottom:13px;font-family:'Source Serif 4',serif;font-weight:600}
-.setup-hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,4.5vw,52px);font-weight:900;line-height:1.05;letter-spacing:-1.5px;color:var(--cream)}
-.setup-hero h1 em{color:#e8c84a;font-style:italic}
-.setup-hero-sub{margin-top:8px;font-size:13px;font-weight:300;color:rgba(250,246,239,.45);display:flex;gap:14px;flex-wrap:wrap}
-.setup-hero-sub span::before{content:'·';margin-right:6px;color:var(--gold)}
-.hero-stat-box{display:flex;flex-direction:column;gap:8px}
-.hsb{padding:10px 18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:3px;text-align:center}
-.hsb .v{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--cream);line-height:1}
-.hsb .l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.35);margin-top:2px}
+#screen-setup{background:var(--bg)}
 
-.setup-body{max-width:900px;margin:0 auto;padding:36px 48px 72px}
-.setup-section{margin-bottom:32px}
+/* Header band */
+.setup-header{
+  border-bottom:1px solid var(--rule);
+  padding:0 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:48px;background:var(--bg);
+}
+.setup-header-title{
+  font-family:'Playfair Display',serif;
+  font-size:13px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--ink);
+}
+.setup-header-sub{font-size:11px;color:var(--ink4);font-family:'Source Serif 4',serif}
+
+/* Hero zone */
+.setup-hero{background:var(--ink);border-bottom:none;padding:0}
+.setup-hero-inner{max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:start;padding:48px 48px 40px}
+.setup-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.3);font-weight:600;margin-bottom:14px;display:block;font-family:'Source Serif 4',serif}
+.setup-h1{font-family:'Playfair Display',serif;font-size:clamp(34px,5vw,54px);font-weight:900;line-height:.95;letter-spacing:-2px;color:#fff;margin:0}
+.setup-h1 em{font-style:italic;color:#9ab4f0}
+.setup-hero-meta{margin-top:12px;font-size:13px;color:rgba(255,255,255,.3);display:flex;gap:16px;flex-wrap:wrap}
+.setup-hero-meta span::before{content:'—';margin-right:7px;color:var(--rule)}
+
+/* Stats aside */
+.setup-stats{display:flex;gap:1px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09);align-self:start}
+.setup-stat{padding:16px 22px;text-align:center;border-right:1px solid rgba(255,255,255,.07)}
+.setup-stat:last-child{border-right:none}
+.setup-stat-n{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px;display:block}
+.setup-stat-l{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:3px;display:block}
+
+/* Config body */
+.setup-body{max-width:920px;margin:0 auto;padding:40px 48px 72px}
+
+.setup-block{margin-bottom:40px}
+.setup-block-title{
+  font-family:'Playfair Display',serif;
+  font-size:17px;font-weight:700;color:var(--ink);
+  padding-bottom:14px;margin-bottom:20px;
+  border-bottom:1px solid var(--rule);
+  display:flex;align-items:baseline;gap:10px;
+}
+.setup-block-title::before{content:'—';color:var(--blue)}
+
+/* Duration chips */
 .timer-row{display:flex;gap:8px;flex-wrap:wrap}
-.timer-chip{padding:9px 20px;font-family:'Source Serif 4',serif;font-size:14px;background:white;border:1.5px solid var(--border);color:var(--ink2);border-radius:3px;cursor:pointer;transition:all .2s}
-.timer-chip:hover{border-color:var(--navy);color:var(--navy)}
-.timer-chip.sel{background:var(--navy);border-color:var(--navy);color:white}
-.chap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(218px,1fr));gap:8px}
-.chap-chip{padding:12px 14px;background:white;border:1.5px solid var(--border);border-radius:3px;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:10px}
-.chap-chip:hover{border-color:var(--navy3);background:var(--navy2)}
-.chap-chip.sel{border-color:var(--navy);background:var(--navy2)}
-.chk{width:15px;height:15px;border:1.5px solid var(--border);border-radius:2px;flex-shrink:0;margin-top:3px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;transition:all .2s}
-.chap-chip.sel .chk{background:var(--navy);border-color:var(--navy);color:white}
-.ch-name{font-size:14px;font-weight:600;color:var(--ink)}
-.ch-sub{font-size:11px;color:var(--ink4);font-style:italic;margin-top:1px}
-.setup-cta{margin-top:30px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.timer-chip{
+  padding:10px 22px;font-family:'Source Serif 4',serif;
+  font-size:14px;font-weight:600;color:var(--ink3);
+  background:var(--bg);border:1px solid var(--rule);
+  cursor:pointer;transition:all .12s;
+}
+.timer-chip:hover{border-color:var(--ink);color:var(--ink)}
+.timer-chip.sel{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* Chapter chips */
+.chap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.chap-chip{
+  padding:14px 16px;
+  background:var(--bg);
+  cursor:pointer;transition:background .12s;
+  display:flex;align-items:flex-start;gap:12px;
+}
+.chap-chip:hover{background:var(--bg2)}
+.chap-chip.sel{background:var(--blue2)}
+.chk{
+  width:14px;height:14px;border:1.5px solid var(--rule);
+  flex-shrink:0;margin-top:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;transition:all .12s;
+}
+.chap-chip.sel .chk{background:var(--blue);border-color:var(--blue);color:#fff}
+.ch-name{font-size:13px;font-weight:600;color:var(--ink);line-height:1.3}
+.ch-sub{font-size:11px;color:var(--ink4);font-style:italic;margin-top:2px}
+
+.setup-cta{margin-top:36px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-top:28px;border-top:1px solid var(--rule)}
+
 
 /* ══════════════════════════════
    SCREEN 2 — EXAM
 ══════════════════════════════ */
-#screen-exam{background:var(--cream)}
-.exam-top{background:var(--ink);box-shadow:0 2px 12px rgba(26,18,8,.2)}
-.exam-top-inner{max-width:960px;margin:0 auto;padding:10px 48px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.exam-title-wrap h2{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream)}
-.exam-title-wrap .sub{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,246,239,.38);margin-top:1px}
-.timer-block{margin-left:auto;display:flex;align-items:center;gap:16px}
-.timer-face{font-family:'Source Code Pro',monospace;font-size:20px;font-weight:500;color:#e8c84a;letter-spacing:2px;line-height:1}
-.timer-face.warn{color:#fb923c}.timer-face.danger{color:#f87171;animation:blink .8s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+#screen-exam{background:var(--bg)}
+
+/* Top bar */
+.exam-top{
+  background:var(--ink);
+  border-bottom:none;
+  position:sticky;top:52px;z-index:200;
+}
+.exam-top-inner{
+  max-width:960px;margin:0 auto;
+  padding:10px 48px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.exam-title-wrap h2{
+  font-family:'Playfair Display',serif;
+  font-size:16px;font-weight:700;color:#fff;
+}
+.exam-title-wrap .sub{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.3);margin-top:1px;
+}
+.timer-block{margin-left:auto;display:flex;align-items:center;gap:20px}
+.timer-face{
+  font-family:'Source Code Pro',monospace;
+  font-size:20px;font-weight:500;color:#fff;
+  letter-spacing:3px;line-height:1;
+}
+.timer-face.warn{color:#f59e0b}
+.timer-face.danger{color:#f87171;animation:blink .8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
 .live-sc-box{text-align:right}
-.live-sc-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#e8c84a;line-height:1}
-.live-sc-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.32)}
-.btn-end{padding:7px 15px;font-family:'Source Serif 4',serif;font-size:12px;background:rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.35);color:#fca5a5;border-radius:3px;cursor:pointer;transition:all .2s}
-.btn-end:hover{background:var(--red);color:white}
-.pills-bar{background:var(--paper2);border-bottom:1px solid var(--border)}
-.pills-bar-inner{max-width:960px;margin:0 auto;padding:8px 48px;display:flex;align-items:center;gap:7px;overflow-x:auto}
-.pill{padding:4px 13px;font-family:'Source Serif 4',serif;font-size:12px;font-weight:600;background:transparent;border:1.5px solid var(--border);color:var(--ink3);border-radius:2px;cursor:pointer;transition:all .2s;white-space:nowrap}
-.pill:hover{border-color:var(--navy);color:var(--navy)}
-.pill.answered{border-color:var(--navy);color:var(--navy);background:var(--navy2)}
-.pill.corrected{border-color:var(--green);color:white;background:var(--green)}
+.live-sc-num{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:900;color:#fff;line-height:1;
+}
+.live-sc-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.btn-end{
+  padding:7px 14px;font-family:'Source Serif 4',serif;font-size:11px;
+  font-weight:600;background:none;
+  border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.45);cursor:pointer;
+  transition:all .12s;letter-spacing:.3px;
+}
+.btn-end:hover{background:var(--red);border-color:var(--red);color:#fff}
+
+/* Pills nav */
+.pills-bar{background:var(--bg2);border-bottom:1px solid var(--rule)}
+.pills-bar-inner{
+  max-width:960px;margin:0 auto;
+  padding:8px 48px;
+  display:flex;align-items:center;gap:6px;overflow-x:auto;
+}
+.pill{
+  padding:4px 12px;font-family:'Source Serif 4',serif;
+  font-size:11px;font-weight:600;
+  background:transparent;
+  border:1px solid var(--rule);color:var(--ink4);
+  cursor:pointer;transition:all .12s;white-space:nowrap;
+}
+.pill:hover{border-color:var(--ink);color:var(--ink)}
+.pill.answered{border-color:var(--blue);color:var(--blue);background:var(--blue2)}
+.pill.corrected{border-color:var(--green);color:#fff;background:var(--green)}
+
+/* Main content */
 .exam-main{max-width:960px;margin:0 auto;padding:36px 48px 100px}
+
+/* Loading */
 .loading-box{text-align:center;padding:80px 20px}
-.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}
+.spinner{
+  width:28px;height:28px;
+  border:2px solid var(--rule);border-top-color:var(--ink);
+  border-radius:50%;animation:spin .7s linear infinite;
+  margin:0 auto 16px;
+}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-box p{font-size:13px;font-style:italic;color:var(--ink3)}
+.loading-box p{font-size:13px;font-style:italic;color:var(--ink4)}
 
 /* Exercise card */
-.exercise{background:var(--cream);border:1px solid var(--border);border-radius:4px;margin-bottom:36px;overflow:hidden;box-shadow:0 2px 8px var(--shadow2);scroll-margin-top:110px;position:relative}
-.exercise::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--navy)}
-.ex-head{padding:20px 28px 18px 36px;border-bottom:1px solid var(--border);background:rgba(250,246,239,.6);display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
-.ex-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);font-weight:600;margin-bottom:5px}
-.ex-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--ink);line-height:1.2}
-.ex-notion{font-size:13px;font-style:italic;color:var(--ink3);margin-top:3px}
-.ex-pts{flex-shrink:0;padding:8px 16px;background:var(--navy2);border:1px solid var(--navy3);border-radius:3px;text-align:center}
-.ex-pts .n{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--navy);line-height:1}
-.ex-pts .l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);opacity:.7}
-.ex-body{padding:22px 28px 28px 36px}
-.ex-body>p{margin-bottom:12px;color:var(--ink2)}
+.exercise{
+  background:var(--bg);
+  border:1px solid var(--rule);
+  border-left:3px solid var(--blue);
+  margin-bottom:32px;overflow:hidden;
+  scroll-margin-top:120px;
+}
+.ex-head{
+  padding:20px 28px 18px;
+  border-bottom:1px solid var(--rule);
+  background:var(--bg2);
+  display:flex;align-items:flex-start;
+  justify-content:space-between;gap:16px;
+}
+.ex-eyebrow{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--blue);font-weight:600;margin-bottom:5px;
+}
+.ex-title{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:700;color:var(--ink);line-height:1.2;
+}
+.ex-notion{font-size:13px;font-style:italic;color:var(--ink4);margin-top:3px}
+.ex-pts{
+  flex-shrink:0;padding:10px 16px;
+  background:var(--bg);border:1px solid var(--rule);
+  text-align:center;
+}
+.ex-pts .n{
+  font-family:'Playfair Display',serif;
+  font-size:28px;font-weight:900;color:var(--ink);line-height:1;
+}
+.ex-pts .l{
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink4);margin-top:2px;
+}
+.ex-body{padding:22px 28px 28px}
+.ex-body>p{margin-bottom:12px;color:var(--ink2);font-size:15px}
 
+/* Table */
 table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
-th{background:var(--paper2);color:var(--ink);padding:9px 14px;text-align:left;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border)}
-td{padding:9px 14px;border:1px solid var(--border2);color:var(--ink2)}
-tr:nth-child(even) td{background:rgba(26,18,8,.025)}
+th{
+  background:var(--bg2);color:var(--ink);
+  padding:9px 14px;text-align:left;
+  font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  border:1px solid var(--rule);
+}
+td{padding:9px 14px;border:1px solid var(--rule2);color:var(--ink2)}
+tr:nth-child(even) td{background:var(--bg2)}
 
-.question{margin:16px 0;border:1px solid var(--border);border-left:3px solid var(--navy);background:rgba(250,246,239,.5);border-radius:0 3px 3px 0;overflow:hidden}
-.q-head{padding:10px 16px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:10px}
-.q-num{font-size:13px;font-weight:700;color:var(--navy);font-family:'Source Serif 4',serif}
-.q-pts-badge{display:inline-flex;align-items:center;padding:3px 10px;background:var(--green);color:white;font-size:11px;font-weight:700;border-radius:3px}
-.q-text{padding:13px 16px 15px;font-size:15px;color:var(--ink);line-height:1.72}
+/* Question */
+.question{
+  margin:16px 0;
+  border:1px solid var(--rule);
+  border-left:2px solid var(--blue);
+  background:var(--bg);overflow:hidden;
+}
+.q-head{
+  padding:10px 16px;border-bottom:1px solid var(--rule2);
+  display:flex;align-items:center;gap:10px;
+  background:var(--bg2);
+}
+.q-num{font-size:12px;font-weight:700;color:var(--blue);font-family:'Source Serif 4',serif;letter-spacing:.5px}
+.q-pts-badge{
+  display:inline-flex;align-items:center;
+  padding:2px 9px;background:var(--green);
+  color:#fff;font-size:11px;font-weight:600;
+}
+.q-text{padding:13px 16px 14px;font-size:15px;color:var(--ink);line-height:1.72}
 
-.answer-zone{padding:12px 16px 14px;background:rgba(26,50,100,.03);border-top:1px dashed var(--border)}
-.answer-lbl{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink4);margin-bottom:7px;display:flex;align-items:center;gap:6px}
-.answer-lbl::before{content:'✎';font-size:13px;color:var(--navy)}
-.answer-ta{width:100%;min-height:80px;padding:10px 12px;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.65;color:var(--ink);background:white;border:1.5px solid var(--border);border-radius:3px 3px 0 0;resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s}
-.answer-ta::placeholder{color:var(--ink4);font-style:italic}
-.answer-ta:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(26,50,100,.08)}
-.answer-ta.has-content{border-color:rgba(26,50,100,.35)}
-.answer-ta.locked{border-color:var(--green)!important;background:rgba(29,107,58,.04)!important;color:var(--ink2);resize:none;cursor:default}
+/* Answer zone */
+.answer-zone{
+  padding:12px 16px 14px;
+  background:var(--bg2);
+  border-top:1px dashed var(--rule);
+}
+.answer-lbl{
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--ink5);margin-bottom:7px;
+  display:flex;align-items:center;gap:6px;
+}
+.answer-lbl::before{content:'—';color:var(--blue)}
+.answer-ta{
+  width:100%;min-height:80px;
+  padding:10px 12px;
+  font-family:'Source Serif 4',serif;font-size:15px;
+  line-height:1.65;color:var(--ink);
+  background:var(--bg);
+  border:1px solid var(--rule);
+  resize:vertical;outline:none;
+  transition:border-color .12s;
+}
+.answer-ta::placeholder{color:var(--ink5);font-style:italic}
+.answer-ta:focus{border-color:var(--blue)}
+.answer-ta.has-content{border-color:rgba(26,50,100,.3)}
+.answer-ta.locked{
+  border-color:var(--green)!important;
+  background:var(--green2)!important;
+  color:var(--ink2);resize:none;cursor:default;
+}
 
-.val-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;background:var(--paper2);border:1.5px solid var(--border);border-top:none;border-radius:0 0 3px 3px}
-.btn-val{display:inline-flex;align-items:center;gap:6px;padding:7px 18px;font-family:'Source Serif 4',serif;font-size:12px;font-weight:600;background:var(--navy);color:white;border:none;border-radius:3px;cursor:pointer;transition:all .2s}
-.btn-val:hover{background:#0f2048}
-.btn-val:disabled{background:var(--border);color:var(--ink4);cursor:not-allowed}
-.btn-edit{display:none;align-items:center;gap:5px;padding:6px 14px;font-family:'Source Serif 4',serif;font-size:12px;background:transparent;border:1.5px solid var(--border);color:var(--ink3);border-radius:3px;cursor:pointer;transition:all .2s}
-.btn-edit:hover{border-color:var(--ink2);color:var(--ink2)}
+/* Val bar */
+.val-bar{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:8px 12px;
+  background:var(--bg);
+  border:1px solid var(--rule);border-top:none;
+}
+.btn-val{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 16px;
+  font-family:'Source Serif 4',serif;font-size:12px;font-weight:600;
+  background:var(--blue);color:#fff;border:none;cursor:pointer;
+  transition:background .12s;
+}
+.btn-val:hover{background:#0f1f44}
+.btn-val:disabled{background:var(--rule);color:var(--ink4);cursor:not-allowed}
+.btn-edit{
+  display:none;align-items:center;gap:5px;
+  padding:6px 12px;
+  font-family:'Source Serif 4',serif;font-size:12px;
+  background:none;border:1px solid var(--rule);color:var(--ink4);
+  cursor:pointer;transition:all .12s;
+}
+.btn-edit:hover{border-color:var(--ink);color:var(--ink)}
 .val-tag{display:none;align-items:center;gap:5px;font-size:12px;color:var(--green);font-weight:600}
 .val-tag.show{display:flex}
-.val-hint{font-size:11px;font-style:italic;color:var(--ink4);margin-left:auto}
+.val-hint{font-size:11px;font-style:italic;color:var(--ink5);margin-left:auto}
 
-.ai-result{display:none;margin-top:10px;border-radius:3px;overflow:hidden;border:1.5px solid var(--border);animation:fadeUp .3s ease}
+/* AI result */
+.ai-result{display:none;margin-top:10px;border:1px solid var(--rule);animation:fadeUp .25s ease;overflow:hidden}
 .ai-result.visible{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
-.ai-rh{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;gap:10px}
-.ai-rh.correct-bg{background:rgba(29,107,58,.10);border-bottom:1px solid rgba(29,107,58,.2)}
-.ai-rh.partial-bg{background:rgba(184,135,10,.10);border-bottom:1px solid rgba(184,135,10,.2)}
-.ai-rh.wrong-bg{background:rgba(192,57,43,.08);border-bottom:1px solid rgba(192,57,43,.15)}
-.ai-rh.loading-bg{background:var(--paper2);border-bottom:1px solid var(--border)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.ai-rh{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;gap:10px;
+}
+.ai-rh.correct-bg{background:var(--green2);border-bottom:1px solid rgba(29,107,58,.15)}
+.ai-rh.partial-bg{background:var(--amber2);border-bottom:1px solid rgba(160,108,0,.15)}
+.ai-rh.wrong-bg{background:var(--red2);border-bottom:1px solid rgba(192,57,40,.12)}
+.ai-rh.loading-bg{background:var(--bg2);border-bottom:1px solid var(--rule)}
 .ai-rl{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
 .ai-sc{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;line-height:1;white-space:nowrap}
-.ai-sc.correct-col{color:var(--green)}.ai-sc.partial-col{color:var(--gold)}.ai-sc.wrong-col{color:var(--red)}.ai-sc.loading-col{color:var(--ink4);font-size:14px;font-family:'Source Serif 4',serif}
-.ai-fb{padding:11px 14px;font-size:14px;line-height:1.65;color:var(--ink2);background:white;font-style:italic}
-.mini-sp{display:inline-block;width:13px;height:13px;border:2px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle}
+.ai-sc.correct-col{color:var(--green)}
+.ai-sc.partial-col{color:var(--amber)}
+.ai-sc.wrong-col{color:var(--red)}
+.ai-sc.loading-col{color:var(--ink4);font-size:14px;font-family:'Source Serif 4',serif}
+.ai-fb{padding:11px 14px;font-size:14px;line-height:1.65;color:var(--ink2);background:var(--bg);font-style:italic}
+.mini-sp{
+  display:inline-block;width:12px;height:12px;
+  border:2px solid var(--rule);border-top-color:var(--blue);
+  border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;
+}
 
-.corr-toggle{margin-top:22px;padding-top:18px;border-top:1px dashed var(--border);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.btn-see{display:inline-flex;align-items:center;gap:7px;padding:8px 20px;font-family:'Source Serif 4',serif;font-size:13px;font-weight:600;background:transparent;border:1.5px solid var(--gold);color:var(--gold);border-radius:3px;cursor:pointer;transition:all .2s}
-.btn-see:hover:not(:disabled){background:var(--gold2)}
-.btn-see.active{background:var(--gold);color:white}
-.btn-see:disabled{border-color:var(--border);color:var(--ink4);cursor:not-allowed;opacity:.5}
-.corr-hint{font-size:12px;font-style:italic;color:var(--ink4)}
-.correction{display:none;margin-top:16px;padding:18px 22px;background:rgba(184,135,10,.07);border:1px solid rgba(184,135,10,.22);border-radius:3px}
-.correction.open{display:block;animation:fadeUp .3s ease}
-.corr-head{display:flex;align-items:center;gap:9px;padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid rgba(184,135,10,.2)}
-.corr-badge{width:20px;height:20px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
-.corr-head span{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600}
+/* Correction */
+.corr-toggle{
+  margin-top:20px;padding-top:16px;
+  border-top:1px dashed var(--rule);
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.btn-see{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:7px 18px;
+  font-family:'Source Serif 4',serif;font-size:12px;font-weight:600;
+  background:none;
+  border:1px solid var(--amber);color:var(--amber);
+  cursor:pointer;transition:all .12s;
+}
+.btn-see:hover:not(:disabled){background:var(--amber2)}
+.btn-see.active{background:var(--amber);color:#fff}
+.btn-see:disabled{border-color:var(--rule);color:var(--ink4);cursor:not-allowed;opacity:.5}
+.corr-hint{font-size:12px;font-style:italic;color:var(--ink5)}
+.correction{
+  display:none;margin-top:14px;
+  padding:18px 20px;
+  background:var(--amber2);
+  border:1px solid rgba(160,108,0,.2);
+}
+.correction.open{display:block;animation:fadeUp .25s ease}
+.corr-head{
+  display:flex;align-items:center;gap:9px;
+  padding-bottom:12px;margin-bottom:14px;
+  border-bottom:1px solid rgba(160,108,0,.18);
+}
+.corr-badge{
+  width:18px;height:18px;background:var(--amber);color:#fff;
+  border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;
+}
+.corr-head span{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);font-weight:600}
 .correction p{margin-bottom:9px;font-size:14px;color:var(--ink2)}
 .correction p:last-child{margin-bottom:0}
-.corr-block{margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(184,135,10,.12)}
+.corr-block{margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(160,108,0,.12)}
 .corr-block:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
-.corr-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.corr-title{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--amber);font-weight:700;margin-bottom:8px;
+  display:flex;align-items:center;gap:7px;
+}
 .corr-title::before{content:'§';font-size:14px}
 
-.exam-footer{border-top:2px solid var(--border);padding:22px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:8px}
-.exam-footer p{font-size:13px;font-style:italic;color:var(--ink4)}
-.footer-score{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:var(--ink);line-height:1}
+/* Footer */
+.exam-footer{
+  border-top:1px solid var(--rule);
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;margin-top:8px;
+}
+.exam-footer p{font-size:13px;font-style:italic;color:var(--ink5)}
+.footer-score{
+  font-family:'Playfair Display',serif;
+  font-size:48px;font-weight:900;color:var(--ink);line-height:1;
+}
 .footer-score sub{font-size:16px;font-weight:400;color:var(--ink4);vertical-align:middle}
+
 
 /* ══════════════════════════════
    SCREEN 3 — RESULTS
 ══════════════════════════════ */
-#screen-results{background:var(--cream)}
-.res-banner{background:var(--ink);padding:44px 48px 40px;position:relative;overflow:hidden}
-.res-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.055) 38px,rgba(184,135,10,.055) 39px)}
-.res-banner-inner{max-width:860px;margin:0 auto;position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
-.res-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(250,246,239,.4);font-weight:600;margin-bottom:10px}
-.res-score{font-family:'Playfair Display',serif;font-size:clamp(64px,10vw,100px);font-weight:900;line-height:.9;letter-spacing:-3px;color:var(--cream)}
-.res-score span{font-size:clamp(22px,4vw,36px);color:rgba(250,246,239,.32);font-weight:400}
-.res-mention{font-size:16px;font-weight:600;color:#e8c84a;margin-top:12px}
-.res-bar-wrap{margin-top:16px;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;max-width:440px}
-.res-bar{height:100%;border-radius:3px;transition:width 1.2s ease}
-.res-detail{display:flex;flex-direction:column;gap:10px;min-width:130px}
-.res-stat{padding:11px 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:3px;text-align:center}
-.res-stat .v{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#e8c84a;line-height:1}
-.res-stat .l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.35);margin-top:3px}
-.res-body{max-width:860px;margin:0 auto;padding:32px 48px 72px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.bdown-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border2)}
+#screen-results{background:var(--bg)}
+
+/* Score banner */
+.res-banner{
+  background:var(--ink);
+  border-bottom:1px solid var(--rule);
+}
+.res-banner-inner{
+  max-width:880px;margin:0 auto;
+  padding:52px 48px 44px;
+  display:grid;grid-template-columns:1fr auto;
+  gap:32px;align-items:center;
+}
+.res-eyebrow{
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:rgba(255,255,255,.3);font-weight:600;margin-bottom:12px;display:block;
+}
+.res-score{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(64px,10vw,96px);
+  font-weight:900;line-height:.9;
+  letter-spacing:-4px;color:#fff;
+}
+.res-score span{
+  font-size:clamp(20px,3vw,30px);
+  color:rgba(255,255,255,.25);font-weight:400;
+}
+.res-mention{
+  font-size:15px;font-weight:600;color:rgba(255,255,255,.6);
+  margin-top:14px;
+}
+.res-bar-wrap{
+  margin-top:14px;height:3px;
+  background:rgba(255,255,255,.1);overflow:hidden;max-width:400px;
+}
+.res-bar{height:100%;transition:width 1.2s ease}
+.res-detail{
+  display:flex;flex-direction:column;gap:12px;min-width:120px;
+}
+.res-stat{
+  padding:14px 18px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  text-align:center;
+}
+.res-stat .v{
+  font-family:'Playfair Display',serif;
+  font-size:22px;font-weight:900;color:#fff;line-height:1;
+}
+.res-stat .l{
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.3);margin-top:3px;
+}
+
+/* Body */
+.res-body{
+  max-width:880px;margin:0 auto;
+  padding:40px 48px 72px;
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;
+}
+.bdown-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 0;border-bottom:1px solid var(--rule2);
+}
 .bdown-row:last-child{border-bottom:none}
 .bdown-notion{font-size:13px;font-weight:600;color:var(--ink3)}
 .bdown-pts{font-family:'Playfair Display',serif;font-size:17px;font-weight:700}
-.bdown-pct{height:3px;background:var(--border2);border-radius:2px;margin-top:3px;overflow:hidden}
-.bdown-pct-fill{height:100%;border-radius:2px;transition:width .9s ease}
-.err-card{padding:12px 16px;background:white;border:1px solid var(--border);border-left:3px solid var(--red);border-radius:0 3px 3px 0;margin-bottom:8px}
+.bdown-pct{height:2px;background:var(--rule2);margin-top:3px;overflow:hidden}
+.bdown-pct-fill{height:100%;transition:width .9s ease}
+
+.err-card{
+  padding:12px 16px;background:var(--bg);
+  border:1px solid var(--rule);
+  border-left:2px solid var(--red);
+  margin-bottom:8px;
+}
 .err-q{font-size:13px;color:var(--ink2);margin-bottom:5px}
 .err-sc{font-size:11px;font-weight:700;letter-spacing:.5px}
 .err-fb{font-size:12px;font-style:italic;color:var(--ink4);margin-top:4px}
-.res-cta{grid-column:1/-1;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding-top:16px;border-top:1px solid var(--border)}
+
+.res-cta{
+  grid-column:1/-1;
+  display:flex;gap:12px;flex-wrap:wrap;
+  justify-content:flex-start;
+  padding-top:16px;border-top:1px solid var(--rule);
+}
+
 
 /* ══════════════════════════════
    SCREEN 4 — DASHBOARD
 ══════════════════════════════ */
-#screen-dash{background:var(--cream)}
-.dash-banner{background:var(--ink);padding:40px 48px 36px;position:relative;overflow:hidden}
-.dash-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.04) 38px,rgba(184,135,10,.04) 39px)}
-.dash-banner-inner{max-width:960px;margin:0 auto;position:relative;z-index:2}
-.dash-banner h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--cream);letter-spacing:-1px;line-height:1}
-.dash-banner h2 em{color:#e8c84a;font-style:italic}
-.dash-banner p{font-size:13px;color:rgba(250,246,239,.38);margin-top:8px}
-.dash-body{max-width:960px;margin:0 auto;padding:32px 48px 72px}
-.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:32px}
-.stat-card{padding:18px 20px;background:white;border:1px solid var(--border);border-radius:3px;box-shadow:0 1px 4px var(--shadow2)}
-.sc-val{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;line-height:1;color:var(--ink)}
-.sc-val.navy{color:var(--navy)}.sc-val.green{color:var(--green)}.sc-val.gold{color:var(--gold)}.sc-val.red{color:var(--red)}
-.sc-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);margin-top:6px}
+#screen-dash{background:var(--bg)}
 
-.chart-section{margin-bottom:32px}
-.chart-wrap{height:120px;display:flex;align-items:flex-end;gap:6px;padding:8px 0 0;border-bottom:1px solid var(--border)}
+/* Header */
+.dash-banner{
+  background:var(--ink);
+  border-bottom:1px solid var(--rule);
+}
+.dash-banner-inner{
+  max-width:960px;margin:0 auto;
+  padding:48px 48px 40px;
+}
+.dash-banner-inner .lp-overline{
+  color:rgba(255,255,255,.3);
+  display:block;font-size:10px;letter-spacing:4px;
+  text-transform:uppercase;margin-bottom:10px;
+  font-family:'Source Serif 4',serif;font-weight:600;
+}
+.dash-banner h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(30px,4.5vw,52px);font-weight:900;
+  color:#fff;letter-spacing:-2px;line-height:.95;margin:0;
+}
+.dash-banner h2 em{font-style:italic;color:#9ab4f0}
+.dash-banner p{font-size:13px;color:rgba(255,255,255,.35);margin-top:10px}
+
+/* Body */
+.dash-body{max-width:960px;margin:0 auto;padding:36px 48px 72px}
+
+/* Stat row */
+.stat-row{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;background:var(--rule);
+  border:1px solid var(--rule);
+  margin-bottom:40px;
+}
+.stat-card{
+  padding:20px 20px;background:var(--bg);
+}
+.sc-val{
+  font-family:'Playfair Display',serif;
+  font-size:32px;font-weight:900;line-height:1;color:var(--ink);
+}
+.sc-val.navy,.sc-val.blue{color:var(--blue)}
+.sc-val.green{color:var(--green)}
+.sc-val.gold{color:var(--amber)}
+.sc-val.red{color:var(--red)}
+.sc-lbl{
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--ink5);margin-top:6px;
+}
+
+/* Chart */
+.chart-section{margin-bottom:40px}
+.chart-section .rule{font-size:10px;letter-spacing:3px;color:var(--ink5);margin-bottom:12px}
+.chart-wrap{
+  height:100px;display:flex;align-items:flex-end;
+  gap:5px;padding:0 0 0;
+  border-bottom:1px solid var(--rule);
+}
 .chart-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:0}
-.chart-bar{width:100%;border-radius:2px 2px 0 0;transition:height .6s ease;min-height:2px}
-.chart-lbl{font-size:9px;color:var(--ink4);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
-.chart-val{font-size:10px;font-weight:700;color:var(--ink3);text-align:center}
+.chart-bar{width:100%;border-radius:0;transition:height .5s ease;min-height:2px}
+.chart-lbl{font-size:9px;color:var(--ink5);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
+.chart-val{font-size:10px;font-weight:600;color:var(--ink4);text-align:center}
 
-.dash-grid{display:grid;grid-template-columns:3fr 2fr;gap:32px}
+/* Grid */
+.dash-grid{display:grid;grid-template-columns:3fr 2fr;gap:40px}
+
+/* History table */
 .hist-table{width:100%;border-collapse:collapse}
-.hist-table th{padding:9px 12px;text-align:left;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);border-bottom:2px solid var(--border);font-weight:600}
-.hist-table td{padding:10px 12px;border-bottom:1px solid var(--border2);font-size:14px;color:var(--ink2)}
-.hist-table tr:hover td{background:rgba(26,18,8,.02)}
-.score-chip{display:inline-block;padding:3px 10px;border-radius:2px;font-family:'Playfair Display',serif;font-size:13px;font-weight:700}
-.score-chip.a{background:rgba(29,107,58,.12);color:var(--green)}.score-chip.b{background:rgba(184,135,10,.12);color:var(--gold)}.score-chip.c{background:rgba(192,57,43,.1);color:var(--red)}
+.hist-table th{
+  padding:8px 12px;text-align:left;
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--ink5);border-bottom:2px solid var(--ink);font-weight:600;
+}
+.hist-table td{
+  padding:10px 12px;border-bottom:1px solid var(--rule2);
+  font-size:13px;color:var(--ink2);
+}
+.hist-table tr:hover td{background:var(--bg2)}
+
+.score-chip{
+  display:inline-block;padding:2px 9px;
+  font-family:'Playfair Display',serif;
+  font-size:13px;font-weight:700;
+}
+.score-chip.a{background:var(--green2);color:var(--green)}
+.score-chip.b{background:var(--amber2);color:var(--amber)}
+.score-chip.c{background:var(--red2);color:var(--red)}
+
+/* Notions bars */
 .nb-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .nb-label{font-size:12px;font-weight:600;color:var(--ink3);width:150px;flex-shrink:0}
-.nb-track{flex:1;height:5px;background:var(--border2);border-radius:3px;overflow:hidden}
-.nb-fill{height:100%;border-radius:3px;transition:width .8s ease}
+.nb-track{flex:1;height:3px;background:var(--rule2);overflow:hidden}
+.nb-fill{height:100%;transition:width .8s ease}
 .nb-count{font-size:11px;font-weight:700;color:var(--ink4);width:24px;text-align:right}
-.empty-state{text-align:center;padding:60px 20px;color:var(--ink4)}
-.empty-state .ei{font-size:48px;display:block;margin-bottom:14px}
+
+.empty-state{text-align:center;padding:72px 20px;color:var(--ink5)}
+.empty-state .ei{font-size:40px;display:block;margin-bottom:16px;opacity:.4}
+
 
 /* ══════════════════════════════
    RESPONSIVE
 ══════════════════════════════ */
 @media(max-width:760px){
-  .gnav{padding:0 16px}.gnav-links{display:none}
-  .hero-inner{grid-template-columns:1fr}.hero-right{display:none}
-  .setup-hero-inner,.setup-body,.exam-top-inner,.pills-bar-inner,.exam-main,.res-banner-inner,.res-body,.dash-banner-inner,.dash-body,.why-section,.who-section,.chapters-section,.faq-section,.cta-banner,.proof-strip,.how-section,.site-footer{padding-left:20px;padding-right:20px}
+  .gnav{padding:0 20px}.gnav-links{display:none}
+  /* Landing */
+  .lp-wrap{padding:0 20px}
+  .lp-hero-inner{grid-template-columns:1fr}
+  .lp-hero-left{padding:32px 0;border-right:none;border-bottom:1px solid var(--rule)}
+  .lp-hero-right{padding:28px 0}
+  .lp-h1{letter-spacing:-2px}
+  .lp-fig{grid-template-columns:52px 1fr}
+  .lp-fig-n{font-size:28px}
+  .lp-feat-grid{grid-template-columns:1fr}
+  .lp-feat-cell{border-right:none!important;border-top:1px solid var(--rule)!important}
+  .lp-feat-cell:first-child{border-top:none!important}
+  .lp-who-grid{grid-template-columns:1fr;gap:24px}
+  .lp-cta-strip{grid-template-columns:1fr;gap:24px}
+  .lp-cta-actions{align-items:flex-start}
+  /* Setup */
+  .setup-header{padding:0 20px}
+  .setup-hero{padding:32px 20px}
   .setup-hero-inner{grid-template-columns:1fr}
-  .res-banner-inner{grid-template-columns:1fr}
-  .res-body,.dash-grid{grid-template-columns:1fr}
-  .hero-cta{flex-direction:column}
+  .setup-stats{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:24px;display:grid;grid-template-columns:repeat(3,1fr)}
+  .setup-body{padding:28px 20px 60px}
+  /* Exam */
+  .exam-top-inner{padding:8px 20px}
+  .pills-bar-inner{padding:6px 20px}
+  .exam-main{padding:24px 20px 80px}
+  .exam-footer{padding:16px 20px}
+  /* Results */
+  .res-banner-inner{grid-template-columns:1fr;padding:36px 20px}
+  .res-body{grid-template-columns:1fr;padding:28px 20px 60px;gap:32px}
+  /* Dashboard */
+  .dash-banner-inner{padding:36px 20px}
+  .dash-body{padding:24px 20px 60px}
+  .dash-grid{grid-template-columns:1fr}
 }
+
 </style>
+
 </head>
 <body>
 
@@ -385,225 +968,315 @@ tr:nth-child(even) td{background:rgba(26,18,8,.025)}
   SCREEN 0 — LANDING PAGE
 ══════════════════════════════════════════════ -->
 <div class="screen active" id="screen-landing">
+<div class="lp">
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-inner">
-      <div>
-        <div class="hero-kicker">Élèves de 3ème · Programme officiel DNB</div>
-        <h1>Préparez votre<br><em>Brevet Blanc</em><br>de Maths</h1>
-        <p class="hero-lead">Exercices interactifs corrigés en ligne, simulateur d'examen chronométré et suivi personnalisé — conçus pour vous mettre en situation réelle avant le jour J.</p>
-        <div class="hero-cta">
-          <button class="btn-navy" style="font-size:15px;padding:13px 32px" onclick="go('screen-setup','navSetup')">Commencer gratuitement →</button>
-          <button class="btn-outline" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);color:rgba(250,246,239,.6)" onclick="scrollToId('why-section')">En savoir plus</button>
-        </div>
-      </div>
-      <div class="hero-right">
-        <div class="hero-card"><div class="hero-card-icon">⏱️</div><div><h3>Simulateur d'examen</h3><p>Chronomètre réel, conditions identiques au brevet blanc</p></div></div>
-        <div class="hero-card"><div class="hero-card-icon">🤖</div><div><h3>Correction IA instantanée</h3><p>Feedback personnalisé sur chaque réponse, en quelques secondes</p></div></div>
-        <div class="hero-card"><div class="hero-card-icon">📊</div><div><h3>Suivi de progression</h3><p>Historique complet, points faibles identifiés, graphiques</p></div></div>
-        <div class="hero-card"><div class="hero-card-icon">📚</div><div><h3>10 chapitres couverts</h3><p>Tout le programme officiel de maths de 3ème</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Social proof -->
-  <div class="proof-strip">
-    <div class="proof-inner">
-      <div class="proof-item"><span class="pi">✅</span> Conforme au programme officiel</div>
-      <div class="proof-item"><span class="pi">🆓</span> 100% gratuit</div>
-      <div class="proof-item"><span class="pi">📱</span> Ordinateur, tablette et smartphone</div>
-      <div class="proof-item"><span class="pi">🎯</span> Exercices issus des vrais sujets APMEP 2025</div>
-    </div>
-  </div>
-
-  <!-- Why -->
-  <section id="why-section">
-    <div class="why-section">
-      <h2>Pourquoi choisir<br><em>notre plateforme ?</em></h2>
-      <p class="sub">Tout ce dont vous avez besoin pour réussir votre brevet blanc, réuni en un seul endroit.</p>
-      <div class="why-grid">
-        <div class="why-card">
-          <div class="why-card-icon">📖</div>
-          <h3>Exercices conformes au programme</h3>
-          <p>Arithmétique, géométrie, statistiques, fonctions… Tous les chapitres essentiels sont couverts, modélisés sur les vrais sujets du DNB 2025.</p>
-        </div>
-        <div class="why-card">
-          <div class="why-card-icon">⏱️</div>
-          <h3>Mises en situation réelles</h3>
-          <p>Simulateur d'examen avec chronomètre et consignes identiques au brevet blanc. Choisissez la durée : 2h, 1h, 30 min ou moins.</p>
-        </div>
-        <div class="why-card">
-          <div class="why-card-icon">🤖</div>
-          <h3>Corrigés détaillés et pédagogiques</h3>
-          <p>Chaque réponse est corrigée par intelligence artificielle avec un feedback personnalisé. Chaque erreur devient une opportunité de progresser.</p>
-        </div>
-        <div class="why-card">
-          <div class="why-card-icon">📈</div>
-          <h3>Suivi personnalisé</h3>
-          <p>Suivez vos résultats brevet par brevet, identifiez vos points faibles par chapitre et concentrez-vous sur ce qui compte vraiment.</p>
-        </div>
-        <div class="why-card">
-          <div class="why-card-icon">📱</div>
-          <h3>Accessible partout, tout le temps</h3>
-          <p>Sur ordinateur, tablette ou smartphone, 24h/24 et 7j/7. Révisez où vous voulez, quand vous voulez.</p>
-        </div>
-        <div class="why-card">
-          <div class="why-card-icon">🎯</div>
-          <h3>Exercices aléatoires à l'infini</h3>
-          <p>Chaque brevet blanc génère un sujet différent depuis notre banque d'exercices. Pas de redite, toujours de la nouveauté.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How it works -->
-  <section class="how-section">
-    <div class="how-inner">
-      <h2>Comment ça <em>marche ?</em></h2>
-      <p class="sub">Simple, rapide, efficace — en 4 étapes.</p>
-      <div class="how-steps">
-        <div class="how-step">
-          <h3>Choisissez votre durée</h3>
-          <p>Sélectionnez la durée de votre brevet blanc : 2h (durée réelle), 1h, 30 min, 10 min ou 5 min selon le temps disponible.</p>
-        </div>
-        <div class="how-step">
-          <h3>Sélectionnez vos notions</h3>
-          <p>Travaillez sur tous les chapitres à la fois ou ciblez les notions spécifiques que vous souhaitez réviser en priorité.</p>
-        </div>
-        <div class="how-step">
-          <h3>Entraînez-vous en ligne</h3>
-          <p>Répondez aux exercices chronométré, validez vos réponses et recevez une correction IA instantanée avec explications détaillées.</p>
-        </div>
-        <div class="how-step">
-          <h3>Suivez votre progression</h3>
-          <p>Consultez votre tableau de bord, analysez vos points faibles par notion et révisez efficacement pour le brevet blanc.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- For who -->
-  <section>
-    <div class="who-section">
-      <h2>Pour <em>qui ?</em></h2>
-      <p class="sub">Une plateforme pensée pour tous ceux qui veulent préparer le brevet avec sérieux.</p>
-      <div class="who-grid">
-        <div class="who-card">
-          <h3>🎓 Élèves de 3ème</h3>
-          <p>Qui veulent se préparer sérieusement au brevet blanc en s'entraînant dans les mêmes conditions que l'examen.</p>
-        </div>
-        <div class="who-card">
-          <h3>📉 Collégiens en difficulté</h3>
-          <p>Souhaitant améliorer leurs résultats en maths grâce à un entraînement ciblé sur leurs points faibles.</p>
-        </div>
-        <div class="who-card">
-          <h3>👨‍👩‍👧 Parents accompagnants</h3>
-          <p>Recherchant un outil fiable et pédagogique pour aider leurs enfants à se préparer au brevet des collèges.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Chapters -->
-  <div class="chapters-section">
-    <div class="chapters-inner">
-      <h2>Tous les chapitres du <em>programme</em></h2>
-      <p class="sub">10 notions couvertes — tout ce que vous verrez au brevet blanc.</p>
-      <div class="chap-pills">
-        <span class="chap-pill">📐 Géométrie</span>
-        <span class="chap-pill">📊 Statistiques</span>
-        <span class="chap-pill">🎲 Probabilités</span>
-        <span class="chap-pill">🔢 Arithmétique & PGCD</span>
-        <span class="chap-pill">📈 Proportionnalité</span>
-        <span class="chap-pill">🔤 Algèbre & Équations</span>
-        <span class="chap-pill">⚡ Puissances</span>
-        <span class="chap-pill">💻 Algorithmique</span>
-        <span class="chap-pill">📦 Volumes & Grandeurs</span>
-        <span class="chap-pill">🔧 Fonctions affines</span>
+  <!-- HEADER STRIP -->
+  <div class="lp-header">
+    <div class="lp-wrap">
+      <div class="lp-header-inner">
+        <span class="lp-header-title">Brevet Blanc Maths</span>
+        <span class="lp-header-sub">Programme officiel 3ème · APMEP 2023–2024</span>
       </div>
     </div>
   </div>
+
+  <!-- HERO -->
+  <div class="lp-hero">
+    <div class="lp-wrap">
+      <div class="lp-hero-inner">
+
+        <div class="lp-hero-left">
+          <span class="lp-kicker">Diplôme National du Brevet · Mathématiques</span>
+          <h1 class="lp-h1">
+            Entraîne<br>
+            ment<br>
+            <em>intensif.</em>
+          </h1>
+          <p class="lp-tagline">Exercices officiels corrigés par IA, simulateur d'examen chronométré, suivi de progression. Gratuit, sans inscription.</p>
+          <div class="lp-cta-row">
+            <button class="lp-btn lp-btn-dark" onclick="go('screen-setup','navSetup')">
+              Commencer un brevet →
+            </button>
+            <button class="lp-btn lp-btn-outline" onclick="go('screen-dash','navDash');renderDash()">
+              Tableau de bord
+            </button>
+          </div>
+        </div>
+
+        <div class="lp-hero-right">
+          <div class="lp-figures">
+            <div class="lp-fig">
+              <span class="lp-fig-n">48</span>
+              <span class="lp-fig-label">exercices issus des vrais sujets DNB 2023–2024</span>
+            </div>
+            <div class="lp-fig">
+              <span class="lp-fig-n">10</span>
+              <span class="lp-fig-label">notions du programme officiel de 3ème couvertes</span>
+            </div>
+            <div class="lp-fig">
+              <span class="lp-fig-n">IA</span>
+              <span class="lp-fig-label">correction instantanée par Claude · Anthropic</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <hr class="lp-rule">
+
+  <!-- FEATURES -->
+  <div class="lp-section">
+    <div class="lp-wrap">
+      <div class="lp-section-head">
+        <span class="lp-overline">Fonctionnalités</span>
+        <h2 class="lp-h2">Tout ce qu'il faut pour<br><em>réussir.</em></h2>
+      </div>
+      <div class="lp-feat-grid">
+        <div class="lp-feat-cell">
+          <span class="lp-feat-idx">01</span>
+          <h3>Exercices officiels DNB</h3>
+          <p>Géométrie, statistiques, probabilités, algèbre… modélisés sur les vrais sujets APMEP 2023–2024.</p>
+        </div>
+        <div class="lp-feat-cell">
+          <span class="lp-feat-idx">02</span>
+          <h3>Simulateur d'examen</h3>
+          <p>Chronomètre réel, conditions identiques au brevet. Durée au choix : 2h, 1h, 30 min, 10 min.</p>
+        </div>
+        <div class="lp-feat-cell">
+          <span class="lp-feat-idx">03</span>
+          <h3>Correction IA</h3>
+          <p>Chaque réponse analysée par Claude (Anthropic). Score au point, feedback étape par étape.</p>
+        </div>
+        <div class="lp-feat-cell">
+          <span class="lp-feat-idx">04</span>
+          <h3>Corrigés détaillés</h3>
+          <p>Démarche officielle complète accessible après validation de chaque question.</p>
+        </div>
+        <div class="lp-feat-cell">
+          <span class="lp-feat-idx">05</span>
+          <h3>Suivi de progression</h3>
+          <p>Historique, graphiques d'évolution, analyse des points faibles par notion.</p>
+        </div>
+        <div class="lp-feat-cell">
+          <span class="lp-feat-idx">06</span>
+          <h3>100 % gratuit</h3>
+          <p>Aucune inscription, aucun abonnement. Accessible 24h/24 sur tous les appareils.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMENT ÇA MARCHE -->
+  <div class="lp-section lp-section-bg">
+    <div class="lp-wrap">
+      <div class="lp-section-head">
+        <span class="lp-overline">Méthode</span>
+        <h2 class="lp-h2">Comment ça<br><em>marche ?</em></h2>
+      </div>
+      <div class="lp-steps">
+        <div class="lp-step">
+          <span class="lp-step-n">01 —</span>
+          <div>
+            <h3>Choisissez la durée et les notions</h3>
+            <p>De 5 minutes à 2h (durée réelle de l'examen). Ciblez toutes les notions ou concentrez-vous sur un chapitre précis.</p>
+          </div>
+        </div>
+        <div class="lp-step">
+          <span class="lp-step-n">02 —</span>
+          <div>
+            <h3>Pratiquez en conditions réelles</h3>
+            <p>Le chronomètre tourne. Répondez aux exercices, validez question par question pour une correction IA immédiate.</p>
+          </div>
+        </div>
+        <div class="lp-step">
+          <span class="lp-step-n">03 —</span>
+          <div>
+            <h3>Consultez les corrigés</h3>
+            <p>Après validation, accédez au corrigé complet avec la démarche officielle et les points attribués.</p>
+          </div>
+        </div>
+        <div class="lp-step">
+          <span class="lp-step-n">04 —</span>
+          <div>
+            <h3>Analysez votre progression</h3>
+            <p>Le tableau de bord identifie vos lacunes par notion et visualise votre évolution dans le temps.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPITRES -->
+  <div class="lp-section">
+    <div class="lp-wrap">
+      <span class="lp-overline">Programme complet</span>
+      <h2 class="lp-h2" style="margin-bottom:0">10 notions du programme<br><em>officiel 3ème.</em></h2>
+      <div class="lp-pills">
+        <span class="lp-pill">Géométrie</span>
+        <span class="lp-pill">Statistiques</span>
+        <span class="lp-pill">Probabilités</span>
+        <span class="lp-pill">Arithmétique &amp; PGCD</span>
+        <span class="lp-pill">Proportionnalité</span>
+        <span class="lp-pill">Algèbre &amp; Fonctions</span>
+        <span class="lp-pill">Puissances</span>
+        <span class="lp-pill">Algorithmique</span>
+        <span class="lp-pill">Volumes &amp; Grandeurs</span>
+        <span class="lp-pill">Équations</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="lp-rule">
+
+  <!-- POUR QUI -->
+  <div class="lp-section">
+    <div class="lp-wrap">
+      <span class="lp-overline">Public</span>
+      <h2 class="lp-h2" style="margin-bottom:40px">Pour <em>qui ?</em></h2>
+      <div class="lp-who-grid">
+        <div class="lp-who-item">
+          <h3>Élèves de 3ème</h3>
+          <p>Qui veulent préparer sérieusement le brevet blanc en s'entraînant dans les conditions réelles de l'examen.</p>
+        </div>
+        <div class="lp-who-item">
+          <h3>Collégiens en difficulté</h3>
+          <p>Souhaitant améliorer leurs résultats en ciblant leurs points faibles notion par notion.</p>
+        </div>
+        <div class="lp-who-item">
+          <h3>Parents accompagnants</h3>
+          <p>Recherchant un outil fiable et pédagogique pour aider leurs enfants à se préparer au brevet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="lp-rule">
 
   <!-- FAQ -->
-  <div class="faq-section">
-    <h2>Vos <em>questions</em></h2>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">Les exercices couvrent-ils tout le programme de 3ème ? <span class="faq-arrow">▼</span></div>
-      <div class="faq-a">Oui, tous les exercices sont conformes au programme officiel de mathématiques du collège. Ils sont modélisés sur les vrais sujets du Diplôme National du Brevet 2025, compilés par l'APMEP (Association des Professeurs de Mathématiques de l'Enseignement Public).</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">Comment fonctionne la correction par intelligence artificielle ? <span class="faq-arrow">▼</span></div>
-      <div class="faq-a">Vos réponses sont analysées par Claude (Anthropic), un modèle d'IA avancé, qui compare votre démarche à la réponse officielle et vous attribue des points avec un feedback pédagogique personnalisé. La correction est instantanée et explique vos erreurs étape par étape.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">Puis-je m'entraîner quand je veux ? <span class="faq-arrow">▼</span></div>
-      <div class="faq-a">Absolument. La plateforme est accessible en continu, 24h/24 et 7j/7, sur tous vos appareils — ordinateur, tablette ou smartphone. Aucune installation requise, tout fonctionne dans votre navigateur.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">Les corrigés sont-ils vraiment détaillés ? <span class="faq-arrow">▼</span></div>
-      <div class="faq-a">Oui, chaque exercice possède un corrigé complet avec explications étape par étape, accessible après avoir validé toutes vos réponses. La correction IA vous donne en plus un retour personnalisé sur votre propre réponse.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">Cela améliore-t-il vraiment mes chances au brevet blanc ? <span class="faq-arrow">▼</span></div>
-      <div class="faq-a">Oui. En simulant l'examen dans les mêmes conditions de temps et de format, en corrigeant vos erreurs immédiatement et en suivant votre progression, vous gagnez en confiance et en efficacité. La répétition et l'identification des points faibles sont les clés d'une bonne préparation.</div>
-    </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q">Mon historique est-il sauvegardé entre les sessions ? <span class="faq-arrow">▼</span></div>
-      <div class="faq-a">Oui, votre tableau de bord conserve l'historique de tous vos brevets blancs, vos scores, vos erreurs et votre progression par notion. Ces données sont stockées localement et persistent d'une session à l'autre.</div>
-    </div>
-  </div>
-
-  <!-- CTA Banner -->
-  <div class="cta-banner">
-    <div class="cta-banner-inner">
-      <h2>Commencez<br><em>dès aujourd'hui</em></h2>
-      <p>Ne laissez pas le hasard décider de vos résultats. Entraînez-vous maintenant et atteignez vos objectifs.</p>
-      <ul class="cta-list">
-        <li>Entraînez-vous comme si vous étiez le jour de l'examen</li>
-        <li>Révisez tous les chapitres essentiels du programme de maths</li>
-        <li>Suivez vos progrès et améliorez vos points faibles</li>
-        <li>Corrigés détaillés et pédagogiques à chaque exercice</li>
-      </ul>
-      <div class="cta-btns">
-        <button class="btn-navy" style="font-size:15px;padding:13px 32px" onclick="go('screen-setup','navSetup')">Générer mon brevet blanc →</button>
-        <button class="btn-outline" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18);color:rgba(250,246,239,.6)" onclick="go('screen-dash','navDash');renderDash()">📊 Tableau de bord</button>
+  <div class="lp-section">
+    <div class="lp-wrap">
+      <span class="lp-overline">Questions fréquentes</span>
+      <h2 class="lp-h2" style="margin-bottom:40px">FAQ</h2>
+      <div class="lp-faq-list">
+        <div class="lp-faq-item">
+          <button class="lp-faq-q" onclick="this.closest('.lp-faq-item').classList.toggle('open')">
+            Les exercices couvrent-ils tout le programme de 3ème ?
+            <span class="lp-faq-icon">+</span>
+          </button>
+          <div class="lp-faq-a">Oui. Les 48 exercices sont conformes au programme officiel de mathématiques du collège, modélisés sur les vrais sujets DNB 2023 et 2024 compilés par l'APMEP.</div>
+        </div>
+        <div class="lp-faq-item">
+          <button class="lp-faq-q" onclick="this.closest('.lp-faq-item').classList.toggle('open')">
+            Comment fonctionne la correction par IA ?
+            <span class="lp-faq-icon">+</span>
+          </button>
+          <div class="lp-faq-a">Vos réponses sont analysées par Claude (Anthropic), qui compare votre démarche à la réponse officielle et vous attribue des points avec un feedback pédagogique personnalisé. La correction est instantanée.</div>
+        </div>
+        <div class="lp-faq-item">
+          <button class="lp-faq-q" onclick="this.closest('.lp-faq-item').classList.toggle('open')">
+            Mon historique est-il sauvegardé ?
+            <span class="lp-faq-icon">+</span>
+          </button>
+          <div class="lp-faq-a">Oui. Votre tableau de bord conserve l'historique de tous vos brevets blancs, vos scores et votre progression par notion. Les données sont stockées localement dans votre navigateur.</div>
+        </div>
+        <div class="lp-faq-item">
+          <button class="lp-faq-q" onclick="this.closest('.lp-faq-item').classList.toggle('open')">
+            C'est vraiment gratuit ?
+            <span class="lp-faq-icon">+</span>
+          </button>
+          <div class="lp-faq-a">Entièrement gratuit. Aucune inscription requise, aucun abonnement. Toutes les fonctionnalités sont accessibles immédiatement.</div>
+        </div>
+        <div class="lp-faq-item">
+          <button class="lp-faq-q" onclick="this.closest('.lp-faq-item').classList.toggle('open')">
+            Puis-je m'entraîner sur mobile ?
+            <span class="lp-faq-icon">+</span>
+          </button>
+          <div class="lp-faq-a">Oui. La plateforme est entièrement responsive : ordinateur, tablette, smartphone. Aucune installation requise.</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="logo"><em>Brevet</em> Blanc Maths</div>
-    <p>Préparation au Diplôme National du Brevet · Programme officiel 3ème</p>
-    <p>Exercices modélisés sur les sujets APMEP 2025</p>
-  </footer>
-</div>
+  <!-- CTA FINAL DARK -->
+  <div class="lp-section lp-section-dark">
+    <div class="lp-wrap">
+      <div class="lp-cta-strip">
+        <div>
+          <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,46px);font-weight:900;color:#fff;letter-spacing:-1.5px;line-height:.97;margin:0">
+            Ne laissez pas le hasard<br>
+            <em style="font-style:italic;color:#9ab4f0">décider de vos résultats.</em>
+          </h2>
+          <p style="font-size:14px;color:rgba(255,255,255,.38);margin:14px 0 0;line-height:1.6">Commencez à vous entraîner maintenant — gratuitement.</p>
+        </div>
+        <div class="lp-cta-actions">
+          <button class="lp-btn lp-btn-light" onclick="go('screen-setup','navSetup')">
+            Générer mon brevet →
+          </button>
+          <button class="lp-btn-ghost-white" onclick="go('screen-dash','navDash');renderDash()">
+            Tableau de bord
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- FOOTER -->
+  <div class="lp-footer">
+    <div class="lp-wrap">
+      <div class="lp-footer-inner">
+        <span class="lp-footer-brand"><em>Brevet</em> Blanc Maths</span>
+        <span class="lp-footer-meta">Diplôme National du Brevet · Programme officiel 3ème · Exercices APMEP 2023–2024</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
 <!-- ══════════════════════════════════════════════
   SCREEN 1 — SETUP
 ══════════════════════════════════════════════ -->
 <div class="screen" id="screen-setup">
+
+  <!-- ── Header ── -->
+  <div class="setup-header" style="padding:0 48px">
+    <span class="setup-header-title">Configuration</span>
+    <span class="setup-header-sub">Programme officiel 3ème · APMEP 2023–2024</span>
+  </div>
+
+  <!-- ── Hero ── -->
   <div class="setup-hero">
-    <div class="setup-hero-inner">
+    <div class="setup-hero-inner" style="max-width:920px;margin:0 auto">
       <div>
-        <div class="setup-kicker">Mathématiques · DNB</div>
-        <h1><em>Brevet</em> Blanc</h1>
-        <div class="setup-hero-sub">
-          <span>Exercices aléatoires issus des vrais sujets 2025</span>
-          <span>Correction IA instantanée</span>
+        <span class="setup-eyebrow">Nouveau brevet blanc</span>
+        <h1 class="setup-h1">
+          Choisissez votre<br><em>épreuve.</em>
+        </h1>
+        <div class="setup-hero-meta">
+          <span>100 points au total</span>
+          <span>Durée au choix</span>
+          <span>Notions ciblées</span>
         </div>
       </div>
-      <div class="hero-stat-box">
-        <div class="hsb"><div class="v">100</div><div class="l">Points</div></div>
-        <div class="hsb"><div class="v" id="setupTimerVal">2h</div><div class="l">Durée</div></div>
+      <div class="setup-stats">
+        <div class="setup-stat">
+          <div class="setup-stat-n">100</div>
+          <div class="setup-stat-l">points</div>
+        </div>
+        <div class="setup-stat">
+          <div class="setup-stat-n" id="setupTimerVal">2h</div>
+          <div class="setup-stat-l">durée choisie</div>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- ── Config body ── -->
   <div class="setup-body">
-    <div class="setup-section">
-      <div class="rule">Durée de l'épreuve</div>
+
+    <div class="setup-block">
+      <div class="setup-block-title">Durée de l'épreuve</div>
       <div class="timer-row" id="timerRow">
         <div class="timer-chip sel" data-min="120" onclick="selTimer(this)">2h — Durée réelle</div>
         <div class="timer-chip" data-min="60" onclick="selTimer(this)">1 heure</div>
@@ -613,26 +1286,29 @@ tr:nth-child(even) td{background:rgba(26,18,8,.025)}
       </div>
     </div>
 
-    <div class="setup-section">
-      <div class="rule">Notions à travailler</div>
+    <div class="setup-block">
+      <div class="setup-block-title">Notions à travailler</div>
       <div class="chap-grid" id="chapGrid">
         <div class="chap-chip sel" data-id="all" onclick="selChap(this)"><div class="chk">✓</div><div><div class="ch-name">Toutes les notions</div><div class="ch-sub">Sujet complet type brevet</div></div></div>
         <div class="chap-chip" data-id="probabilites" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Probabilités</div><div class="ch-sub">Fréquences, événements</div></div></div>
-        <div class="chap-chip" data-id="proportionnalite" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Proportionnalité</div><div class="ch-sub">Coefficients, pourcentages</div></div></div>
-        <div class="chap-chip" data-id="statistiques" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Statistiques</div><div class="ch-sub">Moyenne, médiane, quartiles</div></div></div>
-        <div class="chap-chip" data-id="geometrie" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Géométrie</div><div class="ch-sub">Pythagore, trigonométrie</div></div></div>
-        <div class="chap-chip" data-id="algebre" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Algèbre</div><div class="ch-sub">Équations, fonctions affines</div></div></div>
-        <div class="chap-chip" data-id="puissances" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Puissances & fractions</div><div class="ch-sub">Notation scientifique</div></div></div>
-        <div class="chap-chip" data-id="pgcd" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Arithmétique & PGCD</div><div class="ch-sub">Facteurs premiers</div></div></div>
-        <div class="chap-chip" data-id="programmation" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Algorithmique</div><div class="ch-sub">Programmes de calcul</div></div></div>
-        <div class="chap-chip" data-id="volumes" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Volumes & grandeurs</div><div class="ch-sub">Pavés, cylindres</div></div></div>
+        <div class="chap-chip" data-id="proportionnalite" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Proportionnalité</div><div class="ch-sub">Tableaux, pourcentages</div></div></div>
+        <div class="chap-chip" data-id="statistiques" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Statistiques</div><div class="ch-sub">Moyenne, médiane, étendue</div></div></div>
+        <div class="chap-chip" data-id="geometrie" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Géométrie</div><div class="ch-sub">Pythagore, Thalès, angles</div></div></div>
+        <div class="chap-chip" data-id="algebre" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Algèbre &amp; Fonctions</div><div class="ch-sub">Équations, fonctions affines</div></div></div>
+        <div class="chap-chip" data-id="arithmetique" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Arithmétique</div><div class="ch-sub">PGCD, PPCM, nombres premiers</div></div></div>
+        <div class="chap-chip" data-id="volumes" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Volumes &amp; Grandeurs</div><div class="ch-sub">Solides, unités</div></div></div>
+        <div class="chap-chip" data-id="puissances" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Puissances</div><div class="ch-sub">Notation scientifique</div></div></div>
+        <div class="chap-chip" data-id="algorithmique" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Algorithmique</div><div class="ch-sub">Scratch, programmes</div></div></div>
       </div>
     </div>
 
     <div class="setup-cta">
-      <button class="btn-navy" style="font-size:15px;padding:13px 32px" onclick="startExam()">Générer mon brevet blanc →</button>
-      <button class="btn-outline" onclick="go('screen-landing','navLanding')">← Accueil</button>
+      <button class="btn btn-dark" style="padding:13px 32px;font-size:14px" onclick="startExam()">
+        Démarrer le brevet →
+      </button>
+      <button class="btn btn-ghost" onclick="go('screen-landing','navLanding')">← Retour</button>
     </div>
+
   </div>
 </div>
 
@@ -649,21 +1325,27 @@ tr:nth-child(even) td{background:rgba(26,18,8,.025)}
       <div class="timer-block">
         <div>
           <div class="timer-face" id="timerFace">02:00:00</div>
-          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.3);text-align:center">Temps</div>
+          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);text-align:center;margin-top:2px">Temps restant</div>
         </div>
-        <div class="live-sc-box"><div class="live-sc-num" id="liveSc">0</div><div class="live-sc-lbl">pts</div></div>
+        <div class="live-sc-box">
+          <div class="live-sc-num" id="liveSc">0</div>
+          <div class="live-sc-lbl">pts</div>
+        </div>
         <button class="btn-end" onclick="endEarly()">Terminer</button>
       </div>
     </div>
   </div>
   <div class="pills-bar"><div class="pills-bar-inner" id="pillsBar"></div></div>
   <div class="exam-main">
-    <div class="loading-box" id="loadingBox"><div class="spinner"></div><p>Génération des exercices…</p></div>
+    <div class="loading-box" id="loadingBox">
+      <div class="spinner"></div>
+      <p>Génération des exercices…</p>
+    </div>
     <div id="exContainer"></div>
     <div class="exam-footer" id="examFooter" style="display:none">
       <div>
-        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);font-weight:600;margin-bottom:4px">Total provisoire</div>
-        <p>Validez vos réponses pour calculer votre score</p>
+        <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ink5);font-weight:600;margin-bottom:4px">Total provisoire</div>
+        <p style="font-size:13px;font-style:italic;color:var(--ink4)">Validez vos réponses pour calculer votre score</p>
       </div>
       <div class="footer-score"><span id="footerSc">0</span><sub> /100</sub></div>
     </div>
@@ -677,7 +1359,7 @@ tr:nth-child(even) td{background:rgba(26,18,8,.025)}
   <div class="res-banner">
     <div class="res-banner-inner">
       <div>
-        <div class="res-eyebrow">Résultats · Brevet Blanc</div>
+        <span class="res-eyebrow">Résultats · Brevet Blanc Mathématiques</span>
         <div class="res-score" id="resScore">0 <span>/ 100</span></div>
         <div class="res-mention" id="resMention"></div>
         <div class="res-bar-wrap"><div class="res-bar" id="resBar" style="width:0%"></div></div>
@@ -699,9 +1381,9 @@ tr:nth-child(even) td{background:rgba(26,18,8,.025)}
       <div id="resErrors"></div>
     </div>
     <div class="res-cta">
-      <button class="btn-navy" style="font-size:14px;padding:12px 28px" onclick="go('screen-setup','navSetup')">↺ Nouveau brevet</button>
-      <button class="btn-outline" onclick="go('screen-dash','navDash');renderDash()">📊 Tableau de bord</button>
-      <button class="btn-outline" onclick="go('screen-landing','navLanding')">← Accueil</button>
+      <button class="btn btn-dark" onclick="go('screen-setup','navSetup')">↺ Nouveau brevet</button>
+      <button class="btn btn-light" onclick="go('screen-dash','navDash');renderDash()">Tableau de bord</button>
+      <button class="btn btn-ghost" onclick="go('screen-landing','navLanding')">← Accueil</button>
     </div>
   </div>
 </div>
@@ -712,8 +1394,9 @@ tr:nth-child(even) td{background:rgba(26,18,8,.025)}
 <div class="screen" id="screen-dash">
   <div class="dash-banner">
     <div class="dash-banner-inner">
+      <span class="lp-overline" style="color:rgba(255,255,255,.3)">Votre espace</span>
       <h2>Tableau de <em>bord</em></h2>
-      <p>Votre historique complet et analyse de progression</p>
+      <p>Historique complet · Analyse de progression · Points faibles par notion</p>
     </div>
   </div>
   <div class="dash-body">
@@ -725,6 +1408,8 @@ tr:nth-child(even) td{background:rgba(26,18,8,.025)}
     <div class="dash-grid" id="dashGrid"></div>
   </div>
 </div>
+
+
 
 <script>
 /* ═══════════════════════════════
@@ -1385,7 +2070,7 @@ function endExam(){
   go('screen-results',null);
   document.getElementById('resScore').innerHTML=`${scaled} <span>/ 100</span>`;
   document.getElementById('resMention').textContent=getMention(scaled);
-  const barCol=scaled>=70?'#1d6b3a':scaled>=50?'#b8870a':'#c0392b';
+  const barCol=scaled>=70?'#1d6b3a':scaled>=50?'#a06c00':'#c0392b';
   setTimeout(()=>{document.getElementById('resBar').style.width=scaled+'%';document.getElementById('resBar').style.background=barCol;},100);
 
   let correct=0,partial=0,wrong=0;
@@ -1432,7 +2117,7 @@ async function renderDash(){
   if(!sessions.length){
     document.getElementById('dashStats').innerHTML='';
     document.getElementById('chartSection').style.display='none';
-    document.getElementById('dashGrid').innerHTML=`<div class="empty-state" style="grid-column:1/-1"><span class="ei">📊</span><p>Aucun brevet blanc effectué pour l'instant.<br>Lancez votre premier entraînement pour voir vos statistiques !</p><button class="btn-navy" style="margin:20px auto 0;font-size:14px;padding:11px 24px" onclick="go('screen-setup','navSetup')">Commencer →</button></div>`;
+    document.getElementById('dashGrid').innerHTML=`<div class="empty-state" style="grid-column:1/-1"><span class="ei">📊</span><p>Aucun brevet blanc effectué pour l'instant.<br>Lancez votre premier entraînement pour voir vos statistiques !</p><button class="btn btn-dark" style="margin:20px auto 0;display:inline-flex" onclick="go('screen-setup','navSetup')">Commencer →</button></div>`;
     return;
   }
 
