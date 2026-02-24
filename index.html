@@ -5,429 +5,418 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Brevet Blanc Maths – Exercices Corrigés en Ligne | 3ème</title>
 <meta name="description" content="Préparez votre brevet blanc de maths avec des exercices interactifs corrigés par IA. Simulateur d'examen chronométré, corrigés détaillés, suivi de progression. Gratuit pour les élèves de 3ème.">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:#fff;color:#111;font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.78;min-height:100vh}
-.screen{display:none;min-height:100vh;animation:pgIn .22s ease}
+body{
+  background:#fff;
+  color:#0a0a0a;
+  font-family:'Barlow',system-ui,sans-serif;
+  font-size:15px;
+  line-height:1.65;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+.screen{display:none;min-height:100vh;animation:pgIn .18s ease}
 .screen.active{display:block}
-@keyframes pgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pgIn{from{opacity:0}to{opacity:1}}
 
-/* ── Design tokens ── */
-:root {
-  --ink: #111;
-  --ink2: #333;
-  --ink3: #666;
-  --ink4: #999;
+/* ── Design tokens — Swiss palette ── */
+:root{
+  --k:    #002FA7;   /* Klein Blue IKB */
+  --k1:   #0038CC;
+  --k-bg: rgba(0,47,167,.06);
+  --k-bd: rgba(0,47,167,.18);
+
+  --ink:  #0a0a0a;
+  --ink2: #1a1a1a;
+  --ink3: #4a4a4a;
+  --ink4: #888;
   --ink5: #bbb;
-  --rule: #e0dbd3;
-  --rule2: #ece8e2;
-  --bg: #fff;
-  --bg2: #f7f5f1;
-  --bg3: #f0ede8;
-  --blue: #1a3264;
-  --blue2: rgba(26,50,100,.06);
-  --blue3: rgba(26,50,100,.12);
-  --green: #1d6b3a;
-  --green2: rgba(29,107,58,.08);
-  --amber: #a06c00;
-  --amber2: rgba(160,108,0,.1);
-  --red: #c03928;
-  --red2: rgba(192,57,40,.08);
-  /* Legacy aliases for JS/existing code */
-  --cream: #f7f5f1;
-  --paper2: #f0ede8;
-  --navy: #1a3264;
-  --navy2: rgba(26,50,100,.06);
-  --navy3: rgba(26,50,100,.16);
-  --border: #e0dbd3;
-  --border2: #ece8e2;
-  --gold: #a06c00;
-  --gold2: rgba(160,108,0,.1);
-  --shadow: rgba(17,17,17,.08);
-  --shadow2: rgba(17,17,17,.04);
+
+  --rule: #d8d4cf;
+  --rule2:#e8e4df;
+  --bg:   #fff;
+  --bg2:  #f5f3ef;
+  --bg3:  #eeebe6;
+
+  --green: #0a6b38;
+  --green2:rgba(10,107,56,.08);
+  --amber: #8a5c00;
+  --amber2:rgba(138,92,0,.10);
+  --red:   #be2e27;
+  --red2:  rgba(190,46,39,.08);
+
+  /* Legacy aliases */
+  --cream:var(--bg2); --paper2:var(--bg3);
+  --navy:var(--k); --navy2:var(--k-bg); --navy3:var(--k-bd);
+  --border:var(--rule); --border2:var(--rule2);
+  --gold:var(--amber); --gold2:var(--amber2);
+  --shadow:rgba(0,0,0,.07); --shadow2:rgba(0,0,0,.035);
+  --blue:var(--k); --blue2:var(--k-bg); --blue3:var(--k-bd);
+  --klein:var(--k);
 }
 
-/* ── Global nav ── */
+/* ═══════════════════════════════════════
+   GLOBAL NAV — Swiss grid bar
+   ═══════════════════════════════════════ */
 .gnav{
   position:sticky;top:0;z-index:300;
-  background:#fff;border-bottom:1px solid var(--rule);
-  display:flex;align-items:center;height:52px;
-  padding:0 48px;gap:0;
+  background:#fff;
+  border-bottom:2px solid var(--ink);
+  display:flex;align-items:stretch;
+  height:48px;padding:0;
 }
 .gnav-logo{
-  font-family:'Playfair Display',serif;
-  font-size:17px;font-weight:900;
-  color:var(--ink);letter-spacing:-.5px;
-  cursor:pointer;margin-right:32px;flex-shrink:0;white-space:nowrap;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:15px;font-weight:700;
+  letter-spacing:.5px;text-transform:uppercase;
+  color:var(--ink);
+  cursor:pointer;
+  padding:0 24px;
+  display:flex;align-items:center;
+  border-right:2px solid var(--ink);
+  white-space:nowrap;
+  transition:background .1s;
 }
-.gnav-logo em{color:var(--blue);font-style:italic}
-.gnav-links{display:flex;align-items:center;flex:1}
+.gnav-logo em{
+  font-style:normal;
+  color:var(--k);
+}
+.gnav-logo:hover{background:var(--k);color:#fff}
+.gnav-logo:hover em{color:#fff}
+.gnav-links{display:flex;align-items:stretch;flex:1}
 .gnav-link{
-  display:flex;align-items:center;gap:6px;height:52px;
-  padding:0 14px;font-family:'Source Serif 4',serif;
-  font-size:12px;font-weight:600;color:var(--ink4);letter-spacing:.3px;
-  background:none;border:none;border-bottom:2px solid transparent;
-  cursor:pointer;transition:color .12s;white-space:nowrap;text-transform:uppercase;
+  display:flex;align-items:center;
+  padding:0 20px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;
+  color:var(--ink4);
+  background:none;border:none;
+  border-right:1px solid var(--rule);
+  cursor:pointer;transition:all .1s;white-space:nowrap;
 }
-.gnav-link:hover{color:var(--ink)}
-.gnav-link.active{color:var(--ink);border-bottom-color:var(--blue)}
+.gnav-link:hover{color:var(--ink);background:var(--bg2)}
+.gnav-link.active{color:var(--k);background:var(--k-bg);border-bottom:2px solid var(--k);margin-bottom:-2px}
 
-/* ── Utility ── */
-.rule{display:flex;align-items:center;gap:12px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ink5);margin-bottom:16px}
+/* ═══════════════════════════════════════
+   BUTTON SYSTEM — Swiss: functional, pill
+   ═══════════════════════════════════════ */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 22px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:700;
+  letter-spacing:1.2px;text-transform:uppercase;
+  border:none;cursor:pointer;
+  border-radius:100px;
+  transition:background .1s,color .1s;
+}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:var(--ink2)}
+.btn-primary{background:var(--k);color:#fff}
+.btn-primary:hover{background:var(--k1)}
+.btn-light{background:var(--bg2);color:var(--ink);border:1.5px solid var(--rule)}
+.btn-light:hover{background:var(--bg3);border-color:var(--ink)}
+.btn-ghost{
+  background:none;color:var(--ink3);
+  border:1.5px solid var(--rule);
+  border-radius:100px;padding:10px 22px;
+}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink)}
+.btn-sm{padding:6px 14px;font-size:12px}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:#094f2a}
+.btn-red-ghost{
+  background:none;color:#c05050;
+  border:1.5px solid rgba(190,46,39,.25);
+  padding:7px 16px;font-size:12px;border-radius:100px;
+}
+.btn-red-ghost:hover{background:var(--red);color:#fff}
+
+/* Legacy btn aliases */
+.btn-navy{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--k);color:#fff;border:none;cursor:pointer;border-radius:100px;transition:background .1s}
+.btn-navy:hover{background:var(--k1)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:9px 20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;background:none;color:var(--ink3);border:1.5px solid var(--rule);cursor:pointer;border-radius:100px;transition:all .1s}
+.btn-outline:hover{border-color:var(--ink);color:var(--ink)}
+.btn-green-sm{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;background:var(--green);color:#fff;border:none;cursor:pointer;border-radius:100px;transition:background .1s}
+.btn-green-sm:hover{background:#094f2a}
+.btn-green-sm:disabled{background:var(--rule);color:var(--ink4);cursor:not-allowed}
+
+/* Rule divider */
+.rule{display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ink5);margin-bottom:16px}
 .rule::after{content:'';flex:1;height:1px;background:var(--rule)}
 
-
-/* ══════════════════════════════
+/* ═══════════════════════════════════════
    SCREEN 0 — LANDING
-   Direction: académique, épuré,
-   typographie serif, blanc pur.
-══════════════════════════════ */
-
-/* Nav override pour landing */
-#screen-landing ~ .gnav, body:has(#screen-landing.active) .gnav {
-  background:#fff; border-bottom:1px solid #ddd;
+   Full viewport, Swiss grid layout
+   ═══════════════════════════════════════ */
+#screen-landing{
+  background:var(--bg);
+  height:calc(100vh - 48px);
+  overflow:hidden;
+  display:none;
 }
+#screen-landing.active{display:flex;flex-direction:column}
+.lp{flex:1;display:flex;flex-direction:column;min-height:0}
 
-/* ── Tokens ── */
-:root {
-  --l-ink: #111;
-  --l-ink2: #444;
-  --l-ink3: #888;
-  --l-ink4: #bbb;
-  --l-blue: #1a3264;
-  --l-bg: #fff;
-  --l-bg2: #f7f5f1;
-  --l-rule: #e2ddd7;
-  --l-max: 920px;
+/* Hero — strict 2-col grid */
+.lp-hero{
+  flex:1;display:grid;
+  grid-template-columns:55% 45%;
+  min-height:0;
 }
 
-/* ── Layout atoms ── */
-.lp { background: var(--l-bg); color: var(--l-ink); }
-.lp-wrap { max-width: var(--l-max); margin: 0 auto; padding: 0 48px; }
-.lp-rule { border: none; border-top: 1px solid var(--l-rule); margin: 0; }
-
-/* ── Header strip ── */
-.lp-header {
-  border-bottom: 2px solid var(--l-ink);
-  padding: 14px 0;
-}
-.lp-header-inner {
-  display: flex; align-items: baseline; justify-content: space-between;
-}
-.lp-header-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 13px; font-weight: 700; letter-spacing: 1px;
-  text-transform: uppercase; color: var(--l-ink);
-}
-.lp-header-sub {
-  font-size: 11px; color: var(--l-ink3); letter-spacing: .5px;
-  font-family: 'Source Serif 4', serif;
+/* LEFT panel */
+.lp-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:64px 56px;
+  border-right:2px solid var(--ink);
+  position:relative;
 }
 
-/* ── Hero ── */
-.lp-hero { padding: 80px 0 72px; }
-.lp-hero-inner {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 0; align-items: start;
-  border-top: 1px solid var(--l-rule);
+/* Swiss kicker — uppercase label, grid-line style */
+.lp-kicker{
+  display:flex;align-items:center;gap:0;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:10px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--ink4);
+  margin-bottom:28px;
 }
-.lp-hero-left { padding: 48px 48px 48px 0; border-right: 1px solid var(--l-rule); }
-.lp-hero-right { padding: 48px 0 48px 48px; }
-
-.lp-kicker {
-  font-size: 10px; letter-spacing: 3.5px; text-transform: uppercase;
-  color: var(--l-ink3); font-family: 'Source Serif 4', serif;
-  font-weight: 600; margin-bottom: 22px; display: block;
-}
-.lp-h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(48px, 6.5vw, 88px);
-  font-weight: 900; line-height: .92;
-  letter-spacing: -3px; color: var(--l-ink); margin: 0;
-}
-.lp-h1 em { font-style: italic; color: var(--l-blue); }
-.lp-tagline {
-  margin-top: 28px;
-  font-size: 15px; color: var(--l-ink2); line-height: 1.72;
-  font-weight: 300; max-width: 400px;
-}
-.lp-cta-row { margin-top: 36px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-.lp-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 12px 26px; font-family: 'Source Serif 4', serif;
-  font-size: 13px; font-weight: 600; letter-spacing: .3px;
-  border: none; cursor: pointer; transition: background .15s, color .15s;
-}
-.lp-btn-dark { background: var(--l-ink); color: #fff; }
-.lp-btn-dark:hover { background: var(--l-blue); }
-.lp-btn-outline {
-  background: none; color: var(--l-ink3); padding: 0;
-  font-size: 13px; text-decoration: underline; text-decoration-color: var(--l-rule);
-}
-.lp-btn-outline:hover { color: var(--l-ink); text-decoration-color: var(--l-ink); }
-
-/* Hero right — chiffres clés */
-.lp-figures { display: flex; flex-direction: column; gap: 0; }
-.lp-fig {
-  padding: 24px 0; border-bottom: 1px solid var(--l-rule);
-  display: grid; grid-template-columns: 80px 1fr; align-items: baseline; gap: 16px;
-}
-.lp-fig:first-child { border-top: 1px solid var(--l-rule); }
-.lp-fig-n {
-  font-family: 'Playfair Display', serif;
-  font-size: 42px; font-weight: 900; color: var(--l-ink);
-  line-height: 1; letter-spacing: -2px;
-}
-.lp-fig-label { font-size: 13px; color: var(--l-ink3); line-height: 1.45; }
-
-/* ── Section heading ── */
-.lp-section { padding: 72px 0; }
-.lp-section-bg { background: var(--l-bg2); border-top: 1px solid var(--l-rule); border-bottom: 1px solid var(--l-rule); }
-.lp-section-dark { background: var(--l-ink); }
-.lp-section-head { margin-bottom: 48px; }
-.lp-overline {
-  display: block; font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
-  color: var(--l-ink4); margin-bottom: 10px;
-  font-family: 'Source Serif 4', serif; font-weight: 600;
-}
-.lp-overline-dark { color: rgba(255,255,255,.3); }
-.lp-h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(32px, 4.5vw, 52px); font-weight: 900;
-  letter-spacing: -1.5px; line-height: .97; margin: 0;
-  color: var(--l-ink);
-}
-.lp-h2 em { font-style: italic; color: var(--l-blue); }
-.lp-h2-dark { color: #fff; }
-.lp-h2-dark em { color: #9ab4f0; }
-
-/* ── Features — grille tableau ── */
-.lp-feat-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  border: 1px solid var(--l-rule);
-}
-.lp-feat-cell {
-  padding: 28px 24px; border-right: 1px solid var(--l-rule);
-}
-.lp-feat-cell:last-child, .lp-feat-cell:nth-child(3) { border-right: none; }
-.lp-feat-cell:nth-child(n+4) { border-top: 1px solid var(--l-rule); }
-.lp-feat-idx {
-  font-family: 'Playfair Display', serif; font-size: 11px;
-  font-weight: 700; color: var(--l-ink4); letter-spacing: 2px;
-  margin-bottom: 14px; display: block;
-}
-.lp-feat-cell h3 {
-  font-family: 'Playfair Display', serif; font-size: 16px;
-  font-weight: 700; color: var(--l-ink); margin: 0 0 8px;
-}
-.lp-feat-cell p { font-size: 13px; color: var(--l-ink3); line-height: 1.65; margin: 0; }
-
-/* ── Steps ── */
-.lp-steps { display: flex; flex-direction: column; }
-.lp-step {
-  display: grid; grid-template-columns: 52px 1fr;
-  gap: 24px; padding: 28px 0;
-  border-top: 1px solid var(--l-rule); align-items: baseline;
-}
-.lp-step-n {
-  font-family: 'Playfair Display', serif; font-size: 13px;
-  font-weight: 900; color: var(--l-ink4); letter-spacing: 1px;
-}
-.lp-step h3 {
-  font-family: 'Playfair Display', serif; font-size: 18px;
-  font-weight: 700; color: var(--l-ink); margin: 0 0 6px;
-}
-.lp-step p { font-size: 14px; color: var(--l-ink3); line-height: 1.65; margin: 0; }
-
-/* ── Chapters pills ── */
-.lp-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
-.lp-pill {
-  padding: 6px 14px; border: 1px solid var(--l-rule);
-  font-size: 12px; font-weight: 600; color: var(--l-ink2);
-  font-family: 'Source Serif 4', serif; letter-spacing: .2px;
-  background: #fff; transition: border-color .15s, color .15s;
-}
-.lp-pill:hover { border-color: var(--l-ink); color: var(--l-ink); }
-
-/* ── Pour qui ── */
-.lp-who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 8px; }
-.lp-who-item h3 {
-  font-family: 'Playfair Display', serif; font-size: 17px;
-  font-weight: 700; color: var(--l-ink); margin: 0 0 12px;
-  padding-bottom: 12px; border-bottom: 1px solid var(--l-ink);
-}
-.lp-who-item p { font-size: 13px; color: var(--l-ink3); line-height: 1.65; margin: 0; }
-
-/* ── FAQ ── */
-.lp-faq-list { max-width: 680px; }
-.lp-faq-item { border-top: 1px solid var(--l-rule); }
-.lp-faq-item:last-child { border-bottom: 1px solid var(--l-rule); }
-.lp-faq-q {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 0; cursor: pointer;
-  font-size: 15px; font-weight: 600; color: var(--l-ink);
-  font-family: 'Source Serif 4', serif;
-  gap: 16px; transition: color .15s; background: none; border: none; width: 100%; text-align: left;
-}
-.lp-faq-q:hover { color: var(--l-blue); }
-.lp-faq-icon { font-size: 18px; color: var(--l-ink4); line-height: 1; transition: transform .2s; flex-shrink: 0; }
-.lp-faq-item.open .lp-faq-icon { transform: rotate(45deg); }
-.lp-faq-a { display: none; padding: 0 0 20px; font-size: 14px; color: var(--l-ink3); line-height: 1.72; }
-.lp-faq-item.open .lp-faq-a { display: block; }
-
-/* ── CTA final (dark) ── */
-.lp-cta-strip {
-  display: grid; grid-template-columns: 1fr auto;
-  gap: 48px; align-items: center; padding: 72px 0;
-}
-.lp-cta-strip h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(28px, 3.5vw, 46px); font-weight: 900;
-  color: #fff; letter-spacing: -1.5px; line-height: .97; margin: 0;
-}
-.lp-cta-strip h2 em { font-style: italic; color: #9ab4f0; }
-.lp-cta-strip p { font-size: 14px; color: rgba(255,255,255,.4); margin: 12px 0 0; }
-.lp-cta-actions { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; flex-shrink: 0; }
-.lp-btn-light { background: #fff; color: var(--l-ink); }
-.lp-btn-light:hover { background: #f0ede8; }
-.lp-btn-ghost-white {
-  display: inline-flex; align-items: center;
-  background: none; border: none; cursor: pointer;
-  font-family: 'Source Serif 4', serif; font-size: 13px;
-  color: rgba(255,255,255,.35); padding: 0;
-  text-decoration: underline; text-decoration-color: rgba(255,255,255,.15);
-  transition: color .15s;
-}
-.lp-btn-ghost-white:hover { color: rgba(255,255,255,.7); }
-
-/* ── Footer ── */
-.lp-footer {
-  background: #fff; border-top: 2px solid var(--l-ink);
-  padding: 24px 0;
-}
-.lp-footer-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 12px;
-}
-.lp-footer-brand {
-  font-family: 'Playfair Display', serif;
-  font-size: 15px; font-weight: 900;
-  color: var(--l-ink); letter-spacing: -.4px;
-}
-.lp-footer-brand em { font-style: italic; color: var(--l-blue); }
-.lp-footer-meta { font-size: 11px; color: var(--l-ink4); line-height: 1.5; }
-
-/* ── Responsive ── */
-@media (max-width: 760px) {
-  .lp-wrap { padding: 0 20px; }
-  .lp-hero-inner { grid-template-columns: 1fr; }
-  .lp-hero-left { padding: 32px 0; border-right: none; border-bottom: 1px solid var(--l-rule); }
-  .lp-hero-right { padding: 32px 0; }
-  .lp-h1 { letter-spacing: -2px; }
-  .lp-fig { grid-template-columns: 56px 1fr; }
-  .lp-fig-n { font-size: 30px; }
-  .lp-feat-grid { grid-template-columns: 1fr; }
-  .lp-feat-cell { border-right: none !important; border-top: 1px solid var(--l-rule) !important; }
-  .lp-feat-cell:first-child { border-top: none !important; }
-  .lp-who-grid { grid-template-columns: 1fr; gap: 28px; }
-  .lp-cta-strip { grid-template-columns: 1fr; gap: 28px; }
-  .lp-cta-actions { align-items: flex-start; }
+.lp-kicker::before{
+  content:'';display:inline-block;
+  width:2px;height:14px;background:var(--k);
+  margin-right:12px;flex-shrink:0;
 }
 
-/* ══════════════════════════════
+/* Swiss headline — condensed, tight, massive */
+.lp-h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(72px,9vw,120px);
+  font-weight:800;
+  line-height:.88;
+  letter-spacing:-2px;
+  text-transform:uppercase;
+  color:var(--ink);
+  margin:0 0 28px;
+}
+.lp-h1 em{
+  font-style:normal;
+  color:var(--k);
+}
+
+/* Tagline — Barlow regular, generous leading */
+.lp-tagline{
+  font-family:'Barlow',sans-serif;
+  font-size:14px;font-weight:400;
+  color:var(--ink3);line-height:1.72;
+  max-width:360px;margin-bottom:40px;
+}
+
+.lp-cta-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+/* Klein accent — vertical bar left */
+.lp-left::before{
+  content:'';position:absolute;
+  left:0;top:64px;bottom:64px;
+  width:3px;background:var(--k);
+}
+
+/* RIGHT panel — 2 stat blocks */
+.lp-right{
+  display:grid;
+  grid-template-rows:1fr 1fr;
+}
+.lp-tile{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:32px 40px 36px;
+  border-bottom:2px solid var(--ink);
+  position:relative;overflow:hidden;
+}
+.lp-tile:last-child{border-bottom:none}
+
+/* Tile 1 — Klein filled */
+.lp-tile:nth-child(1){background:var(--k)}
+/* Tile 2 — white */
+.lp-tile:nth-child(2){background:var(--bg)}
+
+/* Giant number — Swiss tabular style */
+.lp-tile-n{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(80px,10vw,130px);
+  font-weight:800;
+  line-height:.85;
+  letter-spacing:-4px;
+  text-transform:uppercase;
+}
+.lp-tile:nth-child(1) .lp-tile-n{color:#fff}
+.lp-tile:nth-child(2) .lp-tile-n{color:var(--ink)}
+
+.lp-tile-label{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;
+  margin-top:12px;line-height:1.4;
+}
+.lp-tile:nth-child(1) .lp-tile-label{color:rgba(255,255,255,.55)}
+.lp-tile:nth-child(2) .lp-tile-label{color:var(--ink4)}
+
+/* Bottom strip — 4 columns, Swiss ticker */
+.lp-strip{
+  flex-shrink:0;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:2px solid var(--ink);
+  background:var(--bg);
+}
+.lp-strip-item{
+  padding:12px 18px;
+  border-right:1px solid var(--rule);
+  display:flex;align-items:center;gap:10px;
+}
+.lp-strip-item:last-child{border-right:none}
+.lp-strip-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--k);flex-shrink:0;
+}
+.lp-strip-text{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--ink3);line-height:1.3;
+}
+
+/* ═══════════════════════════════════════
    SCREEN 1 — SETUP
-══════════════════════════════ */
+   ═══════════════════════════════════════ */
 #screen-setup{background:var(--bg)}
 
-/* Header band */
 .setup-header{
-  border-bottom:1px solid var(--rule);
-  padding:0 48px;
+  border-bottom:2px solid var(--ink);
+  padding:0 48px;height:48px;
   display:flex;align-items:center;justify-content:space-between;
-  height:48px;background:var(--bg);
 }
 .setup-header-title{
-  font-family:'Playfair Display',serif;
-  font-size:13px;font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;color:var(--ink);
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--ink);
 }
-.setup-header-sub{font-size:11px;color:var(--ink4);font-family:'Source Serif 4',serif}
+.setup-header-sub{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:500;letter-spacing:.8px;
+  text-transform:uppercase;color:var(--ink4);
+}
 
-/* Hero zone */
-.setup-hero{background:var(--ink);border-bottom:none;padding:0}
-.setup-hero-inner{max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:start;padding:48px 48px 40px}
-.setup-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.3);font-weight:600;margin-bottom:14px;display:block;font-family:'Source Serif 4',serif}
-.setup-h1{font-family:'Playfair Display',serif;font-size:clamp(34px,5vw,54px);font-weight:900;line-height:.95;letter-spacing:-2px;color:#fff;margin:0}
-.setup-h1 em{font-style:italic;color:#9ab4f0}
-.setup-hero-meta{margin-top:12px;font-size:13px;color:rgba(255,255,255,.3);display:flex;gap:16px;flex-wrap:wrap}
-.setup-hero-meta span::before{content:'—';margin-right:7px;color:var(--rule)}
-
-/* Stats aside */
-.setup-stats{display:flex;gap:1px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09);align-self:start}
-.setup-stat{padding:16px 22px;text-align:center;border-right:1px solid rgba(255,255,255,.07)}
-.setup-stat:last-child{border-right:none}
-.setup-stat-n{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px;display:block}
-.setup-stat-l{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:3px;display:block}
-
-/* Config body */
-.setup-body{max-width:920px;margin:0 auto;padding:40px 48px 72px}
-
-.setup-block{margin-bottom:40px}
+/* Setup hero — Klein BG, condensed type */
+.setup-hero{background:var(--k);padding:48px 48px 40px}
+.setup-hero-inner{
+  max-width:920px;margin:0 auto;
+  display:grid;grid-template-columns:1fr auto;
+  gap:32px;align-items:start;
+}
+.setup-eyebrow{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:rgba(255,255,255,.45);font-weight:700;
+  margin-bottom:12px;display:block;
+}
+.setup-h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(40px,5.5vw,64px);
+  font-weight:800;letter-spacing:-1px;
+  line-height:.92;text-transform:uppercase;
+  color:#fff;margin:0;
+}
+.setup-h1 em{font-style:normal;color:rgba(255,255,255,.55)}
+.setup-hero-meta{
+  margin-top:12px;font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;font-weight:500;letter-spacing:.8px;
+  text-transform:uppercase;color:rgba(255,255,255,.38);
+  display:flex;gap:16px;flex-wrap:wrap;
+}
+.setup-hero-meta span::before{content:'—';margin-right:6px;color:rgba(255,255,255,.25)}
+.setup-stats{
+  display:flex;flex-direction:column;gap:0;
+  border-left:2px solid rgba(255,255,255,.2);
+  padding-left:28px;
+}
+.setup-stat{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+.setup-stat:first-child{border-top:1px solid rgba(255,255,255,.12)}
+.setup-stat-n{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:28px;font-weight:800;color:#fff;
+  line-height:1;letter-spacing:-1px;
+}
+.setup-stat-l{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.35);margin-top:2px;font-weight:600;
+}
+.setup-body{max-width:920px;margin:0 auto;padding:36px 48px 72px}
+.setup-block{margin-bottom:36px}
 .setup-block-title{
-  font-family:'Playfair Display',serif;
-  font-size:17px;font-weight:700;color:var(--ink);
-  padding-bottom:14px;margin-bottom:20px;
-  border-bottom:1px solid var(--rule);
-  display:flex;align-items:baseline;gap:10px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--k);
+  padding-bottom:12px;margin-bottom:18px;
+  border-bottom:2px solid var(--ink);
 }
-.setup-block-title::before{content:'—';color:var(--blue)}
 
 /* Duration chips */
-.timer-row{display:flex;gap:8px;flex-wrap:wrap}
+.timer-row{display:flex;gap:6px;flex-wrap:wrap}
 .timer-chip{
-  padding:10px 22px;font-family:'Source Serif 4',serif;
-  font-size:14px;font-weight:600;color:var(--ink3);
-  background:var(--bg);border:1px solid var(--rule);
-  cursor:pointer;transition:all .12s;
+  padding:8px 18px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:.8px;
+  text-transform:uppercase;color:var(--ink3);
+  background:var(--bg);border:1.5px solid var(--rule);
+  cursor:pointer;transition:all .1s;border-radius:100px;
 }
 .timer-chip:hover{border-color:var(--ink);color:var(--ink)}
 .timer-chip.sel{background:var(--ink);border-color:var(--ink);color:#fff}
 
-/* Chapter chips */
-.chap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+/* Chapter grid */
+.chap-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:1px;background:var(--rule);
+  border:1.5px solid var(--ink);
+}
 .chap-chip{
-  padding:14px 16px;
-  background:var(--bg);
-  cursor:pointer;transition:background .12s;
+  padding:14px 16px;background:var(--bg);
+  cursor:pointer;transition:background .1s;
   display:flex;align-items:flex-start;gap:12px;
 }
 .chap-chip:hover{background:var(--bg2)}
-.chap-chip.sel{background:var(--blue2)}
+.chap-chip.sel{background:var(--k-bg)}
 .chk{
-  width:14px;height:14px;border:1.5px solid var(--rule);
-  flex-shrink:0;margin-top:4px;
+  width:14px;height:14px;border:2px solid var(--rule);
+  flex-shrink:0;margin-top:3px;
   display:flex;align-items:center;justify-content:center;
-  font-size:9px;font-weight:700;transition:all .12s;
+  font-size:9px;font-weight:700;transition:all .1s;
+  border-radius:2px;
 }
-.chap-chip.sel .chk{background:var(--blue);border-color:var(--blue);color:#fff}
-.ch-name{font-size:13px;font-weight:600;color:var(--ink);line-height:1.3}
-.ch-sub{font-size:11px;color:var(--ink4);font-style:italic;margin-top:2px}
+.chap-chip.sel .chk{background:var(--k);border-color:var(--k);color:#fff}
+.ch-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:14px;font-weight:700;letter-spacing:.3px;
+  color:var(--ink);line-height:1.2;
+}
+.ch-sub{
+  font-family:'Barlow',sans-serif;
+  font-size:11px;color:var(--ink4);margin-top:2px;
+}
+.setup-cta{
+  margin-top:32px;display:flex;align-items:center;gap:14px;
+  flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--rule);
+}
 
-.setup-cta{margin-top:36px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-top:28px;border-top:1px solid var(--rule)}
-
-
-/* ══════════════════════════════
+/* ═══════════════════════════════════════
    SCREEN 2 — EXAM
-══════════════════════════════ */
+   ═══════════════════════════════════════ */
 #screen-exam{background:var(--bg)}
-
-/* Top bar */
 .exam-top{
-  background:var(--ink);
+  background:var(--ink);position:sticky;top:48px;z-index:200;
   border-bottom:none;
-  position:sticky;top:52px;z-index:200;
 }
 .exam-top-inner{
   max-width:960px;margin:0 auto;
@@ -435,12 +424,14 @@ body{background:#fff;color:#111;font-family:'Source Serif 4',Georgia,serif;font-
   display:flex;align-items:center;gap:16px;flex-wrap:wrap;
 }
 .exam-title-wrap h2{
-  font-family:'Playfair Display',serif;
-  font-size:16px;font-weight:700;color:#fff;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:15px;font-weight:700;letter-spacing:.5px;
+  text-transform:uppercase;color:#fff;
 }
 .exam-title-wrap .sub{
+  font-family:'Barlow Condensed',sans-serif;
   font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(255,255,255,.3);margin-top:1px;
+  color:rgba(255,255,255,.3);margin-top:1px;font-weight:600;
 }
 .timer-block{margin-left:auto;display:flex;align-items:center;gap:20px}
 .timer-face{
@@ -453,20 +444,22 @@ body{background:#fff;color:#111;font-family:'Source Serif 4',Georgia,serif;font-
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
 .live-sc-box{text-align:right}
 .live-sc-num{
-  font-family:'Playfair Display',serif;
-  font-size:20px;font-weight:900;color:#fff;line-height:1;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:22px;font-weight:800;color:#fff;line-height:1;letter-spacing:-1px;
 }
-.live-sc-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.live-sc-lbl{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);font-weight:600;
+}
 .btn-end{
-  padding:7px 14px;font-family:'Source Serif 4',serif;font-size:11px;
-  font-weight:600;background:none;
-  border:1px solid rgba(255,255,255,.15);
-  color:rgba(255,255,255,.45);cursor:pointer;
-  transition:all .12s;letter-spacing:.3px;
+  padding:7px 16px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  background:none;border:1.5px solid rgba(255,255,255,.2);border-radius:100px;
+  color:rgba(255,255,255,.45);cursor:pointer;transition:all .1s;
 }
 .btn-end:hover{background:var(--red);border-color:var(--red);color:#fff}
 
-/* Pills nav */
 .pills-bar{background:var(--bg2);border-bottom:1px solid var(--rule)}
 .pills-bar-inner{
   max-width:960px;margin:0 auto;
@@ -474,480 +467,602 @@ body{background:#fff;color:#111;font-family:'Source Serif 4',Georgia,serif;font-
   display:flex;align-items:center;gap:6px;overflow-x:auto;
 }
 .pill{
-  padding:4px 12px;font-family:'Source Serif 4',serif;
-  font-size:11px;font-weight:600;
-  background:transparent;
-  border:1px solid var(--rule);color:var(--ink4);
-  cursor:pointer;transition:all .12s;white-space:nowrap;
+  padding:4px 12px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+  background:transparent;border:1.5px solid var(--rule);
+  color:var(--ink4);cursor:pointer;transition:all .1s;
+  white-space:nowrap;border-radius:100px;
 }
 .pill:hover{border-color:var(--ink);color:var(--ink)}
-.pill.answered{border-color:var(--blue);color:var(--blue);background:var(--blue2)}
+.pill.answered{border-color:var(--k);color:var(--k);background:var(--k-bg)}
 .pill.corrected{border-color:var(--green);color:#fff;background:var(--green)}
 
-/* Main content */
 .exam-main{max-width:960px;margin:0 auto;padding:36px 48px 100px}
-
-/* Loading */
 .loading-box{text-align:center;padding:80px 20px}
 .spinner{
-  width:28px;height:28px;
-  border:2px solid var(--rule);border-top-color:var(--ink);
-  border-radius:50%;animation:spin .7s linear infinite;
-  margin:0 auto 16px;
+  width:28px;height:28px;border:2px solid var(--rule);border-top-color:var(--k);
+  border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-box p{font-size:13px;font-style:italic;color:var(--ink4)}
+.loading-box p{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink4);
+}
 
-/* Exercise card */
+/* Exercise card — Swiss: ruled, no decoration */
 .exercise{
   background:var(--bg);
-  border:1px solid var(--rule);
-  border-left:3px solid var(--blue);
-  margin-bottom:32px;overflow:hidden;
+  border:1.5px solid var(--ink);
+  border-radius:0; /* Swiss: no rounding */
+  margin-bottom:24px;overflow:hidden;
   scroll-margin-top:120px;
 }
 .ex-head{
-  padding:20px 28px 18px;
-  border-bottom:1px solid var(--rule);
+  padding:18px 24px;
+  border-bottom:2px solid var(--ink);
   background:var(--bg2);
   display:flex;align-items:flex-start;
   justify-content:space-between;gap:16px;
 }
 .ex-eyebrow{
+  font-family:'Barlow Condensed',sans-serif;
   font-size:10px;letter-spacing:3px;text-transform:uppercase;
-  color:var(--blue);font-weight:600;margin-bottom:5px;
+  color:var(--k);font-weight:700;margin-bottom:5px;
 }
 .ex-title{
-  font-family:'Playfair Display',serif;
-  font-size:20px;font-weight:700;color:var(--ink);line-height:1.2;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:20px;font-weight:800;letter-spacing:-.3px;
+  text-transform:uppercase;color:var(--ink);line-height:1.1;
 }
-.ex-notion{font-size:13px;font-style:italic;color:var(--ink4);margin-top:3px}
+.ex-notion{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;letter-spacing:1px;text-transform:uppercase;
+  color:var(--ink4);font-weight:600;margin-top:4px;
+}
 .ex-pts{
-  flex-shrink:0;padding:10px 16px;
-  background:var(--bg);border:1px solid var(--rule);
-  text-align:center;
+  flex-shrink:0;padding:8px 16px;
+  background:var(--k);text-align:center;
+  border-radius:0;
 }
 .ex-pts .n{
-  font-family:'Playfair Display',serif;
-  font-size:28px;font-weight:900;color:var(--ink);line-height:1;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:28px;font-weight:800;color:#fff;line-height:1;letter-spacing:-1px;
 }
 .ex-pts .l{
+  font-family:'Barlow Condensed',sans-serif;
   font-size:9px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--ink4);margin-top:2px;
+  color:rgba(255,255,255,.55);margin-top:2px;font-weight:600;
 }
-.ex-body{padding:22px 28px 28px}
-.ex-body>p{margin-bottom:12px;color:var(--ink2);font-size:15px}
+.ex-body{padding:20px 24px 24px}
+.ex-body>p{margin-bottom:12px;color:var(--ink2);font-size:15px;line-height:1.7}
+
+/* Figure */
+.ex-figure{
+  margin:14px 0;padding:20px;
+  background:var(--bg2);
+  border:1px solid var(--rule);
+  display:flex;justify-content:center;align-items:center;
+}
+.ex-figure svg{max-width:100%;height:auto;display:block}
+
+/* Calc program */
+.calc-program{margin:14px 0;border:1.5px solid var(--ink);overflow:hidden}
+.calc-program-title{
+  padding:7px 14px;background:var(--k);
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(255,255,255,.8);font-weight:700;
+}
+.calc-program-steps{
+  display:flex;align-items:center;flex-wrap:wrap;
+  padding:14px 18px;gap:0;background:var(--bg2);
+}
+.calc-step{
+  display:flex;flex-direction:column;align-items:center;
+  padding:8px 14px;background:#fff;
+  border:1px solid var(--rule);border-radius:0;
+  min-width:72px;text-align:center;
+}
+.calc-step-label{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--ink4);margin-bottom:3px;font-weight:600;
+}
+.calc-step-val{
+  font-family:'Source Code Pro',monospace;
+  font-size:13px;font-weight:500;color:var(--ink);
+}
+.calc-arrow{font-size:16px;color:var(--k);padding:0 4px;flex-shrink:0;font-weight:400}
 
 /* Table */
 table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
 th{
-  background:var(--bg2);color:var(--ink);
-  padding:9px 14px;text-align:left;
-  font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
-  border:1px solid var(--rule);
+  background:var(--k);color:#fff;
+  padding:8px 12px;text-align:left;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
 }
-td{padding:9px 14px;border:1px solid var(--rule2);color:var(--ink2)}
+td{padding:8px 12px;border:1px solid var(--rule2);color:var(--ink2);font-size:14px}
 tr:nth-child(even) td{background:var(--bg2)}
 
 /* Question */
 .question{
-  margin:16px 0;
-  border:1px solid var(--rule);
-  border-left:2px solid var(--blue);
+  margin:12px 0;border:1px solid var(--rule);border-left:3px solid var(--k);
   background:var(--bg);overflow:hidden;
 }
 .q-head{
-  padding:10px 16px;border-bottom:1px solid var(--rule2);
-  display:flex;align-items:center;gap:10px;
-  background:var(--bg2);
+  padding:8px 14px;border-bottom:1px solid var(--rule2);
+  display:flex;align-items:center;gap:10px;background:var(--bg2);
 }
-.q-num{font-size:12px;font-weight:700;color:var(--blue);font-family:'Source Serif 4',serif;letter-spacing:.5px}
+.q-num{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:700;color:var(--k);
+  letter-spacing:1px;text-transform:uppercase;
+}
 .q-pts-badge{
   display:inline-flex;align-items:center;
-  padding:2px 9px;background:var(--green);
-  color:#fff;font-size:11px;font-weight:600;
+  padding:2px 10px;background:var(--green);
+  color:#fff;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+  border-radius:100px;
 }
-.q-text{padding:13px 16px 14px;font-size:15px;color:var(--ink);line-height:1.72}
+.q-text{padding:12px 14px 14px;font-size:15px;color:var(--ink);line-height:1.72}
 
-/* Answer zone */
-.answer-zone{
-  padding:12px 16px 14px;
-  background:var(--bg2);
-  border-top:1px dashed var(--rule);
-}
+/* Answer */
+.answer-zone{padding:10px 14px 14px;background:var(--bg2);border-top:1px dashed var(--rule)}
 .answer-lbl{
+  font-family:'Barlow Condensed',sans-serif;
   font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--ink5);margin-bottom:7px;
-  display:flex;align-items:center;gap:6px;
+  color:var(--ink5);margin-bottom:6px;
+  display:flex;align-items:center;gap:6px;font-weight:700;
 }
-.answer-lbl::before{content:'—';color:var(--blue)}
+.answer-lbl::before{content:'';width:3px;height:10px;background:var(--k);display:inline-block}
 .answer-ta{
-  width:100%;min-height:80px;
-  padding:10px 12px;
-  font-family:'Source Serif 4',serif;font-size:15px;
+  width:100%;min-height:76px;padding:10px 12px;
+  font-family:'Barlow',sans-serif;font-size:15px;
   line-height:1.65;color:var(--ink);
-  background:var(--bg);
-  border:1px solid var(--rule);
-  resize:vertical;outline:none;
-  transition:border-color .12s;
+  background:var(--bg);border:1.5px solid var(--rule);border-radius:0;
+  resize:vertical;outline:none;transition:border-color .1s;
 }
 .answer-ta::placeholder{color:var(--ink5);font-style:italic}
-.answer-ta:focus{border-color:var(--blue)}
-.answer-ta.has-content{border-color:rgba(26,50,100,.3)}
-.answer-ta.locked{
-  border-color:var(--green)!important;
-  background:var(--green2)!important;
-  color:var(--ink2);resize:none;cursor:default;
-}
-
-/* Val bar */
+.answer-ta:focus{border-color:var(--k)}
+.answer-ta.has-content{border-color:var(--k-bd)}
+.answer-ta.locked{border-color:var(--green)!important;background:var(--green2)!important;color:var(--ink2);resize:none;cursor:default}
 .val-bar{
-  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  padding:8px 12px;
-  background:var(--bg);
-  border:1px solid var(--rule);border-top:none;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  padding:8px 0 0;
 }
 .btn-val{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:7px 16px;
-  font-family:'Source Serif 4',serif;font-size:12px;font-weight:600;
-  background:var(--blue);color:#fff;border:none;cursor:pointer;
-  transition:background .12s;
+  display:inline-flex;align-items:center;gap:6px;padding:7px 16px;
+  font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  background:var(--k);color:#fff;border:none;cursor:pointer;
+  border-radius:100px;transition:background .1s;
 }
-.btn-val:hover{background:#0f1f44}
+.btn-val:hover{background:var(--k1)}
 .btn-val:disabled{background:var(--rule);color:var(--ink4);cursor:not-allowed}
 .btn-edit{
-  display:none;align-items:center;gap:5px;
-  padding:6px 12px;
-  font-family:'Source Serif 4',serif;font-size:12px;
-  background:none;border:1px solid var(--rule);color:var(--ink4);
-  cursor:pointer;transition:all .12s;
+  display:none;align-items:center;gap:5px;padding:6px 14px;
+  font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;
+  background:none;border:1.5px solid var(--rule);color:var(--ink4);
+  cursor:pointer;border-radius:100px;transition:all .1s;
 }
 .btn-edit:hover{border-color:var(--ink);color:var(--ink)}
-.val-tag{display:none;align-items:center;gap:5px;font-size:12px;color:var(--green);font-weight:600}
+.val-tag{display:none;align-items:center;gap:5px;
+  font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:.8px;text-transform:uppercase;color:var(--green);
+}
 .val-tag.show{display:flex}
-.val-hint{font-size:11px;font-style:italic;color:var(--ink5);margin-left:auto}
+.val-hint{
+  font-family:'Barlow',sans-serif;
+  font-size:11px;font-style:italic;color:var(--ink5);margin-left:auto;
+}
 
 /* AI result */
-.ai-result{display:none;margin-top:10px;border:1px solid var(--rule);animation:fadeUp .25s ease;overflow:hidden}
+.ai-result{display:none;margin-top:8px;border:1.5px solid var(--rule);animation:fadeUp .2s ease;overflow:hidden}
 .ai-result.visible{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-.ai-rh{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 14px;gap:10px;
-}
-.ai-rh.correct-bg{background:var(--green2);border-bottom:1px solid rgba(29,107,58,.15)}
-.ai-rh.partial-bg{background:var(--amber2);border-bottom:1px solid rgba(160,108,0,.15)}
-.ai-rh.wrong-bg{background:var(--red2);border-bottom:1px solid rgba(192,57,40,.12)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
+.ai-rh{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;gap:10px}
+.ai-rh.correct-bg{background:var(--green2);border-bottom:1px solid rgba(10,107,56,.14)}
+.ai-rh.partial-bg{background:var(--amber2);border-bottom:1px solid rgba(138,92,0,.14)}
+.ai-rh.wrong-bg{background:var(--red2);border-bottom:1px solid rgba(190,46,39,.12)}
 .ai-rh.loading-bg{background:var(--bg2);border-bottom:1px solid var(--rule)}
-.ai-rl{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
-.ai-sc{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;line-height:1;white-space:nowrap}
+.ai-rl{display:flex;align-items:center;gap:8px;
+  font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:.5px;text-transform:uppercase;
+}
+.ai-sc{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:24px;font-weight:800;line-height:1;
+  letter-spacing:-1px;white-space:nowrap;
+}
 .ai-sc.correct-col{color:var(--green)}
 .ai-sc.partial-col{color:var(--amber)}
 .ai-sc.wrong-col{color:var(--red)}
-.ai-sc.loading-col{color:var(--ink4);font-size:14px;font-family:'Source Serif 4',serif}
-.ai-fb{padding:11px 14px;font-size:14px;line-height:1.65;color:var(--ink2);background:var(--bg);font-style:italic}
+.ai-sc.loading-col{
+  color:var(--ink4);font-size:13px;letter-spacing:1px;
+  font-family:'Barlow Condensed',sans-serif;
+}
+.ai-fb{
+  padding:10px 14px;font-size:14px;line-height:1.65;
+  color:var(--ink2);background:var(--bg);
+  font-family:'Barlow',sans-serif;font-style:italic;
+}
 .mini-sp{
   display:inline-block;width:12px;height:12px;
-  border:2px solid var(--rule);border-top-color:var(--blue);
+  border:2px solid var(--rule);border-top-color:var(--k);
   border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;
 }
 
 /* Correction */
 .corr-toggle{
-  margin-top:20px;padding-top:16px;
-  border-top:1px dashed var(--rule);
+  margin-top:16px;padding-top:14px;border-top:1px dashed var(--rule);
   display:flex;align-items:center;gap:12px;flex-wrap:wrap;
 }
 .btn-see{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:7px 18px;
-  font-family:'Source Serif 4',serif;font-size:12px;font-weight:600;
-  background:none;
-  border:1px solid var(--amber);color:var(--amber);
-  cursor:pointer;transition:all .12s;
+  display:inline-flex;align-items:center;gap:7px;padding:7px 16px;
+  font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  background:none;border:1.5px solid var(--amber);color:var(--amber);
+  cursor:pointer;transition:all .1s;border-radius:100px;
 }
 .btn-see:hover:not(:disabled){background:var(--amber2)}
 .btn-see.active{background:var(--amber);color:#fff}
 .btn-see:disabled{border-color:var(--rule);color:var(--ink4);cursor:not-allowed;opacity:.5}
-.corr-hint{font-size:12px;font-style:italic;color:var(--ink5)}
-.correction{
-  display:none;margin-top:14px;
-  padding:18px 20px;
-  background:var(--amber2);
-  border:1px solid rgba(160,108,0,.2);
+.corr-hint{
+  font-family:'Barlow',sans-serif;
+  font-size:11px;font-style:italic;color:var(--ink5);
 }
-.correction.open{display:block;animation:fadeUp .25s ease}
+.correction{
+  display:none;margin-top:12px;padding:16px 18px;
+  background:var(--amber2);border:1.5px solid rgba(138,92,0,.2);
+}
+.correction.open{display:block;animation:fadeUp .2s ease}
 .corr-head{
   display:flex;align-items:center;gap:9px;
-  padding-bottom:12px;margin-bottom:14px;
-  border-bottom:1px solid rgba(160,108,0,.18);
+  padding-bottom:12px;margin-bottom:12px;
+  border-bottom:1px solid rgba(138,92,0,.18);
 }
 .corr-badge{
-  width:18px;height:18px;background:var(--amber);color:#fff;
+  width:16px;height:16px;background:var(--amber);color:#fff;
   border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;
+  justify-content:center;font-size:8px;font-weight:700;flex-shrink:0;
 }
-.corr-head span{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber);font-weight:600}
+.corr-head span{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--amber);font-weight:700;
+}
 .correction p{margin-bottom:9px;font-size:14px;color:var(--ink2)}
 .correction p:last-child{margin-bottom:0}
-.corr-block{margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(160,108,0,.12)}
+.corr-block{margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(138,92,0,.12)}
 .corr-block:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
 .corr-title{
+  font-family:'Barlow Condensed',sans-serif;
   font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--amber);font-weight:700;margin-bottom:8px;
+  color:var(--amber);font-weight:700;margin-bottom:6px;
   display:flex;align-items:center;gap:7px;
 }
-.corr-title::before{content:'§';font-size:14px}
+.corr-title::before{content:'§';font-size:13px}
 
-/* Footer */
 .exam-footer{
-  border-top:1px solid var(--rule);
-  padding:20px 48px;
+  border-top:2px solid var(--ink);padding:20px 48px;
   display:flex;align-items:center;justify-content:space-between;
   flex-wrap:wrap;gap:16px;margin-top:8px;
 }
-.exam-footer p{font-size:13px;font-style:italic;color:var(--ink5)}
+.exam-footer p{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-style:normal;letter-spacing:1px;text-transform:uppercase;
+  color:var(--ink5);font-weight:600;
+}
 .footer-score{
-  font-family:'Playfair Display',serif;
-  font-size:48px;font-weight:900;color:var(--ink);line-height:1;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:56px;font-weight:800;color:var(--ink);
+  line-height:1;letter-spacing:-2px;
 }
-.footer-score sub{font-size:16px;font-weight:400;color:var(--ink4);vertical-align:middle}
+.footer-score sub{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:18px;font-weight:600;color:var(--ink4);
+  vertical-align:middle;letter-spacing:0;
+}
 
-
-/* ══════════════════════════════
+/* ═══════════════════════════════════════
    SCREEN 3 — RESULTS
-══════════════════════════════ */
+   ═══════════════════════════════════════ */
 #screen-results{background:var(--bg)}
-
-/* Score banner */
-.res-banner{
-  background:var(--ink);
-  border-bottom:1px solid var(--rule);
-}
+.res-banner{background:var(--k)}
 .res-banner-inner{
-  max-width:880px;margin:0 auto;
-  padding:52px 48px 44px;
-  display:grid;grid-template-columns:1fr auto;
-  gap:32px;align-items:center;
+  max-width:880px;margin:0 auto;padding:52px 48px 44px;
+  display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;
 }
 .res-eyebrow{
+  font-family:'Barlow Condensed',sans-serif;
   font-size:10px;letter-spacing:4px;text-transform:uppercase;
-  color:rgba(255,255,255,.3);font-weight:600;margin-bottom:12px;display:block;
+  color:rgba(255,255,255,.4);font-weight:700;margin-bottom:12px;display:block;
 }
 .res-score{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(64px,10vw,96px);
-  font-weight:900;line-height:.9;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(72px,12vw,110px);
+  font-weight:800;line-height:.85;
   letter-spacing:-4px;color:#fff;
 }
-.res-score span{
-  font-size:clamp(20px,3vw,30px);
-  color:rgba(255,255,255,.25);font-weight:400;
-}
+.res-score span{font-size:clamp(22px,3.5vw,32px);color:rgba(255,255,255,.3);font-weight:600;letter-spacing:0}
 .res-mention{
-  font-size:15px;font-weight:600;color:rgba(255,255,255,.6);
-  margin-top:14px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:rgba(255,255,255,.6);margin-top:14px;
 }
-.res-bar-wrap{
-  margin-top:14px;height:3px;
-  background:rgba(255,255,255,.1);overflow:hidden;max-width:400px;
-}
-.res-bar{height:100%;transition:width 1.2s ease}
-.res-detail{
-  display:flex;flex-direction:column;gap:12px;min-width:120px;
-}
+.res-bar-wrap{margin-top:12px;height:3px;background:rgba(255,255,255,.15);overflow:hidden;max-width:400px}
+.res-bar{height:100%;background:rgba(255,255,255,.7);transition:width 1.2s ease}
+.res-detail{display:flex;flex-direction:column;gap:8px;min-width:110px}
 .res-stat{
-  padding:14px 18px;
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.08);
-  text-align:center;
+  padding:12px 16px;background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.12);text-align:center;
 }
 .res-stat .v{
-  font-family:'Playfair Display',serif;
-  font-size:22px;font-weight:900;color:#fff;line-height:1;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:24px;font-weight:800;color:#fff;line-height:1;letter-spacing:-1px;
 }
 .res-stat .l{
+  font-family:'Barlow Condensed',sans-serif;
   font-size:9px;letter-spacing:2px;text-transform:uppercase;
-  color:rgba(255,255,255,.3);margin-top:3px;
+  color:rgba(255,255,255,.3);margin-top:3px;font-weight:700;
 }
-
-/* Body */
 .res-body{
-  max-width:880px;margin:0 auto;
-  padding:40px 48px 72px;
+  max-width:880px;margin:0 auto;padding:40px 48px 72px;
   display:grid;grid-template-columns:1fr 1fr;gap:48px;
 }
 .bdown-row{
   display:flex;align-items:center;justify-content:space-between;
-  padding:9px 0;border-bottom:1px solid var(--rule2);
+  padding:8px 0;border-bottom:1px solid var(--rule2);
 }
 .bdown-row:last-child{border-bottom:none}
-.bdown-notion{font-size:13px;font-weight:600;color:var(--ink3)}
-.bdown-pts{font-family:'Playfair Display',serif;font-size:17px;font-weight:700}
+.bdown-notion{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:.3px;color:var(--ink3);
+}
+.bdown-pts{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:18px;font-weight:800;letter-spacing:-1px;
+}
 .bdown-pct{height:2px;background:var(--rule2);margin-top:3px;overflow:hidden}
-.bdown-pct-fill{height:100%;transition:width .9s ease}
-
+.bdown-pct-fill{height:100%;background:var(--k);transition:width .9s ease}
 .err-card{
-  padding:12px 16px;background:var(--bg);
-  border:1px solid var(--rule);
-  border-left:2px solid var(--red);
-  margin-bottom:8px;
+  padding:10px 14px;background:var(--bg);border:1.5px solid var(--rule);
+  border-left:3px solid var(--red);margin-bottom:8px;
 }
-.err-q{font-size:13px;color:var(--ink2);margin-bottom:5px}
-.err-sc{font-size:11px;font-weight:700;letter-spacing:.5px}
-.err-fb{font-size:12px;font-style:italic;color:var(--ink4);margin-top:4px}
-
+.err-q{font-size:13px;color:var(--ink2);margin-bottom:4px}
+.err-sc{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+}
+.err-fb{font-size:12px;font-style:italic;color:var(--ink4);margin-top:3px}
 .res-cta{
-  grid-column:1/-1;
-  display:flex;gap:12px;flex-wrap:wrap;
-  justify-content:flex-start;
-  padding-top:16px;border-top:1px solid var(--rule);
+  grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap;
+  justify-content:flex-start;padding-top:16px;border-top:2px solid var(--ink);
 }
 
-
-/* ══════════════════════════════
+/* ═══════════════════════════════════════
    SCREEN 4 — DASHBOARD
-══════════════════════════════ */
+   ═══════════════════════════════════════ */
 #screen-dash{background:var(--bg)}
-
-/* Header */
-.dash-banner{
-  background:var(--ink);
-  border-bottom:1px solid var(--rule);
-}
-.dash-banner-inner{
-  max-width:960px;margin:0 auto;
-  padding:48px 48px 40px;
-}
+.dash-banner{background:var(--ink)}
+.dash-banner-inner{max-width:960px;margin:0 auto;padding:48px 48px 40px}
 .dash-banner-inner .lp-overline{
-  color:rgba(255,255,255,.3);
-  display:block;font-size:10px;letter-spacing:4px;
-  text-transform:uppercase;margin-bottom:10px;
-  font-family:'Source Serif 4',serif;font-weight:600;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:rgba(255,255,255,.3);display:block;margin-bottom:10px;font-weight:700;
 }
 .dash-banner h2{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(30px,4.5vw,52px);font-weight:900;
-  color:#fff;letter-spacing:-2px;line-height:.95;margin:0;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(36px,5.5vw,64px);font-weight:800;
+  letter-spacing:-1.5px;text-transform:uppercase;
+  color:#fff;line-height:.92;margin:0;
 }
-.dash-banner h2 em{font-style:italic;color:#9ab4f0}
-.dash-banner p{font-size:13px;color:rgba(255,255,255,.35);margin-top:10px}
-
-/* Body */
+.dash-banner h2 em{font-style:normal;color:rgba(150,180,255,.85)}
+.dash-banner p{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;
+  color:rgba(255,255,255,.3);margin-top:10px;
+}
 .dash-body{max-width:960px;margin:0 auto;padding:36px 48px 72px}
-
-/* Stat row */
 .stat-row{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:1px;background:var(--rule);
-  border:1px solid var(--rule);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;background:var(--ink);border:1.5px solid var(--ink);
   margin-bottom:40px;
 }
-.stat-card{
-  padding:20px 20px;background:var(--bg);
-}
+.stat-card{padding:20px;background:var(--bg)}
 .sc-val{
-  font-family:'Playfair Display',serif;
-  font-size:32px;font-weight:900;line-height:1;color:var(--ink);
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:36px;font-weight:800;line-height:1;
+  letter-spacing:-1.5px;color:var(--ink);
 }
-.sc-val.navy,.sc-val.blue{color:var(--blue)}
+.sc-val.navy,.sc-val.blue{color:var(--k)}
 .sc-val.green{color:var(--green)}
 .sc-val.gold{color:var(--amber)}
 .sc-val.red{color:var(--red)}
 .sc-lbl{
+  font-family:'Barlow Condensed',sans-serif;
   font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--ink5);margin-top:6px;
+  color:var(--ink5);margin-top:6px;font-weight:700;
 }
-
-/* Chart */
 .chart-section{margin-bottom:40px}
-.chart-section .rule{font-size:10px;letter-spacing:3px;color:var(--ink5);margin-bottom:12px}
-.chart-wrap{
-  height:100px;display:flex;align-items:flex-end;
-  gap:5px;padding:0 0 0;
-  border-bottom:1px solid var(--rule);
-}
+.chart-wrap{height:100px;display:flex;align-items:flex-end;gap:4px;border-bottom:2px solid var(--ink)}
 .chart-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:0}
-.chart-bar{width:100%;border-radius:0;transition:height .5s ease;min-height:2px}
-.chart-lbl{font-size:9px;color:var(--ink5);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
-.chart-val{font-size:10px;font-weight:600;color:var(--ink4);text-align:center}
-
-/* Grid */
+.chart-bar{width:100%;transition:height .5s ease;min-height:2px}
+.chart-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:.5px;color:var(--ink5);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
+.chart-val{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:800;color:var(--ink4);text-align:center}
 .dash-grid{display:grid;grid-template-columns:3fr 2fr;gap:40px}
-
-/* History table */
 .hist-table{width:100%;border-collapse:collapse}
 .hist-table th{
-  padding:8px 12px;text-align:left;
+  padding:8px 10px;text-align:left;
+  font-family:'Barlow Condensed',sans-serif;
   font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--ink5);border-bottom:2px solid var(--ink);font-weight:600;
+  color:var(--ink5);border-bottom:2px solid var(--ink);font-weight:700;
 }
 .hist-table td{
-  padding:10px 12px;border-bottom:1px solid var(--rule2);
+  padding:9px 10px;border-bottom:1px solid var(--rule2);
   font-size:13px;color:var(--ink2);
 }
 .hist-table tr:hover td{background:var(--bg2)}
-
 .score-chip{
-  display:inline-block;padding:2px 9px;
-  font-family:'Playfair Display',serif;
-  font-size:13px;font-weight:700;
+  display:inline-block;padding:2px 10px;border-radius:100px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;
 }
 .score-chip.a{background:var(--green2);color:var(--green)}
 .score-chip.b{background:var(--amber2);color:var(--amber)}
 .score-chip.c{background:var(--red2);color:var(--red)}
-
-/* Notions bars */
 .nb-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.nb-label{font-size:12px;font-weight:600;color:var(--ink3);width:150px;flex-shrink:0}
+.nb-label{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;
+  color:var(--ink3);width:150px;flex-shrink:0;
+}
 .nb-track{flex:1;height:3px;background:var(--rule2);overflow:hidden}
 .nb-fill{height:100%;transition:width .8s ease}
-.nb-count{font-size:11px;font-weight:700;color:var(--ink4);width:24px;text-align:right}
-
+.nb-count{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;font-weight:800;color:var(--ink4);width:24px;text-align:right;
+}
 .empty-state{text-align:center;padding:72px 20px;color:var(--ink5)}
-.empty-state .ei{font-size:40px;display:block;margin-bottom:16px;opacity:.4}
+.empty-state .ei{font-size:32px;display:block;margin-bottom:16px;opacity:.3}
 
-
-/* ══════════════════════════════
+/* ═══════════════════════════════════════
    RESPONSIVE
-══════════════════════════════ */
+   ═══════════════════════════════════════ */
 @media(max-width:760px){
-  .gnav{padding:0 20px}.gnav-links{display:none}
-  /* Landing */
-  .lp-wrap{padding:0 20px}
-  .lp-hero-inner{grid-template-columns:1fr}
-  .lp-hero-left{padding:32px 0;border-right:none;border-bottom:1px solid var(--rule)}
-  .lp-hero-right{padding:28px 0}
-  .lp-h1{letter-spacing:-2px}
-  .lp-fig{grid-template-columns:52px 1fr}
-  .lp-fig-n{font-size:28px}
-  .lp-feat-grid{grid-template-columns:1fr}
-  .lp-feat-cell{border-right:none!important;border-top:1px solid var(--rule)!important}
-  .lp-feat-cell:first-child{border-top:none!important}
-  .lp-who-grid{grid-template-columns:1fr;gap:24px}
-  .lp-cta-strip{grid-template-columns:1fr;gap:24px}
-  .lp-cta-actions{align-items:flex-start}
-  /* Setup */
+  .gnav{padding:0}.gnav-links{display:none}
+  #screen-landing{height:auto;overflow:visible}
+  .lp-hero{grid-template-columns:1fr}
+  .lp-right{grid-template-rows:auto;grid-template-columns:1fr 1fr}
+  .lp-tile{padding:20px 24px}
+  .lp-left{padding:40px 24px;border-right:none;border-bottom:2px solid var(--ink)}
+  .lp-left::before{display:none}
+  .lp-strip{grid-template-columns:1fr 1fr}
+  .lp-strip-item:nth-child(3){border-top:1px solid var(--rule)}
   .setup-header{padding:0 20px}
   .setup-hero{padding:32px 20px}
   .setup-hero-inner{grid-template-columns:1fr}
-  .setup-stats{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:24px;display:grid;grid-template-columns:repeat(3,1fr)}
+  .setup-stats{border-left:none;padding-left:0;border-top:2px solid rgba(255,255,255,.2);padding-top:20px;display:grid;grid-template-columns:repeat(3,1fr)}
   .setup-body{padding:28px 20px 60px}
-  /* Exam */
   .exam-top-inner{padding:8px 20px}
   .pills-bar-inner{padding:6px 20px}
-  .exam-main{padding:24px 20px 80px}
+  .exam-main{padding:20px 16px 80px}
   .exam-footer{padding:16px 20px}
-  /* Results */
-  .res-banner-inner{grid-template-columns:1fr;padding:36px 20px}
-  .res-body{grid-template-columns:1fr;padding:28px 20px 60px;gap:32px}
-  /* Dashboard */
-  .dash-banner-inner{padding:36px 20px}
-  .dash-body{padding:24px 20px 60px}
+  .res-banner-inner{grid-template-columns:1fr;padding:32px 20px}
+  .res-body{grid-template-columns:1fr;padding:24px 20px 60px;gap:28px}
+  .dash-banner-inner{padding:32px 20px}
+  .dash-body{padding:20px 16px 60px}
   .dash-grid{grid-template-columns:1fr}
 }
+
+/* ── Blocs Scratch style ── */
+.scratch-wrap{
+  margin:14px 0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  align-items:start;
+}
+.scratch-wrap.single{grid-template-columns:1fr auto;align-items:start}
+.scratch-code{
+  background:#1e1e2e;
+  border-radius:8px;
+  padding:14px 16px;
+  font-size:0;
+  line-height:1;
+  overflow:hidden;
+}
+.scratch-hat{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 14px 8px 12px;
+  border-radius:20px 20px 4px 4px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;font-weight:700;letter-spacing:.3px;
+  color:#fff;margin-bottom:4px;
+}
+.sb-event{background:#ffab19}
+.sb-control{background:#ffab19}
+.sb-motion{background:#4c97ff}
+.sb-op{background:#ff8c1a}
+.sb-variable{background:#ff8c1a}
+.sb-looks{background:#9966ff}
+.sb-sensor{background:#5cb1d6}
+
+.scratch-block{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 12px 7px 20px;
+  margin:3px 0 3px 12px;
+  border-radius:4px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;font-weight:700;letter-spacing:.3px;
+  color:#fff;position:relative;
+  flex-wrap:wrap;
+}
+.scratch-block::before{
+  content:'';position:absolute;
+  left:0;top:50%;transform:translateY(-50%);
+  width:0;height:0;
+  border-top:7px solid transparent;
+  border-bottom:7px solid transparent;
+}
+.scratch-block.sb-motion{background:#4c97ff}
+.scratch-block.sb-motion::before{border-left:7px solid #3373cc}
+.scratch-block.sb-control{background:#ffab19}
+.scratch-block.sb-control::before{border-left:7px solid #cc8800}
+.scratch-block.sb-op{background:#59c059}
+.scratch-block.sb-op::before{border-left:7px solid #389438}
+.scratch-block.sb-variable{background:#ff8c1a}
+.scratch-block.sb-variable::before{border-left:7px solid #cc6600}
+.scratch-block.sb-looks{background:#9966ff}
+.scratch-block.sb-looks::before{border-left:7px solid #7744cc}
+.scratch-block.sb-sensor{background:#5cb1d6}
+.scratch-block.sb-sensor::before{border-left:7px solid #3d8ea8}
+
+.scratch-val{
+  display:inline-flex;align-items:center;
+  background:rgba(255,255,255,.2);
+  border-radius:3px;padding:1px 6px;
+  font-size:11px;font-weight:800;
+}
+.scratch-oval{
+  display:inline-flex;align-items:center;
+  background:rgba(255,255,255,.2);
+  border-radius:20px;padding:1px 8px;
+  font-size:11px;font-weight:700;
+}
+.scratch-repeat{
+  display:block;
+  margin:3px 0 3px 12px;
+  padding:6px 10px 6px 14px;
+  background:#ffab19;border-radius:4px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;font-weight:700;color:#fff;
+}
+.scratch-repeat-body{
+  margin:2px 0 2px 12px;
+  padding:4px 0;
+  border-left:3px solid rgba(255,255,255,.4);
+}
+.scratch-result{
+  background:#f0f0f0;
+  border:1.5px solid #d0d0d0;
+  border-radius:8px;
+  padding:12px;
+  display:flex;flex-direction:column;align-items:center;
+  gap:8px;
+}
+.scratch-result-label{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:10px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:#888;
+}
+.scratch-result svg{display:block}
 
 </style>
 
@@ -959,8 +1074,8 @@ tr:nth-child(even) td{background:var(--bg2)}
   <div class="gnav-logo" onclick="go('screen-landing','navLanding')"><em>Brevet</em> Blanc Maths</div>
   <div class="gnav-links">
     <button class="gnav-link active" id="navLanding" onclick="go('screen-landing','navLanding')">Accueil</button>
-    <button class="gnav-link" id="navSetup" onclick="go('screen-setup','navSetup')">📝 Commencer</button>
-    <button class="gnav-link" id="navDash" onclick="go('screen-dash','navDash');renderDash()">📊 Tableau de bord</button>
+    <button class="gnav-link" id="navSetup" onclick="go('screen-setup','navSetup')">Commencer</button>
+    <button class="gnav-link" id="navDash" onclick="go('screen-dash','navDash');renderDash()">Tableau de bord</button>
   </div>
 </nav>
 
@@ -970,279 +1085,71 @@ tr:nth-child(even) td{background:var(--bg2)}
 <div class="screen active" id="screen-landing">
 <div class="lp">
 
-  <!-- HEADER STRIP -->
-  <div class="lp-header">
-    <div class="lp-wrap">
-      <div class="lp-header-inner">
-        <span class="lp-header-title">Brevet Blanc Maths</span>
-        <span class="lp-header-sub">Programme officiel 3ème · APMEP 2023–2024</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- HERO -->
+  <!-- HERO — plein viewport -->
   <div class="lp-hero">
-    <div class="lp-wrap">
-      <div class="lp-hero-inner">
 
-        <div class="lp-hero-left">
-          <span class="lp-kicker">Diplôme National du Brevet · Mathématiques</span>
-          <h1 class="lp-h1">
-            Entraîne<br>
-            ment<br>
-            <em>intensif.</em>
-          </h1>
-          <p class="lp-tagline">Exercices officiels corrigés par IA, simulateur d'examen chronométré, suivi de progression. Gratuit, sans inscription.</p>
-          <div class="lp-cta-row">
-            <button class="lp-btn lp-btn-dark" onclick="go('screen-setup','navSetup')">
-              Commencer un brevet →
-            </button>
-            <button class="lp-btn lp-btn-outline" onclick="go('screen-dash','navDash');renderDash()">
-              Tableau de bord
-            </button>
-          </div>
-        </div>
-
-        <div class="lp-hero-right">
-          <div class="lp-figures">
-            <div class="lp-fig">
-              <span class="lp-fig-n">48</span>
-              <span class="lp-fig-label">exercices issus des vrais sujets DNB 2023–2024</span>
-            </div>
-            <div class="lp-fig">
-              <span class="lp-fig-n">10</span>
-              <span class="lp-fig-label">notions du programme officiel de 3ème couvertes</span>
-            </div>
-            <div class="lp-fig">
-              <span class="lp-fig-n">IA</span>
-              <span class="lp-fig-label">correction instantanée par Claude · Anthropic</span>
-            </div>
-          </div>
-        </div>
+    <!-- Left: pitch -->
+    <div class="lp-left">
+      <span class="lp-kicker">Diplôme National du Brevet · 3ème</span>
+      <h1 class="lp-h1">
+        Préparez<br>vous.<br><em>Réussissez.</em>
+      </h1>
+      <p class="lp-tagline">
+        Exercices officiels DNB corrigés par IA, chronomètre d'examen réel,
+        suivi de progression. Gratuit, sans inscription.
+      </p>
+      <div class="lp-cta-row">
+        <button class="btn btn-primary" style="padding:13px 28px;font-size:14px" onclick="go('screen-setup','navSetup')">
+          Commencer →
+        </button>
 
       </div>
     </div>
-  </div>
 
-  <hr class="lp-rule">
+    <!-- Right: 3 stat tiles -->
+    <div class="lp-right">
+      <div class="lp-tile">
+        <div class="lp-tile-n">48</div>
+        <div class="lp-tile-label">exercices issus des vrais sujets DNB 2023–2024</div>
+      </div>
+      <div class="lp-tile">
+        <div class="lp-tile-n">10</div>
+        <div class="lp-tile-label">notions du programme officiel de 3ème</div>
+      </div>
 
-  <!-- FEATURES -->
-  <div class="lp-section">
-    <div class="lp-wrap">
-      <div class="lp-section-head">
-        <span class="lp-overline">Fonctionnalités</span>
-        <h2 class="lp-h2">Tout ce qu'il faut pour<br><em>réussir.</em></h2>
-      </div>
-      <div class="lp-feat-grid">
-        <div class="lp-feat-cell">
-          <span class="lp-feat-idx">01</span>
-          <h3>Exercices officiels DNB</h3>
-          <p>Géométrie, statistiques, probabilités, algèbre… modélisés sur les vrais sujets APMEP 2023–2024.</p>
-        </div>
-        <div class="lp-feat-cell">
-          <span class="lp-feat-idx">02</span>
-          <h3>Simulateur d'examen</h3>
-          <p>Chronomètre réel, conditions identiques au brevet. Durée au choix : 2h, 1h, 30 min, 10 min.</p>
-        </div>
-        <div class="lp-feat-cell">
-          <span class="lp-feat-idx">03</span>
-          <h3>Correction IA</h3>
-          <p>Chaque réponse analysée par Claude (Anthropic). Score au point, feedback étape par étape.</p>
-        </div>
-        <div class="lp-feat-cell">
-          <span class="lp-feat-idx">04</span>
-          <h3>Corrigés détaillés</h3>
-          <p>Démarche officielle complète accessible après validation de chaque question.</p>
-        </div>
-        <div class="lp-feat-cell">
-          <span class="lp-feat-idx">05</span>
-          <h3>Suivi de progression</h3>
-          <p>Historique, graphiques d'évolution, analyse des points faibles par notion.</p>
-        </div>
-        <div class="lp-feat-cell">
-          <span class="lp-feat-idx">06</span>
-          <h3>100 % gratuit</h3>
-          <p>Aucune inscription, aucun abonnement. Accessible 24h/24 sur tous les appareils.</p>
-        </div>
-      </div>
     </div>
+
   </div>
 
-  <!-- COMMENT ÇA MARCHE -->
-  <div class="lp-section lp-section-bg">
-    <div class="lp-wrap">
-      <div class="lp-section-head">
-        <span class="lp-overline">Méthode</span>
-        <h2 class="lp-h2">Comment ça<br><em>marche ?</em></h2>
-      </div>
-      <div class="lp-steps">
-        <div class="lp-step">
-          <span class="lp-step-n">01 —</span>
-          <div>
-            <h3>Choisissez la durée et les notions</h3>
-            <p>De 5 minutes à 2h (durée réelle de l'examen). Ciblez toutes les notions ou concentrez-vous sur un chapitre précis.</p>
-          </div>
-        </div>
-        <div class="lp-step">
-          <span class="lp-step-n">02 —</span>
-          <div>
-            <h3>Pratiquez en conditions réelles</h3>
-            <p>Le chronomètre tourne. Répondez aux exercices, validez question par question pour une correction IA immédiate.</p>
-          </div>
-        </div>
-        <div class="lp-step">
-          <span class="lp-step-n">03 —</span>
-          <div>
-            <h3>Consultez les corrigés</h3>
-            <p>Après validation, accédez au corrigé complet avec la démarche officielle et les points attribués.</p>
-          </div>
-        </div>
-        <div class="lp-step">
-          <span class="lp-step-n">04 —</span>
-          <div>
-            <h3>Analysez votre progression</h3>
-            <p>Le tableau de bord identifie vos lacunes par notion et visualise votre évolution dans le temps.</p>
-          </div>
-        </div>
-      </div>
+  <!-- STRIP — 4 points clés -->
+  <div class="lp-strip">
+    <div class="lp-strip-item">
+      <div class="lp-strip-dot"></div>
+      <div class="lp-strip-text">Simulateur d'examen chronométré</div>
     </div>
-  </div>
-
-  <!-- CHAPITRES -->
-  <div class="lp-section">
-    <div class="lp-wrap">
-      <span class="lp-overline">Programme complet</span>
-      <h2 class="lp-h2" style="margin-bottom:0">10 notions du programme<br><em>officiel 3ème.</em></h2>
-      <div class="lp-pills">
-        <span class="lp-pill">Géométrie</span>
-        <span class="lp-pill">Statistiques</span>
-        <span class="lp-pill">Probabilités</span>
-        <span class="lp-pill">Arithmétique &amp; PGCD</span>
-        <span class="lp-pill">Proportionnalité</span>
-        <span class="lp-pill">Algèbre &amp; Fonctions</span>
-        <span class="lp-pill">Puissances</span>
-        <span class="lp-pill">Algorithmique</span>
-        <span class="lp-pill">Volumes &amp; Grandeurs</span>
-        <span class="lp-pill">Équations</span>
-      </div>
+    <div class="lp-strip-item">
+      <div class="lp-strip-dot"></div>
+      <div class="lp-strip-text">Corrigés détaillés étape par étape</div>
     </div>
-  </div>
-
-  <hr class="lp-rule">
-
-  <!-- POUR QUI -->
-  <div class="lp-section">
-    <div class="lp-wrap">
-      <span class="lp-overline">Public</span>
-      <h2 class="lp-h2" style="margin-bottom:40px">Pour <em>qui ?</em></h2>
-      <div class="lp-who-grid">
-        <div class="lp-who-item">
-          <h3>Élèves de 3ème</h3>
-          <p>Qui veulent préparer sérieusement le brevet blanc en s'entraînant dans les conditions réelles de l'examen.</p>
-        </div>
-        <div class="lp-who-item">
-          <h3>Collégiens en difficulté</h3>
-          <p>Souhaitant améliorer leurs résultats en ciblant leurs points faibles notion par notion.</p>
-        </div>
-        <div class="lp-who-item">
-          <h3>Parents accompagnants</h3>
-          <p>Recherchant un outil fiable et pédagogique pour aider leurs enfants à se préparer au brevet.</p>
-        </div>
-      </div>
+    <div class="lp-strip-item">
+      <div class="lp-strip-dot"></div>
+      <div class="lp-strip-text">Suivi de progression par notion</div>
     </div>
-  </div>
-
-  <hr class="lp-rule">
-
-  <!-- FAQ -->
-  <div class="lp-section">
-    <div class="lp-wrap">
-      <span class="lp-overline">Questions fréquentes</span>
-      <h2 class="lp-h2" style="margin-bottom:40px">FAQ</h2>
-      <div class="lp-faq-list">
-        <div class="lp-faq-item">
-          <button class="lp-faq-q" onclick="this.closest('.lp-faq-item').classList.toggle('open')">
-            Les exercices couvrent-ils tout le programme de 3ème ?
-            <span class="lp-faq-icon">+</span>
-          </button>
-          <div class="lp-faq-a">Oui. Les 48 exercices sont conformes au programme officiel de mathématiques du collège, modélisés sur les vrais sujets DNB 2023 et 2024 compilés par l'APMEP.</div>
-        </div>
-        <div class="lp-faq-item">
-          <button class="lp-faq-q" onclick="this.closest('.lp-faq-item').classList.toggle('open')">
-            Comment fonctionne la correction par IA ?
-            <span class="lp-faq-icon">+</span>
-          </button>
-          <div class="lp-faq-a">Vos réponses sont analysées par Claude (Anthropic), qui compare votre démarche à la réponse officielle et vous attribue des points avec un feedback pédagogique personnalisé. La correction est instantanée.</div>
-        </div>
-        <div class="lp-faq-item">
-          <button class="lp-faq-q" onclick="this.closest('.lp-faq-item').classList.toggle('open')">
-            Mon historique est-il sauvegardé ?
-            <span class="lp-faq-icon">+</span>
-          </button>
-          <div class="lp-faq-a">Oui. Votre tableau de bord conserve l'historique de tous vos brevets blancs, vos scores et votre progression par notion. Les données sont stockées localement dans votre navigateur.</div>
-        </div>
-        <div class="lp-faq-item">
-          <button class="lp-faq-q" onclick="this.closest('.lp-faq-item').classList.toggle('open')">
-            C'est vraiment gratuit ?
-            <span class="lp-faq-icon">+</span>
-          </button>
-          <div class="lp-faq-a">Entièrement gratuit. Aucune inscription requise, aucun abonnement. Toutes les fonctionnalités sont accessibles immédiatement.</div>
-        </div>
-        <div class="lp-faq-item">
-          <button class="lp-faq-q" onclick="this.closest('.lp-faq-item').classList.toggle('open')">
-            Puis-je m'entraîner sur mobile ?
-            <span class="lp-faq-icon">+</span>
-          </button>
-          <div class="lp-faq-a">Oui. La plateforme est entièrement responsive : ordinateur, tablette, smartphone. Aucune installation requise.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CTA FINAL DARK -->
-  <div class="lp-section lp-section-dark">
-    <div class="lp-wrap">
-      <div class="lp-cta-strip">
-        <div>
-          <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,46px);font-weight:900;color:#fff;letter-spacing:-1.5px;line-height:.97;margin:0">
-            Ne laissez pas le hasard<br>
-            <em style="font-style:italic;color:#9ab4f0">décider de vos résultats.</em>
-          </h2>
-          <p style="font-size:14px;color:rgba(255,255,255,.38);margin:14px 0 0;line-height:1.6">Commencez à vous entraîner maintenant — gratuitement.</p>
-        </div>
-        <div class="lp-cta-actions">
-          <button class="lp-btn lp-btn-light" onclick="go('screen-setup','navSetup')">
-            Générer mon brevet →
-          </button>
-          <button class="lp-btn-ghost-white" onclick="go('screen-dash','navDash');renderDash()">
-            Tableau de bord
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="lp-footer">
-    <div class="lp-wrap">
-      <div class="lp-footer-inner">
-        <span class="lp-footer-brand"><em>Brevet</em> Blanc Maths</span>
-        <span class="lp-footer-meta">Diplôme National du Brevet · Programme officiel 3ème · Exercices APMEP 2023–2024</span>
-      </div>
+    <div class="lp-strip-item">
+      <div class="lp-strip-dot"></div>
+      <div class="lp-strip-text">100 % gratuit · aucune inscription</div>
     </div>
   </div>
 
 </div>
 </div>
-<!-- ══════════════════════════════════════════════
-  SCREEN 1 — SETUP
-══════════════════════════════════════════════ -->
+
 <div class="screen" id="screen-setup">
 
   <!-- ── Header ── -->
   <div class="setup-header" style="padding:0 48px">
     <span class="setup-header-title">Configuration</span>
-    <span class="setup-header-sub">Programme officiel 3ème · APMEP 2023–2024</span>
+    <span class="setup-header-sub"></span>
   </div>
 
   <!-- ── Hero ── -->
@@ -1304,9 +1211,8 @@ tr:nth-child(even) td{background:var(--bg2)}
 
     <div class="setup-cta">
       <button class="btn btn-dark" style="padding:13px 32px;font-size:14px" onclick="startExam()">
-        Démarrer le brevet →
+        Démarrer le brevet
       </button>
-      <button class="btn btn-ghost" onclick="go('screen-landing','navLanding')">← Retour</button>
     </div>
 
   </div>
@@ -1438,7 +1344,27 @@ function toggleFaq(el){ el.classList.toggle('open'); }
 const BANK = {
   probabilites:[
     {title:"Probabilités — Urne et tirage aléatoire",notion:"Probabilités",pts:20,
-     intro:"Dans une urne de 40 boules indiscernables au toucher, 5 sont rouges, 20 sont vertes et 15 sont blanches. On tire une boule au hasard.",
+     intro:"Dans une urne contenant 40 boules indiscernables au toucher, 5 sont rouges, 20 sont vertes et 15 sont blanches. On tire une boule au hasard.",
+     figure:`<svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg">
+  <defs><style>text{font:12px 'DM Sans',sans-serif;fill:#0a0a0a}.lb{font-weight:600}</style></defs>
+  <ellipse cx="130" cy="155" rx="70" ry="18" fill="#e0dbd3" stroke="#888" stroke-width="1.5"/>
+  <path d="M60,70 Q55,155 130,173 Q205,155 200,70 Q170,90 130,92 Q90,90 60,70Z" fill="#f6f4f0" stroke="#888" stroke-width="1.5"/>
+  <ellipse cx="130" cy="70" rx="70" ry="18" fill="#e0dbd3" stroke="#888" stroke-width="1.5"/>
+  <!-- Boules: rouges -->
+  <circle cx="98" cy="115" r="10" fill="#e63946" stroke="#c8252d" stroke-width="1"/>
+  <circle cx="118" cy="125" r="10" fill="#e63946" stroke="#c8252d" stroke-width="1"/>
+  <!-- vertes -->
+  <circle cx="140" cy="112" r="10" fill="#2dc653" stroke="#1d9c3c" stroke-width="1"/>
+  <circle cx="158" cy="122" r="10" fill="#2dc653" stroke="#1d9c3c" stroke-width="1"/>
+  <circle cx="126" cy="140" r="10" fill="#2dc653" stroke="#1d9c3c" stroke-width="1"/>
+  <!-- blanches -->
+  <circle cx="108" cy="135" r="9" fill="#fff" stroke="#ccc" stroke-width="1"/>
+  <circle cx="150" cy="135" r="9" fill="#fff" stroke="#ccc" stroke-width="1"/>
+  <!-- legend -->
+  <circle cx="30" cy="35" r="7" fill="#e63946"/><text x="42" y="40" class="lb">5 rouges</text>
+  <circle cx="30" cy="58" r="7" fill="#2dc653"/><text x="42" y="63" class="lb">20 vertes</text>
+  <circle cx="30" cy="81" r="7" fill="#fff" stroke="#ccc" stroke-width="1"/><text x="42" y="86" class="lb">15 blanches</text>
+</svg>`,
      questions:[
        {pts:7,text:"Calculer la probabilité d'obtenir une boule verte. Justifier.",ans:"P(verte) = 20/40 = 1/2 = 0,5"},
        {pts:7,text:"Calculer la probabilité d'obtenir une boule qui n'est pas rouge.",ans:"P(non rouge) = (20+15)/40 = 35/40 = 7/8 ≈ 0,875"},
@@ -1487,14 +1413,37 @@ const BANK = {
   ],
   geometrie:[
     {title:"Géométrie — Pythagore & triangles semblables",notion:"Géométrie",pts:24,
-     intro:"Triangle CDE rectangle en D. CD = 21,6 cm, CE = 29,1 cm, FC = 17,2 cm. (GF) ∥ (DE).",
+     intro:"Triangle CDE rectangle en D. CD = 21,6 cm, CE = 29,1 cm. F est un point de [CD] avec FC = 17,2 cm et (GF) ∥ (DE).",
+     figure:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs><style>text{font:12px 'DM Sans',sans-serif;fill:#0a0a0a}.lb{font-weight:700}.dim{fill:#666;font-size:11px}</style></defs>
+  <polygon points="60,20 60,175 255,175" fill="rgba(0,47,167,.05)" stroke="#002FA7" stroke-width="2" stroke-linejoin="round"/>
+  <rect x="60" y="157" width="18" height="18" fill="none" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="47" y="16" class="lb">C</text><text x="42" y="192" class="lb">D</text><text x="258" y="192" class="lb">E</text>
+  <circle cx="60" cy="100" r="3.5" fill="#002FA7"/>
+  <circle cx="166" cy="111" r="3.5" fill="#002FA7"/>
+  <line x1="60" y1="100" x2="166" y2="111" stroke="#002FA7" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="38" y="104" fill="#002FA7" class="lb">F</text><text x="170" y="109" fill="#002FA7" class="lb">G</text>
+  <text x="19" y="105" class="dim">21,6</text><text x="130" y="192" class="dim">DE=?</text>
+  <text x="95" y="107" class="dim" transform="rotate(-4 95 107)">FC=17,2</text>
+</svg>`,
      questions:[
        {pts:8,text:"Montrer que DE = 19,5 cm.",ans:"DE² = CE² − CD² = 29,1² − 21,6² = 381,25. DE = 19,5 cm ✓"},
        {pts:8,text:"Calculer l'aire du triangle CDE.",ans:"Aire = (21,6 × 19,5)/2 = 210,6 cm²"},
        {pts:8,text:"(GF) ∥ (DE). Calculer GF au mm près.",ans:"GF = DE × FC/DC = 19,5 × 17,2/21,6 ≈ 15,5 cm"}
      ]},
     {title:"Géométrie — Terrain triangulaire",notion:"Géométrie",pts:21,
-     intro:"Triangle ABC rectangle en B. AB = 600 m, BC = 450 m, CD = 270 m.",
+     intro:"Triangle ABC rectangle en B. AB = 600 m, BC = 450 m. D est sur [BC] avec CD = 270 m, E est sur [BA], (DE) ∥ (AB).",
+     figure:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs><style>text{font:12px 'DM Sans',sans-serif;fill:#0a0a0a}.lb{font-weight:700}.dim{fill:#666;font-size:11px}</style></defs>
+  <polygon points="60,175 60,30 270,175" fill="rgba(0,47,167,.05)" stroke="#002FA7" stroke-width="2" stroke-linejoin="round"/>
+  <rect x="60" y="157" width="18" height="18" fill="none" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="47" y="24" class="lb">A</text><text x="42" y="192" class="lb">B</text><text x="273" y="192" class="lb">C</text>
+  <circle cx="138" cy="175" r="3.5" fill="#002FA7"/><circle cx="60" cy="111" r="3.5" fill="#002FA7"/>
+  <line x1="60" y1="111" x2="138" y2="175" stroke="#002FA7" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="140" y="192" fill="#002FA7" class="lb">D</text><text x="38" y="116" fill="#002FA7" class="lb">E</text>
+  <text x="19" y="107" class="dim">600 m</text><text x="95" y="192" class="dim">450 m</text>
+  <text x="152" y="148" class="dim" transform="rotate(-40 152 148)">AC=750</text>
+</svg>`,
      questions:[
        {pts:7,text:"Montrer que AC = 750 m.",ans:"AC² = 600² + 450² = 562500. AC = 750 m ✓"},
        {pts:7,text:"Montrer que (DE) ∥ (AB) et calculer DE.",ans:"CD/CB = 0,6. (DE) ∥ (AB). DE = 600 × 0,6 = 360 m"},
@@ -1503,7 +1452,8 @@ const BANK = {
   ],
   algebre:[
     {title:"Algèbre — Programme de calcul",notion:"Algèbre",pts:20,
-     intro:"Programme : choisir x → ×(−2) → +4 → ×4.",
+     intro:"Voici un programme de calcul :",
+     calcProgram:[{label:"Choisir un nombre",val:"x"},{label:"× (−2)",val:"×(−2)"},{label:"+ 4",val:"+ 4"},{label:"× 4",val:"× 4"},{label:"Résultat",val:"?"}],
      questions:[
        {pts:5,text:"Montrer que pour x = 1, le résultat est 8.",ans:"1×(−2)=−2. −2+4=2. 2×4=8 ✓"},
        {pts:5,text:"Résultat pour x = −2 ?",ans:"−2×(−2)=4. 4+4=8. 8×4=32"},
@@ -1511,7 +1461,16 @@ const BANK = {
        {pts:5,text:"Résoudre −8x + 16 = 4.",ans:"−8x = −12. x = 3/2 = 1,5"}
      ]},
     {title:"Algèbre — Rectangle et équation",notion:"Algèbre",pts:20,
-     intro:"Rectangle ABCD avec AD = x et AB = 16−2x. Carré EFGH avec EF = 2x.",
+     intro:"Rectangle ABCD avec AD = x et AB = 16−2x. Carré EFGH avec EF = 2x. On cherche x pour que les périmètres soient égaux.",
+     figure:`<svg viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg">
+  <defs><style>text{font:12px 'DM Sans',sans-serif;fill:#0a0a0a}.lb{font-weight:700}.dim{fill:#002FA7;font-size:11px;font-weight:500}</style></defs>
+  <rect x="20" y="25" width="150" height="75" fill="rgba(0,47,167,.05)" stroke="#002FA7" stroke-width="2" rx="3"/>
+  <text x="18" y="19" class="lb">A</text><text x="170" y="19" class="lb">B</text><text x="170" y="118" class="lb">C</text><text x="18" y="118" class="lb">D</text>
+  <text x="78" y="19" class="dim">16 − 2x</text><text x="176" y="68" class="dim">x</text>
+  <rect x="230" y="25" width="75" height="75" fill="rgba(13,122,62,.06)" stroke="#0d7a3e" stroke-width="2" rx="3"/>
+  <text x="228" y="19" class="lb">E</text><text x="306" y="19" class="lb">F</text><text x="306" y="118" class="lb">G</text><text x="228" y="118" class="lb">H</text>
+  <text x="247" y="69" fill="#0d7a3e" style="font:11px 'DM Sans',sans-serif;font-weight:500">EF = 2x</text>
+</svg>`,
      questions:[
        {pts:5,text:"Pour x = 1,5, calculer le périmètre du carré EFGH.",ans:"EF = 3 cm. Périmètre = 12 cm"},
        {pts:5,text:"Pour x = 1,5, calculer AB. Vérifier AB > 0.",ans:"AB = 13 cm > 0 ✓"},
@@ -1539,7 +1498,19 @@ const BANK = {
   ],
   programmation:[
     {title:"Algorithmique — Deux programmes",notion:"Algorithmique",pts:20,
-     intro:"Programme A : x → ×3 → +15 → ÷3 → −x. Programme B : x → (x−1)×(x−6) → +5.",
+     intro:"Les deux programmes Scratch ci-dessous utilisent un nombre x saisi par l'utilisateur.",
+     figure:`<div style="margin:14px 0">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--k);margin-bottom:6px">Programme A</div>
+      <div class="scratch-code"><div class="scratch-hat sb-event">🏁 Quand ⚑ est cliqué</div><div class="scratch-block sb-sensor">Demander <span class="scratch-val">Choisir x</span> et attendre</div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">résA</span> à <span class="scratch-oval">(réponse × 3 + 15) ÷ 3 − réponse</span></div><div class="scratch-block sb-looks">Dire <span class="scratch-oval">résA</span></div></div>
+    </div>
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0d7a3e;margin-bottom:6px">Programme B</div>
+      <div class="scratch-code"><div class="scratch-hat sb-event">🏁 Quand ⚑ est cliqué</div><div class="scratch-block sb-sensor">Demander <span class="scratch-val">Choisir x</span> et attendre</div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">résB</span> à <span class="scratch-oval">(réponse−1)×(réponse−6)+5</span></div><div class="scratch-block sb-looks">Dire <span class="scratch-oval">résB</span></div></div>
+    </div>
+  </div>
+</div>`,
      questions:[
        {pts:5,text:"Montrer que pour x = 4, A donne 5.",ans:"4×3=12. 12+15=27. 27÷3=9. 9−4=5 ✓"},
        {pts:5,text:"Justifier que A donne toujours le même résultat.",ans:"x → 3x → 3x+15 → x+5 → x+5−x = 5 ✓"},
@@ -1688,7 +1659,19 @@ const BANK = {
 
   algebre2023:[
     {title:"Algèbre — Deux programmes de calcul (Amir & Sonia)",notion:"Algèbre",pts:15,
-     intro:"Prog. Amir : x → soustraire 5 → ×2. Prog. Sonia : x → +3 → ×(nombre choisi) → −16. — DNB Centres étrangers, 14 juin 2023",
+     intro:"Voici les deux programmes de calcul utilisés dans cet exercice.",
+     figure:`<div style="margin:14px 0">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--k);margin-bottom:6px">Programme Amir</div>
+      <div class="scratch-code"><div class="scratch-block sb-sensor">Demander <span class="scratch-val">x =</span> et attendre</div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">réponse − 5</span></div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">n × 2</span></div><div class="scratch-block sb-looks">Dire <span class="scratch-oval">n</span></div></div>
+    </div>
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0d7a3e;margin-bottom:6px">Programme Sonia</div>
+      <div class="scratch-code"><div class="scratch-block sb-sensor">Demander <span class="scratch-val">x =</span> et attendre</div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">réponse + 3</span></div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">n × réponse</span></div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">n − 16</span></div><div class="scratch-block sb-looks">Dire <span class="scratch-oval">n</span></div></div>
+    </div>
+  </div>
+</div>`,
      questions:[
        {pts:5,text:"Montrer que pour x=6, Amir donne 2 et Sonia donne 38.",ans:"Amir : (6−5)×2 = 2 ✓. Sonia : (6+3)×6 − 16 = 54−16 = 38 ✓"},
        {pts:5,text:"D'après le tableau de valeurs, pour quel nombre les deux programmes donnent-ils le même résultat ?",ans:"Pour x=2 : Amir = −6 et Sonia = −6. Les deux programmes sont égaux pour x = 2 (et x = −3)."},
@@ -1710,7 +1693,13 @@ const BANK = {
        {pts:8,text:"Pour x < 20, quel tarif est le moins cher ? Pour x > 20 ?",ans:"x < 20 (ex. 10 entrées) : A=59€ < B=74€ → tarif A. x > 20 (ex. 30 entrées) : A=177€ > B=162€ → tarif B."}
      ]},
     {title:"Algèbre — Programme de calcul 10x²",notion:"Algèbre",pts:20,
-     intro:"Programme : x → x² → ×5 → +4 → ×2 → −8 = résultat. — DNB Asie, 19 juin 2023",
+     intro:"Voici le programme Scratch utilisé dans cet exercice.",
+     figure:`<div style="margin:14px 0">
+  <div class="scratch-code"><div class="scratch-hat sb-event">🏁 Quand ⚑ est cliqué</div><div class="scratch-block sb-sensor">Demander <span class="scratch-val">Entrer x</span> et attendre</div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">réponse × réponse</span></div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">n × 5</span></div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">n + 4</span></div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">n × 2</span></div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">n − 8</span></div><div class="scratch-block sb-looks">Dire <span class="scratch-oval">n</span></div></div>
+  <div style="margin-top:8px;padding:10px 14px;background:#f0f0f0;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#555">
+    x² → ×5 → +4 → ×2 → −8 = <span style="color:var(--k)">10x²</span>
+  </div>
+</div>`,
      questions:[
        {pts:5,text:"Montrer que pour x=3, le résultat est 90.",ans:"3²=9 → ×5=45 → +4=49 → ×2=98 → −8=90 ✓"},
        {pts:5,text:"Montrer que pour x=2 et x=−2, on obtient le même résultat.",ans:"(−2)²=4 = 2² → mêmes calculs ensuite → même résultat 40 ✓"},
@@ -1718,7 +1707,20 @@ const BANK = {
        {pts:5,text:"Trouver la valeur exacte de l'antécédent positif de 30 par f(x)=10x².",ans:"10x²=30 → x²=3 → x=√3 (valeur exacte)"}
      ]},
     {title:"Algèbre — Programme de calcul, factorisation (2024)",notion:"Algèbre",pts:20,
-     intro:"Programme : x → branche 1 : (x+2)×4 ; branche 2 : x×5−3 → multiplier les deux. — DNB Amérique du Nord, 29 mai 2024",
+     intro:"Le programme Scratch ci-dessous comporte deux branches. Il calcule le produit des deux résultats.",
+     figure:`<div style="margin:14px 0">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--k);margin-bottom:6px">Branche 1</div>
+      <div class="scratch-code"><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">b1</span> à <span class="scratch-oval">(x + 2) × 4</span></div></div>
+    </div>
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0d7a3e;margin-bottom:6px">Branche 2</div>
+      <div class="scratch-code"><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">b2</span> à <span class="scratch-oval">x × 5 − 3</span></div></div>
+    </div>
+  </div>
+  <div class="scratch-code"><div class="scratch-hat sb-event">🏁 Quand ⚑ est cliqué</div><div class="scratch-block sb-sensor">Demander <span class="scratch-val">Entrer x</span> et attendre</div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">résultat</span> à <span class="scratch-oval">b1 × b2</span></div><div class="scratch-block sb-looks">Dire <span class="scratch-oval">résultat</span></div></div>
+</div>`,
      questions:[
        {pts:5,text:"Montrer que pour x=2, le résultat est 112.",ans:"Branche 1 : (2+2)×4=16. Branche 2 : 2×5−3=7. 16×7=112 ✓"},
        {pts:5,text:"Quel résultat pour x=−3 ?",ans:"Branche 1 : (−3+2)×4=−4. Branche 2 : −3×5−3=−18. Résultat = (−4)×(−18) = 72"},
@@ -1726,7 +1728,19 @@ const BANK = {
        {pts:5,text:"Développer et réduire (4x+8)(5x−3). Trouver les deux valeurs donnant 0.",ans:"20x²−12x+40x−24 = 20x²+28x−24. Pour 0 : 4x+8=0 → x=−2 ou 5x−3=0 → x=3/5"}
      ]},
     {title:"Algèbre — Programmes A et B, fonctions affines",notion:"Algèbre",pts:20,
-     intro:"Prog. A : x → ×(−2) → +5. Prog. B : x → −5 → ×3 → +11. — DNB Métropole Antilles-Guyane, 26 juin 2023",
+     intro:"Les programmes A et B sont réalisés avec Scratch. Ils correspondent aux fonctions affines f et g représentées graphiquement.",
+     figure:`<div style="margin:14px 0">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--k);margin-bottom:6px">Programme A — f(x) = −2x+5</div>
+      <div class="scratch-code"><div class="scratch-block sb-sensor">Demander <span class="scratch-val">x =</span> et attendre</div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">réponse × (−2)</span></div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">n + 5</span></div><div class="scratch-block sb-looks">Dire <span class="scratch-oval">n</span></div></div>
+    </div>
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0d7a3e;margin-bottom:6px">Programme B — g(x) = 3x−4</div>
+      <div class="scratch-code"><div class="scratch-block sb-sensor">Demander <span class="scratch-val">x =</span> et attendre</div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">réponse − 5</span></div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">n × 3</span></div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">n</span> à <span class="scratch-oval">n + 11</span></div><div class="scratch-block sb-looks">Dire <span class="scratch-oval">n</span></div></div>
+    </div>
+  </div>
+</div>`,
      questions:[
        {pts:5,text:"Montrer que pour x=−3, le programme A donne 11.",ans:"(−3)×(−2)+5 = 6+5 = 11 ✓"},
        {pts:5,text:"Montrer que le résultat du programme B s'écrit 3x−4.",ans:"(x−5)×3+11 = 3x−15+11 = 3x−4 ✓"},
@@ -1809,21 +1823,71 @@ const BANK = {
 
   algorithmique2023:[
     {title:"Algorithmique — Motif Fleur (Scratch)",notion:"Algorithmique",pts:20,
-     intro:"Motif 'Fleur' = 5 pétales en parallélogramme (35 pas × 20 pas, angles 60° et 120°). — DNB Amérique du Nord, 31 mai 2023",
+     source:"DNB Amérique du Nord, 31 mai 2023",
+     intro:"Le programme Scratch ci-dessous trace une fleur composée de 5 pétales en forme de parallélogramme (35 pas × 20 pas, angles 60° et 120°).",
+     figure:`<div class="scratch-wrap"><div class="scratch-code"><div class="scratch-hat sb-event">🏁 Quand ⚑ est cliqué</div><div class="scratch-block sb-looks">Définir <b>Pétale</b></div><div class="scratch-block sb-motion">Avancer de <span class="scratch-val">35</span> pas</div><div class="scratch-block sb-motion">Tourner ↺ de <span class="scratch-val">60</span> °</div><div class="scratch-block sb-motion">Avancer de <span class="scratch-val">20</span> pas</div><div class="scratch-block sb-motion">Tourner ↺ de <span class="scratch-val">120</span> °</div><div class="scratch-block sb-motion">… (× 2)</div><div style="height:6px"></div><div class="scratch-hat sb-looks">Définir <b>Fleur</b></div><div class="scratch-repeat">Répéter <span class="scratch-val">5</span> fois<div class="scratch-repeat-body"><div class="scratch-block sb-looks">Pétale</div><div class="scratch-block sb-motion">Tourner ↻ de <span class="scratch-val">72</span> °</div></div></div><div class="scratch-block sb-looks">Fleur</div></div><div class="scratch-result"><div class="scratch-result-label">Résultat affiché</div><svg viewBox="-120 -120 240 240" width="180" height="180" xmlns="http://www.w3.org/2000/svg">
+  <g id="petale" transform="rotate(0)">
+    <ellipse cx="40" cy="0" rx="35" ry="18" fill="#ff6680" opacity=".85" stroke="#cc3355" stroke-width="1"/>
+  </g>
+  <use href="#petale" transform="rotate(72)"/>
+  <use href="#petale" transform="rotate(144)"/>
+  <use href="#petale" transform="rotate(216)"/>
+  <use href="#petale" transform="rotate(288)"/>
+  <circle cx="0" cy="0" r="6" fill="#ffcc00" stroke="#cc9900" stroke-width="1"/>
+</svg></div></div>`,
      questions:[
        {pts:6,text:"Expliquer pourquoi le bloc Fleur utilise 72° entre chaque pétale.",ans:"360° ÷ 5 pétales = 72°. Cela garantit un placement régulier sur tout le tour."},
        {pts:7,text:"Combien de fois faut-il répéter le bloc Pétale pour une fleur à 5 pétales ?",ans:"5 fois (5 rotations de 72° = 360° → retour à la position initiale)."},
        {pts:7,text:"On modifie pour une fleur à 6 pétales. Quelles modifications apporter ?",ans:"Nombre de répétitions : 6. Angle de rotation : 360°/6 = 60°."}
      ]},
     {title:"Algorithmique — Carrés imbriqués avec Scratch",notion:"Algorithmique",pts:19,
-     intro:"Programme Scratch construisant 10 carrés emboîtés. Le côté du 1er carré = 300 pixels. Chaque carré suivant est réduit de 20 %. — DNB Polynésie, sept. 2023",
+     source:"DNB Polynésie, sept. 2023",
+     intro:"Le programme Scratch ci-dessous trace 10 carrés emboîtés. Le côté du premier carré mesure 300 pixels. À chaque itération, le côté est multiplié par 0,8 (réduction de 20 %).",
+     figure:`<div class="scratch-wrap"><div class="scratch-code"><div class="scratch-hat sb-event">🏁 Quand ⚑ est cliqué</div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">Côté</span> à <span class="scratch-val">300</span></div><div class="scratch-repeat">Répéter <span class="scratch-val">10</span> fois<div class="scratch-repeat-body"><div class="scratch-repeat">Répéter <span class="scratch-val">4</span> fois<div class="scratch-repeat-body"><div class="scratch-block sb-motion">Avancer de <span class="scratch-oval">Côté</span> pas</div><div class="scratch-block sb-motion">Tourner ↻ de <span class="scratch-val">90</span> °</div></div></div><div class="scratch-block sb-motion">Tourner ↻ de <span class="scratch-val">10</span> °</div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">Côté</span> à <span class="scratch-oval">Côté × 0.8</span></div></div></div></div><div class="scratch-result"><div class="scratch-result-label">10 carrés imbriqués</div><svg viewBox="-160 -160 320 320" width="180" height="180" xmlns="http://www.w3.org/2000/svg">
+  <rect x="-150.0" y="-150.0" width="300.0" height="300.0" fill="none" stroke="#002FA7" stroke-width="2"/>
+  <rect x="-120.0" y="-120.0" width="240.0" height="240.0" fill="none" stroke="#1a4fc4" stroke-width="2"/>
+  <rect x="-96.0" y="-96.0" width="192.0" height="192.0" fill="none" stroke="#3366cc" stroke-width="2"/>
+  <rect x="-76.8" y="-76.8" width="153.6" height="153.6" fill="none" stroke="#4d80d9" stroke-width="2"/>
+  <rect x="-61.4" y="-61.4" width="122.9" height="122.9" fill="none" stroke="#6699e6" stroke-width="2"/>
+  <rect x="-49.2" y="-49.2" width="98.3" height="98.3" fill="none" stroke="#80b3f0" stroke-width="2"/>
+  <rect x="-39.3" y="-39.3" width="78.6" height="78.6" fill="none" stroke="#99c6f5" stroke-width="2"/>
+  <rect x="-31.5" y="-31.5" width="62.9" height="62.9" fill="none" stroke="#b3d9f8" stroke-width="2"/>
+  <rect x="-25.2" y="-25.2" width="50.3" height="50.3" fill="none" stroke="#ccebfc" stroke-width="2"/>
+  <rect x="-20.1" y="-20.1" width="40.3" height="40.3" fill="none" stroke="#e6f5ff" stroke-width="2"/>
+</svg></div></div>`,
      questions:[
        {pts:5,text:"Montrer que le côté du 2e carré mesure 240 pixels.",ans:"300×0,8 = 240 pixels ✓"},
        {pts:7,text:"Quelle est la longueur du dernier carré (10e) ? Arrondir au pixel.",ans:"300 × 0,8⁹ = 300 × 0,1342… ≈ 40 pixels"},
        {pts:7,text:"Le script exécute 'mettre Côté à Côté×0,8' dans une boucle. Quelle est la valeur du côté après 3 itérations ?",ans:"300 → 240 → 192 → 153,6 ≈ 154 pixels"}
      ]},
     {title:"Algorithmique — Triangle et Scratch (2024)",notion:"Algorithmique",pts:19,
-     intro:"Programme Scratch pour tracer le grand triangle ABC (côté=240) puis le petit CDE (côté=80). Variable 'côté'. — DNB Amérique du Nord, 29 mai 2024",
+     source:"DNB Amérique du Nord, 29 mai 2024",
+     intro:"Le programme Scratch ci-dessous trace deux triangles équilatéraux. La variable côté est saisie par l'utilisateur pour le grand triangle ABC (AB = 240 mm), puis recalculée pour le petit triangle CDE.",
+     figure:`<div class="scratch-wrap"><div class="scratch-code"><div class="scratch-hat sb-event">🏁 Quand ⚑ est cliqué</div><div class="scratch-block sb-motion">Aller à x: <span class="scratch-val">-180</span> y: <span class="scratch-val">-150</span></div><div class="scratch-block sb-motion">Stylo en position d'écriture</div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">côté</span> à <span class="scratch-val">?</span></div><div class="scratch-repeat">Répéter <span class="scratch-val">3</span> fois<div class="scratch-repeat-body"><div class="scratch-block sb-motion">Avancer de <span class="scratch-oval">côté</span> pas</div><div class="scratch-block sb-motion">Tourner ↻ de <span class="scratch-val">120</span> °</div></div></div><div class="scratch-block sb-motion">Aller à x: <span class="scratch-val">?</span> y: <span class="scratch-val">?</span></div><div class="scratch-block sb-variable">Mettre <span class="scratch-oval">côté</span> à <span class="scratch-oval">côté / 3</span></div><div class="scratch-repeat">Répéter <span class="scratch-val">3</span> fois<div class="scratch-repeat-body"><div class="scratch-block sb-motion">Avancer de <span class="scratch-oval">côté</span> pas</div><div class="scratch-block sb-motion">Tourner ↻ de <span class="scratch-val">120</span> °</div></div></div></div><div class="scratch-result"><div class="scratch-result-label">Triangles tracés</div><svg viewBox="-20 -20 300 280" width="200" height="190" xmlns="http://www.w3.org/2000/svg">
+  <defs><style>text{font:11px 'Barlow Condensed',sans-serif;fill:#0a0a0a;font-weight:700}.dim{fill:#002FA7;font-size:10px}</style></defs>
+  <!-- Grand triangle ABC équilatéral côté 240 -->
+  <!-- A bas-gauche, B bas-droite, C sommet -->
+  <polygon points="0,240 240,240 120,32" fill="rgba(0,47,167,.07)" stroke="#002FA7" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="-14" y="254">A</text>
+  <text x="243" y="254">B</text>
+  <text x="115" y="22">C</text>
+  <!-- Petit triangle CDE — C sommet, D et E sur les côtés CA et CB, côté=80 -->
+  <!-- D sur CA à 80 pas de C, E sur CB à 80 pas de C -->
+  <!-- CA va de (120,32) à (0,240) → direction (-120,208), longueur 240 -->
+  <!-- D = C + (80/240)*(-120,208) = (120-40, 32+69) = (80,101) -->
+  <!-- E = C + (80/240)*(120,208) = (120+40, 32+69) = (160,101) -->
+  <polygon points="120,32 80,101 160,101" fill="rgba(13,122,62,.12)" stroke="#0d7a3e" stroke-width="2" stroke-linejoin="round"/>
+  <text x="70" y="118" fill="#0d7a3e">D</text>
+  <text x="163" y="118" fill="#0d7a3e">E</text>
+  <!-- Dimensions -->
+  <text x="100" y="260" class="dim">AB = 240 mm</text>
+  <text x="88" y="85" class="dim" fill="#0d7a3e">DE = 80 mm</text>
+  <!-- Codages côtés égaux -->
+  <line x1="56" y1="137" x2="68" y2="131" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="62" y1="140" x2="74" y2="134" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="175" y1="131" x2="187" y2="137" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="181" y1="134" x2="193" y2="140" stroke="#002FA7" stroke-width="1.5"/>
+</svg></div></div>`,
      questions:[
        {pts:5,text:"Quelles sont les coordonnées du point de départ du lutin ?",ans:"Ligne 2 du programme : aller à x:−180, y:−150. Coordonnées = (−180 ; −150)"},
        {pts:7,text:"Quelle valeur saisir à la ligne 4 (mettre côté à ...) pour tracer le grand triangle ?",ans:"côté = 240 (AB = 240 mm = 240 pas)"},
@@ -1904,7 +1968,22 @@ function renderExam(){
     pills.appendChild(pill);
 
     let tableHTML='';
-    if(ex.tableData){tableHTML=`<table><tr>${ex.tableData.headers.map(h=>`<th>${h}</th>`).join('')}</tr>${ex.tableData.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table>`;}
+    if(ex.tableData){tableHTML=`<table><tr>${ex.tableData.headers.map(h=>`<th>${h}</th>`).join('')}</tr>${ex.tableData.rows.map(r=>`<tr>${r.map(cell=>`<td>${cell}</td>`).join('')}</tr>`).join('')}</table>`;}
+
+    // Figure & program rendering
+    let figureHTML='';
+    if(ex.figure){
+      figureHTML=`<div class="ex-figure">${ex.figure}</div>`;
+    } else if(ex.calcProgram){
+      const steps=ex.calcProgram.map(s=>`<div class="calc-step"><div class="calc-step-label">${s.label}</div><div class="calc-step-val">${s.val}</div></div>`).join('<div class="calc-arrow">→</div>');
+      figureHTML=`<div class="calc-program"><div class="calc-program-title">Programme de calcul</div><div class="calc-program-steps">${steps}</div></div>`;
+    } else if(ex.calcProgram2){
+      const progs=ex.calcProgram2.map(p=>{
+        const steps=p.steps.map(s=>`<div class="calc-step"><div class="calc-step-label">${s.label}</div><div class="calc-step-val">${s.val}</div></div>`).join('<div class="calc-arrow">→</div>');
+        return `<div style="margin-bottom:12px"><div style="font-size:11px;font-weight:600;color:var(--klein);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase">${p.name}</div><div class="calc-program-steps">${steps}</div></div>`;
+      }).join('');
+      figureHTML=`<div class="calc-program"><div class="calc-program-title">Programmes de calcul</div><div style="padding:14px 20px 4px">${progs}</div></div>`;
+    }
 
     let qHTML='';
     ex.questions.forEach((q,qi)=>{
@@ -1934,12 +2013,12 @@ function renderExam(){
         <div>
           <div class="ex-eyebrow">Exercice ${ei+1}</div>
           <div class="ex-title">${ex.title}</div>
-          <div class="ex-notion">${ex.notion}</div>
+          <div class="ex-notion">${ex.notion}${ex.source?` <span style="font-size:10px;color:var(--ink4);font-weight:500;font-style:italic">· ${ex.source}</span>`:''}</div>
         </div>
         <div class="ex-pts"><div class="n">${totalPts}</div><div class="l">points</div></div>
       </div>
       <div class="ex-body">
-        <p>${ex.intro}</p>${tableHTML}${qHTML}
+        <p>${ex.intro}</p>${figureHTML}${tableHTML}${qHTML}
         <div class="corr-toggle">
           <button class="btn-see" id="cBtn-${exId}" onclick="toggleCorr('corr-${exId}','cBtn-${exId}')" disabled>▶ Voir la correction</button>
           <span class="corr-hint" id="chint-${exId}">Validez toutes vos réponses pour accéder à la correction</span>
@@ -2117,7 +2196,7 @@ async function renderDash(){
   if(!sessions.length){
     document.getElementById('dashStats').innerHTML='';
     document.getElementById('chartSection').style.display='none';
-    document.getElementById('dashGrid').innerHTML=`<div class="empty-state" style="grid-column:1/-1"><span class="ei">📊</span><p>Aucun brevet blanc effectué pour l'instant.<br>Lancez votre premier entraînement pour voir vos statistiques !</p><button class="btn btn-dark" style="margin:20px auto 0;display:inline-flex" onclick="go('screen-setup','navSetup')">Commencer →</button></div>`;
+    document.getElementById('dashGrid').innerHTML=`<div class="empty-state" style="grid-column:1/-1"><span class="ei" style="font-size:32px">—</span><p>Aucun brevet blanc effectué pour l'instant.<br>Lancez votre premier entraînement pour voir vos statistiques !</p><button class="btn btn-dark" style="margin:20px auto 0;display:inline-flex" onclick="go('screen-setup','navSetup')">Commencer →</button></div>`;
     return;
   }
 
