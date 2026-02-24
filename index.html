@@ -1,142 +1,202 @@
 <!DOCTYPE html>
-<html lang="fr"> 
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brevet Blanc — Mathématiques</title>
+<title>Brevet Blanc Maths – Exercices Corrigés en Ligne | 3ème</title>
+<meta name="description" content="Préparez votre brevet blanc de maths avec des exercices interactifs corrigés par IA. Simulateur d'examen chronométré, corrigés détaillés, suivi de progression. Gratuit pour les élèves de 3ème.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --cream:#faf6ef;--paper:#f4ede0;--paper2:#ede4d0;
-  --ink:#1a1208;--ink2:#3a2e1e;--ink3:#6b5940;--ink4:rgba(26,18,8,.45);
-  --navy:#1a3264;--navy2:rgba(26,50,100,.08);--navy3:rgba(26,50,100,.18);
-  --green:#1d6b3a;--green2:rgba(29,107,58,.12);
-  --gold:#b8870a;--gold2:rgba(184,135,10,.13);
-  --red:#c0392b;--red2:rgba(192,57,43,.1);
-  --border:rgba(26,18,8,.12);--border2:rgba(26,18,8,.07);
-  --shadow:rgba(26,18,8,.10);--shadow2:rgba(26,18,8,.05);
-  --premium:#7c3aed;--premium2:rgba(124,58,237,.10);--premium3:rgba(124,58,237,.20);
+  --cream:#faf6ef; --paper:#f4ede0; --paper2:#ede4d0;
+  --ink:#1a1208; --ink2:#3a2e1e; --ink3:#6b5940; --ink4:rgba(26,18,8,.45);
+  --navy:#1a3264; --navy2:rgba(26,50,100,.08); --navy3:rgba(26,50,100,.18);
+  --green:#1d6b3a; --green2:rgba(29,107,58,.12); --green3:rgba(29,107,58,.22);
+  --gold:#b8870a; --gold2:rgba(184,135,10,.13);
+  --red:#c0392b; --red2:rgba(192,57,43,.1);
+  --border:rgba(26,18,8,.12); --border2:rgba(26,18,8,.07);
+  --shadow:rgba(26,18,8,.10); --shadow2:rgba(26,18,8,.05);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--paper);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;font-size:16px;line-height:1.78;min-height:100vh}
-
-/* ── PAGE TRANSITIONS ── */
-.screen{display:none;min-height:100vh;animation:fadeIn .25s ease}
+.screen{display:none;min-height:100vh;animation:pgIn .28s ease}
 .screen.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── GLOBAL NAV BAR ── */
-.global-nav{
-  position:sticky;top:0;z-index:300;
-  background:var(--ink);
-  border-bottom:1px solid rgba(255,255,255,.07);
-  padding:0 48px;
-  display:flex;align-items:center;height:52px;gap:0;
-}
-.nav-logo{font-family:'Playfair Display',serif;font-size:17px;font-weight:900;color:var(--cream);letter-spacing:-.5px;margin-right:32px;cursor:pointer;flex-shrink:0}
-.nav-logo em{color:#e8c84a;font-style:italic}
-.nav-links{display:flex;align-items:center;gap:0;flex:1}
-.nav-link{
-  display:flex;align-items:center;gap:7px;
-  padding:0 16px;height:52px;
-  font-size:13px;font-weight:600;color:rgba(250,246,239,.45);
-  background:none;border:none;cursor:pointer;transition:all .15s;
-  font-family:'Source Serif 4',serif;border-bottom:2px solid transparent;
-  white-space:nowrap;
-}
-.nav-link:hover{color:rgba(250,246,239,.8)}
-.nav-link.active{color:var(--cream);border-bottom-color:#e8c84a}
-.nav-link .nav-icon{font-size:14px;opacity:.7}
-.nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
-.nav-free-badge{font-size:11px;font-weight:700;color:var(--ink3);background:var(--paper2);padding:3px 10px;border-radius:20px;letter-spacing:.5px}
-.nav-premium-badge{font-size:11px;font-weight:700;color:var(--premium);background:var(--premium2);padding:3px 10px;border-radius:20px;border:1px solid var(--premium3);letter-spacing:.5px}
-.btn-upgrade-nav{
-  padding:6px 16px;
-  font-family:'Source Serif 4',serif;font-size:12px;font-weight:700;
-  background:var(--premium);color:white;border:none;border-radius:20px;cursor:pointer;
-  transition:all .2s;letter-spacing:.3px;
-}
-.btn-upgrade-nav:hover{background:#6d28d9;transform:translateY(-1px)}
-.btn-upgrade-nav.hidden{display:none}
+/* ── GLOBAL NAV ── */
+.gnav{position:sticky;top:0;z-index:300;background:var(--ink);border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;height:54px;padding:0 48px;gap:0}
+.gnav-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--cream);letter-spacing:-.5px;cursor:pointer;margin-right:32px;flex-shrink:0;white-space:nowrap}
+.gnav-logo em{color:#e8c84a;font-style:italic}
+.gnav-links{display:flex;align-items:center;flex:1}
+.gnav-link{display:flex;align-items:center;gap:7px;height:54px;padding:0 16px;font-family:'Source Serif 4',serif;font-size:13px;font-weight:600;color:rgba(250,246,239,.45);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .15s;white-space:nowrap}
+.gnav-link:hover{color:rgba(250,246,239,.8)}
+.gnav-link.active{color:var(--cream);border-bottom-color:#e8c84a}
 
-/* ── SHARED BUTTONS ── */
-.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:11px 28px;font-family:'Source Serif 4',serif;font-size:14px;font-weight:600;background:var(--navy);color:var(--cream);border:none;border-radius:3px;cursor:pointer;transition:all .2s}
-.btn-primary:hover{background:#0f2048;transform:translateY(-1px);box-shadow:0 4px 14px rgba(26,50,100,.3)}
-.btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;font-family:'Source Serif 4',serif;font-size:14px;background:transparent;color:var(--ink3);border:1.5px solid var(--border);border-radius:3px;cursor:pointer;transition:all .2s}
-.btn-secondary:hover{border-color:var(--ink2);color:var(--ink2)}
-.btn-green{display:inline-flex;align-items:center;gap:7px;padding:8px 20px;font-family:'Source Serif 4',serif;font-size:13px;font-weight:600;background:var(--green);color:white;border:none;border-radius:3px;cursor:pointer;transition:all .2s}
-.btn-green:hover{background:#155c2e}
-.btn-green:disabled{background:var(--border);color:var(--ink4);cursor:not-allowed}
-.section-rule{display:flex;align-items:center;gap:14px;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink4);margin-bottom:16px}
-.section-rule::after{content:'';flex:1;height:1px;background:var(--border)}
+/* ── BUTTONS ── */
+.btn-navy{display:inline-flex;align-items:center;gap:8px;padding:12px 30px;font-family:'Source Serif 4',serif;font-size:14px;font-weight:600;background:var(--navy);color:var(--cream);border:none;border-radius:3px;cursor:pointer;transition:all .2s;letter-spacing:.3px}
+.btn-navy:hover{background:#0f2048;transform:translateY(-1px);box-shadow:0 4px 14px rgba(26,50,100,.3)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:11px 26px;font-family:'Source Serif 4',serif;font-size:14px;background:transparent;color:var(--ink3);border:1.5px solid var(--border);border-radius:3px;cursor:pointer;transition:all .2s}
+.btn-outline:hover{border-color:var(--ink2);color:var(--ink2)}
+.btn-green-sm{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;font-family:'Source Serif 4',serif;font-size:13px;font-weight:600;background:var(--green);color:white;border:none;border-radius:3px;cursor:pointer;transition:all .2s}
+.btn-green-sm:hover{background:#155c2e}
+.btn-green-sm:disabled{background:var(--border);color:var(--ink4);cursor:not-allowed}
+.rule{display:flex;align-items:center;gap:14px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink4);margin-bottom:18px}
+.rule::after{content:'';flex:1;height:1px;background:var(--border)}
 
-/* ══════════════════════════════════════
-   SCREEN 0 — SETUP / HOME
-══════════════════════════════════════ */
+/* ══════════════════════════════
+   SCREEN 0 — LANDING
+══════════════════════════════ */
+#screen-landing{background:var(--cream)}
+
+/* Hero */
+.hero{background:var(--ink);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.055) 38px,rgba(184,135,10,.055) 39px)}
+.hero-inner{max-width:980px;margin:0 auto;padding:64px 48px 56px;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--gold);color:#e8c84a;font-size:9px;letter-spacing:3.5px;text-transform:uppercase;padding:5px 16px;margin-bottom:18px;font-family:'Source Serif 4',serif;font-weight:600}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(36px,4.5vw,58px);font-weight:900;line-height:1.04;letter-spacing:-1.5px;color:var(--cream)}
+.hero h1 em{color:#e8c84a;font-style:italic}
+.hero-lead{margin-top:16px;font-size:15px;font-weight:300;color:rgba(250,246,239,.55);line-height:1.75;max-width:480px}
+.hero-cta{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+.hero-right{display:flex;flex-direction:column;gap:12px}
+.hero-card{padding:16px 20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:4px;display:flex;align-items:flex-start;gap:14px}
+.hero-card-icon{font-size:22px;flex-shrink:0;margin-top:2px}
+.hero-card h3{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--cream);line-height:1.2}
+.hero-card p{font-size:12px;color:rgba(250,246,239,.45);margin-top:3px;line-height:1.5}
+
+/* Social proof strip */
+.proof-strip{background:var(--paper2);border-bottom:1px solid var(--border);padding:14px 48px}
+.proof-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.proof-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink3);font-weight:600}
+.proof-item .pi{font-size:18px}
+
+/* Why section */
+.why-section{max-width:980px;margin:0 auto;padding:64px 48px}
+.why-section h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,42px);font-weight:900;letter-spacing:-1px;text-align:center;margin-bottom:10px}
+.why-section h2 em{color:var(--navy);font-style:italic}
+.why-section>.sub{text-align:center;font-size:15px;color:var(--ink3);font-style:italic;margin-bottom:44px;max-width:560px;margin-left:auto;margin-right:auto}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.why-card{padding:24px 24px 22px;background:white;border:1px solid var(--border);border-radius:4px;box-shadow:0 2px 8px var(--shadow2);transition:.2s}
+.why-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px var(--shadow)}
+.why-card-icon{width:44px;height:44px;background:var(--navy2);border:1px solid var(--navy3);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.why-card h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.25}
+.why-card p{font-size:14px;color:var(--ink3);line-height:1.65}
+
+/* How it works */
+.how-section{background:var(--ink);padding:64px 48px;position:relative;overflow:hidden}
+.how-section::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.04) 38px,rgba(184,135,10,.04) 39px)}
+.how-inner{max-width:980px;margin:0 auto;position:relative;z-index:2}
+.how-inner h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,38px);font-weight:900;letter-spacing:-1px;color:var(--cream);text-align:center;margin-bottom:10px}
+.how-inner h2 em{color:#e8c84a;font-style:italic}
+.how-inner>.sub{text-align:center;font-size:14px;color:rgba(250,246,239,.4);font-style:italic;margin-bottom:44px}
+.how-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;counter-reset:steps}
+.how-step{padding:24px 22px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;position:relative;counter-increment:steps}
+.how-step::before{content:counter(steps);position:absolute;top:-14px;left:20px;width:28px;height:28px;background:#e8c84a;color:var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;font-weight:900;line-height:28px;text-align:center}
+.how-step h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--cream);margin-bottom:8px;margin-top:4px}
+.how-step p{font-size:13px;color:rgba(250,246,239,.5);line-height:1.6}
+
+/* For who */
+.who-section{max-width:980px;margin:0 auto;padding:64px 48px}
+.who-section h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,38px);font-weight:900;letter-spacing:-1px;margin-bottom:10px}
+.who-section h2 em{color:var(--navy);font-style:italic}
+.who-section>.sub{font-size:15px;color:var(--ink3);font-style:italic;margin-bottom:36px}
+.who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.who-card{padding:22px 22px;background:white;border:1px solid var(--border);border-left:4px solid var(--navy);border-radius:0 4px 4px 0;box-shadow:0 1px 4px var(--shadow2)}
+.who-card h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--ink);margin-bottom:7px}
+.who-card p{font-size:13px;color:var(--ink3);line-height:1.6}
+
+/* Chapters showcase */
+.chapters-section{background:var(--paper2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:52px 48px}
+.chapters-inner{max-width:980px;margin:0 auto}
+.chapters-inner h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,34px);font-weight:900;letter-spacing:-1px;margin-bottom:8px}
+.chapters-inner h2 em{color:var(--navy);font-style:italic}
+.chapters-inner>.sub{font-size:14px;color:var(--ink3);font-style:italic;margin-bottom:28px}
+.chap-pills{display:flex;gap:8px;flex-wrap:wrap}
+.chap-pill{padding:7px 16px;background:white;border:1.5px solid var(--border);border-radius:3px;font-size:13px;font-weight:600;color:var(--ink2)}
+
+/* FAQ */
+.faq-section{max-width:760px;margin:0 auto;padding:64px 48px}
+.faq-section h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:900;letter-spacing:-1px;margin-bottom:32px}
+.faq-section h2 em{color:var(--navy);font-style:italic}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 0;cursor:pointer;font-size:15px;font-weight:600;color:var(--ink);gap:16px;transition:.15s}
+.faq-q:hover{color:var(--navy)}
+.faq-arrow{font-size:11px;color:var(--ink4);flex-shrink:0;transition:.2s}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{display:none;padding-bottom:18px;font-size:14px;color:var(--ink3);line-height:1.72}
+.faq-item.open .faq-a{display:block}
+
+/* CTA Banner */
+.cta-banner{background:var(--ink);padding:60px 48px;position:relative;overflow:hidden;text-align:center}
+.cta-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.055) 38px,rgba(184,135,10,.055) 39px)}
+.cta-banner-inner{max-width:640px;margin:0 auto;position:relative;z-index:2}
+.cta-banner h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--cream);letter-spacing:-1px;margin-bottom:14px;line-height:1.1}
+.cta-banner h2 em{color:#e8c84a;font-style:italic}
+.cta-banner p{font-size:15px;color:rgba(250,246,239,.5);margin-bottom:28px;line-height:1.65}
+.cta-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:30px;text-align:left;display:inline-flex}
+.cta-list li{display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(250,246,239,.65)}
+.cta-list li::before{content:'✓';color:#e8c84a;font-weight:700;flex-shrink:0}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* Footer */
+.site-footer{background:var(--ink);border-top:1px solid rgba(255,255,255,.07);padding:28px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.site-footer p{font-size:12px;color:rgba(250,246,239,.3)}
+.site-footer .logo{font-family:'Playfair Display',serif;font-size:15px;font-weight:900;color:rgba(250,246,239,.6)}
+.site-footer .logo em{color:#e8c84a;font-style:italic}
+
+/* ══════════════════════════════
+   SCREEN 1 — SETUP
+══════════════════════════════ */
 #screen-setup{background:var(--cream)}
 .setup-hero{background:var(--ink);position:relative;overflow:hidden}
-.setup-hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.06) 38px,rgba(184,135,10,.06) 39px)}
-.setup-hero-inner{max-width:900px;margin:0 auto;padding:44px 48px 40px;position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
-.header-badge{display:inline-flex;align-items:center;border:1.5px solid var(--gold);color:#e8c84a;font-size:9px;letter-spacing:3.5px;text-transform:uppercase;padding:4px 14px;margin-bottom:14px;font-family:'Source Serif 4',serif}
-.setup-hero h1{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,60px);font-weight:900;line-height:1.0;letter-spacing:-1.5px;color:var(--cream)}
+.setup-hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.055) 38px,rgba(184,135,10,.055) 39px)}
+.setup-hero-inner{max-width:900px;margin:0 auto;padding:40px 48px 36px;position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.setup-kicker{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--gold);color:#e8c84a;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:4px 14px;margin-bottom:13px;font-family:'Source Serif 4',serif;font-weight:600}
+.setup-hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,4.5vw,52px);font-weight:900;line-height:1.05;letter-spacing:-1.5px;color:var(--cream)}
 .setup-hero h1 em{color:#e8c84a;font-style:italic}
-.setup-hero-sub{margin-top:10px;font-size:13px;font-weight:300;color:rgba(250,246,239,.5);display:flex;gap:16px;flex-wrap:wrap}
+.setup-hero-sub{margin-top:8px;font-size:13px;font-weight:300;color:rgba(250,246,239,.45);display:flex;gap:14px;flex-wrap:wrap}
 .setup-hero-sub span::before{content:'·';margin-right:6px;color:var(--gold)}
-.hero-stats{display:flex;flex-direction:column;gap:8px}
-.stat-box{display:flex;align-items:center;gap:10px;padding:10px 18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:3px}
-.stat-box .val{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--cream);line-height:1}
-.stat-box .lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.4)}
+.hero-stat-box{display:flex;flex-direction:column;gap:8px}
+.hsb{padding:10px 18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:3px;text-align:center}
+.hsb .v{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--cream);line-height:1}
+.hsb .l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.35);margin-top:2px}
 
-/* Free usage bar */
-.free-usage-bar{background:var(--navy2);border:1px solid var(--navy3);border-radius:3px;padding:12px 18px;margin-bottom:28px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.free-usage-bar.hidden{display:none}
-.fub-text{font-size:13px;color:var(--navy);flex:1}
-.fub-text strong{font-weight:700}
-.fub-dots{display:flex;gap:5px}
-.fub-dot{width:10px;height:10px;border-radius:50%;background:var(--navy3);transition:.3s}
-.fub-dot.used{background:var(--navy)}
-
-.setup-body{max-width:900px;margin:0 auto;padding:36px 48px 80px}
-.setup-section{margin-bottom:34px}
+.setup-body{max-width:900px;margin:0 auto;padding:36px 48px 72px}
+.setup-section{margin-bottom:32px}
 .timer-row{display:flex;gap:8px;flex-wrap:wrap}
 .timer-chip{padding:9px 20px;font-family:'Source Serif 4',serif;font-size:14px;background:white;border:1.5px solid var(--border);color:var(--ink2);border-radius:3px;cursor:pointer;transition:all .2s}
 .timer-chip:hover{border-color:var(--navy);color:var(--navy)}
-.timer-chip.selected{background:var(--navy);border-color:var(--navy);color:white}
-.chapter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
-.chapter-chip{padding:12px 15px;background:white;border:1.5px solid var(--border);border-radius:3px;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:10px;position:relative}
-.chapter-chip:hover{border-color:var(--navy3);background:var(--navy2)}
-.chapter-chip.selected{border-color:var(--navy);background:var(--navy2)}
-.chapter-chip.locked{opacity:.55;cursor:default}
-.chapter-chip.locked:hover{border-color:var(--border);background:white}
-.ch-check{width:15px;height:15px;border:1.5px solid var(--border);border-radius:2px;flex-shrink:0;margin-top:3px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;transition:all .2s}
-.chapter-chip.selected .ch-check{background:var(--navy);border-color:var(--navy);color:white}
+.timer-chip.sel{background:var(--navy);border-color:var(--navy);color:white}
+.chap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(218px,1fr));gap:8px}
+.chap-chip{padding:12px 14px;background:white;border:1.5px solid var(--border);border-radius:3px;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:10px}
+.chap-chip:hover{border-color:var(--navy3);background:var(--navy2)}
+.chap-chip.sel{border-color:var(--navy);background:var(--navy2)}
+.chk{width:15px;height:15px;border:1.5px solid var(--border);border-radius:2px;flex-shrink:0;margin-top:3px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;transition:all .2s}
+.chap-chip.sel .chk{background:var(--navy);border-color:var(--navy);color:white}
 .ch-name{font-size:14px;font-weight:600;color:var(--ink)}
-.ch-sub{font-size:12px;color:var(--ink4);font-style:italic;margin-top:1px}
-.lock-icon{position:absolute;top:10px;right:10px;font-size:11px;color:var(--premium);background:var(--premium2);padding:2px 7px;border-radius:10px;font-weight:700;font-style:normal}
+.ch-sub{font-size:11px;color:var(--ink4);font-style:italic;margin-top:1px}
+.setup-cta{margin-top:30px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 
-.setup-cta{display:flex;align-items:center;gap:16px;margin-top:32px;flex-wrap:wrap}
-
-/* ══════════════════════════════════════
-   SCREEN 1 — EXAM
-══════════════════════════════════════ */
+/* ══════════════════════════════
+   SCREEN 2 — EXAM
+══════════════════════════════ */
 #screen-exam{background:var(--cream)}
-.exam-topbar{background:var(--ink);box-shadow:0 2px 12px rgba(26,18,8,.2)}
-.exam-topbar-inner{max-width:960px;margin:0 auto;padding:10px 48px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.exam-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream)}
-.exam-subtitle{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,246,239,.4);margin-top:1px}
+.exam-top{background:var(--ink);box-shadow:0 2px 12px rgba(26,18,8,.2)}
+.exam-top-inner{max-width:960px;margin:0 auto;padding:10px 48px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.exam-title-wrap h2{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream)}
+.exam-title-wrap .sub{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,246,239,.38);margin-top:1px}
 .timer-block{margin-left:auto;display:flex;align-items:center;gap:16px}
 .timer-face{font-family:'Source Code Pro',monospace;font-size:20px;font-weight:500;color:#e8c84a;letter-spacing:2px;line-height:1}
 .timer-face.warn{color:#fb923c}.timer-face.danger{color:#f87171;animation:blink .8s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
-.live-score-box{text-align:right}
-.live-score-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#e8c84a;line-height:1}
-.live-score-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.35)}
-.btn-end{padding:7px 16px;font-family:'Source Serif 4',serif;font-size:12px;background:rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.35);color:#fca5a5;border-radius:3px;cursor:pointer;transition:all .2s}
+.live-sc-box{text-align:right}
+.live-sc-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#e8c84a;line-height:1}
+.live-sc-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.32)}
+.btn-end{padding:7px 15px;font-family:'Source Serif 4',serif;font-size:12px;background:rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.35);color:#fca5a5;border-radius:3px;cursor:pointer;transition:all .2s}
 .btn-end:hover{background:var(--red);color:white}
-.pills-nav{background:var(--paper2);border-bottom:1px solid var(--border)}
-.pills-nav-inner{max-width:960px;margin:0 auto;padding:8px 48px;display:flex;align-items:center;gap:7px;overflow-x:auto}
-.pill{padding:4px 14px;font-family:'Source Serif 4',serif;font-size:12px;font-weight:600;background:transparent;border:1.5px solid var(--border);color:var(--ink3);border-radius:2px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.pills-bar{background:var(--paper2);border-bottom:1px solid var(--border)}
+.pills-bar-inner{max-width:960px;margin:0 auto;padding:8px 48px;display:flex;align-items:center;gap:7px;overflow-x:auto}
+.pill{padding:4px 13px;font-family:'Source Serif 4',serif;font-size:12px;font-weight:600;background:transparent;border:1.5px solid var(--border);color:var(--ink3);border-radius:2px;cursor:pointer;transition:all .2s;white-space:nowrap}
 .pill:hover{border-color:var(--navy);color:var(--navy)}
 .pill.answered{border-color:var(--navy);color:var(--navy);background:var(--navy2)}
 .pill.corrected{border-color:var(--green);color:white;background:var(--green)}
@@ -146,70 +206,69 @@ body{background:var(--paper);color:var(--ink);font-family:'Source Serif 4',Georg
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-box p{font-size:13px;font-style:italic;color:var(--ink3)}
 
-/* Exercise */
+/* Exercise card */
 .exercise{background:var(--cream);border:1px solid var(--border);border-radius:4px;margin-bottom:36px;overflow:hidden;box-shadow:0 2px 8px var(--shadow2);scroll-margin-top:110px;position:relative}
 .exercise::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--navy)}
-.exercise-head{padding:20px 28px 18px 36px;border-bottom:1px solid var(--border);background:rgba(250,246,239,.6);display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.ex-head{padding:20px 28px 18px 36px;border-bottom:1px solid var(--border);background:rgba(250,246,239,.6);display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
 .ex-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);font-weight:600;margin-bottom:5px}
 .ex-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--ink);line-height:1.2}
 .ex-notion{font-size:13px;font-style:italic;color:var(--ink3);margin-top:3px}
-.ex-pts-badge{flex-shrink:0;padding:8px 16px;background:var(--navy2);border:1px solid var(--navy3);border-radius:3px;text-align:center}
-.ex-pts-badge .num{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--navy);line-height:1}
-.ex-pts-badge .lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);opacity:.7}
-.exercise-body{padding:22px 28px 28px 36px}
-.exercise-body>p{margin-bottom:12px;color:var(--ink2)}
+.ex-pts{flex-shrink:0;padding:8px 16px;background:var(--navy2);border:1px solid var(--navy3);border-radius:3px;text-align:center}
+.ex-pts .n{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--navy);line-height:1}
+.ex-pts .l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);opacity:.7}
+.ex-body{padding:22px 28px 28px 36px}
+.ex-body>p{margin-bottom:12px;color:var(--ink2)}
 
 table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
 th{background:var(--paper2);color:var(--ink);padding:9px 14px;text-align:left;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border)}
 td{padding:9px 14px;border:1px solid var(--border2);color:var(--ink2)}
 tr:nth-child(even) td{background:rgba(26,18,8,.025)}
-.f{font-family:'Source Code Pro',monospace;font-size:13px;color:var(--navy);background:var(--navy2);padding:1px 8px;border-radius:2px;margin:0 2px;border-bottom:1.5px solid var(--navy3)}
 
 .question{margin:16px 0;border:1px solid var(--border);border-left:3px solid var(--navy);background:rgba(250,246,239,.5);border-radius:0 3px 3px 0;overflow:hidden}
 .q-head{padding:10px 16px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:10px}
 .q-num{font-size:13px;font-weight:700;color:var(--navy);font-family:'Source Serif 4',serif}
-.q-pts-badge{display:inline-flex;align-items:center;padding:3px 10px;background:var(--green);color:white;font-size:11px;font-weight:700;border-radius:3px;font-family:'Source Serif 4',serif}
+.q-pts-badge{display:inline-flex;align-items:center;padding:3px 10px;background:var(--green);color:white;font-size:11px;font-weight:700;border-radius:3px}
 .q-text{padding:13px 16px 15px;font-size:15px;color:var(--ink);line-height:1.72}
 
 .answer-zone{padding:12px 16px 14px;background:rgba(26,50,100,.03);border-top:1px dashed var(--border)}
 .answer-lbl{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink4);margin-bottom:7px;display:flex;align-items:center;gap:6px}
 .answer-lbl::before{content:'✎';font-size:13px;color:var(--navy)}
-.answer-textarea{width:100%;min-height:80px;padding:10px 12px;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.65;color:var(--ink);background:white;border:1.5px solid var(--border);border-radius:3px 3px 0 0;resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s}
-.answer-textarea::placeholder{color:var(--ink4);font-style:italic}
-.answer-textarea:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(26,50,100,.08)}
-.answer-textarea.has-content{border-color:rgba(26,50,100,.35)}
-.answer-textarea.locked{border-color:var(--green)!important;background:rgba(29,107,58,.04)!important;color:var(--ink2);resize:none;cursor:default}
+.answer-ta{width:100%;min-height:80px;padding:10px 12px;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.65;color:var(--ink);background:white;border:1.5px solid var(--border);border-radius:3px 3px 0 0;resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s}
+.answer-ta::placeholder{color:var(--ink4);font-style:italic}
+.answer-ta:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(26,50,100,.08)}
+.answer-ta.has-content{border-color:rgba(26,50,100,.35)}
+.answer-ta.locked{border-color:var(--green)!important;background:rgba(29,107,58,.04)!important;color:var(--ink2);resize:none;cursor:default}
 
-.validate-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;background:var(--paper2);border:1.5px solid var(--border);border-top:none;border-radius:0 0 3px 3px}
-.btn-validate{display:inline-flex;align-items:center;gap:6px;padding:7px 18px;font-family:'Source Serif 4',serif;font-size:12px;font-weight:600;background:var(--navy);color:white;border:none;border-radius:3px;cursor:pointer;transition:all .2s}
-.btn-validate:hover{background:#0f2048}
-.btn-validate:disabled{background:var(--border);color:var(--ink4);cursor:not-allowed}
+.val-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;background:var(--paper2);border:1.5px solid var(--border);border-top:none;border-radius:0 0 3px 3px}
+.btn-val{display:inline-flex;align-items:center;gap:6px;padding:7px 18px;font-family:'Source Serif 4',serif;font-size:12px;font-weight:600;background:var(--navy);color:white;border:none;border-radius:3px;cursor:pointer;transition:all .2s}
+.btn-val:hover{background:#0f2048}
+.btn-val:disabled{background:var(--border);color:var(--ink4);cursor:not-allowed}
 .btn-edit{display:none;align-items:center;gap:5px;padding:6px 14px;font-family:'Source Serif 4',serif;font-size:12px;background:transparent;border:1.5px solid var(--border);color:var(--ink3);border-radius:3px;cursor:pointer;transition:all .2s}
 .btn-edit:hover{border-color:var(--ink2);color:var(--ink2)}
-.validated-tag{display:none;align-items:center;gap:5px;font-size:12px;color:var(--green);font-weight:600}
-.validated-tag.show{display:flex}
-.validate-hint{font-size:11px;font-style:italic;color:var(--ink4);margin-left:auto}
+.val-tag{display:none;align-items:center;gap:5px;font-size:12px;color:var(--green);font-weight:600}
+.val-tag.show{display:flex}
+.val-hint{font-size:11px;font-style:italic;color:var(--ink4);margin-left:auto}
 
 .ai-result{display:none;margin-top:10px;border-radius:3px;overflow:hidden;border:1.5px solid var(--border);animation:fadeUp .3s ease}
 .ai-result.visible{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
-.ai-result-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;gap:10px}
-.ai-result-header.correct-bg{background:rgba(29,107,58,.1);border-bottom:1px solid rgba(29,107,58,.2)}
-.ai-result-header.partial-bg{background:rgba(184,135,10,.1);border-bottom:1px solid rgba(184,135,10,.2)}
-.ai-result-header.wrong-bg{background:rgba(192,57,43,.08);border-bottom:1px solid rgba(192,57,43,.15)}
-.ai-result-header.loading-bg{background:var(--paper2);border-bottom:1px solid var(--border)}
-.ai-result-label{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
-.ai-score{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;line-height:1;white-space:nowrap}
-.ai-score.correct-col{color:var(--green)}.ai-score.partial-col{color:var(--gold)}.ai-score.wrong-col{color:var(--red)}.ai-score.loading-col{color:var(--ink4);font-size:14px;font-family:'Source Serif 4',serif}
-.ai-feedback{padding:11px 14px;font-size:14px;line-height:1.65;color:var(--ink2);background:white;font-style:italic}
-.mini-spinner{display:inline-block;width:13px;height:13px;border:2px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle}
+.ai-rh{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;gap:10px}
+.ai-rh.correct-bg{background:rgba(29,107,58,.10);border-bottom:1px solid rgba(29,107,58,.2)}
+.ai-rh.partial-bg{background:rgba(184,135,10,.10);border-bottom:1px solid rgba(184,135,10,.2)}
+.ai-rh.wrong-bg{background:rgba(192,57,43,.08);border-bottom:1px solid rgba(192,57,43,.15)}
+.ai-rh.loading-bg{background:var(--paper2);border-bottom:1px solid var(--border)}
+.ai-rl{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
+.ai-sc{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;line-height:1;white-space:nowrap}
+.ai-sc.correct-col{color:var(--green)}.ai-sc.partial-col{color:var(--gold)}.ai-sc.wrong-col{color:var(--red)}.ai-sc.loading-col{color:var(--ink4);font-size:14px;font-family:'Source Serif 4',serif}
+.ai-fb{padding:11px 14px;font-size:14px;line-height:1.65;color:var(--ink2);background:white;font-style:italic}
+.mini-sp{display:inline-block;width:13px;height:13px;border:2px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle}
 
-.correction-toggle{margin-top:22px;padding-top:18px;border-top:1px dashed var(--border);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.corr-toggle{margin-top:22px;padding-top:18px;border-top:1px dashed var(--border);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .btn-see{display:inline-flex;align-items:center;gap:7px;padding:8px 20px;font-family:'Source Serif 4',serif;font-size:13px;font-weight:600;background:transparent;border:1.5px solid var(--gold);color:var(--gold);border-radius:3px;cursor:pointer;transition:all .2s}
 .btn-see:hover:not(:disabled){background:var(--gold2)}
-.btn-see.active{background:var(--gold);color:white;border-color:var(--gold)}
+.btn-see.active{background:var(--gold);color:white}
 .btn-see:disabled{border-color:var(--border);color:var(--ink4);cursor:not-allowed;opacity:.5}
-.toggle-hint{font-size:12px;font-style:italic;color:var(--ink4)}
+.corr-hint{font-size:12px;font-style:italic;color:var(--ink4)}
 .correction{display:none;margin-top:16px;padding:18px 22px;background:rgba(184,135,10,.07);border:1px solid rgba(184,135,10,.22);border-radius:3px}
 .correction.open{display:block;animation:fadeUp .3s ease}
 .corr-head{display:flex;align-items:center;gap:9px;padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid rgba(184,135,10,.2)}
@@ -217,428 +276,439 @@ tr:nth-child(even) td{background:rgba(26,18,8,.025)}
 .corr-head span{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600}
 .correction p{margin-bottom:9px;font-size:14px;color:var(--ink2)}
 .correction p:last-child{margin-bottom:0}
-.ans{font-weight:700;color:var(--ink);font-style:normal}
 .corr-block{margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(184,135,10,.12)}
 .corr-block:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
 .corr-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:7px}
 .corr-title::before{content:'§';font-size:14px}
 
-.footer-strip{border-top:2px solid var(--border);padding:24px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:8px}
-.footer-strip p{font-size:13px;font-style:italic;color:var(--ink4)}
-.footer-total{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:var(--ink);line-height:1}
-.footer-total sub{font-size:16px;font-weight:400;color:var(--ink4);vertical-align:middle}
+.exam-footer{border-top:2px solid var(--border);padding:22px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:8px}
+.exam-footer p{font-size:13px;font-style:italic;color:var(--ink4)}
+.footer-score{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:var(--ink);line-height:1}
+.footer-score sub{font-size:16px;font-weight:400;color:var(--ink4);vertical-align:middle}
 
-/* ══════════════════════════════════════
-   SCREEN 2 — RESULTS
-══════════════════════════════════════ */
+/* ══════════════════════════════
+   SCREEN 3 — RESULTS
+══════════════════════════════ */
 #screen-results{background:var(--cream)}
-.results-banner{background:var(--ink);padding:44px 48px 40px;position:relative;overflow:hidden}
-.results-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.06) 38px,rgba(184,135,10,.06) 39px)}
-.results-inner{max-width:860px;margin:0 auto;position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
-.results-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(250,246,239,.4);font-weight:600;margin-bottom:10px}
-.results-score{font-family:'Playfair Display',serif;font-size:clamp(64px,10vw,100px);font-weight:900;line-height:.9;letter-spacing:-3px;color:var(--cream)}
-.results-score span{font-size:clamp(24px,4vw,38px);color:rgba(250,246,239,.35);font-weight:400}
-.results-mention{font-size:16px;font-weight:600;color:#e8c84a;margin-top:12px}
-.results-bar-wrap{margin-top:16px;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;max-width:440px}
-.results-bar{height:100%;border-radius:3px;transition:width 1.2s ease}
-.results-detail{display:flex;flex-direction:column;gap:10px;min-width:130px}
+.res-banner{background:var(--ink);padding:44px 48px 40px;position:relative;overflow:hidden}
+.res-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.055) 38px,rgba(184,135,10,.055) 39px)}
+.res-banner-inner{max-width:860px;margin:0 auto;position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+.res-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(250,246,239,.4);font-weight:600;margin-bottom:10px}
+.res-score{font-family:'Playfair Display',serif;font-size:clamp(64px,10vw,100px);font-weight:900;line-height:.9;letter-spacing:-3px;color:var(--cream)}
+.res-score span{font-size:clamp(22px,4vw,36px);color:rgba(250,246,239,.32);font-weight:400}
+.res-mention{font-size:16px;font-weight:600;color:#e8c84a;margin-top:12px}
+.res-bar-wrap{margin-top:16px;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;max-width:440px}
+.res-bar{height:100%;border-radius:3px;transition:width 1.2s ease}
+.res-detail{display:flex;flex-direction:column;gap:10px;min-width:130px}
 .res-stat{padding:11px 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:3px;text-align:center}
-.res-stat .val{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#e8c84a;line-height:1}
-.res-stat .lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.35);margin-top:3px}
+.res-stat .v{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#e8c84a;line-height:1}
+.res-stat .l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.35);margin-top:3px}
+.res-body{max-width:860px;margin:0 auto;padding:32px 48px 72px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.bdown-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border2)}
+.bdown-row:last-child{border-bottom:none}
+.bdown-notion{font-size:13px;font-weight:600;color:var(--ink3)}
+.bdown-pts{font-family:'Playfair Display',serif;font-size:17px;font-weight:700}
+.bdown-pct{height:3px;background:var(--border2);border-radius:2px;margin-top:3px;overflow:hidden}
+.bdown-pct-fill{height:100%;border-radius:2px;transition:width .9s ease}
+.err-card{padding:12px 16px;background:white;border:1px solid var(--border);border-left:3px solid var(--red);border-radius:0 3px 3px 0;margin-bottom:8px}
+.err-q{font-size:13px;color:var(--ink2);margin-bottom:5px}
+.err-sc{font-size:11px;font-weight:700;letter-spacing:.5px}
+.err-fb{font-size:12px;font-style:italic;color:var(--ink4);margin-top:4px}
+.res-cta{grid-column:1/-1;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding-top:16px;border-top:1px solid var(--border)}
 
-.results-body{max-width:860px;margin:0 auto;padding:32px 48px 72px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.breakdown-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border2)}
-.breakdown-row:last-child{border-bottom:none}
-.breakdown-notion{font-size:13px;font-weight:600;color:var(--ink3)}
-.breakdown-pts{font-family:'Playfair Display',serif;font-size:17px;font-weight:700}
-.breakdown-pct{height:3px;background:var(--border2);border-radius:2px;margin-top:3px;overflow:hidden}
-.breakdown-pct-fill{height:100%;border-radius:2px;transition:width .9s ease}
-.error-card{padding:12px 16px;background:white;border:1px solid var(--border);border-left:3px solid var(--red);border-radius:0 3px 3px 0;margin-bottom:8px}
-.error-q{font-size:13px;color:var(--ink2);margin-bottom:5px}
-.error-score{font-size:11px;font-weight:700;letter-spacing:.5px}
-.error-fb{font-size:12px;font-style:italic;color:var(--ink4);margin-top:4px}
-.results-cta{grid-column:1/-1;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding-top:16px;border-top:1px solid var(--border)}
-
-/* ══════════════════════════════════════
-   SCREEN 3 — DASHBOARD
-══════════════════════════════════════ */
+/* ══════════════════════════════
+   SCREEN 4 — DASHBOARD
+══════════════════════════════ */
 #screen-dash{background:var(--cream)}
 .dash-banner{background:var(--ink);padding:40px 48px 36px;position:relative;overflow:hidden}
-.dash-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.06) 38px,rgba(184,135,10,.06) 39px)}
+.dash-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(184,135,10,.04) 38px,rgba(184,135,10,.04) 39px)}
 .dash-banner-inner{max-width:960px;margin:0 auto;position:relative;z-index:2}
 .dash-banner h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--cream);letter-spacing:-1px;line-height:1}
 .dash-banner h2 em{color:#e8c84a;font-style:italic}
-.dash-banner p{font-size:13px;color:rgba(250,246,239,.4);margin-top:8px}
+.dash-banner p{font-size:13px;color:rgba(250,246,239,.38);margin-top:8px}
 .dash-body{max-width:960px;margin:0 auto;padding:32px 48px 72px}
-
-/* Premium upsell in dash */
-.dash-upsell{background:var(--premium2);border:1px solid var(--premium3);border-radius:4px;padding:20px 24px;margin-bottom:28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.dash-upsell.hidden{display:none}
-.dash-upsell-text h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--premium);margin-bottom:4px}
-.dash-upsell-text p{font-size:13px;color:var(--ink3)}
-.btn-upgrade-upsell{padding:9px 22px;font-family:'Source Serif 4',serif;font-size:13px;font-weight:700;background:var(--premium);color:white;border:none;border-radius:3px;cursor:pointer;transition:all .2s;white-space:nowrap}
-.btn-upgrade-upsell:hover{background:#6d28d9}
-
 .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:32px}
 .stat-card{padding:18px 20px;background:white;border:1px solid var(--border);border-radius:3px;box-shadow:0 1px 4px var(--shadow2)}
-.stat-card .s-val{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;line-height:1;color:var(--ink)}
-.stat-card .s-val.navy{color:var(--navy)}.stat-card .s-val.green{color:var(--green)}.stat-card .s-val.gold{color:var(--gold)}.stat-card .s-val.red{color:var(--red)}
-.stat-card .s-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);margin-top:6px}
+.sc-val{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;line-height:1;color:var(--ink)}
+.sc-val.navy{color:var(--navy)}.sc-val.green{color:var(--green)}.sc-val.gold{color:var(--gold)}.sc-val.red{color:var(--red)}
+.sc-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);margin-top:6px}
 
-/* Chart */
-.score-chart{margin-bottom:32px}
+.chart-section{margin-bottom:32px}
 .chart-wrap{height:120px;display:flex;align-items:flex-end;gap:6px;padding:8px 0 0;border-bottom:1px solid var(--border)}
-.chart-bar-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:0}
-.chart-bar{width:100%;border-radius:2px 2px 0 0;transition:height .6s ease;min-height:2px;cursor:default}
-.chart-bar:hover{filter:brightness(1.1)}
-.chart-label{font-size:9px;color:var(--ink4);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
+.chart-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:0}
+.chart-bar{width:100%;border-radius:2px 2px 0 0;transition:height .6s ease;min-height:2px}
+.chart-lbl{font-size:9px;color:var(--ink4);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
 .chart-val{font-size:10px;font-weight:700;color:var(--ink3);text-align:center}
 
 .dash-grid{display:grid;grid-template-columns:3fr 2fr;gap:32px}
-
 .hist-table{width:100%;border-collapse:collapse}
 .hist-table th{padding:9px 12px;text-align:left;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);border-bottom:2px solid var(--border);font-weight:600}
 .hist-table td{padding:10px 12px;border-bottom:1px solid var(--border2);font-size:14px;color:var(--ink2)}
-.hist-table tr:hover td{background:rgba(26,18,8,.02);cursor:default}
+.hist-table tr:hover td{background:rgba(26,18,8,.02)}
 .score-chip{display:inline-block;padding:3px 10px;border-radius:2px;font-family:'Playfair Display',serif;font-size:13px;font-weight:700}
 .score-chip.a{background:rgba(29,107,58,.12);color:var(--green)}.score-chip.b{background:rgba(184,135,10,.12);color:var(--gold)}.score-chip.c{background:rgba(192,57,43,.1);color:var(--red)}
-
-.notion-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.nb-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .nb-label{font-size:12px;font-weight:600;color:var(--ink3);width:150px;flex-shrink:0}
 .nb-track{flex:1;height:5px;background:var(--border2);border-radius:3px;overflow:hidden}
 .nb-fill{height:100%;border-radius:3px;transition:width .8s ease}
 .nb-count{font-size:11px;font-weight:700;color:var(--ink4);width:24px;text-align:right}
+.empty-state{text-align:center;padding:60px 20px;color:var(--ink4)}
+.empty-state .ei{font-size:48px;display:block;margin-bottom:14px}
 
-.empty-dash{text-align:center;padding:60px 20px;color:var(--ink4)}
-.empty-dash .e-icon{font-size:48px;display:block;margin-bottom:14px}
-
-/* ══════════════════════════════════════
-   SCREEN 4 — PRICING
-══════════════════════════════════════ */
-#screen-pricing{background:var(--cream)}
-.pricing-banner{background:var(--ink);padding:44px 48px 40px;position:relative;overflow:hidden;text-align:center}
-.pricing-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(124,58,237,.06) 38px,rgba(124,58,237,.06) 39px)}
-.pricing-banner-inner{max-width:640px;margin:0 auto;position:relative;z-index:2}
-.pricing-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--premium);background:var(--premium2);padding:5px 16px;border-radius:20px;margin-bottom:16px;font-weight:700}
-.pricing-banner h2{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);font-weight:900;color:var(--cream);letter-spacing:-1.5px;line-height:1.05}
-.pricing-banner h2 em{color:#e8c84a;font-style:italic}
-.pricing-banner p{font-size:15px;color:rgba(250,246,239,.5);margin-top:12px;line-height:1.6}
-
-.pricing-body{max-width:900px;margin:0 auto;padding:40px 48px 80px}
-
-/* Toggle monthly/annual */
-.billing-toggle{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:36px}
-.billing-toggle span{font-size:14px;font-weight:600;color:var(--ink3)}
-.toggle-switch{position:relative;width:48px;height:26px;background:var(--navy);border-radius:13px;cursor:pointer;transition:.3s}
-.toggle-switch.annual{background:var(--premium)}
-.toggle-switch::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;background:white;border-radius:50%;transition:.3s}
-.toggle-switch.annual::after{left:25px}
-.billing-save{font-size:11px;font-weight:700;color:var(--premium);background:var(--premium2);padding:2px 10px;border-radius:10px;border:1px solid var(--premium3)}
-
-.plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:44px}
-@media(max-width:640px){.plans-grid{grid-template-columns:1fr}}
-
-.plan-card{background:white;border:1.5px solid var(--border);border-radius:6px;padding:28px 28px 24px;position:relative;transition:.25s}
-.plan-card.featured{border-color:var(--premium);box-shadow:0 0 0 3px var(--premium3)}
-.plan-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--premium);color:white;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 16px;border-radius:20px;white-space:nowrap}
-.plan-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--ink);margin-bottom:6px}
-.plan-desc{font-size:13px;color:var(--ink3);margin-bottom:20px;font-style:italic}
-.plan-price{display:flex;align-items:baseline;gap:5px;margin-bottom:6px}
-.plan-price .amount{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:var(--ink);line-height:1}
-.plan-price .currency{font-size:20px;font-weight:700;color:var(--ink);margin-top:8px}
-.plan-price .period{font-size:13px;color:var(--ink4)}
-.plan-price-annual{font-size:12px;color:var(--premium);font-style:italic;margin-bottom:20px;min-height:18px}
-.plan-features{list-style:none;margin-bottom:24px;display:flex;flex-direction:column;gap:8px}
-.plan-features li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--ink2)}
-.plan-features li .fi{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:2px}
-.plan-features li .fi.yes{background:rgba(29,107,58,.12);color:var(--green)}
-.plan-features li .fi.no{background:rgba(26,18,8,.06);color:var(--ink4)}
-.plan-features li.dim{color:var(--ink4)}
-
-.btn-plan-free{width:100%;padding:12px;font-family:'Source Serif 4',serif;font-size:14px;font-weight:600;background:transparent;border:1.5px solid var(--border);color:var(--ink3);border-radius:3px;cursor:pointer;transition:all .2s;text-align:center}
-.btn-plan-free:hover{border-color:var(--ink2);color:var(--ink2)}
-.btn-plan-premium{width:100%;padding:12px;font-family:'Source Serif 4',serif;font-size:14px;font-weight:700;background:var(--premium);color:white;border:none;border-radius:3px;cursor:pointer;transition:all .2s;text-align:center}
-.btn-plan-premium:hover{background:#6d28d9;transform:translateY(-1px);box-shadow:0 4px 16px rgba(124,58,237,.3)}
-
-/* Trust badges */
-.trust-row{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;padding-top:28px;border-top:1px solid var(--border)}
-.trust-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink4)}
-.trust-item span{font-size:16px}
-
-/* FAQ */
-.faq-section{margin-top:40px}
-.faq-item{border-bottom:1px solid var(--border);padding:16px 0}
-.faq-q{display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:15px;font-weight:600;color:var(--ink)}
-.faq-q:hover{color:var(--navy)}
-.faq-q .arrow{font-size:12px;color:var(--ink4);transition:.2s}
-.faq-a{display:none;padding-top:10px;font-size:14px;color:var(--ink3);line-height:1.7}
-.faq-item.open .faq-a{display:block}
-.faq-item.open .arrow{transform:rotate(180deg)}
-
-/* ══════════════════════════════════════
-   SCREEN 5 — CHECKOUT
-══════════════════════════════════════ */
-#screen-checkout{background:var(--cream)}
-.checkout-layout{max-width:860px;margin:0 auto;padding:40px 48px 80px;display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:start}
-@media(max-width:720px){.checkout-layout{grid-template-columns:1fr;padding:24px}}
-
-/* Order summary */
-.order-summary{background:white;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;position:sticky;top:80px}
-.order-summary-head{padding:20px 22px;background:var(--premium2);border-bottom:1px solid var(--premium3)}
-.order-summary-head h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--premium)}
-.order-rows{padding:18px 22px}
-.order-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--border2);font-size:14px;color:var(--ink2)}
-.order-row:last-child{border-bottom:none}
-.order-total-row{display:flex;justify-content:space-between;align-items:baseline;padding:14px 22px;background:var(--premium2);border-top:2px solid var(--premium3)}
-.order-total-row .label{font-size:13px;font-weight:700;color:var(--premium)}
-.order-total-row .amount{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--premium)}
-.order-guarantee{padding:14px 22px;text-align:center;font-size:12px;color:var(--ink4);font-style:italic;border-top:1px solid var(--border2)}
-
-/* Stripe-style payment form */
-.checkout-form-wrap h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;letter-spacing:-.5px;margin-bottom:6px}
-.checkout-form-wrap p{font-size:13px;color:var(--ink3);margin-bottom:28px}
-
-.form-section-label{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;color:var(--ink4);margin-bottom:12px;display:flex;align-items:center;gap:10px}
-.form-section-label::after{content:'';flex:1;height:1px;background:var(--border)}
-
-.form-row{display:grid;gap:12px;margin-bottom:14px}
-.form-row.cols-2{grid-template-columns:1fr 1fr}
-.form-row.cols-3{grid-template-columns:2fr 1fr 1fr}
-.form-field{display:flex;flex-direction:column;gap:5px}
-.form-field label{font-size:12px;font-weight:600;color:var(--ink2);letter-spacing:.3px}
-.form-input{padding:11px 14px;font-family:'Source Serif 4',serif;font-size:15px;color:var(--ink);background:white;border:1.5px solid var(--border);border-radius:3px;outline:none;transition:.2s}
-.form-input:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(26,50,100,.08)}
-.form-input::placeholder{color:var(--ink4)}
-.card-icons{display:flex;gap:6px;margin-bottom:4px}
-.card-icon{padding:3px 8px;background:var(--paper2);border:1px solid var(--border);border-radius:3px;font-size:11px;font-weight:700;color:var(--ink3)}
-.card-field-wrap{position:relative}
-.card-lock{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--ink4)}
-
-.btn-pay{width:100%;padding:14px;font-family:'Source Serif 4',serif;font-size:16px;font-weight:700;background:var(--premium);color:white;border:none;border-radius:3px;cursor:pointer;transition:all .2s;margin-top:20px;display:flex;align-items:center;justify-content:center;gap:10px}
-.btn-pay:hover{background:#6d28d9;transform:translateY(-1px);box-shadow:0 4px 18px rgba(124,58,237,.35)}
-.pay-secure{text-align:center;margin-top:12px;font-size:11px;color:var(--ink4);display:flex;align-items:center;justify-content:center;gap:6px}
-
-/* ══════════════════════════════════════
-   SCREEN 6 — SUCCESS
-══════════════════════════════════════ */
-#screen-success{background:var(--cream)}
-.success-inner{max-width:560px;margin:0 auto;padding:80px 48px;text-align:center}
-.success-check{width:80px;height:80px;background:rgba(29,107,58,.12);border:2px solid rgba(29,107,58,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 28px}
-.success-inner h2{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;letter-spacing:-1px;margin-bottom:12px}
-.success-inner h2 em{color:var(--premium);font-style:italic}
-.success-inner p{font-size:15px;color:var(--ink3);line-height:1.7;margin-bottom:32px}
-.success-perks{display:flex;flex-direction:column;gap:10px;text-align:left;background:var(--premium2);border:1px solid var(--premium3);border-radius:6px;padding:20px 24px;margin-bottom:32px}
-.perk-item{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--ink2)}
-.perk-item span{font-size:16px}
-
-/* ══════════════════════════════════════
+/* ══════════════════════════════
    RESPONSIVE
-══════════════════════════════════════ */
-@media(max-width:680px){
-  .global-nav{padding:0 16px}
-  .nav-links{gap:0}
-  .nav-link{padding:0 10px;font-size:12px}
-  .setup-hero-inner,.setup-body,.exam-topbar-inner,.pills-nav-inner,.exam-main,.results-banner,.results-inner,.results-body,.dash-banner-inner,.dash-body,.pricing-body,.pricing-banner,.footer-strip{padding-left:16px;padding-right:16px}
+══════════════════════════════ */
+@media(max-width:760px){
+  .gnav{padding:0 16px}.gnav-links{display:none}
+  .hero-inner{grid-template-columns:1fr}.hero-right{display:none}
+  .setup-hero-inner,.setup-body,.exam-top-inner,.pills-bar-inner,.exam-main,.res-banner-inner,.res-body,.dash-banner-inner,.dash-body,.why-section,.who-section,.chapters-section,.faq-section,.cta-banner,.proof-strip,.how-section,.site-footer{padding-left:20px;padding-right:20px}
   .setup-hero-inner{grid-template-columns:1fr}
-  .results-inner{grid-template-columns:1fr}
-  .results-body,.dash-grid{grid-template-columns:1fr}
+  .res-banner-inner{grid-template-columns:1fr}
+  .res-body,.dash-grid{grid-template-columns:1fr}
+  .hero-cta{flex-direction:column}
 }
 </style>
 </head>
 <body>
 
-<!-- ════════════ GLOBAL NAV ════════════ -->
-<nav class="global-nav" id="globalNav">
-  <div class="nav-logo" onclick="showScreen('screen-setup')"><em>Brevet</em> Blanc</div>
-  <div class="nav-links">
-    <button class="nav-link active" id="navHome" onclick="navTo('screen-setup','navHome')">
-      <span class="nav-icon">🏠</span> Accueil
-    </button>
-    <button class="nav-link" id="navDash" onclick="navTo('screen-dash','navDash');showDash()">
-      <span class="nav-icon">📊</span> Tableau de bord
-    </button>
-    <button class="nav-link" id="navPricing" onclick="navTo('screen-pricing','navPricing')">
-      <span class="nav-icon">⭐</span> Premium
-    </button>
-  </div>
-  <div class="nav-right">
-    <span class="nav-free-badge" id="navFreeBadge">Gratuit · 3/3</span>
-    <span class="nav-premium-badge hidden" id="navPremiumBadge">✦ Premium</span>
-    <button class="btn-upgrade-nav" id="btnUpgradeNav" onclick="navTo('screen-pricing','navPricing')">Passer Premium</button>
+<!-- ══════════ GLOBAL NAV ══════════ -->
+<nav class="gnav" id="gnav">
+  <div class="gnav-logo" onclick="go('screen-landing','navLanding')"><em>Brevet</em> Blanc Maths</div>
+  <div class="gnav-links">
+    <button class="gnav-link active" id="navLanding" onclick="go('screen-landing','navLanding')">Accueil</button>
+    <button class="gnav-link" id="navSetup" onclick="go('screen-setup','navSetup')">📝 Commencer</button>
+    <button class="gnav-link" id="navDash" onclick="go('screen-dash','navDash');renderDash()">📊 Tableau de bord</button>
   </div>
 </nav>
 
-<!-- ════════════ SCREEN 0 — SETUP ════════════ -->
-<div class="screen active" id="screen-setup">
+<!-- ══════════════════════════════════════════════
+  SCREEN 0 — LANDING PAGE
+══════════════════════════════════════════════ -->
+<div class="screen active" id="screen-landing">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-kicker">Élèves de 3ème · Programme officiel DNB</div>
+        <h1>Préparez votre<br><em>Brevet Blanc</em><br>de Maths</h1>
+        <p class="hero-lead">Exercices interactifs corrigés en ligne, simulateur d'examen chronométré et suivi personnalisé — conçus pour vous mettre en situation réelle avant le jour J.</p>
+        <div class="hero-cta">
+          <button class="btn-navy" style="font-size:15px;padding:13px 32px" onclick="go('screen-setup','navSetup')">Commencer gratuitement →</button>
+          <button class="btn-outline" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);color:rgba(250,246,239,.6)" onclick="scrollToId('why-section')">En savoir plus</button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-card"><div class="hero-card-icon">⏱️</div><div><h3>Simulateur d'examen</h3><p>Chronomètre réel, conditions identiques au brevet blanc</p></div></div>
+        <div class="hero-card"><div class="hero-card-icon">🤖</div><div><h3>Correction IA instantanée</h3><p>Feedback personnalisé sur chaque réponse, en quelques secondes</p></div></div>
+        <div class="hero-card"><div class="hero-card-icon">📊</div><div><h3>Suivi de progression</h3><p>Historique complet, points faibles identifiés, graphiques</p></div></div>
+        <div class="hero-card"><div class="hero-card-icon">📚</div><div><h3>10 chapitres couverts</h3><p>Tout le programme officiel de maths de 3ème</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social proof -->
+  <div class="proof-strip">
+    <div class="proof-inner">
+      <div class="proof-item"><span class="pi">✅</span> Conforme au programme officiel</div>
+      <div class="proof-item"><span class="pi">🆓</span> 100% gratuit</div>
+      <div class="proof-item"><span class="pi">📱</span> Ordinateur, tablette et smartphone</div>
+      <div class="proof-item"><span class="pi">🎯</span> Exercices issus des vrais sujets APMEP 2025</div>
+    </div>
+  </div>
+
+  <!-- Why -->
+  <section id="why-section">
+    <div class="why-section">
+      <h2>Pourquoi choisir<br><em>notre plateforme ?</em></h2>
+      <p class="sub">Tout ce dont vous avez besoin pour réussir votre brevet blanc, réuni en un seul endroit.</p>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-card-icon">📖</div>
+          <h3>Exercices conformes au programme</h3>
+          <p>Arithmétique, géométrie, statistiques, fonctions… Tous les chapitres essentiels sont couverts, modélisés sur les vrais sujets du DNB 2025.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card-icon">⏱️</div>
+          <h3>Mises en situation réelles</h3>
+          <p>Simulateur d'examen avec chronomètre et consignes identiques au brevet blanc. Choisissez la durée : 2h, 1h, 30 min ou moins.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card-icon">🤖</div>
+          <h3>Corrigés détaillés et pédagogiques</h3>
+          <p>Chaque réponse est corrigée par intelligence artificielle avec un feedback personnalisé. Chaque erreur devient une opportunité de progresser.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card-icon">📈</div>
+          <h3>Suivi personnalisé</h3>
+          <p>Suivez vos résultats brevet par brevet, identifiez vos points faibles par chapitre et concentrez-vous sur ce qui compte vraiment.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card-icon">📱</div>
+          <h3>Accessible partout, tout le temps</h3>
+          <p>Sur ordinateur, tablette ou smartphone, 24h/24 et 7j/7. Révisez où vous voulez, quand vous voulez.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-card-icon">🎯</div>
+          <h3>Exercices aléatoires à l'infini</h3>
+          <p>Chaque brevet blanc génère un sujet différent depuis notre banque d'exercices. Pas de redite, toujours de la nouveauté.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="how-section">
+    <div class="how-inner">
+      <h2>Comment ça <em>marche ?</em></h2>
+      <p class="sub">Simple, rapide, efficace — en 4 étapes.</p>
+      <div class="how-steps">
+        <div class="how-step">
+          <h3>Choisissez votre durée</h3>
+          <p>Sélectionnez la durée de votre brevet blanc : 2h (durée réelle), 1h, 30 min, 10 min ou 5 min selon le temps disponible.</p>
+        </div>
+        <div class="how-step">
+          <h3>Sélectionnez vos notions</h3>
+          <p>Travaillez sur tous les chapitres à la fois ou ciblez les notions spécifiques que vous souhaitez réviser en priorité.</p>
+        </div>
+        <div class="how-step">
+          <h3>Entraînez-vous en ligne</h3>
+          <p>Répondez aux exercices chronométré, validez vos réponses et recevez une correction IA instantanée avec explications détaillées.</p>
+        </div>
+        <div class="how-step">
+          <h3>Suivez votre progression</h3>
+          <p>Consultez votre tableau de bord, analysez vos points faibles par notion et révisez efficacement pour le brevet blanc.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- For who -->
+  <section>
+    <div class="who-section">
+      <h2>Pour <em>qui ?</em></h2>
+      <p class="sub">Une plateforme pensée pour tous ceux qui veulent préparer le brevet avec sérieux.</p>
+      <div class="who-grid">
+        <div class="who-card">
+          <h3>🎓 Élèves de 3ème</h3>
+          <p>Qui veulent se préparer sérieusement au brevet blanc en s'entraînant dans les mêmes conditions que l'examen.</p>
+        </div>
+        <div class="who-card">
+          <h3>📉 Collégiens en difficulté</h3>
+          <p>Souhaitant améliorer leurs résultats en maths grâce à un entraînement ciblé sur leurs points faibles.</p>
+        </div>
+        <div class="who-card">
+          <h3>👨‍👩‍👧 Parents accompagnants</h3>
+          <p>Recherchant un outil fiable et pédagogique pour aider leurs enfants à se préparer au brevet des collèges.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapters -->
+  <div class="chapters-section">
+    <div class="chapters-inner">
+      <h2>Tous les chapitres du <em>programme</em></h2>
+      <p class="sub">10 notions couvertes — tout ce que vous verrez au brevet blanc.</p>
+      <div class="chap-pills">
+        <span class="chap-pill">📐 Géométrie</span>
+        <span class="chap-pill">📊 Statistiques</span>
+        <span class="chap-pill">🎲 Probabilités</span>
+        <span class="chap-pill">🔢 Arithmétique & PGCD</span>
+        <span class="chap-pill">📈 Proportionnalité</span>
+        <span class="chap-pill">🔤 Algèbre & Équations</span>
+        <span class="chap-pill">⚡ Puissances</span>
+        <span class="chap-pill">💻 Algorithmique</span>
+        <span class="chap-pill">📦 Volumes & Grandeurs</span>
+        <span class="chap-pill">🔧 Fonctions affines</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2>Vos <em>questions</em></h2>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Les exercices couvrent-ils tout le programme de 3ème ? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Oui, tous les exercices sont conformes au programme officiel de mathématiques du collège. Ils sont modélisés sur les vrais sujets du Diplôme National du Brevet 2025, compilés par l'APMEP (Association des Professeurs de Mathématiques de l'Enseignement Public).</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Comment fonctionne la correction par intelligence artificielle ? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Vos réponses sont analysées par Claude (Anthropic), un modèle d'IA avancé, qui compare votre démarche à la réponse officielle et vous attribue des points avec un feedback pédagogique personnalisé. La correction est instantanée et explique vos erreurs étape par étape.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Puis-je m'entraîner quand je veux ? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Absolument. La plateforme est accessible en continu, 24h/24 et 7j/7, sur tous vos appareils — ordinateur, tablette ou smartphone. Aucune installation requise, tout fonctionne dans votre navigateur.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Les corrigés sont-ils vraiment détaillés ? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Oui, chaque exercice possède un corrigé complet avec explications étape par étape, accessible après avoir validé toutes vos réponses. La correction IA vous donne en plus un retour personnalisé sur votre propre réponse.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Cela améliore-t-il vraiment mes chances au brevet blanc ? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Oui. En simulant l'examen dans les mêmes conditions de temps et de format, en corrigeant vos erreurs immédiatement et en suivant votre progression, vous gagnez en confiance et en efficacité. La répétition et l'identification des points faibles sont les clés d'une bonne préparation.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Mon historique est-il sauvegardé entre les sessions ? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">Oui, votre tableau de bord conserve l'historique de tous vos brevets blancs, vos scores, vos erreurs et votre progression par notion. Ces données sont stockées localement et persistent d'une session à l'autre.</div>
+    </div>
+  </div>
+
+  <!-- CTA Banner -->
+  <div class="cta-banner">
+    <div class="cta-banner-inner">
+      <h2>Commencez<br><em>dès aujourd'hui</em></h2>
+      <p>Ne laissez pas le hasard décider de vos résultats. Entraînez-vous maintenant et atteignez vos objectifs.</p>
+      <ul class="cta-list">
+        <li>Entraînez-vous comme si vous étiez le jour de l'examen</li>
+        <li>Révisez tous les chapitres essentiels du programme de maths</li>
+        <li>Suivez vos progrès et améliorez vos points faibles</li>
+        <li>Corrigés détaillés et pédagogiques à chaque exercice</li>
+      </ul>
+      <div class="cta-btns">
+        <button class="btn-navy" style="font-size:15px;padding:13px 32px" onclick="go('screen-setup','navSetup')">Générer mon brevet blanc →</button>
+        <button class="btn-outline" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18);color:rgba(250,246,239,.6)" onclick="go('screen-dash','navDash');renderDash()">📊 Tableau de bord</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="logo"><em>Brevet</em> Blanc Maths</div>
+    <p>Préparation au Diplôme National du Brevet · Programme officiel 3ème</p>
+    <p>Exercices modélisés sur les sujets APMEP 2025</p>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+  SCREEN 1 — SETUP
+══════════════════════════════════════════════ -->
+<div class="screen" id="screen-setup">
   <div class="setup-hero">
     <div class="setup-hero-inner">
       <div>
-        <div class="header-badge">Mathématiques · DNB</div>
+        <div class="setup-kicker">Mathématiques · DNB</div>
         <h1><em>Brevet</em> Blanc</h1>
         <div class="setup-hero-sub">
-          <span>Exercices aléatoires issus des vrais sujets</span>
+          <span>Exercices aléatoires issus des vrais sujets 2025</span>
           <span>Correction IA instantanée</span>
-          <span>Suivi de progression</span>
         </div>
       </div>
-      <div class="hero-stats">
-        <div class="stat-box"><div class="val">100</div><div class="lbl">Points</div></div>
-        <div class="stat-box"><div class="val" id="setupTimerVal">2h</div><div class="lbl">Durée</div></div>
+      <div class="hero-stat-box">
+        <div class="hsb"><div class="v">100</div><div class="l">Points</div></div>
+        <div class="hsb"><div class="v" id="setupTimerVal">2h</div><div class="l">Durée</div></div>
       </div>
     </div>
   </div>
 
   <div class="setup-body">
-
-    <!-- Free usage bar -->
-    <div class="free-usage-bar" id="freeUsageBar">
-      <div>
-        <div class="fub-text" id="fubText"><strong>3 brevets gratuits</strong> disponibles aujourd'hui</div>
-        <div style="font-size:11px;color:var(--ink4);margin-top:2px;font-style:italic">Passez Premium pour un accès illimité</div>
-      </div>
-      <div class="fub-dots" id="fubDots">
-        <div class="fub-dot"></div><div class="fub-dot"></div><div class="fub-dot"></div>
-      </div>
-      <button class="btn-upgrade-upsell" onclick="navTo('screen-pricing','navPricing')" style="font-size:12px;padding:7px 16px">Voir Premium →</button>
-    </div>
-
     <div class="setup-section">
-      <div class="section-rule">Durée de l'épreuve</div>
+      <div class="rule">Durée de l'épreuve</div>
       <div class="timer-row" id="timerRow">
-        <div class="timer-chip selected" data-min="120" onclick="selectTimer(this)">2h — Durée réelle</div>
-        <div class="timer-chip" data-min="60" onclick="selectTimer(this)">1 heure</div>
-        <div class="timer-chip" data-min="30" onclick="selectTimer(this)">30 min</div>
-        <div class="timer-chip" data-min="10" onclick="selectTimer(this)">10 min</div>
-        <div class="timer-chip" data-min="5" onclick="selectTimer(this)">5 min</div>
+        <div class="timer-chip sel" data-min="120" onclick="selTimer(this)">2h — Durée réelle</div>
+        <div class="timer-chip" data-min="60" onclick="selTimer(this)">1 heure</div>
+        <div class="timer-chip" data-min="30" onclick="selTimer(this)">30 min</div>
+        <div class="timer-chip" data-min="10" onclick="selTimer(this)">10 min</div>
+        <div class="timer-chip" data-min="5" onclick="selTimer(this)">5 min</div>
       </div>
     </div>
 
     <div class="setup-section">
-      <div class="section-rule">Notions à travailler</div>
-      <div class="chapter-grid" id="chapterGrid">
-        <div class="chapter-chip selected" data-id="all" onclick="toggleChap(this)">
-          <div class="ch-check">✓</div>
-          <div><div class="ch-name">Toutes les notions</div><div class="ch-sub">Sujet complet type brevet</div></div>
-        </div>
-        <div class="chapter-chip" data-id="probabilites" onclick="toggleChap(this)">
-          <div class="ch-check"></div>
-          <div><div class="ch-name">Probabilités</div><div class="ch-sub">Fréquences, événements</div></div>
-        </div>
-        <div class="chapter-chip" data-id="proportionnalite" onclick="toggleChap(this)">
-          <div class="ch-check"></div>
-          <div><div class="ch-name">Proportionnalité</div><div class="ch-sub">Coefficients, pourcentages</div></div>
-        </div>
-        <div class="chapter-chip" data-id="statistiques" onclick="toggleChap(this)">
-          <div class="ch-check"></div>
-          <div><div class="ch-name">Statistiques</div><div class="ch-sub">Moyenne, médiane, quartiles</div></div>
-        </div>
-        <div class="chapter-chip" data-id="geometrie" onclick="toggleChap(this)">
-          <div class="ch-check"></div>
-          <div><div class="ch-name">Géométrie</div><div class="ch-sub">Pythagore, trigonométrie</div></div>
-        </div>
-        <div class="chapter-chip" data-id="algebre" onclick="toggleChap(this)">
-          <div class="ch-check"></div>
-          <div><div class="ch-name">Algèbre</div><div class="ch-sub">Équations, fonctions affines</div></div>
-        </div>
-        <div class="chapter-chip locked" data-id="puissances" onclick="promptUpgrade(this)">
-          <div class="ch-check"></div>
-          <div><div class="ch-name">Puissances & fractions</div><div class="ch-sub">Notation scientifique</div></div>
-          <em class="lock-icon">✦ Pro</em>
-        </div>
-        <div class="chapter-chip locked" data-id="pgcd" onclick="promptUpgrade(this)">
-          <div class="ch-check"></div>
-          <div><div class="ch-name">Arithmétique</div><div class="ch-sub">PGCD, facteurs premiers</div></div>
-          <em class="lock-icon">✦ Pro</em>
-        </div>
-        <div class="chapter-chip locked" data-id="programmation" onclick="promptUpgrade(this)">
-          <div class="ch-check"></div>
-          <div><div class="ch-name">Algorithmique</div><div class="ch-sub">Programmes de calcul</div></div>
-          <em class="lock-icon">✦ Pro</em>
-        </div>
-        <div class="chapter-chip locked" data-id="volumes" onclick="promptUpgrade(this)">
-          <div class="ch-check"></div>
-          <div><div class="ch-name">Volumes & grandeurs</div><div class="ch-sub">Pavés, cylindres</div></div>
-          <em class="lock-icon">✦ Pro</em>
-        </div>
+      <div class="rule">Notions à travailler</div>
+      <div class="chap-grid" id="chapGrid">
+        <div class="chap-chip sel" data-id="all" onclick="selChap(this)"><div class="chk">✓</div><div><div class="ch-name">Toutes les notions</div><div class="ch-sub">Sujet complet type brevet</div></div></div>
+        <div class="chap-chip" data-id="probabilites" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Probabilités</div><div class="ch-sub">Fréquences, événements</div></div></div>
+        <div class="chap-chip" data-id="proportionnalite" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Proportionnalité</div><div class="ch-sub">Coefficients, pourcentages</div></div></div>
+        <div class="chap-chip" data-id="statistiques" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Statistiques</div><div class="ch-sub">Moyenne, médiane, quartiles</div></div></div>
+        <div class="chap-chip" data-id="geometrie" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Géométrie</div><div class="ch-sub">Pythagore, trigonométrie</div></div></div>
+        <div class="chap-chip" data-id="algebre" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Algèbre</div><div class="ch-sub">Équations, fonctions affines</div></div></div>
+        <div class="chap-chip" data-id="puissances" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Puissances & fractions</div><div class="ch-sub">Notation scientifique</div></div></div>
+        <div class="chap-chip" data-id="pgcd" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Arithmétique & PGCD</div><div class="ch-sub">Facteurs premiers</div></div></div>
+        <div class="chap-chip" data-id="programmation" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Algorithmique</div><div class="ch-sub">Programmes de calcul</div></div></div>
+        <div class="chap-chip" data-id="volumes" onclick="selChap(this)"><div class="chk"></div><div><div class="ch-name">Volumes & grandeurs</div><div class="ch-sub">Pavés, cylindres</div></div></div>
       </div>
     </div>
 
     <div class="setup-cta">
-      <button class="btn-primary" id="btnStartExam" onclick="startExam()" style="font-size:15px;padding:13px 32px">Générer mon brevet blanc →</button>
-      <span style="font-size:13px;font-style:italic;color:var(--ink4)" id="freeRemainingHint"></span>
+      <button class="btn-navy" style="font-size:15px;padding:13px 32px" onclick="startExam()">Générer mon brevet blanc →</button>
+      <button class="btn-outline" onclick="go('screen-landing','navLanding')">← Accueil</button>
     </div>
   </div>
 </div>
 
-<!-- ════════════ SCREEN 1 — EXAM ════════════ -->
+<!-- ══════════════════════════════════════════════
+  SCREEN 2 — EXAM
+══════════════════════════════════════════════ -->
 <div class="screen" id="screen-exam">
-  <div class="exam-topbar">
-    <div class="exam-topbar-inner">
-      <div>
-        <div class="exam-title">Brevet Blanc — Mathématiques</div>
-        <div class="exam-subtitle" id="examSubtitle">Chargement…</div>
+  <div class="exam-top">
+    <div class="exam-top-inner">
+      <div class="exam-title-wrap">
+        <h2>Brevet Blanc — Mathématiques</h2>
+        <div class="sub" id="examSub">Chargement…</div>
       </div>
       <div class="timer-block">
         <div>
           <div class="timer-face" id="timerFace">02:00:00</div>
           <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,246,239,.3);text-align:center">Temps</div>
         </div>
-        <div class="live-score-box">
-          <div class="live-score-num" id="liveScore">0</div>
-          <div class="live-score-lbl">pts</div>
-        </div>
+        <div class="live-sc-box"><div class="live-sc-num" id="liveSc">0</div><div class="live-sc-lbl">pts</div></div>
         <button class="btn-end" onclick="endEarly()">Terminer</button>
       </div>
     </div>
   </div>
-  <div class="pills-nav"><div class="pills-nav-inner" id="pillsNav"></div></div>
+  <div class="pills-bar"><div class="pills-bar-inner" id="pillsBar"></div></div>
   <div class="exam-main">
     <div class="loading-box" id="loadingBox"><div class="spinner"></div><p>Génération des exercices…</p></div>
     <div id="exContainer"></div>
-    <div class="footer-strip" id="examFooter" style="display:none">
+    <div class="exam-footer" id="examFooter" style="display:none">
       <div>
         <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);font-weight:600;margin-bottom:4px">Total provisoire</div>
         <p>Validez vos réponses pour calculer votre score</p>
       </div>
-      <div class="footer-total"><span id="footerScore">0</span><sub> /100</sub></div>
+      <div class="footer-score"><span id="footerSc">0</span><sub> /100</sub></div>
     </div>
   </div>
 </div>
 
-<!-- ════════════ SCREEN 2 — RESULTS ════════════ -->
+<!-- ══════════════════════════════════════════════
+  SCREEN 3 — RESULTS
+══════════════════════════════════════════════ -->
 <div class="screen" id="screen-results">
-  <div class="results-banner">
-    <div class="results-inner">
+  <div class="res-banner">
+    <div class="res-banner-inner">
       <div>
-        <div class="results-eyebrow">Résultats · Brevet Blanc</div>
-        <div class="results-score" id="resScore">0 <span>/ 100</span></div>
-        <div class="results-mention" id="resMention"></div>
-        <div class="results-bar-wrap"><div class="results-bar" id="resBar" style="width:0%"></div></div>
+        <div class="res-eyebrow">Résultats · Brevet Blanc</div>
+        <div class="res-score" id="resScore">0 <span>/ 100</span></div>
+        <div class="res-mention" id="resMention"></div>
+        <div class="res-bar-wrap"><div class="res-bar" id="resBar" style="width:0%"></div></div>
       </div>
-      <div class="results-detail">
-        <div class="res-stat"><div class="val" id="resCorrect">0</div><div class="lbl">Correctes</div></div>
-        <div class="res-stat"><div class="val" id="resPartial">0</div><div class="lbl">Partielles</div></div>
-        <div class="res-stat"><div class="val" id="resWrong">0</div><div class="lbl">Incorrectes</div></div>
+      <div class="res-detail">
+        <div class="res-stat"><div class="v" id="resCorrect">0</div><div class="l">Correctes</div></div>
+        <div class="res-stat"><div class="v" id="resPartial">0</div><div class="l">Partielles</div></div>
+        <div class="res-stat"><div class="v" id="resWrong">0</div><div class="l">Incorrectes</div></div>
       </div>
     </div>
   </div>
-  <div class="results-body">
+  <div class="res-body">
     <div>
-      <div class="section-rule">Par notion</div>
+      <div class="rule">Par notion</div>
       <div id="resByNotion"></div>
     </div>
     <div>
-      <div class="section-rule">Points à retravailler</div>
+      <div class="rule">Points à retravailler</div>
       <div id="resErrors"></div>
     </div>
-    <div class="results-cta">
-      <button class="btn-primary" onclick="navTo('screen-setup','navHome')" style="font-size:14px;padding:12px 28px">↺ Nouveau brevet</button>
-      <button class="btn-secondary" onclick="navTo('screen-dash','navDash');showDash()">📊 Tableau de bord</button>
+    <div class="res-cta">
+      <button class="btn-navy" style="font-size:14px;padding:12px 28px" onclick="go('screen-setup','navSetup')">↺ Nouveau brevet</button>
+      <button class="btn-outline" onclick="go('screen-dash','navDash');renderDash()">📊 Tableau de bord</button>
+      <button class="btn-outline" onclick="go('screen-landing','navLanding')">← Accueil</button>
     </div>
   </div>
 </div>
 
-<!-- ════════════ SCREEN 3 — DASHBOARD ════════════ -->
+<!-- ══════════════════════════════════════════════
+  SCREEN 4 — DASHBOARD
+══════════════════════════════════════════════ -->
 <div class="screen" id="screen-dash">
   <div class="dash-banner">
     <div class="dash-banner-inner">
@@ -647,282 +717,39 @@ tr:nth-child(even) td{background:rgba(26,18,8,.025)}
     </div>
   </div>
   <div class="dash-body">
-    <!-- Premium upsell -->
-    <div class="dash-upsell" id="dashUpsell">
-      <div class="dash-upsell-text" style="flex:1">
-        <h3>✦ Débloquez l'analyse complète</h3>
-        <p>Historique illimité, graphiques de progression, analyse par notion et recommandations personnalisées.</p>
-      </div>
-      <button class="btn-upgrade-upsell" onclick="navTo('screen-pricing','navPricing')">Passer Premium →</button>
-    </div>
     <div class="stat-row" id="dashStats"></div>
-    <!-- Score chart -->
-    <div class="score-chart" id="scoreChart" style="display:none">
-      <div class="section-rule">Progression des scores</div>
+    <div class="chart-section" id="chartSection" style="display:none">
+      <div class="rule">Progression des scores</div>
       <div class="chart-wrap" id="chartWrap"></div>
     </div>
     <div class="dash-grid" id="dashGrid"></div>
   </div>
 </div>
 
-<!-- ════════════ SCREEN 4 — PRICING ════════════ -->
-<div class="screen" id="screen-pricing">
-  <div class="pricing-banner">
-    <div class="pricing-banner-inner">
-      <div class="pricing-eyebrow">✦ Passez à la vitesse supérieure</div>
-      <h2>Préparez votre brevet<br>avec <em>confiance</em></h2>
-      <p>Accès illimité à tous les exercices, correction IA détaillée, suivi de progression complet.</p>
-    </div>
-  </div>
-  <div class="pricing-body">
-
-    <div class="billing-toggle">
-      <span>Mensuel</span>
-      <div class="toggle-switch" id="billingToggle" onclick="toggleBilling()"></div>
-      <span>Annuel</span>
-      <span class="billing-save">−40%</span>
-    </div>
-
-    <div class="plans-grid">
-      <!-- FREE -->
-      <div class="plan-card">
-        <div class="plan-name">Gratuit</div>
-        <div class="plan-desc">Pour découvrir la plateforme</div>
-        <div class="plan-price">
-          <span class="currency">€</span>
-          <span class="amount">0</span>
-          <span class="period">/ mois</span>
-        </div>
-        <div class="plan-price-annual">&nbsp;</div>
-        <ul class="plan-features">
-          <li><span class="fi yes">✓</span> 3 brevets blancs par jour</li>
-          <li><span class="fi yes">✓</span> 6 notions disponibles</li>
-          <li><span class="fi yes">✓</span> Correction IA basique</li>
-          <li class="dim"><span class="fi no">✗</span> Tableau de bord</li>
-          <li class="dim"><span class="fi no">✗</span> Historique illimité</li>
-          <li class="dim"><span class="fi no">✗</span> Toutes les notions</li>
-          <li class="dim"><span class="fi no">✗</span> Analyse par notion</li>
-        </ul>
-        <button class="btn-plan-free" onclick="navTo('screen-setup','navHome')">Continuer gratuitement</button>
-      </div>
-
-      <!-- PREMIUM -->
-      <div class="plan-card featured">
-        <div class="plan-badge">Recommandé</div>
-        <div class="plan-name" style="color:var(--premium)">✦ Premium</div>
-        <div class="plan-desc">Pour réussir son brevet</div>
-        <div class="plan-price">
-          <span class="currency" style="color:var(--premium)">€</span>
-          <span class="amount" id="planAmount" style="color:var(--premium)">9</span>
-          <span class="period">/ mois</span>
-        </div>
-        <div class="plan-price-annual" id="planAnnualNote">ou 64,80 € / an (−40%)</div>
-        <ul class="plan-features">
-          <li><span class="fi yes">✓</span><strong>Brevets illimités</strong></li>
-          <li><span class="fi yes">✓</span> Toutes les 10 notions</li>
-          <li><span class="fi yes">✓</span> Correction IA détaillée</li>
-          <li><span class="fi yes">✓</span> Tableau de bord complet</li>
-          <li><span class="fi yes">✓</span> Historique illimité</li>
-          <li><span class="fi yes">✓</span> Graphiques de progression</li>
-          <li><span class="fi yes">✓</span> Analyse des points faibles</li>
-        </ul>
-        <button class="btn-plan-premium" onclick="goCheckout()">Commencer maintenant →</button>
-      </div>
-    </div>
-
-    <div class="trust-row">
-      <div class="trust-item"><span>🔒</span> Paiement sécurisé Stripe</div>
-      <div class="trust-item"><span>↩️</span> Remboursement 14 jours</div>
-      <div class="trust-item"><span>❌</span> Sans engagement</div>
-      <div class="trust-item"><span>🎓</span> +2 000 élèves préparés</div>
-    </div>
-
-    <div class="faq-section">
-      <div class="section-rule" style="margin-top:36px">Questions fréquentes</div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Puis-je annuler à tout moment ? <span class="arrow">▼</span></div>
-        <div class="faq-a">Oui, vous pouvez annuler votre abonnement à tout moment depuis votre espace personnel. Vous gardez l'accès Premium jusqu'à la fin de la période en cours.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Les exercices sont-ils vrais ? <span class="arrow">▼</span></div>
-        <div class="faq-a">Oui, tous les exercices sont modélisés sur les vrais sujets du Diplôme National du Brevet 2025, compilés par l'APMEP.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">Comment fonctionne la correction IA ? <span class="arrow">▼</span></div>
-        <div class="faq-a">Vos réponses sont analysées par Claude (Anthropic) qui compare votre démarche à la réponse officielle et vous attribue des points avec un feedback personnalisé.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════ SCREEN 5 — CHECKOUT ════════════ -->
-<div class="screen" id="screen-checkout">
-  <div class="checkout-layout">
-    <!-- Form -->
-    <div class="checkout-form-wrap">
-      <button class="btn-secondary" style="margin-bottom:24px;font-size:13px;padding:7px 16px" onclick="navTo('screen-pricing','navPricing')">← Retour</button>
-      <h2>Finaliser l'abonnement</h2>
-      <p>Vous serez débité <strong id="checkoutAmount">9 €/mois</strong>. Sans engagement, annulable à tout moment.</p>
-
-      <div class="form-section-label">Informations personnelles</div>
-      <div class="form-row cols-2">
-        <div class="form-field"><label>Prénom</label><input class="form-input" type="text" placeholder="Marie"></div>
-        <div class="form-field"><label>Nom</label><input class="form-input" type="text" placeholder="Dupont"></div>
-      </div>
-      <div class="form-row">
-        <div class="form-field"><label>Adresse e-mail</label><input class="form-input" type="email" placeholder="marie.dupont@gmail.com"></div>
-      </div>
-
-      <div class="form-section-label" style="margin-top:24px">Informations de paiement</div>
-      <div class="card-icons">
-        <span class="card-icon">VISA</span><span class="card-icon">MC</span><span class="card-icon">AMEX</span>
-      </div>
-      <div class="form-row">
-        <div class="form-field">
-          <label>Numéro de carte</label>
-          <div class="card-field-wrap">
-            <input class="form-input" type="text" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)" style="width:100%;padding-right:40px">
-            <span class="card-lock">🔒</span>
-          </div>
-        </div>
-      </div>
-      <div class="form-row cols-3">
-        <div class="form-field"><label>Date d'expiration</label><input class="form-input" type="text" placeholder="MM / AA" maxlength="7"></div>
-        <div class="form-field"><label>CVC</label><input class="form-input" type="text" placeholder="123" maxlength="3"></div>
-        <div class="form-field"><label>Code postal</label><input class="form-input" type="text" placeholder="75001"></div>
-      </div>
-
-      <button class="btn-pay" onclick="simulatePay()">
-        <span>🔒</span> <span id="payBtnText">Payer 9 €/mois</span>
-      </button>
-      <div class="pay-secure"><span>🔒</span> Paiement sécurisé SSL · Propulsé par Stripe</div>
-    </div>
-
-    <!-- Order summary -->
-    <div class="order-summary">
-      <div class="order-summary-head">
-        <h3>✦ Brevet Blanc Premium</h3>
-      </div>
-      <div class="order-rows">
-        <div class="order-row"><span>Abonnement <span id="summaryPlan">mensuel</span></span><span id="summaryPrice">9,00 €</span></div>
-        <div class="order-row"><span>Accès immédiat</span><span>✓</span></div>
-        <div class="order-row"><span>Annulation</span><span>À tout moment</span></div>
-        <div class="order-row" id="summaryDiscountRow" style="display:none"><span style="color:var(--green)">Économie annuelle</span><span style="color:var(--green)" id="summaryDiscount">−64,80 €</span></div>
-      </div>
-      <div class="order-total-row"><span class="label">Total aujourd'hui</span><span class="amount" id="summaryTotal">9,00 €</span></div>
-      <div class="order-guarantee">🛡️ Garantie satisfait ou remboursé 14 jours</div>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════ SCREEN 6 — SUCCESS ════════════ -->
-<div class="screen" id="screen-success">
-  <div class="success-inner">
-    <div class="success-check">✓</div>
-    <h2>Bienvenue dans<br><em>Premium</em> !</h2>
-    <p>Votre abonnement est actif. Vous avez maintenant accès à toutes les fonctionnalités pour préparer votre brevet avec confiance.</p>
-    <div class="success-perks">
-      <div class="perk-item"><span>♾️</span> Brevets blancs illimités</div>
-      <div class="perk-item"><span>📚</span> Les 10 notions débloquées</div>
-      <div class="perk-item"><span>🤖</span> Correction IA complète</div>
-      <div class="perk-item"><span>📊</span> Tableau de bord avancé</div>
-    </div>
-    <button class="btn-primary" style="margin:0 auto;font-size:15px;padding:13px 32px" onclick="activatePremium()">Commencer →</button>
-  </div>
-</div>
-
 <script>
-/* ════════════════════════════════════════
+/* ═══════════════════════════════
    STATE
-════════════════════════════════════════ */
-let selMin = 120;
-let selChaps = ['all'];
-let timerIv = null;
-let secsLeft = 0;
-let exerciseData = [];
-let scores = {};
-let validated = {};
-let feedbacks = {};
-let isPremium = false;
-let freeUsed = 0;
-let isAnnual = false;
+═══════════════════════════════ */
+let selMin = 120, selChaps = ['all'];
+let timerIv = null, secsLeft = 0;
+let exerciseData = [], scores = {}, validated = {}, feedbacks = {};
 
-/* ════════════════════════════════════════
-   NAVIGATION
-════════════════════════════════════════ */
-function showScreen(id){
+/* ═══════════════════════════════
+   NAV
+═══════════════════════════════ */
+function go(screenId, navId){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  document.getElementById(screenId).classList.add('active');
+  document.querySelectorAll('.gnav-link').forEach(n=>n.classList.remove('active'));
+  if(navId) document.getElementById(navId)?.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
 }
+function scrollToId(id){ document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
+function toggleFaq(el){ el.classList.toggle('open'); }
 
-function navTo(screenId, navId){
-  showScreen(screenId);
-  document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
-  if(navId) document.getElementById(navId)?.classList.add('active');
-}
-
-/* ════════════════════════════════════════
-   PREMIUM STATE
-════════════════════════════════════════ */
-async function loadPremiumState(){
-  try{
-    const d = await window.storage.get('isPremium');
-    isPremium = d && d.value === 'true';
-    const fu = await window.storage.get('freeUsed');
-    if(fu) freeUsed = parseInt(fu.value)||0;
-    // reset daily if needed
-    const dayKey = new Date().toDateString();
-    const lastDay = await window.storage.get('freeDay');
-    if(!lastDay || lastDay.value !== dayKey){
-      freeUsed = 0;
-      await window.storage.set('freeDay', dayKey);
-      await window.storage.set('freeUsed', '0');
-    }
-  }catch(e){}
-  updatePremiumUI();
-}
-
-function updatePremiumUI(){
-  const navFree = document.getElementById('navFreeBadge');
-  const navPrem = document.getElementById('navPremiumBadge');
-  const btnUpNav = document.getElementById('btnUpgradeNav');
-  const fubBar = document.getElementById('freeUsageBar');
-  const dashUpsell = document.getElementById('dashUpsell');
-
-  if(isPremium){
-    navFree.classList.add('hidden');
-    navPrem.classList.remove('hidden');
-    btnUpNav.classList.add('hidden');
-    fubBar.classList.add('hidden');
-    if(dashUpsell) dashUpsell.classList.add('hidden');
-    // unlock all chapters
-    document.querySelectorAll('.chapter-chip.locked').forEach(c=>{
-      c.classList.remove('locked');
-      c.onclick = ()=>toggleChap(c);
-      const lock = c.querySelector('.lock-icon');
-      if(lock) lock.remove();
-    });
-  } else {
-    const rem = 3 - freeUsed;
-    navFree.textContent = `Gratuit · ${Math.max(0,rem)}/3`;
-    // Update dots
-    const dots = document.getElementById('fubDots');
-    if(dots){
-      dots.querySelectorAll('.fub-dot').forEach((d,i)=>d.classList.toggle('used', i < freeUsed));
-    }
-    const fubText = document.getElementById('fubText');
-    if(fubText) fubText.innerHTML = rem > 0 ? `<strong>${rem} brevet${rem>1?'s':''} gratuit${rem>1?'s':''}</strong> disponible${rem>1?'s':''} aujourd'hui` : '<strong>Limite atteinte</strong> pour aujourd\'hui';
-    const hint = document.getElementById('freeRemainingHint');
-    if(hint) hint.textContent = rem <= 0 ? 'Limite quotidienne atteinte — Passez Premium !' : '';
-    const startBtn = document.getElementById('btnStartExam');
-    if(startBtn) startBtn.disabled = rem <= 0;
-  }
-}
-
-/* ════════════════════════════════════════
+/* ═══════════════════════════════
    EXERCISE BANK
-════════════════════════════════════════ */
+═══════════════════════════════ */
 const BANK = {
   probabilites:[
     {title:"Probabilités — Urne et tirage aléatoire",notion:"Probabilités",pts:20,
@@ -937,7 +764,7 @@ const BANK = {
      questions:[
        {pts:6,text:"Quelle est la probabilité d'obtenir un nombre pair ?",ans:"Issues paires : 2, 4, 6 → P = 3/6 = 1/2"},
        {pts:6,text:"Quelle est la probabilité d'obtenir un nombre strictement supérieur à 4 ?",ans:"Issues : 5 et 6 → P = 2/6 = 1/3"},
-       {pts:6,text:"On lance 300 fois et on obtient 55 fois le chiffre 1. La fréquence est-elle proche de la probabilité théorique ? Commenter.",ans:"P théorique = 1/6 ≈ 16,7%. Fréquence = 55/300 ≈ 18,3%. Proche mais légèrement supérieure — variation aléatoire normale."}
+       {pts:6,text:"On répète l'expérience 300 fois et on obtient 55 fois le chiffre 1. Commenter.",ans:"P théorique = 1/6 ≈ 16,7%. Fréquence = 55/300 ≈ 18,3%. Proche — variation aléatoire normale."}
      ]}
   ],
   proportionnalite:[
@@ -951,9 +778,9 @@ const BANK = {
     {title:"Proportionnalité — Agrandissement et aires",notion:"Proportionnalité",pts:20,
      intro:"Le polygone B est un agrandissement du polygone A. Coefficient d'agrandissement : 2,5. Aire de A : 7,5 cm².",
      questions:[
-       {pts:7,text:"Calculer l'aire du polygone B. Rappel : si les longueurs sont multipliées par k, les aires sont multipliées par k².",ans:"Aire B = 7,5 × 2,5² = 7,5 × 6,25 = 46,875 cm²"},
+       {pts:7,text:"Calculer l'aire du polygone B. Rappel : si les longueurs sont multipliées par k, les aires sont multipliées par k².",ans:"Aire B = 7,5 × 2,5² = 46,875 cm²"},
        {pts:7,text:"Le périmètre de A est 12 cm. Calculer le périmètre de B.",ans:"Périmètre B = 12 × 2,5 = 30 cm"},
-       {pts:6,text:"Polygone C : coefficient 0,4 par rapport à A. Calculer son aire.",ans:"Aire C = 7,5 × 0,4² = 7,5 × 0,16 = 1,2 cm²"}
+       {pts:6,text:"Polygone C : coefficient 0,4 par rapport à A. Calculer son aire.",ans:"Aire C = 7,5 × 0,4² = 1,2 cm²"}
      ]}
   ],
   statistiques:[
@@ -1043,140 +870,394 @@ const BANK = {
        {pts:7,text:"Aquarium pavé droit 28×28×30 cm. Volume d'eau ? Convient-il ?",ans:"V eau = 23520 × 0,8 = 18816 cm³ = 18,8 L > 15 L — convient ✓"},
        {pts:4,text:"Poisson : 15 €, aquarium : 40 €. Remise de 15%. Prix final ?",ans:"Total = 55 €. Remise = 8,25 €. Prix = 46,75 €"}
      ]}
+  ],
+
+  // ═══════════ NOUVEAUX EXERCICES DNB 2023 + DNB Amérique du Nord mai 2024 ═══════════
+
+  probabilites2023:[
+    {title:"Probabilités — Jeu de 32 cartes",notion:"Probabilités",pts:20,
+     intro:"Un jeu de 32 cartes comprend 4 familles (trèfle, carreau, cœur, pique), chacune avec 8 cartes : 7, 8, 9, 10, valet, dame, roi, as. On tire une carte au hasard.",
+     questions:[
+       {pts:6,text:"Quelle est la probabilité d'obtenir le 8 de pique ?",ans:"1 carte sur 32. P(8 de pique) = 1/32"},
+       {pts:8,text:"Quelle est la probabilité d'obtenir un roi ou un cœur ? Justifier.",ans:"4 rois + 8 cœurs − 1 roi de cœur = 11 cartes. P = 11/32"},
+       {pts:6,text:"On pioche une carte, on la remet, puis on pioche une seconde. Probabilité d'obtenir deux rois ?",ans:"P(roi) = 4/32 = 1/8. Tirages indépendants → P(deux rois) = 1/8 × 1/8 = 1/64"}
+     ]},
+    {title:"Probabilités — Urne boules noires et rouges",notion:"Probabilités",pts:22,
+     intro:"Une urne contient 3 boules noires (numérotées 1 à 3) et 4 boules rouges (numérotées 1 à 4), toutes indiscernables au toucher. — DNB Centres étrangers juin 2023",
+     questions:[
+       {pts:6,text:"On pioche une boule. Quelle est la probabilité de tirer une boule rouge ?",ans:"P(rouge) = 4/7"},
+       {pts:6,text:"Quelle est la probabilité de tirer une boule portant un nombre pair ?",ans:"Pairs : noire 2, rouges 2 et 4 → 3 boules paires sur 7. P = 3/7"},
+       {pts:10,text:"On pioche une boule, on la remet, puis on pioche une seconde. On gagne en tirant la boule rouge n°1 ET une boule noire. Quelle est la probabilité de gagner ?",ans:"P(rouge1 puis noire) = 1/7 × 3/7 = 3/49. P(noire puis rouge1) = 3/7 × 1/7 = 3/49. P(gagner) = 6/49"}
+     ]},
+    {title:"Probabilités — Sac de boules et roue numérotée",notion:"Probabilités",pts:18,
+     intro:"Jeu 1 : sac de 5 boules (1 N, 2 G, 2 P). Jeu 2 : roue à 6 secteurs égaux numérotés 1 à 6. — DNB Polynésie juin 2023",
+     questions:[
+       {pts:5,text:"Jeu 1 : montrer que la probabilité de tirer G est 2/5.",ans:"2 boules G sur 5 au total → P(G) = 2/5 ✓"},
+       {pts:5,text:"Jeu 2 : quelle est la probabilité de s'arrêter sur un nombre premier ?",ans:"Nombres premiers de 1 à 6 : 2, 3, 5 → 3 secteurs sur 6. P = 3/6 = 1/2"},
+       {pts:8,text:"Jeu combiné : on tire une boule ET on tourne la roue. On gagne si G et un nombre premier. Probabilité de gagner ?",ans:"Événements indépendants. P = 2/5 × 1/2 = 1/5"}
+     ]},
+    {title:"Probabilités — Roue et urne, nombres à deux chiffres",notion:"Probabilités",pts:20,
+     intro:"Une roue à 4 secteurs égaux (1,2,3,4) donne le chiffre des dizaines. Une urne avec 3 boules (2,3,4) donne le chiffre des unités. — DNB Amérique du Sud nov. 2023",
+     questions:[
+       {pts:5,text:"Écrire la liste des 12 issues possibles.",ans:"12, 13, 14, 22, 23, 24, 32, 33, 34, 42, 43, 44"},
+       {pts:5,text:"Quelle est la probabilité d'obtenir un nombre impair ?",ans:"Unités impaires = 3 → issues : 13, 23, 33, 43 → 4 issues. P = 4/12 = 1/3"},
+       {pts:5,text:"Probabilité que le nombre formé soit un nombre premier inférieur à 30 ?",ans:"Nombres premiers parmi les issues : 13, 23 → 2 issues. P = 2/12 = 1/6"},
+       {pts:5,text:"Montrer que la probabilité d'obtenir un multiple de 11 est 0,25.",ans:"Multiples de 11 parmi les issues : 22, 33, 44 → 3 issues. P = 3/12 = 1/4 = 0,25 ✓"}
+     ]},
+    {title:"Probabilités — Urne 15 boules numérotées",notion:"Probabilités",pts:20,
+     intro:"Une urne contient 15 boules indiscernables numérotées de 1 à 15. — DNB Amérique du Nord mai 2024",
+     questions:[
+       {pts:8,text:"L'affirmation 'la probabilité de tirer un nombre premier est 7/15' est-elle vraie ? Justifier.",ans:"Nombres premiers de 1 à 15 : 2,3,5,7,11,13 → 6 nombres (1 n'est pas premier). P = 6/15 = 2/5. L'affirmation est FAUSSE."},
+       {pts:6,text:"Calculer la probabilité de tirer un multiple de 3.",ans:"Multiples de 3 de 1 à 15 : 3,6,9,12,15 → 5 boules. P = 5/15 = 1/3"},
+       {pts:6,text:"L'affirmation 'l'aire du triangle A'B'C' est 3 fois celle du triangle ABC' (homothétie de rapport −3) est-elle vraie ?",ans:"Rapport de l'homothétie = −3, donc les longueurs sont multipliées par 3. Les aires sont multipliées par 3² = 9. L'affirmation est FAUSSE (facteur 9, pas 3)."}
+     ]}
+  ],
+
+  statistiques2023:[
+    {title:"Statistiques — Prix des hôtels, moyenne et médiane",notion:"Statistiques",pts:20,
+     intro:"Prix facturés pour une nuit dans les hôtels d'une ville — DNB Amérique du Nord, 31 mai 2023",
+     tableData:{headers:["Prix/nuit (€)","60","80","85","90","110","120","350","500"],rows:[["Effectif","1200","1350","1000","1100","1200","1300","900","300"]]},
+     questions:[
+       {pts:5,text:"Déterminer l'étendue des prix facturés.",ans:"Étendue = 500 − 60 = 440 €"},
+       {pts:8,text:"Calculer la moyenne des prix facturés pour une nuit (arrondir à l'euro près).",ans:"Somme pondérée = 60×1200+80×1350+85×1000+90×1100+110×1200+120×1300+350×900+500×300 = 972 000. Effectif total = 8350. Moyenne ≈ 116 €"},
+       {pts:7,text:"L'association affirme : 'au moins la moitié des nuits est facturée à moins de 100 €'. Est-ce vrai ?",ans:"Effectifs ≤ 90 € : 1200+1350+1000+1100 = 4650 sur 8350 total ≈ 55,7 % > 50 %. VRAI ✓"}
+     ]},
+    {title:"Statistiques — Ventes de pots de glace",notion:"Statistiques",pts:24,
+     intro:"Pots de glace vendus en juillet–août 2022 — DNB Asie, 19 juin 2023",
+     tableData:{headers:["","Sem. 1","Sem. 2","Sem. 3","Sem. 4"],rows:[["Juillet","453","649","786","854"],["Août","860","1003","957","838"]]},
+     questions:[
+       {pts:8,text:"Calculer le nombre moyen de pots vendus par semaine sur les 8 semaines.",ans:"Total = 453+649+786+854+860+1003+957+838 = 6400. Moyenne = 6400/8 = 800 pots/semaine"},
+       {pts:8,text:"67 % des pots sont à 1 boule (2,80 €), les autres à 2 boules (3,50 €). Calculer la somme rapportée par la vente.",ans:"Pots 1 boule : 0,67×6400 = 4288 → 4288×2,80 = 12 006,40 €. Pots 2 boules : 2112 → 2112×3,50 = 7 392 €. Total = 19 398,40 €"},
+       {pts:8,text:"Montrer que le volume d'une boule de glace de diamètre 4,2 cm est d'environ 39 cm³. (V = 4/3 × π × r³)",ans:"r = 2,1 cm. V = 4/3 × π × 2,1³ = 4/3 × π × 9,261 ≈ 38,79 cm³ ≈ 39 cm³ ✓"}
+     ]},
+    {title:"Statistiques — Entrées à la piscine",notion:"Statistiques",pts:22,
+     intro:"Entrées mensuelles à la piscine sur une année — DNB Métropole, 18 septembre 2023",
+     tableData:{headers:["Mois","Jan","Fév","Mar","Avr","Mai","Jui","Jul","Aoû","Sep","Oct","Nov","Déc"],rows:[["Entrées","12500","13700","10400","13600","12300","11700","10400","11600","10200","13800","12600","11800"]]},
+     questions:[
+       {pts:7,text:"Calculer le nombre moyen d'entrées par mois.",ans:"Total = 144 600. Moyenne = 144 600 / 12 = 12 050 entrées/mois"},
+       {pts:7,text:"Calculer l'étendue du nombre d'entrées par mois.",ans:"Max = 13 800 (oct.). Min = 10 200 (sep.). Étendue = 3 600"},
+       {pts:8,text:"La piscine est un pavé droit de 50 m × 25 m × 3 m. Calculer le volume d'eau évacué lors d'une vidange complète.",ans:"V = 50 × 25 × 3 = 3 750 m³"}
+     ]},
+    {title:"Statistiques — Lunettes de soleil et prix moyen",notion:"Statistiques",pts:20,
+     intro:"5 modèles de lunettes vendus en 2022 — DNB Métropole Antilles-Guyane, 26 juin 2023",
+     tableData:{headers:["Modèle","1","2","3","4","5"],rows:[["Paires vendues","1200","950","875","250","300"],["Prix unit. (€)","75","100","110","140","160"]]},
+     questions:[
+       {pts:5,text:"Montrer que l'étendue des prix est de 85 €.",ans:"Étendue = 160 − 75 = 85 € ✓"},
+       {pts:7,text:"Calculer le nombre total de paires vendues en 2022.",ans:"Total = 1200+950+875+250+300 = 3 575 paires"},
+       {pts:8,text:"Calculer le montant total des ventes et le prix moyen par paire (arrondi au centime).",ans:"Ventes = 1200×75+950×100+875×110+250×140+300×160 = 364 250 €. Prix moyen = 364 250/3575 ≈ 101,89 €"}
+     ]},
+    {title:"Statistiques — Prix vêtements, moyenne et médiane",notion:"Statistiques",pts:20,
+     intro:"Prix d'un vêtement dans différents magasins (€) : 12 ; 15 ; 10 ; 7 ; 13 — DNB Amérique du Nord, 29 mai 2024",
+     questions:[
+       {pts:7,text:"La moyenne est-elle 11,40 € ? Justifier.",ans:"Moyenne = (7+10+12+13+15)/5 = 57/5 = 11,40 €. VRAIE ✓"},
+       {pts:7,text:"La médiane est-elle 10 € ? Justifier.",ans:"Valeurs triées : 7, 10, 12, 13, 15. 3e valeur = 12 €. L'affirmation 'médiane = 10' est FAUSSE."},
+       {pts:6,text:"Quelle est l'étendue des prix ?",ans:"Étendue = 15 − 7 = 8 €"}
+     ]}
+  ],
+
+  geometrie2023:[
+    {title:"Géométrie — Triangle LNA et triangles semblables",notion:"Géométrie",pts:22,
+     intro:"AN = 13 cm, LN = 5 cm, AL = 12 cm, ON = 3 cm. O ∈ [LN], H ∈ [NA]. Triangles LNA et ONH semblables. — DNB Amérique du Nord, 31 mai 2023",
+     questions:[
+       {pts:5,text:"Montrer que le triangle LNA est rectangle en L.",ans:"LN² + AL² = 25 + 144 = 169 = 13² = AN². Par réciproque de Pythagore, LNA est rectangle en L ✓"},
+       {pts:7,text:"Montrer que OH = 7,2 cm.",ans:"Triangles semblables LNA et ONH : ON/LN = OH/AL → 3/5 = OH/12 → OH = 7,2 cm ✓"},
+       {pts:10,text:"Calculer l'angle LNA (à l'unité). Calculer l'aire du quadrilatère LOHA et sa proportion par rapport à l'aire du triangle LNA.",ans:"sin(LNA) = AL/AN = 12/13 → angle LNA ≈ 67°. Aire LNA = (5×12)/2 = 30 cm². Aire ONH = (3×7,2)/2 = 10,8 cm². Aire LOHA = 30 − 10,8 = 19,2 cm². Proportion = 19,2/30 = 64 %"}
+     ]},
+    {title:"Géométrie — Triangles semblables EGF et LGH",notion:"Géométrie",pts:20,
+     intro:"EF=18 cm, FG=24 cm, EG=30 cm, GH=38,4 cm. (LH)⊥(FH). Angle EGF = angle LGH. — DNB Amérique du Sud, nov. 2023",
+     questions:[
+       {pts:5,text:"Montrer que le triangle EFG est rectangle en F.",ans:"EF²+FG² = 324+576 = 900 = 30² = EG². Par réciproque de Pythagore, EFG rectangle en F ✓"},
+       {pts:5,text:"Calculer l'angle EGF (au degré près).",ans:"cos(EGF) = FG/EG = 24/30 = 0,8 → angle EGF ≈ 37°"},
+       {pts:5,text:"Montrer que les triangles EGF et LGH sont semblables.",ans:"Angle EGF = Angle LGH (données). Angle EFG = Angle LHG = 90°. Deux angles égaux → triangles semblables ✓"},
+       {pts:5,text:"Calculer le coefficient d'agrandissement de EGF vers LGH puis le périmètre de LGH.",ans:"k = GH/GF = 38,4/24 = 1,6. LH = 18×1,6 = 28,8 cm. LG = 30×1,6 = 48 cm. Périmètre = 28,8+38,4+48 = 115,2 cm"}
+     ]},
+    {title:"Géométrie — Piste d'hippodrome",notion:"Géométrie",pts:18,
+     intro:"La piste est composée de 2 segments de 850 m et 2 demi-cercles de rayon 40 m. — DNB Amérique du Nord, 31 mai 2023",
+     questions:[
+       {pts:5,text:"Montrer que la longueur d'un tour de piste est d'environ 1 951 m.",ans:"Droites = 2×850 = 1700 m. Cercle = 2π×40 ≈ 251,3 m. Total ≈ 1 951 m ✓"},
+       {pts:7,text:"Un cheval parcourt un tour en 2 min 9 s. Calculer sa vitesse en m/s (à l'unité) puis en km/h.",ans:"Durée = 129 s. v = 1951/129 ≈ 15 m/s. En km/h : 15 × 3,6 = 54 km/h"},
+       {pts:6,text:"Aire de la piste ≈ 73 027 m². Marque A : 500 m²/sac à 141,95 €. Marque B : 400 m²/sac à 87,90 €. Marque C : 300 m²/sac à 66,50 €. Quelle marque choisir pour un coût minimum ?",ans:"Sacs A : ⌈73027/500⌉=147 → 147×141,95≈20 867 €. Sacs B : ⌈73027/400⌉=183 → 183×87,90≈16 086 €. Sacs C : ⌈73027/300⌉=244 → 244×66,50≈16 226 €. Choisir la marque B."}
+     ]},
+    {title:"Géométrie — Triangle équilatéral et Scratch",notion:"Géométrie",pts:19,
+     intro:"Triangle ABC équilatéral, AB = 240 mm. Point C sur [AE] avec CE = 80 mm. (DE)∥(AB). — DNB Amérique du Nord, 29 mai 2024",
+     questions:[
+       {pts:7,text:"Montrer que le triangle ABC est équilatéral.",ans:"Angle ACB = 60° et les codages montrent AB = BC. Triangle isocèle avec angle au sommet 60° → tous les angles valent 60° → triangle équilatéral ✓"},
+       {pts:6,text:"Montrer que les droites (DE) et (AB) sont parallèles.",ans:"D ∈ [BC], E ∈ [AC], et CE/CA = DE/AB (les codages montrent CE = 80 = AB/3). Par la réciproque du théorème de Thalès dans le triangle CAB, (DE)∥(AB) ✓"},
+       {pts:6,text:"Dans le programme Scratch, la variable côté prend la valeur 240 pour le grand triangle, puis côté/3 pour le petit. Expliquer et calculer le côté du petit triangle.",ans:"CE = 80 mm = 240/3 mm. Le petit triangle CDE est une réduction de rapport 1/3. côté/3 = 240/3 = 80 mm."}
+     ]},
+    {title:"Géométrie — Escalier et trigonométrie",notion:"Géométrie",pts:20,
+     intro:"Escalier de hauteur totale 272 cm. Hauteur d'une marche = 17 cm. Profondeur = 27 cm. — DNB Métropole Antilles-Guyane, 26 juin 2023",
+     questions:[
+       {pts:5,text:"Montrer qu'il faut prévoir 16 marches.",ans:"272 ÷ 17 = 16 marches exactement ✓"},
+       {pts:5,text:"Montrer que la longueur de la base AB est 432 cm.",ans:"16 × 27 = 432 cm ✓"},
+       {pts:10,text:"Calculer l'angle BAC (au degré près). L'escalier permet-il une montée agréable (25° à 40°) ?",ans:"tan(BAC) = BC/AB = 272/432 ≈ 0,630 → angle BAC ≈ 32°. 25° < 32° < 40° → montée agréable ✓"}
+     ]},
+    {title:"Géométrie — Terrasse en béton",notion:"Géométrie",pts:21,
+     intro:"Terrasse en L : EFGH rectangle (HG=10 m, EH=6 m). Un coin (3m × 4m) est découpé. Hauteur de la terrasse : 15 cm = 0,15 m. — DNB Amérique du Nord, 29 mai 2024",
+     questions:[
+       {pts:5,text:"Montrer que FJ = 4 m.",ans:"EF = HG = 10 m. EJ = EH − JH = 6 m correspond à la largeur totale de la partie rectangulaire. La partie découpée a IJ = 15 cm. Vue de dessus : FJ = HG − partie restante. EJ = 6 m → FJ = 10 − 6 = 4 m ✓"},
+       {pts:8,text:"Calculer la longueur minimale de planches à acheter (périmètre de la terrasse).",ans:"Périmètre = 10 + 6 + 4 + 3 + 6 + 3 = 32 m"},
+       {pts:8,text:"Montrer que le volume de la terrasse est inférieur à 4 m³.",ans:"Aire = 10×6 − 4×3 = 60 − 12 = 48 m². V = 48 × 0,15 = 7,2 m³. En réalité la forme L : (6×3)+(4×6) = 18+24=42 m² ou le calcul direct en lisant la figure. V = 42×0,15 = 6,3 m³ > 4 m³ → les 4 m³ commandés ne suffisent pas pour la terrasse complète."}
+     ]}
+  ],
+
+  algebre2023:[
+    {title:"Algèbre — Deux programmes de calcul (Amir & Sonia)",notion:"Algèbre",pts:15,
+     intro:"Prog. Amir : x → soustraire 5 → ×2. Prog. Sonia : x → +3 → ×(nombre choisi) → −16. — DNB Centres étrangers, 14 juin 2023",
+     questions:[
+       {pts:5,text:"Montrer que pour x=6, Amir donne 2 et Sonia donne 38.",ans:"Amir : (6−5)×2 = 2 ✓. Sonia : (6+3)×6 − 16 = 54−16 = 38 ✓"},
+       {pts:5,text:"D'après le tableau de valeurs, pour quel nombre les deux programmes donnent-ils le même résultat ?",ans:"Pour x=2 : Amir = −6 et Sonia = −6. Les deux programmes sont égaux pour x = 2 (et x = −3)."},
+       {pts:5,text:"Montrer que le résultat de Sonia s'écrit x² + 3x − 16. Résoudre (x−2)(x+3) = 0.",ans:"Sonia : (x+3)×x − 16 = x²+3x−16 ✓. (x−2)(x+3)=0 → x=2 ou x=−3"}
+     ]},
+    {title:"Algèbre — Fonctions affines et tarifs cinéma",notion:"Algèbre",pts:20,
+     intro:"Tarif Classique : h(x)=11x. Tarif Essentiel : f(x)=50+5x. Tarif Liberté : g(x)=240. — DNB Amérique du Nord, 29 mai 2024",
+     questions:[
+       {pts:5,text:"Avec le tarif Classique, quel est le prix pour 3 entrées ?",ans:"h(3) = 11×3 = 33 €"},
+       {pts:5,text:"Montrer qu'avec le tarif Essentiel, aller 8 fois au cinéma coûte 90 €.",ans:"f(8) = 50+5×8 = 90 € ✓"},
+       {pts:5,text:"Quel tarif donne un prix proportionnel au nombre d'entrées ? Justifier.",ans:"Tarif Classique : h(x)=11x est une fonction linéaire → prix proportionnel au nombre d'entrées."},
+       {pts:5,text:"À partir de combien d'entrées le tarif Liberté est-il le plus intéressant par rapport au tarif Essentiel ?",ans:"240 < 50+5x → 5x > 190 → x > 38. Le tarif Liberté est plus intéressant à partir de 39 entrées."}
+     ]},
+    {title:"Algèbre — Tarifs piscine et équation",notion:"Algèbre",pts:22,
+     intro:"Tarif A : 5,90 €/entrée. Tarif B : 30 € abonnement + 4,40 €/entrée. — DNB Métropole, 18 sept. 2023",
+     questions:[
+       {pts:6,text:"Calculer le prix pour 10 entrées avec chaque tarif.",ans:"Tarif A : 5,90×10 = 59 €. Tarif B : 4,40×10+30 = 74 €"},
+       {pts:8,text:"Résoudre 5,90x = 4,40x + 30. Quel est le nombre d'entrées pour lequel les tarifs sont égaux ?",ans:"1,50x = 30 → x = 20 entrées"},
+       {pts:8,text:"Pour x < 20, quel tarif est le moins cher ? Pour x > 20 ?",ans:"x < 20 (ex. 10 entrées) : A=59€ < B=74€ → tarif A. x > 20 (ex. 30 entrées) : A=177€ > B=162€ → tarif B."}
+     ]},
+    {title:"Algèbre — Programme de calcul 10x²",notion:"Algèbre",pts:20,
+     intro:"Programme : x → x² → ×5 → +4 → ×2 → −8 = résultat. — DNB Asie, 19 juin 2023",
+     questions:[
+       {pts:5,text:"Montrer que pour x=3, le résultat est 90.",ans:"3²=9 → ×5=45 → +4=49 → ×2=98 → −8=90 ✓"},
+       {pts:5,text:"Montrer que pour x=2 et x=−2, on obtient le même résultat.",ans:"(−2)²=4 = 2² → mêmes calculs ensuite → même résultat 40 ✓"},
+       {pts:5,text:"Montrer que le résultat du programme s'écrit 10x².",ans:"x → x² → 5x² → 5x²+4 → 10x²+8 → 10x²+8−8 = 10x² ✓"},
+       {pts:5,text:"Trouver la valeur exacte de l'antécédent positif de 30 par f(x)=10x².",ans:"10x²=30 → x²=3 → x=√3 (valeur exacte)"}
+     ]},
+    {title:"Algèbre — Programme de calcul, factorisation (2024)",notion:"Algèbre",pts:20,
+     intro:"Programme : x → branche 1 : (x+2)×4 ; branche 2 : x×5−3 → multiplier les deux. — DNB Amérique du Nord, 29 mai 2024",
+     questions:[
+       {pts:5,text:"Montrer que pour x=2, le résultat est 112.",ans:"Branche 1 : (2+2)×4=16. Branche 2 : 2×5−3=7. 16×7=112 ✓"},
+       {pts:5,text:"Quel résultat pour x=−3 ?",ans:"Branche 1 : (−3+2)×4=−4. Branche 2 : −3×5−3=−18. Résultat = (−4)×(−18) = 72"},
+       {pts:5,text:"Quelle expression traduit correctement ce programme parmi A:(x+2×4)(x×5−3), B:(4x+2)(5x−3), C:(4x+8)(5x−3) ?",ans:"L'expression correcte est C : (4x+8)(5x−3) = 4(x+2)(5x−3). C et D = (x+2)×4×(5x−3) sont correctes."},
+       {pts:5,text:"Développer et réduire (4x+8)(5x−3). Trouver les deux valeurs donnant 0.",ans:"20x²−12x+40x−24 = 20x²+28x−24. Pour 0 : 4x+8=0 → x=−2 ou 5x−3=0 → x=3/5"}
+     ]},
+    {title:"Algèbre — Programmes A et B, fonctions affines",notion:"Algèbre",pts:20,
+     intro:"Prog. A : x → ×(−2) → +5. Prog. B : x → −5 → ×3 → +11. — DNB Métropole Antilles-Guyane, 26 juin 2023",
+     questions:[
+       {pts:5,text:"Montrer que pour x=−3, le programme A donne 11.",ans:"(−3)×(−2)+5 = 6+5 = 11 ✓"},
+       {pts:5,text:"Montrer que le résultat du programme B s'écrit 3x−4.",ans:"(x−5)×3+11 = 3x−15+11 = 3x−4 ✓"},
+       {pts:5,text:"Les fonctions f(x)=−2x+5 et g(x)=3x−4 sont tracées. Par lecture graphique, donner la valeur pour laquelle f(x)=g(x).",ans:"D'après le graphique, les deux droites se croisent pour x ≈ 1,8"},
+       {pts:5,text:"Calculer précisément le nombre de départ pour lequel les programmes A et B donnent le même résultat.",ans:"−2x+5 = 3x−4 → −5x = −9 → x = 9/5 = 1,8"}
+     ]}
+  ],
+
+  proportionnalite2023:[
+    {title:"Proportionnalité — Visiteurs d'un site touristique",notion:"Proportionnalité",pts:20,
+     intro:"Site touristique : 187 216 visiteurs en 2020, 219 042 en 2021. Objectif du maire : +15 % minimum. — DNB Amérique du Nord, 31 mai 2023",
+     questions:[
+       {pts:7,text:"Calculer le taux d'évolution entre 2020 et 2021. L'objectif a-t-il été atteint ?",ans:"Taux = (219042−187216)/187216 × 100 ≈ 17 %. Objectif 15 % atteint ✓"},
+       {pts:7,text:"Si la progression se poursuit à +17 % par an, combien de visiteurs en 2022 ?",ans:"219042 × 1,17 ≈ 256 279 visiteurs"},
+       {pts:6,text:"Le coefficient d'agrandissement du polygone 2 par rapport au polygone 1 est 3. Aire du polygone 1 = 11 cm². Calculer l'aire du polygone 2.",ans:"L'aire est multipliée par k²=9. Aire polygone 2 = 11×9 = 99 cm²"}
+     ]}
+  ],
+
+  arithmetique2023:[
+    {title:"Arithmétique — PGCD paniers de légumes",notion:"Arithmétique",pts:18,
+     intro:"José dispose de 39 salades (3×13), 78 carottes et 51 aubergines. Il veut des paniers identiques utilisant tous les légumes. — DNB Nouvelle-Calédonie, déc. 2023",
+     questions:[
+       {pts:6,text:"Décomposer 78 et 51 en produit de facteurs premiers.",ans:"78 = 2×3×13. 51 = 3×17"},
+       {pts:6,text:"Calculer le PGCD(39,78,51) et en déduire le nombre maximal de paniers.",ans:"PGCD(39,78)=39. PGCD(39,51)=3. PGCD(39,78,51)=3. Maximum 3 paniers."},
+       {pts:6,text:"José fait 13 paniers. Combien d'aubergines par panier ? Combien sans panier ?",ans:"51÷13=3 reste 12. Chaque panier : 3 aubergines. 12 aubergines non utilisées → il faut en cueillir 1 de plus."}
+     ]},
+    {title:"Arithmétique — PGCD lots figurines et autocollants",notion:"Arithmétique",pts:22,
+     intro:"195 figurines et 234 autocollants (234=2×3²×13). Lots identiques, tout doit être utilisé. — DNB Centres étrangers, 14 juin 2023",
+     questions:[
+       {pts:6,text:"Peut-on faire 3 lots identiques ? Justifier.",ans:"195÷3=65 ✓. 234÷3=78 ✓. Oui, 3 est un diviseur commun."},
+       {pts:8,text:"Décomposer 195 en facteurs premiers. Calculer PGCD(195,234).",ans:"195 = 3×5×13. PGCD(195,234) = 3×13 = 39"},
+       {pts:8,text:"Nombre maximal de lots ? Composition de chaque lot ?",ans:"Nombre max = 39 lots. Figurines/lot = 195/39 = 5. Autocollants/lot = 234/39 = 6."}
+     ]},
+    {title:"Arithmétique — PPCM course de karting",notion:"Arithmétique",pts:22,
+     intro:"Un professionnel fait un tour en 60 s, un amateur en 72 s. Ils partent ensemble. — DNB Polynésie, 23 juin 2023",
+     questions:[
+       {pts:7,text:"Décomposer 60 et 72 en produit de facteurs premiers.",ans:"60 = 2²×3×5. 72 = 2³×3²"},
+       {pts:8,text:"Au bout de combien de secondes se retrouveront-ils ensemble pour la première fois ?",ans:"PPCM(60,72) = 2³×3²×5 = 360 s = 6 minutes"},
+       {pts:7,text:"Combien de tours chacun aura-t-il effectués ?",ans:"Professionnel : 360/60 = 6 tours. Amateur : 360/72 = 5 tours"}
+     ]},
+    {title:"Arithmétique — Décomposition et baguettes",notion:"Arithmétique",pts:16,
+     intro:"Nombre de baguettes et prix (1→1,10€, 2→2,20€, 3→3,30€, 4→4€). Engrenage : roue A à 8 dents, roue B à 12 dents. — DNB Amérique du Sud, nov. 2023",
+     questions:[
+       {pts:5,text:"Le prix est-il proportionnel au nombre de baguettes ? Justifier.",ans:"Pour 4 baguettes : 4€ ≠ 4×1,10€ = 4,40€. Le rapport n'est pas constant → pas de proportionnalité. FAUX."},
+       {pts:5,text:"L'engrenage sera-t-il dans la même position au bout de 6 tours pour la roue A et 4 tours pour la roue B ?",ans:"6×8 = 48 dents pour A. 4×12 = 48 dents pour B. Même nombre de dents engrenées → VRAI ✓"},
+       {pts:6,text:"Décomposer 780 en produit de facteurs premiers.",ans:"780 = 2²×3×5×13"}
+     ]}
+  ],
+
+  volumes2023:[
+    {title:"Volumes — Bac à sable sous cabane",notion:"Volumes",pts:24,
+     intro:"Bac à sable (pavé droit) : 200 cm × 180 cm × 20 cm. Volume = 0,72 m³. Mélange sable maçonner/sable fin ratio 3:2. — DNB Centres étrangers, 14 juin 2023",
+     questions:[
+       {pts:6,text:"Calculer le volume du bac en cm³.",ans:"V = 200×180×20 = 720 000 cm³"},
+       {pts:8,text:"Vérifier que le volume de sable à maçonner est 0,432 m³ et de sable fin 0,288 m³.",ans:"Ratio 3:2 → 5 parts. Maçonner = 3/5×0,72 = 0,432 m³ ✓. Fin = 2/5×0,72 = 0,288 m³ ✓"},
+       {pts:10,text:"Sacs maçonner : 35 kg / 0,022 m³ / 2,95 €. Sacs fin : 25 kg / 0,016 m³ / 5,95 €. Calculer le coût total (sacs entiers).",ans:"Sacs maçonner : ⌈0,432/0,022⌉=20 → 20×2,95=59 €. Sacs fin : ⌈0,288/0,016⌉=18 → 18×5,95=107,10 €. Total = 166,10 €"}
+     ]},
+    {title:"Volumes — Béton et ratio de mélange",notion:"Volumes",pts:21,
+     intro:"4 m³ de béton à réaliser. Ratio ciment:gravier:sable = 2:7:5. 1 m³ nécessite 250 kg de ciment. Surface à peindre = 48 m². — DNB Amérique du Nord, 29 mai 2024",
+     questions:[
+       {pts:7,text:"Calculer la masse de ciment nécessaire pour 4 m³ de béton.",ans:"4×250 = 1 000 kg de ciment"},
+       {pts:7,text:"Calculer la masse de gravier et de sable pour 4 m³.",ans:"1 part ciment = 1000/2 = 500 kg. Gravier = 7×500 = 3 500 kg. Sable = 5×500 = 2 500 kg"},
+       {pts:7,text:"On peint 48 m² en 2 couches (1 L = 5 m²/couche). Pots A=5L à 79,90 €, Pots B=10L à 129,90 €, offre : −50% sur le 2e article identique. Quel est le choix le moins cher ?",ans:"Volume = 2×48/5 = 19,2 L. 2 pots B : 129,90+64,95=194,85 € (20 L). 4 pots A : 79,90×2+39,95×2=239,70 €. Choisir 2 pots B."}
+     ]},
+    {title:"Volumes — Rampe d'accès prisme triangulaire",notion:"Volumes",pts:20,
+     intro:"Rampe prisme triangulaire : AC=30 cm (hauteur), angle ACB=90°, AB=124 cm, longueur BE=9 m. — DNB Polynésie, sept. 2023",
+     questions:[
+       {pts:6,text:"Montrer que BC ≈ 120 cm.",ans:"BC = √(AB²−AC²) = √(15376−900) = √14476 ≈ 120,3 cm ≈ 120 cm ✓"},
+       {pts:6,text:"Calculer l'angle ABC (au degré près).",ans:"tan(ABC) = AC/BC = 30/120 = 0,25 → angle ABC ≈ 14°"},
+       {pts:8,text:"Les propriétaires prévoient 2 m³ de béton. Ce volume suffit-il pour la rampe ?",ans:"Aire base = (1/2)×120×30 = 1800 cm² = 0,18 m². V rampe = 0,18×9 = 1,62 m³ < 2 m³. Oui, suffisant ✓"}
+     ]},
+    {title:"Volumes — Bougies cylindriques",notion:"Volumes",pts:16,
+     intro:"Bougie cylindrique : rayon 3 cm, hauteur 12 cm. Volume de cire = 9/10 du volume total. Densité cire = 0,7 g/cm³. — DNB Amérique du Sud, nov. 2023",
+     questions:[
+       {pts:6,text:"Montrer que le volume d'une bougie est d'environ 339 cm³.",ans:"V = π×3²×12 = 108π ≈ 339,3 cm³ ≈ 339 cm³ ✓"},
+       {pts:5,text:"Calculer la masse de cire nécessaire pour une bougie (au gramme près).",ans:"V cire = 9/10×339 = 305,1 cm³. Masse = 305,1×0,7 ≈ 214 g"},
+       {pts:5,text:"Objectif production : moyenne de 7 900 bougies/mois sur 3 mois. Janvier : 6 500. Février : 8 000. Combien faut-il en produire en mars ?",ans:"Total objectif = 7900×3 = 23 700. Déjà produit = 6500+8000 = 14500. Mars = 23700−14500 = 9 200 bougies"}
+     ]}
+  ],
+
+  algorithmique2023:[
+    {title:"Algorithmique — Motif Fleur (Scratch)",notion:"Algorithmique",pts:20,
+     intro:"Motif 'Fleur' = 5 pétales en parallélogramme (35 pas × 20 pas, angles 60° et 120°). — DNB Amérique du Nord, 31 mai 2023",
+     questions:[
+       {pts:6,text:"Expliquer pourquoi le bloc Fleur utilise 72° entre chaque pétale.",ans:"360° ÷ 5 pétales = 72°. Cela garantit un placement régulier sur tout le tour."},
+       {pts:7,text:"Combien de fois faut-il répéter le bloc Pétale pour une fleur à 5 pétales ?",ans:"5 fois (5 rotations de 72° = 360° → retour à la position initiale)."},
+       {pts:7,text:"On modifie pour une fleur à 6 pétales. Quelles modifications apporter ?",ans:"Nombre de répétitions : 6. Angle de rotation : 360°/6 = 60°."}
+     ]},
+    {title:"Algorithmique — Carrés imbriqués avec Scratch",notion:"Algorithmique",pts:19,
+     intro:"Programme Scratch construisant 10 carrés emboîtés. Le côté du 1er carré = 300 pixels. Chaque carré suivant est réduit de 20 %. — DNB Polynésie, sept. 2023",
+     questions:[
+       {pts:5,text:"Montrer que le côté du 2e carré mesure 240 pixels.",ans:"300×0,8 = 240 pixels ✓"},
+       {pts:7,text:"Quelle est la longueur du dernier carré (10e) ? Arrondir au pixel.",ans:"300 × 0,8⁹ = 300 × 0,1342… ≈ 40 pixels"},
+       {pts:7,text:"Le script exécute 'mettre Côté à Côté×0,8' dans une boucle. Quelle est la valeur du côté après 3 itérations ?",ans:"300 → 240 → 192 → 153,6 ≈ 154 pixels"}
+     ]},
+    {title:"Algorithmique — Triangle et Scratch (2024)",notion:"Algorithmique",pts:19,
+     intro:"Programme Scratch pour tracer le grand triangle ABC (côté=240) puis le petit CDE (côté=80). Variable 'côté'. — DNB Amérique du Nord, 29 mai 2024",
+     questions:[
+       {pts:5,text:"Quelles sont les coordonnées du point de départ du lutin ?",ans:"Ligne 2 du programme : aller à x:−180, y:−150. Coordonnées = (−180 ; −150)"},
+       {pts:7,text:"Quelle valeur saisir à la ligne 4 (mettre côté à ...) pour tracer le grand triangle ?",ans:"côté = 240 (AB = 240 mm = 240 pas)"},
+       {pts:7,text:"Expliquer l'instruction 'côté/3' (ligne 8) et calculer le côté du petit triangle.",ans:"CE = 80 mm = 240/3 → réduction de rapport 1/3. côté/3 = 240/3 = 80 pas."}
+     ]}
   ]
 };
 
-/* ════════════════════════════════════════
+/* ═══════════════════════════════
    SETUP
-════════════════════════════════════════ */
-function selectTimer(el){
-  document.querySelectorAll('.timer-chip').forEach(c=>c.classList.remove('selected'));
-  el.classList.add('selected'); selMin = parseInt(el.dataset.min);
+═══════════════════════════════ */
+function selTimer(el){
+  document.querySelectorAll('.timer-chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel'); selMin = parseInt(el.dataset.min);
   const h=Math.floor(selMin/60),m=selMin%60;
-  document.getElementById('setupTimerVal').textContent = h>0?(m>0?h+'h'+m:h+'h'):m+' min';
+  document.getElementById('setupTimerVal').textContent = h>0?(m>0?`${h}h${m}`:h+'h'):m+' min';
 }
-
-function toggleChap(el){
-  if(el.classList.contains('locked')) return;
+function selChap(el){
   const id=el.dataset.id;
   if(id==='all'){
-    document.querySelectorAll('.chapter-chip:not(.locked)').forEach(c=>{c.classList.remove('selected');c.querySelector('.ch-check').textContent='';});
-    el.classList.add('selected'); el.querySelector('.ch-check').textContent='✓';
+    document.querySelectorAll('.chap-chip').forEach(c=>{c.classList.remove('sel');c.querySelector('.chk').textContent='';});
+    el.classList.add('sel'); el.querySelector('.chk').textContent='✓';
     selChaps=['all'];
   } else {
-    const allChip=document.querySelector('.chapter-chip[data-id="all"]');
-    allChip.classList.remove('selected'); allChip.querySelector('.ch-check').textContent='';
-    el.classList.toggle('selected');
-    el.querySelector('.ch-check').textContent = el.classList.contains('selected')?'✓':'';
-    selChaps=[...document.querySelectorAll('.chapter-chip.selected:not(.locked)')].map(c=>c.dataset.id).filter(i=>i!=='all');
-    if(!selChaps.length){ allChip.classList.add('selected'); allChip.querySelector('.ch-check').textContent='✓'; selChaps=['all']; }
+    const allC=document.querySelector('.chap-chip[data-id="all"]');
+    allC.classList.remove('sel'); allC.querySelector('.chk').textContent='';
+    el.classList.toggle('sel');
+    el.querySelector('.chk').textContent = el.classList.contains('sel')?'✓':'';
+    selChaps=[...document.querySelectorAll('.chap-chip.sel')].map(c=>c.dataset.id).filter(i=>i!=='all');
+    if(!selChaps.length){ allC.classList.add('sel'); allC.querySelector('.chk').textContent='✓'; selChaps=['all']; }
   }
 }
 
-function promptUpgrade(el){
-  if(isPremium) return;
-  // flash the chip
-  el.style.borderColor = 'var(--premium)';
-  el.style.background = 'var(--premium2)';
-  setTimeout(()=>{el.style.borderColor='';el.style.background='';},600);
-  navTo('screen-pricing','navPricing');
-}
-
-/* ════════════════════════════════════════
+/* ═══════════════════════════════
    EXAM
-════════════════════════════════════════ */
+═══════════════════════════════ */
 function pickExercises(){
   let pool=[];
-  const availBankKeys = isPremium ? Object.keys(BANK) : ['probabilites','proportionnalite','statistiques','geometrie','algebre'];
-  if(selChaps.includes('all')) availBankKeys.forEach(k=>pool.push(...BANK[k]));
-  else selChaps.forEach(ch=>{if(BANK[ch]&&(isPremium||availBankKeys.includes(ch)))pool.push(...BANK[ch]);});
+  if(selChaps.includes('all')){
+    Object.values(BANK).forEach(arr=>pool.push(...arr));
+  } else {
+    selChaps.forEach(ch=>{
+      // Include base key and all extended keys (e.g. probabilites + probabilites2023 + probabilites2023a)
+      Object.keys(BANK).filter(k=>k===ch||k.startsWith(ch)).forEach(k=>pool.push(...BANK[k]));
+    });
+  }
   for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
   return pool.slice(0,5);
 }
 
-async function startExam(){
-  if(!isPremium && freeUsed >= 3){ navTo('screen-pricing','navPricing'); return; }
-  const picked=pickExercises();
-  if(!picked.length) return;
-
-  // increment free usage
-  if(!isPremium){
-    freeUsed++;
-    try{ await window.storage.set('freeUsed', String(freeUsed)); }catch(e){}
-    updatePremiumUI();
-  }
-
+function startExam(){
+  const picked=pickExercises(); if(!picked.length) return;
   exerciseData=picked; scores={}; validated={}; feedbacks={};
-  navTo('screen-exam', null);
-  document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
+  go('screen-exam',null);
   document.getElementById('exContainer').innerHTML='';
   document.getElementById('examFooter').style.display='none';
   document.getElementById('loadingBox').style.display='block';
-  document.getElementById('examSubtitle').textContent='Chargement…';
+  document.getElementById('examSub').textContent='Chargement…';
   startTimer(selMin*60);
-  setTimeout(renderExercises, 300);
+  setTimeout(renderExam, 300);
 }
 
-function renderExercises(){
+function renderExam(){
   document.getElementById('loadingBox').style.display='none';
   const container=document.getElementById('exContainer');
-  const pillsNav=document.getElementById('pillsNav');
-  pillsNav.innerHTML=''; container.innerHTML='';
-  document.getElementById('examSubtitle').textContent=[...new Set(exerciseData.map(e=>e.notion))].join(' · ');
+  const pills=document.getElementById('pillsBar');
+  pills.innerHTML=''; container.innerHTML='';
+  document.getElementById('examSub').textContent=[...new Set(exerciseData.map(e=>e.notion))].join(' · ');
 
   exerciseData.forEach((ex,ei)=>{
     const exId=`ex${ei+1}`;
     const totalPts=ex.questions.reduce((s,q)=>s+q.pts,0);
+
     const pill=document.createElement('button');
     pill.className='pill'; pill.id=`pill-${exId}`;
     pill.textContent=`Ex. ${ei+1} — ${ex.notion}`;
     pill.onclick=()=>document.getElementById(exId)?.scrollIntoView({behavior:'smooth',block:'start'});
-    pillsNav.appendChild(pill);
+    pills.appendChild(pill);
 
     let tableHTML='';
-    if(ex.tableData){
-      tableHTML=`<table><tr>${ex.tableData.headers.map(h=>`<th>${h}</th>`).join('')}</tr>${ex.tableData.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table>`;
-    }
+    if(ex.tableData){tableHTML=`<table><tr>${ex.tableData.headers.map(h=>`<th>${h}</th>`).join('')}</tr>${ex.tableData.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table>`;}
+
     let qHTML='';
     ex.questions.forEach((q,qi)=>{
       const qId=`${exId}q${qi+1}`;
-      const ansEsc=escQ(q.ans);
-      qHTML+=`
-      <div class="question">
-        <div class="q-head">
-          <span class="q-num">Question ${ei+1}.${qi+1}</span>
-          <span class="q-pts-badge">${q.pts} pts</span>
-        </div>
+      const ae=escQ(q.ans);
+      qHTML+=`<div class="question">
+        <div class="q-head"><span class="q-num">Question ${ei+1}.${qi+1}</span><span class="q-pts-badge">${q.pts} pts</span></div>
         <div class="q-text">${q.text}</div>
         <div class="answer-zone">
           <div class="answer-lbl">Ma réponse</div>
-          <textarea class="answer-textarea" id="a-${qId}" placeholder="Rédigez votre réponse ici…" oninput="onType(this)"></textarea>
-          <div class="validate-bar">
-            <button class="btn-green" id="vbtn-${qId}" onclick="doValidate('${qId}','${exId}',${q.pts},'${ansEsc}')" disabled>✓ Valider</button>
+          <textarea class="answer-ta" id="a-${qId}" placeholder="Rédigez votre réponse ici…" oninput="onType(this)"></textarea>
+          <div class="val-bar">
+            <button class="btn-val" id="vbtn-${qId}" onclick="doVal('${qId}','${exId}',${q.pts},'${ae}')" disabled>✓ Valider</button>
             <button class="btn-edit" id="ebtn-${qId}" onclick="doEdit('${qId}','${exId}')">✎ Modifier</button>
-            <span class="validated-tag" id="vtag-${qId}">✅ Validée</span>
-            <span class="validate-hint" id="vhint-${qId}">Rédigez puis validez</span>
+            <span class="val-tag" id="vtag-${qId}">✅ Validée</span>
+            <span class="val-hint" id="vhint-${qId}">Rédigez puis validez</span>
           </div>
           <div class="ai-result" id="ar-${qId}"></div>
         </div>
       </div>`;
     });
+
     const corrBlocks=ex.questions.map((q,qi)=>`<div class="corr-block"><div class="corr-title">Q${ei+1}.${qi+1}</div><p>${q.ans}</p></div>`).join('');
-    container.insertAdjacentHTML('beforeend',`
-    <div class="exercise" id="${exId}">
-      <div class="exercise-head">
+
+    container.insertAdjacentHTML('beforeend',`<div class="exercise" id="${exId}">
+      <div class="ex-head">
         <div>
           <div class="ex-eyebrow">Exercice ${ei+1}</div>
           <div class="ex-title">${ex.title}</div>
           <div class="ex-notion">${ex.notion}</div>
         </div>
-        <div class="ex-pts-badge"><div class="num">${totalPts}</div><div class="lbl">points</div></div>
+        <div class="ex-pts"><div class="n">${totalPts}</div><div class="l">points</div></div>
       </div>
-      <div class="exercise-body">
+      <div class="ex-body">
         <p>${ex.intro}</p>${tableHTML}${qHTML}
-        <div class="correction-toggle">
+        <div class="corr-toggle">
           <button class="btn-see" id="cBtn-${exId}" onclick="toggleCorr('corr-${exId}','cBtn-${exId}')" disabled>▶ Voir la correction</button>
-          <span class="toggle-hint" id="chint-${exId}">Validez toutes vos réponses pour accéder à la correction</span>
+          <span class="corr-hint" id="chint-${exId}">Validez toutes vos réponses pour accéder à la correction</span>
         </div>
         <div class="correction" id="corr-${exId}">
           <div class="corr-head"><div class="corr-badge">✓</div><span>Correction détaillée</span></div>
@@ -1185,23 +1266,24 @@ function renderExercises(){
       </div>
     </div>`);
   });
+
   document.getElementById('examFooter').style.display='flex';
   updateLive();
 }
 
 function escQ(s){return(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
 
-/* ════════════════════════════════════════
+/* ═══════════════════════════════
    TIMER
-════════════════════════════════════════ */
-function startTimer(secs){ clearInterval(timerIv); secsLeft=secs; renderTimer(); timerIv=setInterval(()=>{secsLeft--;renderTimer();if(secsLeft<=0){clearInterval(timerIv);endExam();}},1000); }
-function renderTimer(){ const h=Math.floor(secsLeft/3600),m=Math.floor((secsLeft%3600)/60),s=secsLeft%60; const el=document.getElementById('timerFace'); el.textContent=`${pad(h)}:${pad(m)}:${pad(s)}`; el.className='timer-face'+(secsLeft<300?' danger':secsLeft<600?' warn':''); }
-function pad(n){return String(n).padStart(2,'0');}
+═══════════════════════════════ */
+function startTimer(s){ clearInterval(timerIv); secsLeft=s; renderTimer(); timerIv=setInterval(()=>{secsLeft--;renderTimer();if(secsLeft<=0){clearInterval(timerIv);endExam();}},1000); }
+function renderTimer(){ const h=Math.floor(secsLeft/3600),m=Math.floor((secsLeft%3600)/60),s=secsLeft%60; const el=document.getElementById('timerFace'); el.textContent=`${p2(h)}:${p2(m)}:${p2(s)}`; el.className='timer-face'+(secsLeft<300?' danger':secsLeft<600?' warn':''); }
+function p2(n){return String(n).padStart(2,'0');}
 function endEarly(){if(confirm('Terminer le brevet maintenant ?'))endExam();}
 
-/* ════════════════════════════════════════
+/* ═══════════════════════════════
    ANSWERS
-════════════════════════════════════════ */
+═══════════════════════════════ */
 function onType(el){
   const has=el.value.trim().length>0; el.classList.toggle('has-content',has);
   const qId=el.id.replace('a-','');
@@ -1209,7 +1291,7 @@ function onType(el){
   const hint=document.getElementById('vhint-'+qId); if(hint)hint.textContent=has?'Cliquez pour valider':'Rédigez puis validez';
 }
 
-async function doValidate(qId,exId,maxPts,officialAnsEsc){
+async function doVal(qId,exId,maxPts,ae){
   const ta=document.getElementById('a-'+qId);
   const answer=ta.value.trim(); if(!answer)return;
   validated[qId]=true; ta.classList.add('locked'); ta.readOnly=true;
@@ -1219,9 +1301,9 @@ async function doValidate(qId,exId,maxPts,officialAnsEsc){
   const hint=document.getElementById('vhint-'+qId); if(hint)hint.textContent='';
   const ar=document.getElementById('ar-'+qId);
   ar.classList.add('visible');
-  ar.innerHTML=`<div class="ai-result-header loading-bg"><span class="ai-result-label"><span class="mini-spinner"></span>&nbsp; Correction en cours…</span><span class="ai-score loading-col">…</span></div>`;
-  const officialAns=officialAnsEsc.replace(/&quot;/g,'"');
-  const prompt=`Tu es un correcteur du brevet des collèges en mathématiques. La question vaut ${maxPts} points.\nRéponse officielle : "${officialAns}"\nRéponse de l'élève : "${answer}"\nÉvalue et réponds UNIQUEMENT en JSON valide sans aucun texte autour :\n{"pts": <entier 0 à ${maxPts}>, "feedback": "<1-2 phrases courtes en français>"}`;
+  ar.innerHTML=`<div class="ai-rh loading-bg"><span class="ai-rl"><span class="mini-sp"></span>&nbsp; Correction en cours…</span><span class="ai-sc loading-col">…</span></div>`;
+  const officialAns=ae.replace(/&quot;/g,'"');
+  const prompt=`Tu es un correcteur du brevet des collèges en mathématiques. La question vaut ${maxPts} points.\nRéponse officielle : "${officialAns}"\nRéponse de l'élève : "${answer}"\nRéponds UNIQUEMENT en JSON valide : {"pts":<entier 0 à ${maxPts}>,"feedback":"<1-2 phrases courtes en français>"}`;
   let pts=0,feedback='';
   try{
     const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:200,messages:[{role:'user',content:prompt}]})});
@@ -1237,7 +1319,7 @@ async function doValidate(qId,exId,maxPts,officialAnsEsc){
   if(ratio>=.85){cls='correct';icon='✓';label='Correct';}
   else if(ratio>=.4){cls='partial';icon='~';label='Partiellement correct';}
   else{cls='wrong';icon='✗';label='Incorrect';}
-  ar.innerHTML=`<div class="ai-result-header ${cls}-bg"><span class="ai-result-label" style="color:${cls==='correct'?'var(--green)':cls==='partial'?'var(--gold)':'var(--red)'}">${icon} ${label}</span><span class="ai-score ${cls}-col">${pts}<span style="font-size:13px;opacity:.5;font-weight:400"> / ${maxPts} pts</span></span></div><div class="ai-feedback">${feedback}</div>`;
+  ar.innerHTML=`<div class="ai-rh ${cls}-bg"><span class="ai-rl" style="color:${cls==='correct'?'var(--green)':cls==='partial'?'var(--gold)':'var(--red)'}">${icon} ${label}</span><span class="ai-sc ${cls}-col">${pts}<span style="font-size:13px;opacity:.5;font-weight:400"> / ${maxPts} pts</span></span></div><div class="ai-fb">${feedback}</div>`;
 }
 
 function doEdit(qId,exId){
@@ -1259,20 +1341,20 @@ function toggleCorr(corrId,btnId){
   else{p.classList.add('open');b.textContent='▼ Masquer';b.classList.add('active');setTimeout(()=>p.scrollIntoView({behavior:'smooth',block:'nearest'}),80);}
 }
 
-/* ════════════════════════════════════════
-   SCORING & PILLS
-════════════════════════════════════════ */
+/* ═══════════════════════════════
+   SCORING
+═══════════════════════════════ */
 function totalScore(){return Object.values(scores).reduce((s,v)=>s+v,0);}
 function updateLive(){
   const t=totalScore();
-  const el=document.getElementById('liveScore');if(el)el.textContent=t;
-  const fe=document.getElementById('footerScore');if(fe)fe.textContent=t;
+  const el=document.getElementById('liveSc'); if(el)el.textContent=t;
+  const fe=document.getElementById('footerSc'); if(fe)fe.textContent=t;
 }
 function updatePill(exId){
   const idx=parseInt(exId.replace('ex',''))-1;
-  const ex=exerciseData[idx];if(!ex)return;
+  const ex=exerciseData[idx]; if(!ex)return;
   const qIds=ex.questions.map((_,i)=>`${exId}q${i+1}`);
-  const pill=document.getElementById(`pill-${exId}`);if(!pill)return;
+  const pill=document.getElementById(`pill-${exId}`); if(!pill)return;
   const anyVal=qIds.some(q=>validated[q]);
   const allGraded=qIds.every(q=>scores[q]!==undefined);
   pill.classList.toggle('answered',anyVal&&!allGraded);
@@ -1281,8 +1363,8 @@ function updatePill(exId){
   const chint=document.getElementById(`chint-${exId}`);
   if(cBtn){
     const rem=qIds.filter(q=>!validated[q]).length;
-    if(allGraded){ cBtn.disabled=false; if(chint)chint.textContent='Correction disponible'; }
-    else if(anyVal){ if(chint)chint.textContent=`Encore ${rem} réponse${rem>1?'s':''} à valider`; }
+    if(allGraded){cBtn.disabled=false;if(chint)chint.textContent='Correction disponible';}
+    else if(anyVal){if(chint)chint.textContent=`Encore ${rem} réponse${rem>1?'s':''} à valider`;}
   }
 }
 function getMention(s){
@@ -1291,47 +1373,45 @@ function getMention(s){
   if(s>=50)return'📚 Admis';return'💪 À retravailler';
 }
 
-/* ════════════════════════════════════════
+/* ═══════════════════════════════
    END EXAM
-════════════════════════════════════════ */
+═══════════════════════════════ */
 function endExam(){
   clearInterval(timerIv);
   const total=totalScore();
   const maxTotal=exerciseData.reduce((s,ex)=>s+ex.questions.reduce((s2,q)=>s2+q.pts,0),0);
   const scaled=Math.round(total/maxTotal*100);
-  saveSession(scaled,total,maxTotal);
-  navTo('screen-results',null);
-  document.querySelector('.nav-link.active')?.classList.remove('active');
-
+  saveSession(scaled);
+  go('screen-results',null);
   document.getElementById('resScore').innerHTML=`${scaled} <span>/ 100</span>`;
   document.getElementById('resMention').textContent=getMention(scaled);
-  const barColor=scaled>=70?'#1d6b3a':scaled>=50?'#b8870a':'#c0392b';
-  setTimeout(()=>{document.getElementById('resBar').style.width=scaled+'%';document.getElementById('resBar').style.background=barColor;},100);
+  const barCol=scaled>=70?'#1d6b3a':scaled>=50?'#b8870a':'#c0392b';
+  setTimeout(()=>{document.getElementById('resBar').style.width=scaled+'%';document.getElementById('resBar').style.background=barCol;},100);
 
   let correct=0,partial=0,wrong=0;
-  exerciseData.forEach((ex,i)=>{ex.questions.forEach((q,j)=>{const qId=`ex${i+1}q${j+1}`;const r=(scores[qId]||0)/q.pts;if(r>=.85)correct++;else if(r>=.4)partial++;else wrong++;});});
+  exerciseData.forEach((ex,i)=>{ex.questions.forEach((q,j)=>{const r=(scores[`ex${i+1}q${j+1}`]||0)/q.pts;if(r>=.85)correct++;else if(r>=.4)partial++;else wrong++;});});
   document.getElementById('resCorrect').textContent=correct;
   document.getElementById('resPartial').textContent=partial;
   document.getElementById('resWrong').textContent=wrong;
 
   const ns={};
   exerciseData.forEach((ex,i)=>{const n=ex.notion;if(!ns[n])ns[n]={e:0,m:0};ex.questions.forEach((q,j)=>{const qId=`ex${i+1}q${j+1}`;ns[n].e+=scores[qId]||0;ns[n].m+=q.pts;});});
-  let nHTML='';
-  Object.entries(ns).forEach(([n,v])=>{const pct=Math.round(v.e/v.m*100);const col=pct>=70?'var(--green)':pct>=40?'var(--gold)':'var(--red)';nHTML+=`<div class="breakdown-row"><div><div class="breakdown-notion">${n}</div><div class="breakdown-pct"><div class="breakdown-pct-fill" style="width:${pct}%;background:${col}"></div></div></div><div class="breakdown-pts" style="color:${col}">${v.e}/${v.m}</div></div>`;});
-  document.getElementById('resByNotion').innerHTML=nHTML||'<p style="color:var(--ink4);font-style:italic">Aucune question validée.</p>';
+  let nH='';
+  Object.entries(ns).forEach(([n,v])=>{const pct=Math.round(v.e/v.m*100);const col=pct>=70?'var(--green)':pct>=40?'var(--gold)':'var(--red)';nH+=`<div class="bdown-row"><div><div class="bdown-notion">${n}</div><div class="bdown-pct"><div class="bdown-pct-fill" style="width:${pct}%;background:${col}"></div></div></div><div class="bdown-pts" style="color:${col}">${v.e}/${v.m}</div></div>`;});
+  document.getElementById('resByNotion').innerHTML=nH||'<p style="color:var(--ink4);font-style:italic">Aucune question validée.</p>';
 
-  let errHTML='',errCount=0;
-  exerciseData.forEach((ex,i)=>{ex.questions.forEach((q,j)=>{const qId=`ex${i+1}q${j+1}`;const sc=scores[qId]||0;if(sc<q.pts*.85&&feedbacks[qId]){errCount++;const col=sc===0?'var(--red)':'var(--gold)';errHTML+=`<div class="error-card"><div class="error-q">${q.text.substring(0,90)}…</div><div class="error-score" style="color:${col}">${sc}/${q.pts} pts</div><div class="error-fb">${feedbacks[qId]}</div></div>`;}});});
-  document.getElementById('resErrors').innerHTML=errCount?errHTML:'<p style="color:var(--green);font-weight:600">🎉 Excellente performance !</p>';
+  let eH='',ec=0;
+  exerciseData.forEach((ex,i)=>{ex.questions.forEach((q,j)=>{const qId=`ex${i+1}q${j+1}`;const sc=scores[qId]||0;if(sc<q.pts*.85&&feedbacks[qId]){ec++;const col=sc===0?'var(--red)':'var(--gold)';eH+=`<div class="err-card"><div class="err-q">${q.text.substring(0,90)}…</div><div class="err-sc" style="color:${col}">${sc}/${q.pts} pts</div><div class="err-fb">${feedbacks[qId]}</div></div>`;}});});
+  document.getElementById('resErrors').innerHTML=ec?eH:'<p style="color:var(--green);font-weight:600">🎉 Excellente performance !</p>';
 
-  setTimeout(()=>document.querySelectorAll('.breakdown-pct-fill').forEach(el=>{const w=el.style.width;el.style.width='0';setTimeout(()=>el.style.width=w,50);}),100);
+  setTimeout(()=>document.querySelectorAll('.bdown-pct-fill').forEach(el=>{const w=el.style.width;el.style.width='0';setTimeout(()=>el.style.width=w,50);}),100);
 }
 
-/* ════════════════════════════════════════
-   STORAGE & SESSION
-════════════════════════════════════════ */
-async function saveSession(scaled,raw,max){
-  const s={date:new Date().toLocaleDateString('fr-FR'),ts:Date.now(),score:scaled,raw,max,notions:[...new Set(exerciseData.map(e=>e.notion))],duration:selMin,errors:[]};
+/* ═══════════════════════════════
+   STORAGE
+═══════════════════════════════ */
+async function saveSession(scaled){
+  const s={date:new Date().toLocaleDateString('fr-FR'),ts:Date.now(),score:scaled,notions:[...new Set(exerciseData.map(e=>e.notion))],duration:selMin,errors:[]};
   exerciseData.forEach((ex,i)=>{ex.questions.forEach((q,j)=>{const qId=`ex${i+1}q${j+1}`;const sc=scores[qId]||0;if(sc<q.pts*.85)s.errors.push({notion:ex.notion,pts:sc,maxPts:q.pts,fb:feedbacks[qId]||'',qText:q.text.substring(0,80)});});});
   try{
     let sessions=[];
@@ -1342,140 +1422,78 @@ async function saveSession(scaled,raw,max){
   }catch(e){}
 }
 
-/* ════════════════════════════════════════
+/* ═══════════════════════════════
    DASHBOARD
-════════════════════════════════════════ */
-async function showDash(){
+═══════════════════════════════ */
+async function renderDash(){
   let sessions=[];
   try{const d=await window.storage.get('sessions');if(d)sessions=JSON.parse(d.value);}catch(e){}
 
   if(!sessions.length){
     document.getElementById('dashStats').innerHTML='';
-    document.getElementById('scoreChart').style.display='none';
-    document.getElementById('dashGrid').innerHTML=`<div class="empty-dash" style="grid-column:1/-1"><span class="e-icon">📊</span><p>Aucun brevet blanc effectué pour l'instant.<br>Lancez votre premier brevet pour voir vos statistiques !</p><button class="btn-primary" style="margin:20px auto 0;font-size:14px;padding:11px 24px" onclick="navTo('screen-setup','navHome')">Commencer →</button></div>`;
+    document.getElementById('chartSection').style.display='none';
+    document.getElementById('dashGrid').innerHTML=`<div class="empty-state" style="grid-column:1/-1"><span class="ei">📊</span><p>Aucun brevet blanc effectué pour l'instant.<br>Lancez votre premier entraînement pour voir vos statistiques !</p><button class="btn-navy" style="margin:20px auto 0;font-size:14px;padding:11px 24px" onclick="go('screen-setup','navSetup')">Commencer →</button></div>`;
     return;
   }
 
   const avg=Math.round(sessions.reduce((s,x)=>s+x.score,0)/sessions.length);
   const best=Math.max(...sessions.map(x=>x.score));
   const last=sessions[sessions.length-1].score;
-  const totalErrs=sessions.reduce((s,x)=>s+x.errors.length,0);
   const trend=sessions.length>1?last-sessions[sessions.length-2].score:0;
   const trendStr=trend>0?`↑ +${trend}`:trend<0?`↓ ${trend}`:'→ stable';
   const trendCol=trend>0?'var(--green)':trend<0?'var(--red)':'var(--ink4)';
+  const totalErrs=sessions.reduce((s,x)=>s+x.errors.length,0);
 
   document.getElementById('dashStats').innerHTML=`
-    <div class="stat-card"><div class="s-val navy">${sessions.length}</div><div class="s-lbl">Brevets blancs</div></div>
-    <div class="stat-card"><div class="s-val green">${avg}<span style="font-size:18px">/100</span></div><div class="s-lbl">Moyenne générale</div></div>
-    <div class="stat-card"><div class="s-val gold">${best}<span style="font-size:18px">/100</span></div><div class="s-lbl">Meilleur score</div></div>
-    <div class="stat-card"><div class="s-val" style="font-size:22px;color:${trendCol}">${trendStr}</div><div class="s-lbl">Tendance</div></div>
-    <div class="stat-card"><div class="s-val red">${totalErrs}</div><div class="s-lbl">Erreurs totales</div></div>`;
+    <div class="stat-card"><div class="sc-val navy">${sessions.length}</div><div class="sc-lbl">Brevets blancs</div></div>
+    <div class="stat-card"><div class="sc-val green">${avg}<span style="font-size:16px">/100</span></div><div class="sc-lbl">Moyenne générale</div></div>
+    <div class="stat-card"><div class="sc-val gold">${best}<span style="font-size:16px">/100</span></div><div class="sc-lbl">Meilleur score</div></div>
+    <div class="stat-card"><div class="sc-val" style="font-size:20px;color:${trendCol}">${trendStr}</div><div class="sc-lbl">Tendance</div></div>
+    <div class="stat-card"><div class="sc-val red">${totalErrs}</div><div class="sc-lbl">Erreurs totales</div></div>`;
 
-  // Chart
-  if(sessions.length >= 2){
-    document.getElementById('scoreChart').style.display='block';
+  if(sessions.length>=2){
+    document.getElementById('chartSection').style.display='block';
     const recent=sessions.slice(-12);
-    const chartWrap=document.getElementById('chartWrap');
-    chartWrap.innerHTML=recent.map(s=>{
-      const h=Math.round(s.score*100/100);
+    document.getElementById('chartWrap').innerHTML=recent.map(s=>{
+      const h=Math.max(4,Math.round(s.score));
       const col=s.score>=70?'var(--green)':s.score>=50?'var(--gold)':'var(--red)';
-      return `<div class="chart-bar-col">
-        <div class="chart-val">${s.score}</div>
-        <div class="chart-bar" style="height:${h}px;background:${col};opacity:.75" title="${s.date}: ${s.score}/100"></div>
-        <div class="chart-label">${s.date.split('/').slice(0,2).join('/')}</div>
-      </div>`;
+      return `<div class="chart-col"><div class="chart-val">${s.score}</div><div class="chart-bar" style="height:${h}px;background:${col};opacity:.75" title="${s.date}: ${s.score}/100"></div><div class="chart-lbl">${s.date.split('/').slice(0,2).join('/')}</div></div>`;
     }).join('');
+  } else {
+    document.getElementById('chartSection').style.display='none';
   }
 
-  // History + weaknesses
-  let hHTML=`<table class="hist-table"><thead><tr><th>Date</th><th>Notions</th><th>Score</th><th>Durée</th></tr></thead><tbody>`;
+  let hH=`<table class="hist-table"><thead><tr><th>Date</th><th>Notions</th><th>Score</th><th>Durée</th></tr></thead><tbody>`;
   [...sessions].reverse().slice(0,20).forEach(s=>{
     const chip=s.score>=70?'a':s.score>=50?'b':'c';
-    hHTML+=`<tr><td>${s.date}</td><td style="font-size:11px;color:var(--ink4);max-width:140px">${(s.notions||[]).join(', ').substring(0,36)}</td><td><span class="score-chip ${chip}">${s.score}/100</span></td><td style="font-size:12px;color:var(--ink4)">${s.duration}m</td></tr>`;
+    hH+=`<tr><td>${s.date}</td><td style="font-size:11px;color:var(--ink4);max-width:140px">${(s.notions||[]).join(', ').substring(0,36)}</td><td><span class="score-chip ${chip}">${s.score}/100</span></td><td style="font-size:12px;color:var(--ink4)">${s.duration}m</td></tr>`;
   });
-  hHTML+='</tbody></table>';
+  hH+='</tbody></table>';
 
   const nErrs={};
   sessions.forEach(s=>{s.errors.forEach(e=>{if(!nErrs[e.notion])nErrs[e.notion]=0;nErrs[e.notion]++;});});
   const sorted=Object.entries(nErrs).sort((a,b)=>b[1]-a[1]);
-  let wHTML='';
-  if(!sorted.length){wHTML='<p style="color:var(--green);font-weight:600">Aucun point faible identifié 🎉</p>';}
-  else{const maxE=Math.max(...sorted.map(([,v])=>v),1);sorted.slice(0,8).forEach(([n,v])=>{const pct=Math.round(v/maxE*100);const col=pct>60?'var(--red)':pct>30?'var(--gold)':'var(--green)';wHTML+=`<div class="notion-bar-row"><div class="nb-label">${n}</div><div class="nb-track"><div class="nb-fill" style="width:${pct}%;background:${col}"></div></div><div class="nb-count">${v}</div></div>`;});}
+  let wH='';
+  if(!sorted.length){wH='<p style="color:var(--green);font-weight:600">Aucun point faible identifié 🎉</p>';}
+  else{const mx=Math.max(...sorted.map(([,v])=>v),1);sorted.slice(0,8).forEach(([n,v])=>{const pct=Math.round(v/mx*100);const col=pct>60?'var(--red)':pct>30?'var(--gold)':'var(--green)';wH+=`<div class="nb-row"><div class="nb-label">${n}</div><div class="nb-track"><div class="nb-fill" style="width:${pct}%;background:${col}"></div></div><div class="nb-count">${v}</div></div>`;});}
+
+  const lastErrs=sessions[sessions.length-1]?.errors||[];
+  let errH=lastErrs.length?lastErrs.slice(0,3).map(e=>`<div class="err-card" style="margin-bottom:8px"><div class="err-q">${e.qText||''}…</div><div class="err-sc" style="color:var(--red)">${e.pts}/${e.maxPts} pts — ${e.notion}</div><div class="err-fb">${e.fb}</div></div>`).join(''):'<p style="font-style:italic;color:var(--ink4);font-size:13px">Aucune erreur sur le dernier brevet !</p>';
 
   document.getElementById('dashGrid').innerHTML=`
     <div>
-      <div class="section-rule">Historique</div>
-      <div>${hHTML}</div>
+      <div class="rule">Historique complet</div>
+      ${hH}
     </div>
     <div>
-      <div class="section-rule">Points faibles par notion</div>
-      <div>${wHTML}</div>
-      ${sessions.length>=3?`<div style="margin-top:24px"><div class="section-rule">Dernières erreurs</div>${sessions[sessions.length-1].errors.slice(0,3).map(e=>`<div class="error-card"><div class="error-q">${e.qText||''}…</div><div class="error-score" style="color:var(--red)">${e.pts}/${e.maxPts} pts</div><div class="error-fb">${e.fb}</div></div>`).join('')||'<p style="font-style:italic;color:var(--ink4)">Aucune erreur !</p>'}</div>`:''}
+      <div class="rule">Points faibles par notion</div>
+      <div style="margin-bottom:28px">${wH}</div>
+      <div class="rule">Dernières erreurs</div>
+      <div>${errH}</div>
     </div>`;
 
   setTimeout(()=>document.querySelectorAll('.nb-fill').forEach(el=>{const w=el.style.width;el.style.width='0';setTimeout(()=>el.style.width=w,50);}),100);
 }
-
-/* ════════════════════════════════════════
-   PRICING & CHECKOUT
-════════════════════════════════════════ */
-function toggleBilling(){
-  isAnnual=!isAnnual;
-  document.getElementById('billingToggle').classList.toggle('annual',isAnnual);
-  const monthlyPrice=isAnnual?5.40:9;
-  document.getElementById('planAmount').textContent=isAnnual?'5,40':'9';
-  document.getElementById('planAnnualNote').textContent=isAnnual?'soit 64,80 €/an — économisez 43,20 €':'ou 64,80 €/an (−40%)';
-  // Update checkout summary
-  const desc=isAnnual?'annuel':'mensuel';
-  const total=isAnnual?'64,80 €':'9,00 €';
-  document.getElementById('summaryPlan').textContent=desc;
-  document.getElementById('summaryPrice').textContent=isAnnual?'5,40 €/mois':'9,00 €';
-  document.getElementById('summaryTotal').textContent=total;
-  document.getElementById('summaryDiscountRow').style.display=isAnnual?'flex':'none';
-  document.getElementById('checkoutAmount').textContent=isAnnual?'64,80 €/an (5,40 €/mois)':'9 €/mois';
-  document.getElementById('payBtnText').textContent=isAnnual?'Payer 64,80 €/an':'Payer 9 €/mois';
-}
-
-function goCheckout(){
-  const plan=isAnnual?'annuel':'mensuel';
-  document.getElementById('summaryPlan').textContent=plan;
-  document.getElementById('summaryPrice').textContent=isAnnual?'5,40 €/mois':'9,00 €';
-  document.getElementById('summaryTotal').textContent=isAnnual?'64,80 €':'9,00 €';
-  document.getElementById('summaryDiscountRow').style.display=isAnnual?'flex':'none';
-  document.getElementById('checkoutAmount').textContent=isAnnual?'64,80 €/an (5,40 €/mois)':'9 €/mois';
-  document.getElementById('payBtnText').textContent=isAnnual?'Payer 64,80 €/an':'Payer 9 €/mois';
-  navTo('screen-checkout',null);
-  document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
-}
-
-function formatCard(el){
-  let v=el.value.replace(/\D/g,'').substring(0,16);
-  el.value=v.replace(/(.{4})/g,'$1 ').trim();
-}
-
-function simulatePay(){
-  const btn=document.querySelector('.btn-pay');
-  btn.textContent='⏳ Traitement…'; btn.disabled=true;
-  setTimeout(()=>{ navTo('screen-success',null); document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active')); btn.innerHTML='<span>🔒</span><span id="payBtnText">Payer</span>'; btn.disabled=false; }, 1800);
-}
-
-async function activatePremium(){
-  isPremium=true;
-  try{ await window.storage.set('isPremium','true'); }catch(e){}
-  updatePremiumUI();
-  navTo('screen-setup','navHome');
-}
-
-function toggleFaq(el){
-  el.classList.toggle('open');
-}
-
-/* ════════════════════════════════════════
-   INIT
-════════════════════════════════════════ */
-window.addEventListener('DOMContentLoaded', ()=>{
-  loadPremiumState();
-});
 </script>
 </body>
 </html>
