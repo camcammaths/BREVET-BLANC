@@ -1818,6 +1818,30 @@ let timerIv = null, secsLeft = 0;
 let exerciseData = [], scores = {}, validated = {}, feedbacks = {};
 
 /* ═══════════════════════════════
+   CONFIGURATION API
+   ═══════════════════════════════
+   Sur claude.ai : l'API est appelée directement.
+   Sur votre site : remplacez PROXY_URL par l'URL
+   de votre proxy (ex: '/api/anthropic' ou 'https://votre-site.com/proxy.php')
+*/
+const PROXY_URL = 'https://api.anthropic.com/v1/messages';
+
+async function callAI(prompt, maxTokens=300){
+  const resp = await fetch(PROXY_URL, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model:'claude-sonnet-4-20250514',
+      max_tokens:maxTokens,
+      messages:[{role:'user',content:prompt}]
+    })
+  });
+  if(!resp.ok) throw new Error('API error '+resp.status);
+  const data = await resp.json();
+  return (data.content?.[0]?.text || '').trim();
+}
+
+/* ═══════════════════════════════
    NAV
 ═══════════════════════════════ */
 function go(screenId, navId){
@@ -1837,6 +1861,64 @@ const BANK = {
   probabilites:[
     {title:"Probabilités — Urne et tirage aléatoire",notion:"Probabilités",pts:20,
      intro:"Dans une urne contenant 40 boules indiscernables au toucher, 5 sont rouges, 20 sont vertes et 15 sont blanches. On tire une boule au hasard.",
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:14px 10px"><svg viewBox="0 0 220 168" width="220" height="168" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}.sm{font-size:10px;fill:#444;font-weight:600}.title{font-size:9px;font-weight:700;fill:#666;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="110" y="11" class="title" text-anchor="middle">URNE — 40 BOULES</text>
+  <!-- Urne corps -->
+  <path d="M33,140 Q27,68 52,48 Q70,36 110,35 Q150,36 168,48 Q193,68 187,140"
+        fill="#f5f0eb" stroke="#0a0a0a" stroke-width="2"/>
+  <ellipse cx="110" cy="140" rx="77" ry="17" fill="#e8e2da" stroke="#0a0a0a" stroke-width="2"/>
+  <ellipse cx="110" cy="35"  rx="58" ry="13" fill="#fffdf9" stroke="#0a0a0a" stroke-width="2"/>
+  <path d="M52,48 Q62,36 110,35 Q158,36 168,48" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+  <!-- 40 boules -->
+  <circle cx="43.0" cy="48.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="60.0" cy="48.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="77.0" cy="48.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="94.0" cy="48.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="111.0" cy="48.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="128.0" cy="48.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="145.0" cy="48.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="162.0" cy="48.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="47.5" cy="60.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="64.5" cy="60.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="81.5" cy="60.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="98.5" cy="60.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="115.5" cy="60.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="132.5" cy="60.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="149.5" cy="60.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="166.5" cy="60.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="43.0" cy="72.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="60.0" cy="72.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="77.0" cy="72.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="94.0" cy="72.0" r="5.0" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+<circle cx="111.0" cy="72.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="128.0" cy="72.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="145.0" cy="72.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="162.0" cy="72.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="47.5" cy="84.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="64.5" cy="84.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="81.5" cy="84.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="98.5" cy="84.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="115.5" cy="84.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="132.5" cy="84.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="149.5" cy="84.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="166.5" cy="84.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="43.0" cy="96.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="60.0" cy="96.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="77.0" cy="96.0" r="5.0" fill="#f0ede8" stroke="#bbb" stroke-width="1.2"/>
+<circle cx="94.0" cy="96.0" r="5.0" fill="#e74c3c" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="111.0" cy="96.0" r="5.0" fill="#e74c3c" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="128.0" cy="96.0" r="5.0" fill="#e74c3c" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="145.0" cy="96.0" r="5.0" fill="#e74c3c" stroke="#c0392b" stroke-width="1.2"/>
+<circle cx="162.0" cy="96.0" r="5.0" fill="#e74c3c" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- Légende -->
+  <circle cx="14"  cy="158" r="5.5" fill="#e74c3c" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="23"  y="162" class="sm">5 rouges</text>
+  <circle cx="80"  cy="158" r="5.5" fill="#27ae60" stroke="#1e9652" stroke-width="1.2"/>
+  <text x="89"  y="162" class="sm">20 vertes</text>
+  <circle cx="155" cy="158" r="5.5" fill="#f0ede8" stroke="#bbb"     stroke-width="1.2"/>
+  <text x="164" y="162" class="sm">15 blanches</text>
+</svg></div>`,
      figure:`<svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg">
   <defs><style>text{font:12px 'DM Sans',sans-serif;fill:#0a0a0a}.lb{font-weight:600}</style></defs>
   <ellipse cx="130" cy="155" rx="70" ry="18" fill="#e0dbd3" stroke="#888" stroke-width="1.5"/>
@@ -1906,18 +1988,42 @@ const BANK = {
   geometrie:[
     {title:"Géométrie — Pythagore & triangles semblables",notion:"Géométrie",pts:24,
      intro:"Triangle CDE rectangle en D. CD = 21,6 cm, CE = 29,1 cm. F est un point de [CD] avec FC = 17,2 cm et (GF) ∥ (DE).",
-     figure:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-  <defs><style>text{font:12px 'DM Sans',sans-serif;fill:#0a0a0a}.lb{font-weight:700}.dim{fill:#666;font-size:11px}</style></defs>
-  <polygon points="60,20 60,175 255,175" fill="rgba(0,47,167,.05)" stroke="#002FA7" stroke-width="2" stroke-linejoin="round"/>
-  <rect x="60" y="157" width="18" height="18" fill="none" stroke="#002FA7" stroke-width="1.5"/>
-  <text x="47" y="16" class="lb">C</text><text x="42" y="192" class="lb">D</text><text x="258" y="192" class="lb">E</text>
-  <circle cx="60" cy="100" r="3.5" fill="#002FA7"/>
-  <circle cx="166" cy="111" r="3.5" fill="#002FA7"/>
-  <line x1="60" y1="100" x2="166" y2="111" stroke="#002FA7" stroke-width="1.5" stroke-dasharray="5,3"/>
-  <text x="38" y="104" fill="#002FA7" class="lb">F</text><text x="170" y="109" fill="#002FA7" class="lb">G</text>
-  <text x="19" y="105" class="dim">21,6</text><text x="130" y="192" class="dim">DE=?</text>
-  <text x="95" y="107" class="dim" transform="rotate(-4 95 107)">FC=17,2</text>
-</svg>`,
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:16px 12px"><svg viewBox="0 0 310 195" width="310" height="195" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}text.lbl{font-weight:800;font-size:13px}text.dim{fill:#002FA7;font-size:11px;font-weight:700}text.red{fill:#c0392b;font-size:11px;font-weight:700}text.sm{font-size:10px;fill:#555;font-weight:600}text.title{font-size:10px;font-weight:700;fill:#555;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="155" y="13" class="title" text-anchor="middle">TRIANGLE CDE — RECTANGLE EN D</text>
+  <!-- C en haut-gauche, D en bas-gauche, E en bas-droite -->
+  <!-- CD vertical = 21.6 → 130px, DE horizontal = 19.5 → 117px -->
+  <polygon points="42,24 42,168 185,168" fill="rgba(0,47,167,.06)" stroke="#002FA7" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Carré angle droit D -->
+  <rect x="42" y="150" width="18" height="18" fill="none" stroke="#002FA7" stroke-width="2"/>
+  <!-- F sur [CD] : CF=17.2/21.6 * 130 ≈ 104px depuis C → F à y= 24+104=128 -->
+  <circle cx="42" cy="128" r="3.5" fill="#0a0a0a"/>
+  <text x="30" y="131" class="lbl">F</text>
+  <!-- G sur [CE] aligné -->
+  <!-- Droite GF ∥ DE : G est sur CE à même hauteur que F -->
+  <!-- CE de C(42,24) à E(185,168) → param t=104/144≈0.722 → G≈(138,122) -->
+  <circle cx="138" cy="122" r="3.5" fill="#0a0a0a"/>
+  <text x="141" y="120" class="lbl">G</text>
+  <!-- GF droite parallèle -->
+  <line x1="42" y1="128" x2="138" y2="122" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5,3"/>
+  <!-- Labels sommets -->
+  <text x="30" y="20" class="lbl">C</text>
+  <text x="28" y="178" class="lbl">D</text>
+  <text x="188" y="178" class="lbl">E</text>
+  <!-- Cotes -->
+  <text x="22" y="100" class="dim" text-anchor="middle" transform="rotate(-90,22,100)">CD = 21,6 cm</text>
+  <text x="113" y="183" class="dim" text-anchor="middle">DE = 19,5 cm</text>
+  <text x="135" y="88"  class="dim" transform="rotate(46,135,88)">CE = 29,1 cm</text>
+  <!-- FC -->
+  <text x="14" y="78" class="red" transform="rotate(-90,14,78)">FC=17,2</text>
+  <!-- GF -->
+  <text x="87" y="118" class="red" transform="rotate(-3,87,118)">GF = ?</text>
+  <!-- Marque parallèle -->
+  <line x1="85" y1="121" x2="87" y2="126" stroke="#e74c3c" stroke-width="1.5"/>
+  <line x1="90" y1="121" x2="92" y2="126" stroke="#e74c3c" stroke-width="1.5"/>
+  <line x1="97" y1="168" x2="99" y2="173" stroke="#e74c3c" stroke-width="1.5"/>
+  <line x1="102" y1="168" x2="104" y2="173" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="230" y="80" class="sm">(GF) ∥ (DE)</text>
+</svg></div>`,
      questions:[
        {pts:8,text:"Montrer que DE = 19,5 cm.",ans:"DE² = CE² − CD² = 29,1² − 21,6² = 381,25. DE = 19,5 cm ✓"},
        {pts:8,text:"Calculer l'aire du triangle CDE.",ans:"Aire = (21,6 × 19,5)/2 = 210,6 cm²"},
@@ -1925,17 +2031,41 @@ const BANK = {
      ]},
     {title:"Géométrie — Terrain triangulaire",notion:"Géométrie",pts:21,
      intro:"Triangle ABC rectangle en B. AB = 600 m, BC = 450 m. D est sur [BC] avec CD = 270 m, E est sur [BA], (DE) ∥ (AB).",
-     figure:`<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-  <defs><style>text{font:12px 'DM Sans',sans-serif;fill:#0a0a0a}.lb{font-weight:700}.dim{fill:#666;font-size:11px}</style></defs>
-  <polygon points="60,175 60,30 270,175" fill="rgba(0,47,167,.05)" stroke="#002FA7" stroke-width="2" stroke-linejoin="round"/>
-  <rect x="60" y="157" width="18" height="18" fill="none" stroke="#002FA7" stroke-width="1.5"/>
-  <text x="47" y="24" class="lb">A</text><text x="42" y="192" class="lb">B</text><text x="273" y="192" class="lb">C</text>
-  <circle cx="138" cy="175" r="3.5" fill="#002FA7"/><circle cx="60" cy="111" r="3.5" fill="#002FA7"/>
-  <line x1="60" y1="111" x2="138" y2="175" stroke="#002FA7" stroke-width="1.5" stroke-dasharray="5,3"/>
-  <text x="140" y="192" fill="#002FA7" class="lb">D</text><text x="38" y="116" fill="#002FA7" class="lb">E</text>
-  <text x="19" y="107" class="dim">600 m</text><text x="95" y="192" class="dim">450 m</text>
-  <text x="152" y="148" class="dim" transform="rotate(-40 152 148)">AC=750</text>
-</svg>`,
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:16px 12px"><svg viewBox="0 0 310 195" width="310" height="195" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}text.lbl{font-weight:800;font-size:13px}text.dim{fill:#002FA7;font-size:11px;font-weight:700}text.red{fill:#c0392b;font-size:11px;font-weight:700}text.sm{font-size:10px;fill:#555;font-weight:600}text.title{font-size:10px;font-weight:700;fill:#555;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="155" y="13" class="title" text-anchor="middle">TRIANGLE ABC — RECTANGLE EN B</text>
+  <!-- A haut-gauche, B bas-gauche, C bas-droite -->
+  <!-- AB=600→150px, BC=450→112px, AC=750 -->
+  <polygon points="42,22 42,172 220,172" fill="rgba(39,174,96,.07)" stroke="#27ae60" stroke-width="2.5" stroke-linejoin="round"/>
+  <rect x="42" y="154" width="18" height="18" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <!-- D sur [BC] : CD=270/450*112≈67px depuis C → D à x=220-67=153 -->
+  <circle cx="153" cy="172" r="3.5" fill="#0a0a0a"/>
+  <text x="150" y="185" class="lbl">D</text>
+  <!-- E sur [BA] : par Thalès CD/CB = CE/CA → E proportionnel -->
+  <!-- CD=270, CB=450 → CE/CA = 270/450=0.6 → E à y=22+(150*0.6)=22+90=112 -->
+  <circle cx="42" cy="112" r="3.5" fill="#0a0a0a"/>
+  <text x="28" y="115" class="lbl">E</text>
+  <!-- DE parallèle à AB en rouge -->
+  <line x1="42" y1="112" x2="153" y2="172" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5,3"/>
+  <!-- Labels -->
+  <text x="29" y="18" class="lbl">A</text>
+  <text x="28" y="182" class="lbl">B</text>
+  <text x="223" y="182" class="lbl">C</text>
+  <!-- Cotes -->
+  <text x="22" y="98" class="dim" text-anchor="middle" transform="rotate(-90,22,98)">AB = 600 m</text>
+  <text x="132" y="186" class="dim" text-anchor="middle">BC = 450 m</text>
+  <text x="155" y="88"  class="dim" transform="rotate(44,155,88)">AC = 750 m</text>
+  <text x="14" y="142" class="red" transform="rotate(-90,14,142)">BE=?</text>
+  <!-- BD -->
+  <text x="186" y="183" class="red">CD=270 m</text>
+  <!-- DE -->
+  <text x="85" y="132" class="red" transform="rotate(27,85,132)">DE = ?</text>
+  <!-- Marques parallèles -->
+  <line x1="42" y1="155" x2="47" y2="152" stroke="#e74c3c" stroke-width="2"/>
+  <line x1="42" y1="161" x2="47" y2="158" stroke="#e74c3c" stroke-width="2"/>
+  <line x1="93" y1="145" x2="98" y2="148" stroke="#e74c3c" stroke-width="2"/>
+  <line x1="95" y1="151" x2="100" y2="154" stroke="#e74c3c" stroke-width="2"/>
+  <text x="220" y="70" class="sm">(DE) ∥ (AB)</text>
+</svg></div>`,
      questions:[
        {pts:7,text:"Montrer que AC = 750 m.",ans:"AC² = 600² + 450² = 562500. AC = 750 m ✓"},
        {pts:7,text:"Montrer que (DE) ∥ (AB) et calculer DE.",ans:"CD/CB = 0,6. (DE) ∥ (AB). DE = 600 × 0,6 = 360 m"},
@@ -2013,6 +2143,55 @@ const BANK = {
   volumes:[
     {title:"Volumes — Aquariums",notion:"Volumes",pts:18,
      intro:"Il faut ≥ 15 L par poisson. Aquariums remplis aux 4/5 de leur hauteur.",
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:16px 12px"><svg viewBox="0 0 310 200" width="310" height="200" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}text.lbl{font-weight:800;font-size:13px}text.dim{fill:#002FA7;font-size:11px;font-weight:700}text.red{fill:#c0392b;font-size:11px;font-weight:700}text.sm{font-size:10px;fill:#555;font-weight:600}text.title{font-size:10px;font-weight:700;fill:#555;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="80" y="13" class="title" text-anchor="middle">AQUARIUM A</text>
+  <text x="232" y="13" class="title" text-anchor="middle">AQUARIUM B</text>
+  <!-- Cylindre A -->
+  <ellipse cx="80" cy="42" rx="38" ry="9" fill="#d6eaff" stroke="#002FA7" stroke-width="2"/>
+  <rect x="42" y="42" width="76" height="112" fill="#d6eaff" stroke="#002FA7" stroke-width="2"/>
+  <ellipse cx="80" cy="154" rx="38" ry="9" fill="#b3d9ff" stroke="#002FA7" stroke-width="2"/>
+  <!-- Eau 4/5 -->
+  <rect x="44" y="64" width="72" height="88" fill="rgba(0,100,200,.2)"/>
+  <ellipse cx="80" cy="64" rx="37" ry="9" fill="rgba(0,100,200,.25)" stroke="#002FA7" stroke-width="1" stroke-dasharray="3,2"/>
+  <!-- Cotes cyl -->
+  <line x1="126" y1="42"  x2="134" y2="42"  stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="126" y1="154" x2="134" y2="154" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="130" y1="42"  x2="130" y2="154" stroke="#002FA7" stroke-width="1.5" marker-end="url(#a)" marker-start="url(#a)"/>
+  <text x="142" y="101" class="dim">h = 25 cm</text>
+  <!-- Rayon -->
+  <line x1="80" y1="154" x2="118" y2="163" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="95" y="172" class="dim">r = 15 cm</text>
+  <text x="80" y="32" class="dim" text-anchor="middle">∅ = 30 cm</text>
+  <!-- Trait 4/5 -->
+  <line x1="17" y1="64" x2="44" y2="64" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="5"  y="60" class="red">4/5</text>
+  <!-- Cylindrique label -->
+  <text x="80" y="185" class="sm" text-anchor="middle">Cylindrique</text>
+
+  <!-- Séparateur -->
+  <line x1="165" y1="20" x2="165" y2="180" stroke="#ccc" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Pavé droit B 3D — 28×28×30 -->
+  <!-- Face avant -->
+  <rect x="186" y="72" width="80" height="90" fill="#d6eaff" stroke="#002FA7" stroke-width="2"/>
+  <!-- Dessus -->
+  <polygon points="186,72 216,50 296,50 266,72" fill="#b3d9ff" stroke="#002FA7" stroke-width="2"/>
+  <!-- Droite -->
+  <polygon points="266,72 296,50 296,140 266,162" fill="#9ecbf5" stroke="#002FA7" stroke-width="2"/>
+  <!-- Eau 4/5 -->
+  <rect x="188" y="90" width="76" height="70" fill="rgba(0,100,200,.2)"/>
+  <line x1="186" y1="90" x2="266" y2="90" stroke="#002FA7" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="266" y1="90" x2="296" y2="68" stroke="#002FA7" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="17"  y1="90" x2="42"  y2="90" stroke="none"/> <!-- spacer -->
+  <!-- Cotes -->
+  <text x="220" y="170" class="dim">28 cm</text>
+  <text x="282" y="106" class="dim" transform="rotate(90,282,106)">30 cm</text>
+  <text x="218" y="47"  class="dim">28 cm</text>
+  <!-- 4/5 -->
+  <text x="170" y="89" class="red" style="font-size:9px">4/5</text>
+  <text x="241" y="185" class="sm" text-anchor="middle">Pavé droit</text>
+  <text x="241" y="197" class="dim" text-anchor="middle">Remplis aux 4/5</text>
+</svg></div>`,
      questions:[
        {pts:7,text:"Aquarium cylindrique : ∅ 30 cm, h = 25 cm. Volume d'eau ? Suffisant ?",ans:"V eau = π×15²×25×(4/5) ≈ 14137 cm³ ≈ 14,1 L < 15 L — insuffisant."},
        {pts:7,text:"Aquarium pavé droit 28×28×30 cm. Volume d'eau ? Convient-il ?",ans:"V eau = 23520 × 0,8 = 18816 cm³ = 18,8 L > 15 L — convient ✓"},
@@ -2032,6 +2211,51 @@ const BANK = {
      ]},
     {title:"Probabilités — Urne boules noires et rouges",notion:"Probabilités",pts:22,
      intro:"Une urne contient 3 boules noires (numérotées 1 à 3) et 4 boules rouges (numérotées 1 à 4), toutes indiscernables au toucher. — DNB Centres étrangers juin 2023",
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:14px 10px"><svg viewBox="0 0 240 180" width="240" height="180" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}.sm{font-size:10px;fill:#444;font-weight:600}.title{font-size:9px;font-weight:700;fill:#666;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="120" y="13" class="title" text-anchor="middle">URNE — 7 BOULES</text>
+  <!-- Corps urne -->
+  <path d="M28,154 Q22,70 50,50 Q70,36 120,35 Q170,36 190,50 Q218,70 212,154"
+        fill="#f5f0eb" stroke="#0a0a0a" stroke-width="2"/>
+  <ellipse cx="120" cy="154" rx="92" ry="19" fill="#e8e2da" stroke="#0a0a0a" stroke-width="2"/>
+  <ellipse cx="120" cy="35"  rx="70" ry="15" fill="#fffdf9" stroke="#0a0a0a" stroke-width="2"/>
+  <path d="M50,50 Q62,36 120,35 Q178,36 190,50" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+
+  <!-- Rangée avant : 3 boules NOIRES numérotées 1,2,3 -->
+  <circle cx="56"  cy="120" r="20" fill="#1a1a1a" stroke="#555" stroke-width="1.8"/>
+  <text x="56"  y="127" text-anchor="middle" fill="#fff"
+        style="font:700 19px Barlow Condensed,sans-serif">1</text>
+
+  <circle cx="120" cy="125" r="20" fill="#1a1a1a" stroke="#555" stroke-width="1.8"/>
+  <text x="120" y="132" text-anchor="middle" fill="#fff"
+        style="font:700 19px Barlow Condensed,sans-serif">2</text>
+
+  <circle cx="184" cy="120" r="20" fill="#1a1a1a" stroke="#555" stroke-width="1.8"/>
+  <text x="184" y="127" text-anchor="middle" fill="#fff"
+        style="font:700 19px Barlow Condensed,sans-serif">3</text>
+
+  <!-- Rangée arrière : 4 boules ROUGES numérotées 1,2,3,4 -->
+  <circle cx="36"  cy="82" r="20" fill="#e74c3c" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="36"  y="89" text-anchor="middle" fill="#fff"
+        style="font:700 19px Barlow Condensed,sans-serif">1</text>
+
+  <circle cx="94"  cy="76" r="20" fill="#e74c3c" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="94"  y="83" text-anchor="middle" fill="#fff"
+        style="font:700 19px Barlow Condensed,sans-serif">2</text>
+
+  <circle cx="150" cy="76" r="20" fill="#e74c3c" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="150" y="83" text-anchor="middle" fill="#fff"
+        style="font:700 19px Barlow Condensed,sans-serif">3</text>
+
+  <circle cx="204" cy="82" r="20" fill="#e74c3c" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="204" y="89" text-anchor="middle" fill="#fff"
+        style="font:700 19px Barlow Condensed,sans-serif">4</text>
+
+  <!-- Légende -->
+  <circle cx="20"  cy="168" r="9" fill="#1a1a1a" stroke="#555"    stroke-width="1.5"/>
+  <text x="34"  y="173" class="sm">3 noires (n°1, 2, 3)</text>
+  <circle cx="148" cy="168" r="9" fill="#e74c3c" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="162" y="173" class="sm">4 rouges (n°1–4)</text>
+</svg></div>`,
      questions:[
        {pts:6,text:"On pioche une boule. Quelle est la probabilité de tirer une boule rouge ?",ans:"P(rouge) = 4/7"},
        {pts:6,text:"Quelle est la probabilité de tirer une boule portant un nombre pair ?",ans:"Pairs : noire 2, rouges 2 et 4 → 3 boules paires sur 7. P = 3/7"},
@@ -2039,6 +2263,55 @@ const BANK = {
      ]},
     {title:"Probabilités — Sac de boules et roue numérotée",notion:"Probabilités",pts:18,
      intro:"Jeu 1 : sac de 5 boules (1 N, 2 G, 2 P). Jeu 2 : roue à 6 secteurs égaux numérotés 1 à 6. — DNB Polynésie juin 2023",
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:16px 12px"><svg viewBox="0 0 320 192" width="320" height="192" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}text.lbl{font-weight:800;font-size:13px}text.dim{fill:#002FA7;font-size:11px;font-weight:700}text.red{fill:#c0392b;font-size:11px;font-weight:700}text.sm{font-size:10px;fill:#555;font-weight:600}text.title{font-size:10px;font-weight:700;fill:#555;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="64"  y="13" class="title" text-anchor="middle">JEU 1 — SAC</text>
+  <text x="238" y="13" class="title" text-anchor="middle">JEU 2 — ROUE</text>
+  <!-- Sac -->
+  <path d="M14,155 Q10,80 40,58 Q58,44 80,44 Q102,44 120,58 Q150,80 146,155Z" fill="#f5f0eb" stroke="#0a0a0a" stroke-width="2"/>
+  <path d="M40,58 Q58,47 80,45 Q102,47 120,58" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+  <!-- 1 noire -->
+  <circle cx="56" cy="100" r="13" fill="#1a1a1a" stroke="#555" stroke-width="1.5"/>
+  <text x="56" y="105" text-anchor="middle" fill="#fff" font-size="11" font-weight="800">N</text>
+  <!-- 2 grises -->
+  <circle cx="82" cy="108" r="13" fill="#7f8c8d" stroke="#555" stroke-width="1.5"/>
+  <text x="82" y="113" text-anchor="middle" fill="#fff" font-size="11" font-weight="800">G</text>
+  <circle cx="104" cy="98" r="13" fill="#7f8c8d" stroke="#555" stroke-width="1.5"/>
+  <text x="104" y="103" text-anchor="middle" fill="#fff" font-size="11" font-weight="800">G</text>
+  <!-- 2 P -->
+  <circle cx="62" cy="130" r="13" fill="#9b59b6" stroke="#0a0a0a" stroke-width="1.5"/>
+  <text x="62" y="135" text-anchor="middle" fill="#fff" font-size="11" font-weight="800">P</text>
+  <circle cx="96" cy="130" r="13" fill="#9b59b6" stroke="#0a0a0a" stroke-width="1.5"/>
+  <text x="96" y="135" text-anchor="middle" fill="#fff" font-size="11" font-weight="800">P</text>
+  <text x="80" y="168" class="dim" text-anchor="middle">5 boules : 1N, 2G, 2P</text>
+  <text x="80" y="180" class="sm" text-anchor="middle">P(G) = 2/5</text>
+  <!-- Séparateur -->
+  <line x1="162" y1="18" x2="162" y2="185" stroke="#ccc" stroke-width="1" stroke-dasharray="4,3"/>
+  <!-- Roue 6 secteurs égaux 60° chacun -->
+  <circle cx="238" cy="98" r="72" fill="#fff" stroke="#0a0a0a" stroke-width="2.5"/>
+  <!-- Secteur 1 : 270→330° (rouge) -->
+  <path d="M238,98 L238,26  A72,72 0 0,1 300.2,62Z" fill="#e74c3c" stroke="#0a0a0a" stroke-width="1.5"/>
+  <!-- Secteur 2 : 330→30° (bleu) -->
+  <path d="M238,98 L300.2,62 A72,72 0 0,1 300.2,134Z" fill="#002FA7" stroke="#0a0a0a" stroke-width="1.5"/>
+  <!-- Secteur 3 : 30→90° (vert) -->
+  <path d="M238,98 L300.2,134 A72,72 0 0,1 238,170Z" fill="#27ae60" stroke="#0a0a0a" stroke-width="1.5"/>
+  <!-- Secteur 4 : 90→150° (orange) -->
+  <path d="M238,98 L238,170 A72,72 0 0,1 175.8,134Z" fill="#f39c12" stroke="#0a0a0a" stroke-width="1.5"/>
+  <!-- Secteur 5 : 150→210° (violet) -->
+  <path d="M238,98 L175.8,134 A72,72 0 0,1 175.8,62Z" fill="#9b59b6" stroke="#0a0a0a" stroke-width="1.5"/>
+  <!-- Secteur 6 : 210→270° (gris) -->
+  <path d="M238,98 L175.8,62 A72,72 0 0,1 238,26Z" fill="#95a5a6" stroke="#0a0a0a" stroke-width="1.5"/>
+  <!-- Numéros -->
+  <text x="262" y="70"  fill="#fff" font-size="14" font-weight="800" text-anchor="middle">1</text>
+  <text x="284" y="102" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">2</text>
+  <text x="262" y="140" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">3</text>
+  <text x="214" y="140" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">4</text>
+  <text x="192" y="102" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">5</text>
+  <text x="214" y="70"  fill="#fff" font-size="14" font-weight="800" text-anchor="middle">6</text>
+  <circle cx="238" cy="98" r="6" fill="#0a0a0a"/>
+  <!-- Flèche -->
+  <line x1="238" y1="98" x2="288" y2="66" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="238" y="185" class="dim" text-anchor="middle">6 secteurs égaux (n°1 à 6)</text>
+</svg></div>`,
      questions:[
        {pts:5,text:"Jeu 1 : montrer que la probabilité de tirer G est 2/5.",ans:"2 boules G sur 5 au total → P(G) = 2/5 ✓"},
        {pts:5,text:"Jeu 2 : quelle est la probabilité de s'arrêter sur un nombre premier ?",ans:"Nombres premiers de 1 à 6 : 2, 3, 5 → 3 secteurs sur 6. P = 3/6 = 1/2"},
@@ -2046,6 +2319,39 @@ const BANK = {
      ]},
     {title:"Probabilités — Roue et urne, nombres à deux chiffres",notion:"Probabilités",pts:20,
      intro:"Une roue à 4 secteurs égaux (1,2,3,4) donne le chiffre des dizaines. Une urne avec 3 boules (2,3,4) donne le chiffre des unités. — DNB Amérique du Sud nov. 2023",
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:16px 12px"><svg viewBox="0 0 310 197" width="310" height="197" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}text.lbl{font-weight:800;font-size:13px}text.dim{fill:#002FA7;font-size:11px;font-weight:700}text.red{fill:#c0392b;font-size:11px;font-weight:700}text.sm{font-size:10px;fill:#555;font-weight:600}text.title{font-size:10px;font-weight:700;fill:#555;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="78"  y="13" class="title" text-anchor="middle">ROUE — DIZAINES</text>
+  <text x="234" y="13" class="title" text-anchor="middle">URNE — UNITÉS</text>
+  <!-- Roue 4 secteurs 90° -->
+  <circle cx="78" cy="94" r="70" fill="#fff" stroke="#0a0a0a" stroke-width="2.5"/>
+  <path d="M78,94 L78,24  A70,70 0 0,1 148,94Z" fill="#002FA7" stroke="#0a0a0a" stroke-width="1.5"/>
+  <path d="M78,94 L148,94 A70,70 0 0,1 78,164Z" fill="#e74c3c" stroke="#0a0a0a" stroke-width="1.5"/>
+  <path d="M78,94 L78,164 A70,70 0 0,1 8,94Z"   fill="#27ae60" stroke="#0a0a0a" stroke-width="1.5"/>
+  <path d="M78,94 L8,94   A70,70 0 0,1 78,24Z"  fill="#f39c12" stroke="#0a0a0a" stroke-width="1.5"/>
+  <text x="108" y="66"  fill="#fff" font-size="20" font-weight="800" text-anchor="middle">1</text>
+  <text x="108" y="128" fill="#fff" font-size="20" font-weight="800" text-anchor="middle">2</text>
+  <text x="46"  y="128" fill="#fff" font-size="20" font-weight="800" text-anchor="middle">3</text>
+  <text x="46"  y="66"  fill="#fff" font-size="20" font-weight="800" text-anchor="middle">4</text>
+  <circle cx="78" cy="94" r="6" fill="#0a0a0a"/>
+  <line x1="78" y1="94" x2="122" y2="62" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="78" y="176" class="dim" text-anchor="middle">4 secteurs égaux → dizaine</text>
+  <!-- Séparateur -->
+  <line x1="162" y1="20" x2="162" y2="185" stroke="#ccc" stroke-width="1" stroke-dasharray="4,3"/>
+  <!-- Urne -->
+  <path d="M176,155 Q170,76 196,54 Q214,41 234,40 Q254,41 272,54 Q298,76 292,155" fill="#f5f0eb" stroke="#0a0a0a" stroke-width="2"/>
+  <ellipse cx="234" cy="155" rx="58" ry="14" fill="#e8e2da" stroke="#0a0a0a" stroke-width="2"/>
+  <ellipse cx="234" cy="40"  rx="38" ry="10" fill="#fff"    stroke="#0a0a0a" stroke-width="2"/>
+  <path d="M196,54 Q204,41 234,40 Q264,41 272,54" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+  <!-- 3 boules numérotées 2,3,4 -->
+  <circle cx="205" cy="108" r="16" fill="#fff" stroke="#0a0a0a" stroke-width="2"/>
+  <text x="205" y="114" text-anchor="middle" font-size="16" font-weight="800">2</text>
+  <circle cx="234" cy="114" r="16" fill="#fff" stroke="#0a0a0a" stroke-width="2"/>
+  <text x="234" y="120" text-anchor="middle" font-size="16" font-weight="800">3</text>
+  <circle cx="263" cy="108" r="16" fill="#fff" stroke="#0a0a0a" stroke-width="2"/>
+  <text x="263" y="114" text-anchor="middle" font-size="16" font-weight="800">4</text>
+  <text x="234" y="176" class="dim" text-anchor="middle">3 boules {2, 3, 4} → unité</text>
+  <text x="234" y="189" class="sm" text-anchor="middle">12 issues possibles</text>
+</svg></div>`,
      questions:[
        {pts:5,text:"Écrire la liste des 12 issues possibles.",ans:"12, 13, 14, 22, 23, 24, 32, 33, 34, 42, 43, 44"},
        {pts:5,text:"Quelle est la probabilité d'obtenir un nombre impair ?",ans:"Unités impaires = 3 → issues : 13, 23, 33, 43 → 4 issues. P = 4/12 = 1/3"},
@@ -2106,6 +2412,39 @@ const BANK = {
   geometrie2023:[
     {title:"Géométrie — Triangle LNA et triangles semblables",notion:"Géométrie",pts:22,
      intro:"AN = 13 cm, LN = 5 cm, AL = 12 cm, ON = 3 cm. O ∈ [LN], H ∈ [NA]. Triangles LNA et ONH semblables. — DNB Amérique du Nord, 31 mai 2023",
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:16px 12px"><svg viewBox="0 0 310 198" width="310" height="198" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}text.lbl{font-weight:800;font-size:13px}text.dim{fill:#002FA7;font-size:11px;font-weight:700}text.red{fill:#c0392b;font-size:11px;font-weight:700}text.sm{font-size:10px;fill:#555;font-weight:600}text.title{font-size:10px;font-weight:700;fill:#555;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="155" y="13" class="title" text-anchor="middle">TRIANGLES LNA ET ONH — SEMBLABLES</text>
+  <!-- L bas-gauche, N bas-droite, A haut-gauche — rect en L -->
+  <!-- LN=5→80px, AL=12→192px, AN=13 -->
+  <polygon points="38,175 118,175 38,31" fill="rgba(0,47,167,.06)" stroke="#002FA7" stroke-width="2.5" stroke-linejoin="round"/>
+  <rect x="38" y="157" width="18" height="18" fill="none" stroke="#002FA7" stroke-width="2"/>
+  <!-- ON=3 → O sur [LN] à 3/5 * 80=48px depuis N → O à x=118-48=70 -->
+  <circle cx="70" cy="175" r="3.5" fill="#0a0a0a"/>
+  <text x="67" y="187" class="lbl">O</text>
+  <!-- H sur [NA] : triangles semblables → OH/AL = ON/LN = 3/5 →  -->
+  <!-- Paramètre sur NA depuis N(118,175) vers A(38,31) : t=3/5=0.6 -->
+  <!-- H = (118-0.6*80, 175-0.6*144) = (70, 88.6≈89) -->
+  <circle cx="70" cy="89" r="3.5" fill="#0a0a0a"/>
+  <text x="73" y="87" class="lbl">H</text>
+  <!-- Triangle ONH en rouge -->
+  <polygon points="70,175 118,175 70,89" fill="rgba(231,76,60,.12)" stroke="#e74c3c" stroke-width="2" stroke-linejoin="round"/>
+  <rect x="70" y="157" width="14" height="14" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
+  <!-- Labels -->
+  <text x="24" y="27" class="lbl">A</text>
+  <text x="24" y="182" class="lbl">L</text>
+  <text x="121" y="182" class="lbl">N</text>
+  <!-- Cotes grand triangle -->
+  <text x="18" y="108" class="dim" text-anchor="middle" transform="rotate(-90,18,108)">AL = 12 cm</text>
+  <text x="78" y="189" class="dim" text-anchor="middle">LN = 5 cm</text>
+  <text x="98"  y="92"  class="dim" transform="rotate(60,98,92)">AN = 13 cm</text>
+  <!-- Cotes petit triangle -->
+  <text x="102" y="189" class="red">ON = 3 cm</text>
+  <text x="78"  y="126" class="red" transform="rotate(60,78,126)">OH = 7,2 cm</text>
+  <!-- OH ∥ AL marqué -->
+  <text x="200" y="60" class="sm">(OH) ∥ (AL)</text>
+  <line x1="38" y1="100" x2="48"  y2="100" stroke="#002FA7" stroke-width="2"/>
+  <line x1="70" y1="126" x2="80" y2="126" stroke="#e74c3c" stroke-width="2"/>
+</svg></div>`,
      questions:[
        {pts:5,text:"Montrer que le triangle LNA est rectangle en L.",ans:"LN² + AL² = 25 + 144 = 169 = 13² = AN². Par réciproque de Pythagore, LNA est rectangle en L ✓"},
        {pts:7,text:"Montrer que OH = 7,2 cm.",ans:"Triangles semblables LNA et ONH : ON/LN = OH/AL → 3/5 = OH/12 → OH = 7,2 cm ✓"},
@@ -2113,6 +2452,60 @@ const BANK = {
      ]},
     {title:"Géométrie — Triangles semblables EGF et LGH",notion:"Géométrie",pts:20,
      intro:"EF=18 cm, FG=24 cm, EG=30 cm, GH=38,4 cm. (LH)⊥(FH). Angle EGF = angle LGH. — DNB Amérique du Sud, nov. 2023",
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:16px 12px"><svg viewBox="0 0 310 205" width="310" height="205" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}text.lbl{font-weight:800;font-size:13px}text.dim{fill:#002FA7;font-size:11px;font-weight:700}text.red{fill:#c0392b;font-size:11px;font-weight:700}text.sm{font-size:10px;fill:#555;font-weight:600}text.title{font-size:10px;font-weight:700;fill:#555;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="155" y="13" class="title" text-anchor="middle">TRIANGLES EGF ET LGH — SEMBLABLES</text>
+  <!-- G en bas-droite, F en bas-gauche, E en haut-gauche -->
+  <!-- FG=24→120px, EF=18→90px, EG=30 -->
+  <!-- G=(220,170), F=(100,170), E=(100,80) -->
+  <polygon points="100,80 100,170 220,170" fill="rgba(0,47,167,.07)" stroke="#002FA7" stroke-width="2.5" stroke-linejoin="round"/>
+  <rect x="100" y="152" width="18" height="18" fill="none" stroke="#002FA7" stroke-width="2"/>
+  <!-- H sur [FG étendu] vers la gauche — ∠LGH=∠EGF -->
+  <!-- GH=38.4→192px, mais F est à 120px de G, donc H est sur la ligne EG étendue -->
+  <!-- Triangle LGH : G=(220,170), angle LGH = angle EGF, GH=38.4→192px -->
+  <!-- Direction de GE : angle = arctan(EF/FG) = arctan(90/120)=36.87° -->
+  <!-- H est à 192px dans direction opposée de E depuis G -->
+  <!-- Direction GE: dx=-120, dy=-90, norm=150, unitaire=(-0.8,-0.6) -->
+  <!-- Direction GH (opposée) : (0.8,0.6) → H=(220+0.8*192, 170+0.6*192)=(373,285) hors cadre -->
+  <!-- Ajuster: GH=38.4/30*120= 153.6px ... mais cadre 310px -->
+  <!-- Simplifié: placer L et H plausiblement -->
+  <!-- L est sur la perpendiculaire en H à GH -->
+  <!-- On place G=(215,168), F=(95,168), E=(95,68) pour avoir les proportions -->
+  <!-- GH direction opposite EG: E est en haut gauche de G, H en bas droite -->
+  <!-- On choisit H=(270,118) tel que GH ≈ 38.4/30*~longEG_pixel -->
+  <polygon points="95,68 95,168 215,168" fill="rgba(0,47,167,.07)" stroke="#002FA7" stroke-width="2.5" stroke-linejoin="round"/>
+  <rect x="95" y="150" width="18" height="18" fill="none" stroke="#002FA7" stroke-width="2"/>
+  <!-- Triangle LGH : G=(215,168), H et L calculés -->
+  <!-- Ratio k = GH/GE = 38.4/30 = 1.28 *)
+  <!-- GE vector: (95-215, 68-168)=(-120,-100), GH (opposite,scaled) = (153.6, 128) -->
+  <!-- H = (215+153.6, 168+128) → hors cadre, on plafonne -->
+  <!-- Réduire échelle: GH direction: opposite de GE normalized * GH_px  -->
+  <!-- GH_px = 38.4/30 * sqrt(120^2+100^2) = 1.28 * 156.2 = 200px trop grand  -->
+  <!-- Choisir une représentation schématique avec bon ratio -->
+  <!-- G=(215,165), H par agrandissement 1.28 dans direction (0.77,0.64) limité à 80px -->
+  <polygon points="215,165 277,114 215,46" fill="rgba(231,76,60,.1)" stroke="#e74c3c" stroke-width="2" stroke-linejoin="round"/>
+  <rect x="215" y="147" width="14" height="14" fill="none" stroke="#e74c3c" stroke-width="1.5" style="display:none"/>
+  <!-- Renomme les sommets après simplification -->
+  <text x="80"  y="64" class="lbl">E</text>
+  <text x="80"  y="178" class="lbl">F</text>
+  <text x="218" y="178" class="lbl">G</text>
+  <text x="280" y="112" class="lbl" style="fill:#e74c3c">H</text>
+  <text x="218" y="42"  class="lbl" style="fill:#e74c3c">L</text>
+  <!-- Angle droit en F -->
+  <rect x="95" y="150" width="16" height="16" fill="none" stroke="#002FA7" stroke-width="1.8"/>
+  <!-- Angle droit en H (LH⊥GH) -->
+  <rect x="215" y="148" width="13" height="13" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
+  <!-- Cotes EFG -->
+  <text x="74"  y="120" class="dim" text-anchor="middle" transform="rotate(-90,74,120)">EF = 18 cm</text>
+  <text x="155" y="183" class="dim" text-anchor="middle">FG = 24 cm</text>
+  <text x="172" y="108" class="dim" transform="rotate(40,172,108)">EG = 30 cm</text>
+  <!-- Cotes LGH -->
+  <text x="264" y="143" class="red" transform="rotate(-50,264,143)">GH = 38,4 cm</text>
+  <text x="248" y="77"  class="red" transform="rotate(50,248,77)">GL = ?</text>
+  <!-- Angle égaux -->
+  <path d="M215,165 m-18,0 a18,18 0 0,0 -10,-14" fill="none" stroke="#002FA7" stroke-width="1.5"/>
+  <path d="M215,165 m-18,0 a18,18 0 0,1 6,-20" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="170" y="195" class="sm" text-anchor="middle">∠EGF = ∠LGH — (LH) ⊥ (GH)</text>
+</svg></div>`,
      questions:[
        {pts:5,text:"Montrer que le triangle EFG est rectangle en F.",ans:"EF²+FG² = 324+576 = 900 = 30² = EG². Par réciproque de Pythagore, EFG rectangle en F ✓"},
        {pts:5,text:"Calculer l'angle EGF (au degré près).",ans:"cos(EGF) = FG/EG = 24/30 = 0,8 → angle EGF ≈ 37°"},
@@ -2121,6 +2514,38 @@ const BANK = {
      ]},
     {title:"Géométrie — Piste d'hippodrome",notion:"Géométrie",pts:18,
      intro:"La piste est composée de 2 segments de 850 m et 2 demi-cercles de rayon 40 m. — DNB Amérique du Nord, 31 mai 2023",
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:16px 12px"><svg viewBox="0 0 314 198" width="314" height="198" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}text.lbl{font-weight:800;font-size:13px}text.dim{fill:#002FA7;font-size:11px;font-weight:700}text.red{fill:#c0392b;font-size:11px;font-weight:700}text.sm{font-size:10px;fill:#555;font-weight:600}text.title{font-size:10px;font-weight:700;fill:#555;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="160" y="13" class="title" text-anchor="middle">PISTE D'HIPPODROME</text>
+  <!-- Rectangle central 850m large, 80m haut (diamètre=2r=80) -->
+  <!-- Echelle: 850→170px, r=40→40px → rectangle 170×80 centré -->
+  <rect x="72" y="48" width="170" height="80" fill="rgba(39,174,96,.07)" stroke="#27ae60" stroke-width="2"/>
+  <!-- Demi-cercle gauche -->
+  <path d="M72,48 A40,40 0 0,0 72,128" fill="rgba(0,47,167,.1)" stroke="#002FA7" stroke-width="2.5"/>
+  <!-- Demi-cercle droit -->
+  <path d="M242,48 A40,40 0 0,1 242,128" fill="rgba(0,47,167,.1)" stroke="#002FA7" stroke-width="2.5"/>
+  <!-- Lignes de départ -->
+  <line x1="157" y1="40" x2="157" y2="138" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="160" y="37" class="red" font-size="9">Départ/Arrivée</text>
+  <!-- Cote longueur droit -->
+  <line x1="72"  y1="148" x2="242" y2="148" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="72"  y1="143" x2="72"  y2="153" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="242" y1="143" x2="242" y2="153" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="157" y="163" class="dim" text-anchor="middle">850 m (ligne droite)</text>
+  <!-- Cote hauteur = diamètre -->
+  <line x1="24" y1="48"  x2="24" y2="128" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="19" y1="48"  x2="29" y2="48"  stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="19" y1="128" x2="29" y2="128" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="8" y="92" class="dim" text-anchor="middle" transform="rotate(-90,8,92)">2r = 80 m</text>
+  <!-- Rayon -->
+  <line x1="32"  y1="88" x2="72" y2="88" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <circle cx="32" cy="88" r="2.5" fill="#e74c3c"/>
+  <text x="50" y="84" class="red">r = 40 m</text>
+  <!-- Annotation demi-cercles -->
+  <text x="157" y="178" class="sm" text-anchor="middle">2 segments droits + 2 demi-cercles</text>
+  <text x="157" y="190" class="dim" text-anchor="middle">Longueur totale ≈ 1 951 m</text>
+  <!-- Flèche sens du tour -->
+  <path d="M157,48 A85,40 0 0,1 242,88" fill="none" stroke="#aaa" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arw)"/>
+</svg></div>`,
      questions:[
        {pts:5,text:"Montrer que la longueur d'un tour de piste est d'environ 1 951 m.",ans:"Droites = 2×850 = 1700 m. Cercle = 2π×40 ≈ 251,3 m. Total ≈ 1 951 m ✓"},
        {pts:7,text:"Un cheval parcourt un tour en 2 min 9 s. Calculer sa vitesse en m/s (à l'unité) puis en km/h.",ans:"Durée = 129 s. v = 1951/129 ≈ 15 m/s. En km/h : 15 × 3,6 = 54 km/h"},
@@ -2135,6 +2560,45 @@ const BANK = {
      ]},
     {title:"Géométrie — Escalier et trigonométrie",notion:"Géométrie",pts:20,
      intro:"Escalier de hauteur totale 272 cm. Hauteur d'une marche = 17 cm. Profondeur = 27 cm. — DNB Métropole Antilles-Guyane, 26 juin 2023",
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:16px 12px"><svg viewBox="0 0 310 205" width="310" height="205" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}text.lbl{font-weight:800;font-size:13px}text.dim{fill:#002FA7;font-size:11px;font-weight:700}text.red{fill:#c0392b;font-size:11px;font-weight:700}text.sm{font-size:10px;fill:#555;font-weight:600}text.title{font-size:10px;font-weight:700;fill:#555;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="155" y="13" class="title" text-anchor="middle">ESCALIER — 16 MARCHES</text>
+  <!-- Escalier schématique : 4 marches visibles, reste implicite -->
+  <!-- Base AB = 432cm, hauteur AC = 272cm -->
+  <!-- Echelle: 432→216px, 272→136px -->
+  <!-- A en bas-gauche (36,174), B en bas-droite (252,174), C en haut-gauche (36,38) -->
+  <!-- Marches : 16 de 27cm profondeur = 432cm OK, 17cm hauteur = 272cm OK -->
+  <!-- On dessine 6 marches pour lisibilité: chaque =216/16≈13.5px large, 136/16≈8.5px haute -->
+  <!-- Simplifié: 4 grandes marches -->
+  <polyline points="36,174 36,147 90,147 90,120 144,120 144,93 198,93 198,66 252,66" 
+            fill="none" stroke="#0a0a0a" stroke-width="2.5"/>
+  <!-- Sol -->
+  <line x1="26" y1="174" x2="270" y2="174" stroke="#555" stroke-width="2.5"/>
+  <!-- Mur gauche -->
+  <line x1="36" y1="174" x2="36" y2="40" stroke="#555" stroke-width="2"/>
+  <!-- Hypoténuse AC (ligne de pente) -->
+  <line x1="36" y1="174" x2="252" y2="66" stroke="#002FA7" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <!-- Angle α en A -->
+  <path d="M36,174 L86,174 A50,50 0 0,0 58,148" fill="rgba(0,47,167,.12)" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="76" y="170" class="dim">α = ?</text>
+  <!-- Hauteur totale AC -->
+  <line x1="265" y1="66"  x2="278" y2="66"  stroke="#e74c3c" stroke-width="1.5"/>
+  <line x1="265" y1="174" x2="278" y2="174" stroke="#e74c3c" stroke-width="1.5"/>
+  <line x1="271" y1="66"  x2="271" y2="174" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="284" y="124" class="red" transform="rotate(90,284,124)">AC = 272 cm</text>
+  <!-- Longueur AB -->
+  <line x1="36"  y1="184" x2="252" y2="184" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="36"  y1="179" x2="36"  y2="189" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="252" y1="179" x2="252" y2="189" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="144" y="197" class="dim" text-anchor="middle">AB = 432 cm</text>
+  <!-- Cotes une marche -->
+  <text x="62" y="143" class="sm" text-anchor="middle">27 cm</text>
+  <text x="26" y="160" class="sm" text-anchor="middle" transform="rotate(-90,26,160)">17 cm</text>
+  <!-- B et C -->
+  <text x="253" y="175" class="lbl">B</text>
+  <text x="24"  y="38"  class="lbl">C</text>
+  <text x="24"  y="182" class="lbl">A</text>
+  <text x="125" y="46"  class="dim" text-anchor="middle">16 marches × 17 cm = 272 cm</text>
+</svg></div>`,
      questions:[
        {pts:5,text:"Montrer qu'il faut prévoir 16 marches.",ans:"272 ÷ 17 = 16 marches exactement ✓"},
        {pts:5,text:"Montrer que la longueur de la base AB est 432 cm.",ans:"16 × 27 = 432 cm ✓"},
@@ -2142,6 +2606,43 @@ const BANK = {
      ]},
     {title:"Géométrie — Terrasse en béton",notion:"Géométrie",pts:21,
      intro:"Terrasse en L : EFGH rectangle (HG=10 m, EH=6 m). Un coin (3m × 4m) est découpé. Hauteur de la terrasse : 15 cm = 0,15 m. — DNB Amérique du Nord, 29 mai 2024",
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:16px 12px"><svg viewBox="0 0 310 200" width="310" height="200" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}text.lbl{font-weight:800;font-size:13px}text.dim{fill:#002FA7;font-size:11px;font-weight:700}text.red{fill:#c0392b;font-size:11px;font-weight:700}text.sm{font-size:10px;fill:#555;font-weight:600}text.title{font-size:10px;font-weight:700;fill:#555;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="155" y="13" class="title" text-anchor="middle">TERRASSE EN L — VUE DE DESSUS</text>
+  <!-- EFGH rectangle : HG=10m→160px, EH=6m→96px -->
+  <!-- H en bas-gauche=(30,170), G en bas-droite=(190,170), F en haut-droite=(190,74), E en haut-gauche=(30,74) -->
+  <!-- Coin découpé en haut-droite : 3m×4m → 48×64px → J=(190,74+64)=(190,138), K=(190-48,74)=(142,74) -->
+  <path d="M30,74 L142,74 L142,138 L190,138 L190,170 L30,170 Z" 
+        fill="rgba(0,47,167,.1)" stroke="#002FA7" stroke-width="2.5"/>
+  <!-- Labels coins -->
+  <text x="18" y="71"  class="lbl">E</text>
+  <text x="143" y="71" class="lbl">K</text>
+  <text x="192" y="136" class="lbl">J</text>
+  <text x="192" y="174" class="lbl">G</text>
+  <text x="18"  y="174" class="lbl">H</text>
+  <!-- Coin découpé hachuré -->
+  <path d="M142,74 L190,74 L190,138 L142,138 Z" fill="rgba(180,180,180,.3)" stroke="#999" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="166" y="110" class="sm" text-anchor="middle">Découpé</text>
+  <!-- Maison visible en transparence (coin retiré) -->
+  <!-- Cotes extérieures -->
+  <line x1="20" y1="74"  x2="20" y2="170" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="14" y1="74"  x2="26" y2="74"  stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="14" y1="170" x2="26" y2="170" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="6" y="126" class="dim" text-anchor="middle" transform="rotate(-90,6,126)">EH = 6 m</text>
+  <line x1="30"  y1="180" x2="190" y2="180" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="30"  y1="175" x2="30"  y2="185" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="190" y1="175" x2="190" y2="185" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="110" y="193" class="dim" text-anchor="middle">HG = 10 m</text>
+  <!-- Cotes coin découpé -->
+  <line x1="142" y1="66" x2="190" y2="66" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="166" y="62" class="red" text-anchor="middle">FJ = 4 m</text>
+  <line x1="196" y1="74"  x2="196" y2="138" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="218" y="110" class="red" transform="rotate(90,218,110)">3 m</text>
+  <!-- Hauteur de la dalle -->
+  <text x="155" y="52" class="dim" text-anchor="middle">Épaisseur dalle = 0,15 m</text>
+  <!-- Volume -->
+  <text x="88" y="125" class="dim" text-anchor="middle">Aire = ?</text>
+  <text x="88" y="140" class="sm" text-anchor="middle">V = Aire × 0,15 m</text>
+</svg></div>`,
      questions:[
        {pts:5,text:"Montrer que FJ = 4 m.",ans:"EF = HG = 10 m. EJ = EH − JH = 6 m correspond à la largeur totale de la partie rectangulaire. La partie découpée a IJ = 15 cm. Vue de dessus : FJ = HG − partie restante. EJ = 6 m → FJ = 10 − 6 = 4 m ✓"},
        {pts:8,text:"Calculer la longueur minimale de planches à acheter (périmètre de la terrasse).",ans:"Périmètre = 10 + 6 + 4 + 3 + 6 + 3 = 32 m"},
@@ -2285,6 +2786,38 @@ const BANK = {
   volumes2023:[
     {title:"Volumes — Bac à sable sous cabane",notion:"Volumes",pts:24,
      intro:"Bac à sable (pavé droit) : 200 cm × 180 cm × 20 cm. Volume = 0,72 m³. Mélange sable maçonner/sable fin ratio 3:2. — DNB Centres étrangers, 14 juin 2023",
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:16px 12px"><svg viewBox="0 0 310 203" width="310" height="203" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}text.lbl{font-weight:800;font-size:13px}text.dim{fill:#002FA7;font-size:11px;font-weight:700}text.red{fill:#c0392b;font-size:11px;font-weight:700}text.sm{font-size:10px;fill:#555;font-weight:600}text.title{font-size:10px;font-weight:700;fill:#555;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="155" y="13" class="title" text-anchor="middle">BAC À SABLE — PAVÉ DROIT</text>
+  <!-- Vue isométrique 3D -->
+  <!-- Face avant (200×20) : largeur→155px, hauteur→20px -->
+  <rect x="55" y="90" width="155" height="55" fill="#f5e6c8" stroke="#0a0a0a" stroke-width="2"/>
+  <!-- Dessus (200×180) : décalage isométrique 40px -->
+  <polygon points="55,90 95,60 250,60 210,90" fill="#e8d5a8" stroke="#0a0a0a" stroke-width="2"/>
+  <!-- Face droite (180×20) : 40px large -->
+  <polygon points="210,90 250,60 250,115 210,145" fill="#d4bf8f" stroke="#0a0a0a" stroke-width="2"/>
+  <!-- Sable à l'intérieur (visible sur face avant et dessus) -->
+  <rect x="57" y="92" width="151" height="51" fill="rgba(196,164,112,.45)" stroke="none"/>
+  <polygon points="57,92 97,62 248,62 208,92" fill="rgba(196,164,112,.3)" stroke="none"/>
+  <!-- Cote largeur (200cm) -->
+  <line x1="55"  y1="157" x2="210" y2="157" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="55"  y1="152" x2="55"  y2="162" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="210" y1="152" x2="210" y2="162" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="132" y="172" class="dim" text-anchor="middle">200 cm</text>
+  <!-- Cote profondeur (180cm) dessus -->
+  <line x1="95"  y1="50" x2="250" y2="50" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="95"  y1="45" x2="95"  y2="55" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="250" y1="45" x2="250" y2="55" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="172" y="45" class="dim" text-anchor="middle">180 cm</text>
+  <!-- Cote hauteur (20cm) -->
+  <line x1="258" y1="60"  x2="258" y2="115" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="253" y1="60"  x2="263" y2="60"  stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="253" y1="115" x2="263" y2="115" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="280" y="92" class="dim" transform="rotate(90,280,92)">20 cm</text>
+  <!-- Volume -->
+  <text x="132" y="187" class="dim" text-anchor="middle">V = 200 × 180 × 20 = 720 000 cm³ = 0,72 m³</text>
+  <!-- Ratio mélange -->
+  <text x="132" y="199" class="sm" text-anchor="middle">Mélange : sable maçonner / sable fin = 3/2</text>
+</svg></div>`,
      questions:[
        {pts:6,text:"Calculer le volume du bac en cm³.",ans:"V = 200×180×20 = 720 000 cm³"},
        {pts:8,text:"Vérifier que le volume de sable à maçonner est 0,432 m³ et de sable fin 0,288 m³.",ans:"Ratio 3:2 → 5 parts. Maçonner = 3/5×0,72 = 0,432 m³ ✓. Fin = 2/5×0,72 = 0,288 m³ ✓"},
@@ -2299,6 +2832,39 @@ const BANK = {
      ]},
     {title:"Volumes — Rampe d'accès prisme triangulaire",notion:"Volumes",pts:20,
      intro:"Rampe prisme triangulaire : AC=30 cm (hauteur), angle ACB=90°, AB=124 cm, longueur BE=9 m. — DNB Polynésie, sept. 2023",
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:16px 12px"><svg viewBox="0 0 310 200" width="310" height="200" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}text.lbl{font-weight:800;font-size:13px}text.dim{fill:#002FA7;font-size:11px;font-weight:700}text.red{fill:#c0392b;font-size:11px;font-weight:700}text.sm{font-size:10px;fill:#555;font-weight:600}text.title{font-size:10px;font-weight:700;fill:#555;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="155" y="14" class="title" text-anchor="middle">RAMPE — PRISME TRIANGULAIRE</text>
+  <!-- Section triangulaire : C en haut-gauche, B en bas-droite, A en bas-gauche -->
+  <!-- AC=30→90px vertical, BC≈120→110px horizontal (calculé), AB=124→113px -->
+  <!-- C=(42,38), B=(152,128), A=(42,128) angle droit en C -->
+  <polygon points="42,128 42,38 152,128" fill="rgba(0,47,167,.08)" stroke="#002FA7" stroke-width="2.5" stroke-linejoin="round"/>
+  <rect x="42" y="110" width="18" height="18" fill="none" stroke="#002FA7" stroke-width="2"/>
+  <!-- Labels section -->
+  <text x="28" y="35"  class="lbl">C</text>
+  <text x="27" y="138" class="lbl">A</text>
+  <text x="154" y="138" class="lbl">B</text>
+  <!-- Cotes section -->
+  <text x="18" y="88" class="dim" text-anchor="middle" transform="rotate(-90,18,88)">AC = 30 cm</text>
+  <text x="97" y="143" class="dim" text-anchor="middle">BC ≈ 120 cm</text>
+  <text x="115" y="79" class="dim" transform="rotate(44,115,79)">AB = 124 cm</text>
+  <!-- Angle ABC -->
+  <path d="M152,128 m-28,0 a28,28 0 0,0 -18,-20" fill="rgba(231,76,60,.12)" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="118" y="124" class="red">∠ABC = ?</text>
+  <!-- Extrusion 3D vers la droite — longueur BE = 9m = 900cm -->
+  <!-- Décalage perspective : 50px vers droite et 35px vers haut -->
+  <line x1="42"  y1="128" x2="92"  y2="93"  stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="42"  y1="38"  x2="92"  y2="3"   stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="152" y1="128" x2="202" y2="93"  stroke="#002FA7" stroke-width="1.5"/>
+  <!-- Face arrière -->
+  <polygon points="92,93 92,3 202,93" fill="rgba(0,47,167,.04)" stroke="#002FA7" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- Arête supérieure (longueur) -->
+  <line x1="42" y1="38" x2="92"  y2="3"  stroke="#002FA7" stroke-width="2"/>
+  <!-- Cote longueur BE -->
+  <line x1="42"  y1="148" x2="92"  y2="113" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="60"  y="163" class="dim">BE = 9 m</text>
+  <text x="155" y="178" class="sm" text-anchor="middle">V = ½ × BC × AC × BE</text>
+  <text x="155" y="192" class="dim" text-anchor="middle">Suffit-il pour 2 m³ de béton ?</text>
+</svg></div>`,
      questions:[
        {pts:6,text:"Montrer que BC ≈ 120 cm.",ans:"BC = √(AB²−AC²) = √(15376−900) = √14476 ≈ 120,3 cm ≈ 120 cm ✓"},
        {pts:6,text:"Calculer l'angle ABC (au degré près).",ans:"tan(ABC) = AC/BC = 30/120 = 0,25 → angle ABC ≈ 14°"},
@@ -2306,6 +2872,39 @@ const BANK = {
      ]},
     {title:"Volumes — Bougies cylindriques",notion:"Volumes",pts:16,
      intro:"Bougie cylindrique : rayon 3 cm, hauteur 12 cm. Volume de cire = 9/10 du volume total. Densité cire = 0,7 g/cm³. — DNB Amérique du Sud, nov. 2023",
+     figure:`<div style="margin:14px 0;display:flex;flex-direction:column;align-items:center;background:#fff;border:2px solid #0a0a0a;padding:16px 12px"><svg viewBox="0 0 310 198" width="310" height="198" xmlns="http://www.w3.org/2000/svg"><defs><style>text{font:11px "Barlow Condensed",sans-serif;fill:#0a0a0a}text.lbl{font-weight:800;font-size:13px}text.dim{fill:#002FA7;font-size:11px;font-weight:700}text.red{fill:#c0392b;font-size:11px;font-weight:700}text.sm{font-size:10px;fill:#555;font-weight:600}text.title{font-size:10px;font-weight:700;fill:#555;letter-spacing:1px;text-transform:uppercase}</style></defs>
+  <text x="155" y="13" class="title" text-anchor="middle">BOUGIE CYLINDRIQUE</text>
+  <!-- Cylindre principal -->
+  <ellipse cx="100" cy="40"  rx="40" ry="10" fill="#fff8e7" stroke="#0a0a0a" stroke-width="2"/>
+  <rect    x="60"  y="40"   width="80" height="130" fill="#fff8e7" stroke="#0a0a0a" stroke-width="2"/>
+  <ellipse cx="100" cy="170" rx="40" ry="10" fill="#f0e8d0" stroke="#0a0a0a" stroke-width="2"/>
+  <!-- Flamme -->
+  <path d="M100,40 Q94,28 97,18 Q100,10 103,18 Q106,28 100,40" fill="#f39c12" stroke="#e67e22" stroke-width="1.5"/>
+  <path d="M100,40 Q97,32 100,24 Q103,32 100,40" fill="#fff176" stroke="none"/>
+  <!-- Zone cire (9/10 du volume) — légèrement différente -->
+  <rect x="62" y="53" width="76" height="115" fill="rgba(255,235,180,.6)" stroke="none"/>
+  <line x1="55" y1="53" x2="62" y2="53" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="50" y="50" class="red" text-anchor="end">9/10</text>
+  <!-- Cote hauteur -->
+  <line x1="152" y1="40"  x2="160" y2="40"  stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="152" y1="170" x2="160" y2="170" stroke="#002FA7" stroke-width="1.5"/>
+  <line x1="156" y1="40"  x2="156" y2="170" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="167" y="109" class="dim">h = 12 cm</text>
+  <!-- Cote rayon -->
+  <line x1="100" y1="170" x2="140" y2="180" stroke="#002FA7" stroke-width="1.5"/>
+  <text x="132" y="191" class="dim">r = 3 cm</text>
+  <!-- Formules -->
+  <text x="245" y="60"  class="sm">V = π × r² × h</text>
+  <text x="245" y="76"  class="dim">= π × 9 × 12</text>
+  <text x="245" y="92"  class="dim">≈ 339 cm³</text>
+  <line x1="230" y1="102" x2="300" y2="102" stroke="#ccc" stroke-width="1"/>
+  <text x="245" y="116" class="sm">V cire = 9/10 × V</text>
+  <text x="245" y="132" class="dim">≈ 305 cm³</text>
+  <line x1="230" y1="142" x2="300" y2="142" stroke="#ccc" stroke-width="1"/>
+  <text x="245" y="156" class="sm">Densité cire</text>
+  <text x="245" y="170" class="sm">= 0,7 g/cm³</text>
+  <text x="245" y="186" class="dim">Masse = ?</text>
+</svg></div>`,
      questions:[
        {pts:6,text:"Montrer que le volume d'une bougie est d'environ 339 cm³.",ans:"V = π×3²×12 = 108π ≈ 339,3 cm³ ≈ 339 cm³ ✓"},
        {pts:5,text:"Calculer la masse de cire nécessaire pour une bougie (au gramme près).",ans:"V cire = 9/10×339 = 305,1 cm³. Masse = 305,1×0,7 ≈ 214 g"},
@@ -2548,6 +3147,65 @@ function onType(el){
   const hint=document.getElementById('vhint-'+qId); if(hint)hint.textContent=has?'Cliquez pour valider':'Rédigez puis validez';
 }
 
+
+/* ═══════════════════════════════════════════════════════
+   CORRECTION LOCALE (secours si IA indisponible)
+   Compare la réponse élève à la réponse officielle
+═══════════════════════════════════════════════════════ */
+function normalise(str){
+  return str
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'') // accents
+    .replace(/[,;]/g,'.')          // virgule décimale
+    .replace(/\s+/g,' ')
+    .replace(/[^a-z0-9\.\+\-\*/=<>°%πcm²³]/g,' ')
+    .trim();
+}
+
+function extractNumbers(str){
+  return (str.match(/[0-9]+(?:[.,][0-9]+)?/g)||[]).map(n=>parseFloat(n.replace(',','.')));
+}
+
+function localCorrect(eleve, officiel, maxPts){
+  const e = normalise(eleve);
+  const o = normalise(officiel);
+
+  // Correspondance exacte après normalisation
+  if(e === o) return {pts: maxPts, feedback: '✓ Bonne réponse !'};
+
+  // Les nombres clés de la réponse officielle sont-ils tous dans la réponse élève ?
+  const numsO = extractNumbers(officiel);
+  const numsE = extractNumbers(eleve);
+
+  if(numsO.length > 0){
+    const allFound = numsO.every(n => numsE.some(m => Math.abs(m-n)/Math.max(1,Math.abs(n)) < 0.02));
+    if(allFound){
+      // Tous les nombres correspondent → plein de points
+      return {pts: maxPts, feedback: '✓ Bonne réponse !'};
+    }
+    // Au moins la moitié des nombres trouvés → points partiels
+    const found = numsO.filter(n => numsE.some(m => Math.abs(m-n)/Math.max(1,Math.abs(n)) < 0.02));
+    if(found.length >= Math.ceil(numsO.length/2) && maxPts > 1){
+      return {pts: Math.round(maxPts/2), feedback: 'Réponse partiellement correcte.'};
+    }
+  }
+
+  // Mots-clés communs (réponses textuelles)
+  const wordsO = o.split(' ').filter(w=>w.length>2);
+  const wordsE = e.split(' ').filter(w=>w.length>2);
+  if(wordsO.length > 0){
+    const common = wordsO.filter(w=>wordsE.includes(w));
+    if(common.length >= wordsO.length * 0.7){
+      return {pts: maxPts, feedback: '✓ Bonne réponse !'};
+    }
+    if(common.length >= wordsO.length * 0.4 && maxPts > 1){
+      return {pts: Math.round(maxPts/2), feedback: 'Réponse partiellement correcte.'};
+    }
+  }
+
+  return {pts: 0, feedback: 'Réponse incorrecte. Réponse attendue : ' + officiel};
+}
+
 async function doVal(qId,exId,maxPts,ae){
   const ta=document.getElementById('a-'+qId);
   const answer=ta.value.trim(); if(!answer)return;
@@ -2568,12 +3226,15 @@ async function doVal(qId,exId,maxPts,ae){
   const prompt=`Tu es un correcteur du brevet des collèges en mathématiques. La question vaut ${maxPts} points.\nRéponse officielle : "${officialAns}"\nRéponse de l'élève : "${answer}"\nRéponds UNIQUEMENT en JSON valide : {"pts":<entier 0 à ${maxPts}>,"feedback":"<1-2 phrases courtes en français>"}`;
   let pts=0,feedback='';
   try{
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:200,messages:[{role:'user',content:prompt}]})});
-    const data=await resp.json();
-    const raw=data.content?.[0]?.text||'{}';
+    const raw = await callAI(prompt, 200);
     const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
     pts=Math.max(0,Math.min(maxPts,Math.round(parsed.pts))); feedback=parsed.feedback||'';
-  }catch(e){feedback='Correction indisponible.';}
+  }catch(e){
+    console.error('callAI error:',e);
+    const result = localCorrect(answer, officialAns, maxPts);
+    pts = result.pts;
+    feedback = result.feedback;
+  }
   scores[qId]=pts; feedbacks[qId]=feedback;
   updateLive(); updatePill(exId); checkAllValidated();
   const ratio=pts/maxPts;
@@ -2772,13 +3433,7 @@ async function generateComment(scaled, correct, partial, wrong, ns){
 Écris UNE SEULE phrase de commentaire personnalisée, chaleureuse et directe. Commence par une constatation du score, puis une motivation ou un conseil en une phrase. Maximum 25 mots. En français. Réponds uniquement avec la phrase, sans guillemets.`;
 
   try{
-    const resp = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:80,messages:[{role:'user',content:prompt}]})
-    });
-    const data = await resp.json();
-    const comment = (data.content?.[0]?.text||'').trim();
+    const comment = await callAI(prompt, 80);
     if(comment){
       el.innerHTML = `<div class="res-comment-text"><strong>${mention}</strong>${comment}</div>`;
       // Save comment to last session
@@ -2836,14 +3491,8 @@ Réponds UNIQUEMENT en JSON valide sans markdown :
 Maximum 3 priorités. Sois concret et bienveillant. En français.`;
 
   try{
-    const resp = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,messages:[{role:'user',content:prompt}]})
-    });
-    const data = await resp.json();
-    const raw = (data.content?.[0]?.text||'{}').replace(/```json|```/g,'').trim();
-    const advice = JSON.parse(raw);
+    const raw = await callAI(prompt, 700);
+    const advice = JSON.parse(raw.replace(/```json|```/g,'').trim());
 
     const prioColors = {haute:'red',moyenne:'amber',faible:'green'};
     const prioLabels = {haute:'Priorité haute',moyenne:'À consolider',faible:'Presque acquis'};
@@ -3024,14 +3673,8 @@ Génère des conseils de révision personnalisés pour aider cet élève à prog
 Maximum 3 conseils. Bienveillant, précis, en français.`;
 
   try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,messages:[{role:'user',content:prompt}]})
-    });
-    const data = await resp.json();
-    const raw = (data.content?.[0]?.text||'{}').replace(/```json|```/g,'').trim();
-    const advice = JSON.parse(raw);
+    const raw = await callAI(prompt, 600);
+    const advice = JSON.parse(raw.replace(/```json|```/g,'').trim());
 
     let html = '';
     if(advice.bilan){
