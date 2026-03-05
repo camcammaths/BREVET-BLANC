@@ -342,7 +342,6 @@ td{padding:8px 12px;border:1px solid var(--rule2);color:var(--ink2);font-size:14
 <nav class="gnav" id="gnav">
   <div class="gnav-logo" onclick="go('screen-landing','navLanding')"><em>Brevet</em> Blanc Maths</div>
   <div class="gnav-links">
-    <button class="gnav-link active" id="navLanding" onclick="go('screen-landing','navLanding')">Accueil</button>
     <button class="gnav-link" id="navSetup" onclick="go('screen-setup','navSetup')">Commencer</button>
     <button class="gnav-link" id="navDash" onclick="go('screen-dash','navDash');renderDash()">Tableau de bord</button>
   </div>
@@ -353,10 +352,11 @@ td{padding:8px 12px;border:1px solid var(--rule2);color:var(--ink2);font-size:14
   <div class="lp-hero">
     <div class="lp-left">
       <span class="lp-kicker">Diplôme National du Brevet · 3ème</span>
-      <h1 class="lp-h1">Préparez<br>vous.<br><em>Réussissez.</em></h1>
-      <p class="lp-tagline">Exercices officiels DNB corrigés par IA, chronomètre d'examen réel, suivi de progression. Gratuit, sans inscription.</p>
+      <p class="lp-tagline">Exercices officiels DNB corrigés par IA, chronomètre d'examen réel, suivi de progression.</p>
       <div class="lp-cta-row">
-        <button class="btn btn-primary" style="padding:13px 28px;font-size:14px" onclick="go('screen-setup','navSetup')">Commencer →</button>
+        <button class="btn btn-primary" style="padding:13px 28px;font-size:14px" onclick="go('screen-setup','navSetup')">Commencer</button>
+        <button class="btn btn-light" style="padding:13px 22px;font-size:14px" onclick="alert('Fonctionnalité bientôt disponible.')">S'identifier</button>
+        <button class="btn btn-primary" style="padding:13px 22px;font-size:14px;background:var(--green);border-color:var(--green)" onclick="alert('Fonctionnalité bientôt disponible.')">S'abonner</button>
       </div>
     </div>
     <div class="lp-right">
@@ -2587,60 +2587,49 @@ Maximum 3 conseils. En français.`;
   }
 }
 
-// ── Système sonore v2 ───────────────────────────────────────────────────────
+// ── Système sonore v5 ───────────────────────────────────────────────────────
+// Style notification système moderne (macOS / iOS) — sine pur, très court, minimal
 let _ac = null;
 function getAC(){if(!_ac)_ac=new(window.AudioContext||window.webkitAudioContext)();return _ac;}
 
-function playBell(freq, decay, gain, delay){
+function note(freq, dur, gain, delay, curve){
   try{
     const ac=getAC(), t=ac.currentTime+(delay||0);
     const osc=ac.createOscillator(), vol=ac.createGain();
-    osc.connect(vol); vol.connect(ac.destination);
-    osc.type='triangle';
+    osc.type='sine'; osc.connect(vol); vol.connect(ac.destination);
     osc.frequency.setValueAtTime(freq, t);
-    vol.gain.setValueAtTime(gain||0.14, t);
-    vol.gain.exponentialRampToValueAtTime(0.0001, t+decay);
-    osc.start(t); osc.stop(t+decay+0.05);
+    vol.gain.setValueAtTime(0, t);
+    vol.gain.linearRampToValueAtTime(gain||0.12, t+0.006);
+    if(curve==='hold'){
+      vol.gain.setValueAtTime(gain||0.12, t+dur*0.6);
+      vol.gain.linearRampToValueAtTime(0, t+dur);
+    } else {
+      vol.gain.exponentialRampToValueAtTime(0.0001, t+dur);
+    }
+    osc.start(t); osc.stop(t+dur+0.04);
   }catch(e){}
 }
 
-function playClick(delay){
-  try{
-    const ac=getAC(), t=ac.currentTime+(delay||0);
-    const buf=ac.createBuffer(1,ac.sampleRate*0.04,ac.sampleRate);
-    const d=buf.getChannelData(0);
-    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.exp(-i/(ac.sampleRate*0.008));
-    const src=ac.createBufferSource(), vol=ac.createGain();
-    src.buffer=buf; src.connect(vol); vol.connect(ac.destination);
-    vol.gain.setValueAtTime(0.06, t);
-    src.start(t); src.stop(t+0.05);
-  }catch(e){}
-}
+// Valider : bip neutre ultra-court (comme un swipe iOS)
+function soundValidate(){ note(880, 0.07, 0.08); }
 
-// Clic valider : micro-click mécanique neutre
-function soundValidate(){ playClick(0); }
-
-// Bonne réponse : cloche cristalline pure (mi5 → sol5), fondu naturel
+// Correct : intervalle de tierce majeure ascendante, tenue légère — ré5→fa#5
 function soundCorrect(){
-  playBell(659, 0.55, 0.13, 0);
-  playBell(784, 0.50, 0.10, 0.18);
+  note(587, 0.35, 0.12, 0.00, 'hold');
+  note(740, 0.40, 0.11, 0.07, 'hold');
 }
 
-// Réponse incorrecte : ton sourd unique, court, non agressif
+// Incorrect : descente de demi-ton, très douce — sol4→fa#4
 function soundWrong(){
-  playBell(277, 0.35, 0.11, 0);
+  note(392, 0.20, 0.10, 0.00);
+  note(370, 0.25, 0.08, 0.10);
 }
 
-// QCM correct : cloche unique claire (ré5)
-function soundQCMCorrect(){
-  playBell(587, 0.45, 0.13, 0);
-  playBell(698, 0.40, 0.09, 0.15);
-}
+// QCM correct : tierce pure unique (mi5), nette
+function soundQCMCorrect(){ note(659, 0.28, 0.12, 0, 'hold'); }
 
-// QCM incorrect : note basse neutre
-function soundQCMWrong(){
-  playBell(311, 0.30, 0.10, 0);
-}
+// QCM incorrect : demi-ton descendant bref
+function soundQCMWrong(){ note(370, 0.18, 0.09); }
 </script>
 </body>
 </html>
