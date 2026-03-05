@@ -550,9 +550,6 @@ function go(screenId,navId){
   window.scrollTo({top:0,behavior:'smooth'});
 }
   
-<script src="exercices.js"></script>
-<script src="script.js"></script>
-  
 function pickExercises(){
   let pool=[];
   if(selChaps.includes('all')){
@@ -1104,6 +1101,8 @@ function soundQCMCorrect(){ note(659, 0.28, 0.12, 0, 'hold'); }
 
 // QCM incorrect : demi-ton descendant bref
 function soundQCMWrong(){ note(370, 0.18, 0.09); }
+    <script src="exercices.js"></script> <!-- Définit BANK -->
+  <script src="script.js"></script> 
 </script>
 </body>
 </html>
