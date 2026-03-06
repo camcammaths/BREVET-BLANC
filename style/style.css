@@ -1,11 +1,8 @@
-Style · CSS
-Copier
-
 /* ══════════════════════════════════════════════════════════════════
    STYLE.CSS — Brevet Blanc Maths
    ══════════════════════════════════════════════════════════════════ */
 
-/* ── 2.1  Reset & base typographique ─────────────────────────────── */
+/* ── 2.1 Reset & base typographique ─────────────────────────────── */
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:#fff;color:#0a0a0a;font-family:'Montserrat',sans-serif;font-size:15px;line-height:1.65;min-height:100vh;-webkit-font-smoothing:antialiased;}
@@ -13,7 +10,7 @@ body{background:#fff;color:#0a0a0a;font-family:'Montserrat',sans-serif;font-size
 .screen.active{display:block}
 @keyframes pgIn{from{opacity:0}to{opacity:1}}
 
-/* ── 2.2  Variables CSS ───────────────────────────────────────────── */
+/* ── 2.2 Variables CSS ───────────────────────────────────────────── */
 :root{
   --k:#002FA7;--k1:#0038CC;--k-bg:rgba(0,47,167,.06);--k-bd:rgba(0,47,167,.18);
   --ink:#0a0a0a;--ink2:#1a1a1a;--ink3:#4a4a4a;--ink4:#888;--ink5:#bbb;
@@ -24,17 +21,17 @@ body{background:#fff;color:#0a0a0a;font-family:'Montserrat',sans-serif;font-size
   --shadow:rgba(0,0,0,.07);--shadow2:rgba(0,0,0,.035);--blue:var(--k);--blue2:var(--k-bg);--blue3:var(--k-bd);--klein:var(--k);
 }
 
-/* ── 2.3  Navigation globale ─────────────────────────────────────── */
+/* ── 2.3 Navigation globale ─────────────────────────────────────── */
 .gnav{position:sticky;top:0;z-index:300;background:#fff;border-bottom:2px solid var(--ink);display:flex;align-items:stretch;height:48px;padding:0;}
 .gnav-logo{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink);cursor:pointer;padding:0 24px;display:flex;align-items:center;border-right:2px solid var(--ink);white-space:nowrap;transition:background .1s;}
 .gnav-logo em{font-style:normal;color:var(--k)}
 .gnav-logo:hover{background:var(--k);color:#fff}
 .gnav-logo:hover em{color:#fff}
 .gnav-links{display:flex;align-items:stretch;flex:1}
-.gnav-link{display:flex;align-items:center;padding:0 20px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--ink4);background:none;border:none;border-right:1px solid var(--rule);cursor:pointer;transition:all .1s;white-space:nowrap;}
+.gnav-link{display:flex;align-items:center;padding:0 20px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--ink4);background:none;border:none;border-right:1px solid var(--rule);cursor:pointer;transition:all .1s;white-space:nowrap;text-decoration:none;}
 .gnav-link:hover{color:var(--ink);background:var(--bg2)}.gnav-link.active{color:var(--k);background:var(--k-bg);border-bottom:2px solid var(--k);margin-bottom:-2px}
 
-/* ── 2.4  Boutons ────────────────────────────────────────────────── */
+/* ── 2.4 Boutons ────────────────────────────────────────────────── */
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;border:none;cursor:pointer;border-radius:100px;transition:background .1s,color .1s;}
 .btn-dark{background:var(--ink);color:#fff}.btn-dark:hover{background:var(--ink2)}
 .btn-primary{background:var(--k);color:#fff}.btn-primary:hover{background:var(--k1)}
@@ -47,7 +44,16 @@ body{background:#fff;color:#0a0a0a;font-family:'Montserrat',sans-serif;font-size
 .btn-outline{display:inline-flex;align-items:center;gap:8px;padding:9px 20px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;background:none;color:var(--ink3);border:1.5px solid var(--rule);cursor:pointer;border-radius:100px;transition:all .1s}.btn-outline:hover{border-color:var(--ink);color:var(--ink)}
 .btn-green-sm{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;background:var(--green);color:#fff;border:none;cursor:pointer;border-radius:100px;transition:background .1s}.btn-green-sm:hover{background:#094f2a}.btn-green-sm:disabled{background:var(--rule);color:var(--ink4);cursor:not-allowed}
 
-/* ── 2.5  Landing page ────────────────────────────────────────────── */
+/* Boutons CTA spécifiques à la landing */
+.btn-cta-start{padding:13px 28px;font-size:14px}
+.btn-cta-secondary{padding:13px 22px;font-size:14px}
+.btn-subscribe{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;font-size:14px;font-family:'Montserrat',sans-serif;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;border:none;cursor:pointer;border-radius:100px;transition:background .1s,color .1s;background:var(--green);border-color:var(--green);color:#fff}
+.btn-subscribe:hover{background:#094f2a}
+
+/* Bouton Démarrer le brevet */
+.btn-start-exam{padding:13px 32px;font-size:14px}
+
+/* ── 2.5 Landing page ────────────────────────────────────────────── */
 #screen-landing{background:var(--bg);height:calc(100vh - 48px);overflow:hidden;display:none;}
 #screen-landing.active{display:flex;flex-direction:column}
 .lp{flex:1;display:flex;flex-direction:column;min-height:0}
@@ -74,14 +80,14 @@ body{background:#fff;color:#0a0a0a;font-family:'Montserrat',sans-serif;font-size
 .lp-strip-dot{width:5px;height:5px;border-radius:50%;background:var(--k);flex-shrink:0;}
 .lp-strip-text{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3);line-height:1.3;}
 
-/* ── 2.6  Écran Setup ────────────────────────────────────────────── */
+/* ── 2.6 Écran Setup ────────────────────────────────────────────── */
 #screen-setup{background:var(--bg);height:calc(100vh - 48px);min-height:0!important;overflow:hidden;display:none;flex-direction:column;}
 #screen-setup.active{display:flex!important}
 .setup-header{border-bottom:2px solid var(--ink);padding:0 48px;height:48px;display:flex;align-items:center;justify-content:space-between;}
 .setup-header-title{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);}
 .setup-header-sub{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:var(--ink4);}
-.setup-hero{background:var(--k);padding:0}
-.setup-hero-inner{max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:start;}
+.setup-hero{background:var(--k);padding:0;flex-shrink:0}
+.setup-hero-inner{max-width:920px;margin:0 auto;padding:28px 48px 20px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:start;}
 .setup-eyebrow{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:700;margin-bottom:12px;display:block;}
 .setup-h1{font-family:'Montserrat',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:800;letter-spacing:-1px;line-height:.92;text-transform:uppercase;color:#fff;margin:0;}
 .setup-h1 em{font-style:normal;color:rgba(255,255,255,.55)}
@@ -91,7 +97,7 @@ body{background:#fff;color:#0a0a0a;font-family:'Montserrat',sans-serif;font-size
 .setup-stat{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.12)}.setup-stat:first-child{border-top:1px solid rgba(255,255,255,.12)}
 .setup-stat-n{font-family:'Montserrat',sans-serif;font-size:28px;font-weight:800;color:#fff;line-height:1;letter-spacing:-1px;}
 .setup-stat-l{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:2px;font-weight:600;}
-.setup-body{width:100%;max-width:920px;margin:0 auto;padding:20px 48px 24px;box-sizing:border-box}
+.setup-body{flex:1;overflow-y:auto;min-height:0;width:100%;max-width:920px;margin:0 auto;padding:20px 48px 24px;box-sizing:border-box}
 .setup-block{margin-bottom:20px}
 .setup-block-title{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--k);padding-bottom:8px;margin-bottom:12px;border-bottom:2px solid var(--ink);}
 .timer-row{display:flex;gap:6px;flex-wrap:wrap}
@@ -106,7 +112,7 @@ body{background:#fff;color:#0a0a0a;font-family:'Montserrat',sans-serif;font-size
 .ch-sub{font-family:'Montserrat',sans-serif;font-size:11px;color:var(--ink4);margin-top:2px;}
 .setup-cta{margin-top:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-top:16px;border-top:1px solid var(--rule);}
 
-/* ── 2.7  Écran Examen ────────────────────────────────────────────── */
+/* ── 2.7 Écran Examen ────────────────────────────────────────────── */
 #screen-exam{background:var(--bg)}
 .exam-top{background:var(--ink);position:sticky;top:48px;z-index:200;border-bottom:none;}
 .exam-top-inner{max-width:960px;margin:0 auto;padding:10px 48px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
@@ -115,8 +121,16 @@ body{background:#fff;color:#0a0a0a;font-family:'Montserrat',sans-serif;font-size
 .timer-block{margin-left:auto;display:flex;align-items:center;gap:20px}
 .timer-face{font-family:'Source Code Pro',monospace;font-size:20px;font-weight:500;color:#fff;letter-spacing:3px;line-height:1;}
 .timer-face.warn{color:#f59e0b}.timer-face.danger{color:#f87171;animation:blink .8s infinite}
+
+/* Label "Temps restant" sous le chronomètre */
+.timer-face-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);text-align:center;margin-top:2px;}
+
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
-.live-sc-box{text-align:right;position:relative;padding:4px 14px 4px 14px;border-left:1px solid rgba(255,255,255,.12);}
+.live-sc-box{text-align:right;position:relative;padding:4px 14px;border-left:1px solid rgba(255,255,255,.12);}
+
+/* Conteneur flex pour le score live */
+.live-sc-nums{display:flex;align-items:baseline;gap:3px;justify-content:flex-end}
+
 .live-sc-num{font-family:'Montserrat',sans-serif;font-size:28px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1.5px;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .live-sc-num.bump{transform:scale(1.3);color:#7ef7a0;}
 .live-sc-denom{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:.5px;}
@@ -185,6 +199,8 @@ td{padding:8px 12px;border:1px solid var(--rule2);color:var(--ink2);font-size:14
 .ai-sc.correct-col{color:var(--green)}.ai-sc.partial-col{color:var(--amber)}.ai-sc.wrong-col{color:var(--red)}.ai-sc.loading-col{color:var(--ink4);font-size:13px;letter-spacing:1px;font-family:'Montserrat',sans-serif;}
 .ai-fb{padding:10px 14px;font-size:14px;line-height:1.65;color:var(--ink2);background:var(--bg);font-family:'Montserrat',sans-serif;font-style:italic;}
 .mini-sp{display:inline-block;width:12px;height:12px;border:2px solid var(--rule);border-top-color:var(--k);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;}
+/* Variante blanche du spinner (écran résultats sur fond sombre) */
+.mini-sp--white{width:14px;height:14px;border-width:2px;border-top-color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2)}
 .corr-toggle{margin-top:16px;padding-top:14px;border-top:1px dashed var(--rule);display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
 .btn-see{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:none;border:1.5px solid var(--amber);color:var(--amber);cursor:pointer;transition:all .1s;border-radius:100px;}
 .btn-see:hover:not(:disabled){background:var(--amber2)}.btn-see.active{background:var(--amber);color:#fff}.btn-see:disabled{border-color:var(--rule);color:var(--ink4);cursor:not-allowed;opacity:.5}
@@ -197,8 +213,12 @@ td{padding:8px 12px;border:1px solid var(--rule2);color:var(--ink2);font-size:14
 .corr-block{margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(138,92,0,.12)}.corr-block:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
 .corr-title{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:7px;}
 .corr-title::before{content:'§';font-size:13px}
+
+/* Pied de page examen */
 .exam-footer{border-top:2px solid var(--ink);padding:20px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:8px;}
-.exam-footer p{font-family:'Montserrat',sans-serif;font-size:11px;font-style:normal;letter-spacing:1px;text-transform:uppercase;color:var(--ink5);font-weight:600;}
+.exam-footer-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ink5);font-weight:600;margin-bottom:4px;font-family:'Montserrat',sans-serif;}
+.exam-footer-hint{font-size:13px;font-style:italic;color:var(--ink4);font-family:'Montserrat',sans-serif;}
+
 .footer-score-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
 .footer-score{font-family:'Montserrat',sans-serif;font-size:56px;font-weight:900;color:var(--ink);line-height:1;letter-spacing:-2.5px;}
 .footer-score sub{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:600;color:var(--ink4);vertical-align:middle;letter-spacing:0;}
@@ -207,10 +227,17 @@ td{padding:8px 12px;border:1px solid var(--rule2);color:var(--ink2);font-size:14
 .q-pts-earned{display:inline-flex;align-items:center;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:2px 10px;border-radius:100px;margin-left:8px;transition:all .2s ease;}
 .q-pts-earned.earned-full{background:var(--green2);color:var(--green)}.q-pts-earned.earned-partial{background:var(--amber2);color:var(--amber)}.q-pts-earned.earned-none{background:var(--red2);color:var(--red)}
 
-/* ── 2.8  Écran Résultats ─────────────────────────────────────────── */
+/* ── 2.8 Écran Résultats ─────────────────────────────────────────── */
 #screen-results{background:var(--bg);min-height:100vh}
 .res-hero{background:var(--ink);border-bottom:none;}
 .res-hero-inner{max-width:1040px;margin:0 auto;padding:52px 48px 44px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;}
+
+/* Variante : commentaire IA (pas de grille, juste padding réduit) */
+.res-hero-inner--comment{padding-top:0;padding-bottom:36px;display:block}
+
+/* Variante : bande CTA (flex au lieu de grid) */
+.res-hero-inner--cta{padding:20px 48px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+
 .res-eyebrow{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:700;margin-bottom:14px;display:block;}
 .res-score{font-family:'Montserrat',sans-serif;font-size:clamp(80px,12vw,120px);font-weight:900;line-height:.85;letter-spacing:-5px;color:#fff;}
 .res-score span{font-size:clamp(24px,4vw,36px);color:rgba(255,255,255,.25);font-weight:600;letter-spacing:-1px;margin-left:6px;}
@@ -247,15 +274,30 @@ td{padding:8px 12px;border:1px solid var(--rule2);color:var(--ink2);font-size:14
 .res-comment{display:flex;align-items:flex-start;gap:14px;max-width:680px;}
 .res-comment-text{font-family:'Montserrat',sans-serif;font-size:15px;line-height:1.72;color:rgba(255,255,255,.82);font-style:italic;}
 .res-comment-text strong{font-style:normal;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);display:block;margin-bottom:6px;}
+
+/* Texte "Analyse en cours…" dans le commentaire IA */
+.res-comment-loading{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);}
+
 .res-cta-top{background:var(--bg2);border-bottom:1px solid var(--rule);}
-.res-cta-top .res-hero-inner{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
 .exam-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--ink);color:#fff;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:10px 24px;border-radius:100px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:999;white-space:nowrap;border:1px solid rgba(255,255,255,.1);}
 .exam-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ── 2.9  Tableau de bord ─────────────────────────────────────────── */
+/* ── 2.9 Tableau de bord ─────────────────────────────────────────── */
 #screen-dash{background:var(--bg)}
 .dash-banner{background:var(--ink)}
-.dash-banner-inner{max-width:960px;margin:0 auto;padding:48px 48px 40px}
+.dash-banner-inner{max-width:960px;margin:0 auto;padding:36px 48px 28px}
+
+/* Eyebrow et titre du dashboard */
+.dash-eyebrow{color:rgba(255,255,255,.3);font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;font-weight:700;display:block;margin-bottom:8px;}
+.dash-title{font-family:'Montserrat',sans-serif;font-size:clamp(36px,5vw,56px);font-weight:900;letter-spacing:-1.5px;text-transform:uppercase;color:#fff;line-height:.92;margin:0;}
+.dash-title em{font-style:normal;color:rgba(150,180,255,.85);}
+
+/* Grille 3 colonnes du dashboard */
+.dash-grid{display:grid;grid-template-columns:1.2fr 1fr 1.1fr;gap:36px;align-items:start}
+
+/* chart-section : display:none géré par JS, mais on retire le margin-bottom inline */
+.chart-section{margin-bottom:32px}
+
 .dash-body{max-width:960px;margin:0 auto;padding:36px 48px 72px}
 .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--ink);border:1.5px solid var(--ink);margin-bottom:40px;}
 .stat-card{padding:20px;background:var(--bg)}
@@ -279,7 +321,7 @@ td{padding:8px 12px;border:1px solid var(--rule2);color:var(--ink2);font-size:14
 .nb-count{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:800;color:var(--ink4);width:24px;text-align:right;}
 .empty-state{text-align:center;padding:72px 20px;color:var(--ink5)}
 
-/* ── 2.10  Composants transversaux ────────────────────────────────── */
+/* ── 2.10 Composants transversaux ────────────────────────────────── */
 .inline-corr-wrap{margin-top:10px}
 .inline-corr{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border-radius:0;border:1.5px solid;animation:fadeUp .2s ease;}
 .inline-corr.correct-corr{background:var(--green2);border-color:rgba(10,107,56,.25);border-left:4px solid var(--green);}
@@ -318,7 +360,7 @@ td{padding:8px 12px;border:1px solid var(--rule2);color:var(--ink2);font-size:14
 .scratch-result svg{display:block}
 .dash-advice-col{background:var(--bg2);border:1.5px solid var(--rule);padding:18px 20px}
 
-/* ── 2.11  QCM ────────────────────────────────────────────────────── */
+/* ── 2.11 QCM ────────────────────────────────────────────────────── */
 .qcm-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
 .qcm-btn{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border:2px solid var(--rule);cursor:pointer;transition:all .15s;text-align:left;font-family:'Montserrat',sans-serif;font-size:14px;color:var(--ink);border-radius:4px;}
 .qcm-btn:hover:not([disabled]){border-color:var(--k);background:var(--k-bg);}
@@ -335,7 +377,7 @@ td{padding:8px 12px;border:1px solid var(--rule2);color:var(--ink2);font-size:14
 .qcm-feedback.fb-correct{background:var(--green2);border-color:var(--green);color:var(--green);}
 .qcm-feedback.fb-wrong{background:var(--red2);border-color:var(--red);color:var(--red);}
 
-/* ── 2.12  Media queries (responsive ≤ 760px) ─────────────────────── */
+/* ── 2.12 Media queries (responsive ≤ 760px) ─────────────────────── */
 @media(max-width:760px){
   .gnav{padding:0}.gnav-links{display:none}
   #screen-landing{height:auto;overflow:visible}
@@ -352,4 +394,6 @@ td{padding:8px 12px;border:1px solid var(--rule2);color:var(--ink2);font-size:14
   .res-hero-inner{grid-template-columns:1fr;padding:32px 20px}
   .res-main{grid-template-columns:1fr;padding:24px 20px 60px;gap:28px}
   .dash-banner-inner{padding:32px 20px}.dash-body{padding:20px 16px 60px}
+  .dash-grid{grid-template-columns:1fr}
+  .res-hero-inner--cta{padding:16px 20px}
 }
